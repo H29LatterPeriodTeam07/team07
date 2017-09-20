@@ -3,31 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour {
-    public GameObject targetObj;
-    private Vector3 targetPos;
+    // 追跡対象
+    public Transform m_Target;
+    // ヨー速度(角度/秒)
+    public float m_YawSpeed = 180f;
+    // ピッチ速度(角度/秒)
+    public float m_PitchSpeed = 90f;
+    // 最大仰角
+    public float m_MaxPitch = 30;
+    // 最小仰角
+    public float m_MinPitch = -50f;
 
-    void Start()
-    {
-        //targetObj = GameObject.Find("TestPlayer");
-        targetPos = targetObj.transform.position;
-    }
+    // 現在の仰角
+    float m_PitchAngle = 0f;
 
     void Update()
     {
-        // targetの移動量分、自分（カメラ）も移動する
-        transform.position += targetObj.transform.position - targetPos;
-        targetPos = targetObj.transform.position;
+        // 追跡対象に位置を合わせる
+        transform.position = m_Target.position;
 
-        // マウスの右クリックを押している間
-        if (Input.GetMouseButton(1))
+        if (Input.GetKey("mouse 0"))
         {
-            // マウスの移動量
-            float mouseInputX = Input.GetAxis("Mouse X");
-            float mouseInputY = Input.GetAxis("Mouse Y");
-            // targetの位置のY軸を中心に、回転（公転）する
-            transform.RotateAround(targetPos, Vector3.up, mouseInputX * Time.deltaTime * 200f);
-            // カメラの垂直移動（※角度制限なし、必要が無ければコメントアウト）
-            transform.RotateAround(targetPos, transform.right, -mouseInputY * Time.deltaTime * 200f);
+            // 横回転（ヨー）
+            transform.Rotate(Vector3.up, Input.GetAxis("Mouse X") * m_YawSpeed * Time.deltaTime, Space.World);
+
+            // 縦回転（ピッチ）
+            m_PitchAngle += Input.GetAxis("Mouse Y") * m_PitchSpeed * Time.deltaTime;
+            // 角度制限
+            m_PitchAngle = Mathf.Clamp(m_PitchAngle, m_MinPitch, m_MaxPitch);
+            // 現在の角度をVector3で取得する
+            Vector3 rotation = transform.rotation.eulerAngles;
+            // 変更した値を仰角に設定する
+            rotation.x = m_PitchAngle;
+            // Quaternionに変換してtransform.rotationに設定し直す
+            transform.rotation = Quaternion.Euler(rotation);
         }
     }
 }
