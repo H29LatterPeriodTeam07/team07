@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
 
     private float inputHorizontal;
     private float inputVertical;
-    private  Rigidbody rb;
+    private Rigidbody rb;
+
+    private GameObject myCart;
 
     private float moveSpeed = 3f;
 
@@ -19,6 +22,23 @@ public class Player : MonoBehaviour {
     {
         inputHorizontal = Input.GetAxisRaw("Horizontal");
         inputVertical = Input.GetAxisRaw("Vertical");
+
+        if (myCart != null)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+
+                myCart.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                myCart.GetComponent<Rigidbody>().constraints =
+                    RigidbodyConstraints.FreezeRotationX |
+                    RigidbodyConstraints.FreezeRotationZ |
+                    RigidbodyConstraints.FreezePositionY;
+
+                myCart.transform.parent = null;
+
+                myCart = null;
+            }
+        }
     }
 
     void FixedUpdate()
@@ -36,6 +56,24 @@ public class Player : MonoBehaviour {
         if (moveForward != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(moveForward);
+        }
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+        if(other.name == "BackHitArea")
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                myCart = other.transform.parent.transform.gameObject;
+               // Debug.Log(myCart);
+                //transform.LookAt(myCart.transform.forward);
+                Vector3 relativePos = myCart.transform.position - transform.position;
+                relativePos.y = 0; //上下方向の回転はしないように制御
+                transform.rotation = Quaternion.LookRotation(relativePos);
+                myCart.transform.parent = transform;
+                myCart.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            }
         }
     }
 }
