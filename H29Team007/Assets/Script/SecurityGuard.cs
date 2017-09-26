@@ -14,7 +14,6 @@ public enum EnemyState
     ChasingButLosed,
 }
 
-
 public class SecurityGuard : MonoBehaviour {
     //巡回ポイント
     public Transform[] m_PatrolPoints;
@@ -24,6 +23,7 @@ public class SecurityGuard : MonoBehaviour {
     public float m_ViewingAngle;
 
     private EnemyState m_State = EnemyState.Patrolling;
+    private float m_Speed = 1.0f;
     NavMeshAgent m_Agent;
     //現在の巡回ポイントのインデックス
     int m_CurrentPatrolPointIndex = 1;
@@ -38,10 +38,8 @@ public class SecurityGuard : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         m_Agent = GetComponent<NavMeshAgent>();
-
         //目的地を設定する
         SetNewPatrolPointToDestination();
-
         //タグでプレイヤーオブジェクトを検索して保持
         m_Player = GameObject.FindGameObjectWithTag("Player");
         //プレイヤーの注視点を名前で検索して保持
@@ -55,6 +53,9 @@ public class SecurityGuard : MonoBehaviour {
         //巡回中
         if (m_State == EnemyState.Patrolling)
         {
+            m_Agent.speed = 3.5f;
+            m_ViewingDistance = 100;
+            m_ViewingAngle = 45;
             //プレイイヤーが見えた場合
             if (CanSeePlayer())
             {
@@ -75,8 +76,11 @@ public class SecurityGuard : MonoBehaviour {
             // プレイヤーが見えている場合
             if (CanSeePlayer())
             {
+                m_Agent.speed = 10.0f;
                 // プレイヤーの場所へ向かう
                 m_Agent.destination = m_Player.transform.position;
+                m_ViewingDistance = 1000;
+                m_ViewingAngle = 360;
             }
             // 見失った場合
             else
@@ -90,15 +94,18 @@ public class SecurityGuard : MonoBehaviour {
         {
             if (CanSeePlayer())
             {
+                m_Agent.speed = 3.5f;
                 // 追跡中に状態変更
                 m_State = EnemyState.Chasing;
                 m_Agent.destination = m_Player.transform.position;
+                m_ViewingDistance = 1000;
+                m_ViewingAngle = 360;
             }
             // プレイヤーを見つけられないまま目的地に到着
             else if (HasArrived())
             {
-                // 巡回中に状態遷移
-                m_State = EnemyState.Patrolling;
+                    // 巡回中に状態遷移
+                    m_State = EnemyState.Patrolling;
             }
 
         }
@@ -162,14 +169,10 @@ public class SecurityGuard : MonoBehaviour {
         // 見える視野角の範囲内にプレイヤーがいない場合→見えない
         if (!IsPlayerInViewingAngle())
             return false;
-
         // Rayを飛ばして、それがプレイヤーに当たらない場合→見えない
         if (!CanHitRayToPlayer())
             return false;
-
         // ここまで到達したら、それはプレイヤーが見えるということ
         return true;
     }
-
-
 }
