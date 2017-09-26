@@ -12,6 +12,10 @@ public class Player : MonoBehaviour
     private GameObject myCart;
 
     private float moveSpeed = 3f;
+    private float rotateSpeed = 60.0f;
+
+    public GameObject cartBodyPrefab;
+    public GameObject cartRigidPrefab;
 
     void Start()
     {
@@ -27,21 +31,44 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                Destroy(myCart);
 
-                myCart.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-                myCart.GetComponent<Rigidbody>().constraints =
-                    RigidbodyConstraints.FreezeRotationX |
-                    RigidbodyConstraints.FreezeRotationZ |
-                    RigidbodyConstraints.FreezePositionY;
+                GameObject cart = Instantiate(cartRigidPrefab);
 
-                myCart.transform.parent = null;
-
-                myCart = null;
+                Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
+                cart.transform.position = cartPos + transform.forward * 2.0f;
+                Vector3 relativePos = myCart.transform.position - transform.position;
+                relativePos.y = 0; //上下方向の回転はしないように制御
+                transform.rotation = Quaternion.LookRotation(relativePos);
+                cart.transform.rotation = Quaternion.LookRotation(relativePos);
             }
         }
     }
 
     void FixedUpdate()
+    {
+
+        if(myCart == null)
+        {
+            CartOffMove();
+        }
+        else
+        {
+            CartOnMove();
+        }
+    }
+
+    private void CartOnMove()
+    {
+        transform.Rotate(new Vector3(0, inputHorizontal * rotateSpeed * Time.deltaTime, 0));
+
+        Vector3 moveForward = transform.forward * inputVertical * 3.0f;
+
+        rb.velocity = moveForward * moveSpeed + new Vector3(0, rb.velocity.y, 0);
+
+    }
+
+    private void CartOffMove()
     {
         // カメラの方向から、X-Z平面の単位ベクトルを取得
         Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
@@ -65,14 +92,15 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                myCart = other.transform.parent.transform.gameObject;
-               // Debug.Log(myCart);
-                //transform.LookAt(myCart.transform.forward);
+                Destroy(other.transform.parent.gameObject);
+                myCart = Instantiate(cartBodyPrefab);
+                Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
+                myCart.transform.position = cartPos + transform.forward * 2.0f;
                 Vector3 relativePos = myCart.transform.position - transform.position;
                 relativePos.y = 0; //上下方向の回転はしないように制御
                 transform.rotation = Quaternion.LookRotation(relativePos);
+                myCart.transform.rotation = Quaternion.LookRotation(relativePos);
                 myCart.transform.parent = transform;
-                myCart.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             }
         }
     }
