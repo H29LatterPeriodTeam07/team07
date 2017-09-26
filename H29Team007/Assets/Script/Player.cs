@@ -47,7 +47,6 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-
         if(myCart == null)
         {
             CartOffMove();
@@ -65,7 +64,6 @@ public class Player : MonoBehaviour
         Vector3 moveForward = transform.forward * inputVertical * 3.0f;
 
         rb.velocity = moveForward * moveSpeed + new Vector3(0, rb.velocity.y, 0);
-
     }
 
     private void CartOffMove()
