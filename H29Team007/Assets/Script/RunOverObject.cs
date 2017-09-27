@@ -30,7 +30,7 @@ public class RunOverObject : MonoBehaviour
             transform.parent = other.transform.root;
 
             sc.PlusY(runOverAfterHeight);
-            Debug.Log("a");
+            //Debug.Log("a");
         }
     }
 }
