@@ -21,6 +21,7 @@ public class SecurityGuard : MonoBehaviour {
     public float m_ViewingDistance;
     //視野角
     public float m_ViewingAngle;
+    public GameObject m_Enemy;
 
     private EnemyState m_State = EnemyState.Patrolling;
     private float m_Speed = 1.0f;
@@ -52,6 +53,9 @@ public class SecurityGuard : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        Vector3 PPos = m_Player.transform.position;
+        Vector3 EPos = m_Enemy.transform.position;
+        float dis = Vector3.Distance(PPos, EPos);
         //巡回中
         if (m_State == EnemyState.Patrolling)
         {
@@ -75,14 +79,18 @@ public class SecurityGuard : MonoBehaviour {
         // プレイヤーを追跡中
         else if (m_State == EnemyState.Chasing)
         {
+            m_ViewingDistance = 1000;
+            m_ViewingAngle = 360;
             // プレイヤーが見えている場合
             if (CanSeePlayer())
             {
                 m_Agent.speed = 3.0f;
                 // プレイヤーの場所へ向かう
                 m_Agent.destination = m_Player.transform.position;
-                m_ViewingDistance = 1000;
-                m_ViewingAngle = 360;
+                if (dis <= 1.5)
+                {
+                    m_Agent.speed = 5.0f;
+                }
             }
             // 見失った場合
             else
@@ -94,14 +102,14 @@ public class SecurityGuard : MonoBehaviour {
         // 追跡中（見失い中）の場合
         else if (m_State == EnemyState.ChasingButLosed)
         {
+            m_ViewingDistance = 1000;
+            m_ViewingAngle = 360;
             if (CanSeePlayer())
             {
-                m_Agent.speed = 3.5f;
+                m_Agent.speed = 3.0f;
                 // 追跡中に状態変更
                 m_State = EnemyState.Chasing;
                 m_Agent.destination = m_Player.transform.position;
-                m_ViewingDistance = 1000;
-                m_ViewingAngle = 360;
             }
             // プレイヤーを見つけられないまま目的地に到着
             else if (HasArrived())
@@ -111,8 +119,8 @@ public class SecurityGuard : MonoBehaviour {
                 // 巡回中に状態遷移
                 m_State = EnemyState.Patrolling;
             }
-
         }
+      //  Debug.Log(dis);
         m_Animator.SetFloat("Speed", m_Agent.speed);
     }
 
