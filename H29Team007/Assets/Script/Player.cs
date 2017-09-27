@@ -17,9 +17,12 @@ public class Player : MonoBehaviour
     public GameObject cartBodyPrefab;
     public GameObject cartRigidPrefab;
 
+    private CartStatusWithPlayer myCartStatus;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        myCartStatus = GetComponent<CartStatusWithPlayer>();
     }
 
     void Update()
@@ -31,9 +34,12 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Destroy(myCart);
+                BreakCart();
 
                 GameObject cart = Instantiate(cartRigidPrefab);
+
+                //離したカートに現在の耐久値を渡す
+                myCartStatus.SetCart(cart.GetComponent<CartStatusWithCart>());
 
                 Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
                 cart.transform.position = cartPos + transform.forward * 2.0f;
@@ -43,6 +49,7 @@ public class Player : MonoBehaviour
                 cart.transform.rotation = Quaternion.LookRotation(relativePos);
             }
         }
+        
     }
 
     void FixedUpdate()
@@ -84,12 +91,25 @@ public class Player : MonoBehaviour
         }
     }
 
+    public bool IsCart()
+    {
+        return (myCart != null);
+    }
+
+    public void BreakCart()
+    {
+        Destroy(myCart);
+    }
+
     public void OnTriggerStay(Collider other)
     {
         if(other.name == "BackHitArea")
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
+                //持つカートの耐久値をもらう
+                myCartStatus.GetCart(other.transform.parent.gameObject.GetComponent<CartStatusWithCart>());
+
                 Destroy(other.transform.parent.gameObject);
                 myCart = Instantiate(cartBodyPrefab);
                 Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
