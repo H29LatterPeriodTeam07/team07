@@ -22,13 +22,33 @@ public class PlayerCamera : MonoBehaviour {
         // 追跡対象に位置を合わせる
         transform.position = m_Target.position;
 
-        if (Input.GetKey("mouse 0"))
+        float inputHorizontal = (Input.GetAxisRaw("PS4RightHorizontal") != 0) ? Input.GetAxisRaw("PS4RightHorizontal") : Input.GetAxisRaw("Mouse X");
+        float inputVertical = (Input.GetAxisRaw("PS4RightVertical") != 0) ? Input.GetAxisRaw("PS4RightVertical") : Input.GetAxisRaw("Mouse Y");
+
+
+        if (Input.GetKey("mouse 0"))//作業の邪魔だからクリックしてる間にしてる、いらないif
         {
             // 横回転（ヨー）
-            transform.Rotate(Vector3.up, Input.GetAxis("Mouse X") * m_YawSpeed * Time.deltaTime, Space.World);
+            transform.Rotate(Vector3.up, inputHorizontal * m_YawSpeed * Time.deltaTime, Space.World);
 
             // 縦回転（ピッチ）
-            m_PitchAngle += Input.GetAxis("Mouse Y") * m_PitchSpeed * Time.deltaTime;
+            m_PitchAngle += inputVertical * m_PitchSpeed * Time.deltaTime;
+            // 角度制限
+            m_PitchAngle = Mathf.Clamp(m_PitchAngle, m_MinPitch, m_MaxPitch);
+            // 現在の角度をVector3で取得する
+            Vector3 rotation = transform.rotation.eulerAngles;
+            // 変更した値を仰角に設定する
+            rotation.x = m_PitchAngle;
+            // Quaternionに変換してtransform.rotationに設定し直す
+            transform.rotation = Quaternion.Euler(rotation);
+        }
+        else if(Input.GetAxisRaw("PS4RightHorizontal") != 0 || Input.GetAxisRaw("PS4RightVertical") != 0)
+        {
+            // 横回転（ヨー）
+            transform.Rotate(Vector3.up, inputHorizontal * m_YawSpeed * Time.deltaTime, Space.World);
+
+            // 縦回転（ピッチ）
+            m_PitchAngle += inputVertical * m_PitchSpeed * Time.deltaTime;
             // 角度制限
             m_PitchAngle = Mathf.Clamp(m_PitchAngle, m_MinPitch, m_MaxPitch);
             // 現在の角度をVector3で取得する
