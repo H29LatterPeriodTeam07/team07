@@ -27,12 +27,14 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        inputHorizontal = Input.GetAxisRaw("Horizontal");
-        inputVertical = Input.GetAxisRaw("Vertical");
+        
 
+        inputHorizontal = (Input.GetAxisRaw("PS4LeftHorizontal") != 0)?Input.GetAxisRaw("PS4LeftHorizontal"):Input.GetAxisRaw("Horizontal");
+        inputVertical = (Input.GetAxisRaw("PS4LeftVertical") != 0) ? Input.GetAxisRaw("PS4LeftVertical") : Input.GetAxisRaw("Vertical");
+        
         if (myCart != null)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetButtonDown("PS4Cross") ||Input.GetKeyDown(KeyCode.E))
             {
                 BreakCart();
 
@@ -101,11 +103,42 @@ public class Player : MonoBehaviour
         Destroy(myCart);
     }
 
+    public void BaggegeFall()
+    {
+        List<Transform> myList = new List<Transform>();
+
+        Transform[] nimotu = new Transform[10];
+        int a = 0;
+        foreach (Transform chird in transform)
+        {
+            if (chird.tag == "Enemy")
+            {
+                float x = Random.Range(-3.0f, 3.0f);
+                float z = Random.Range(-3.0f, 3.0f);
+                float sp = Random.Range(2.0f, 5.0f);
+
+                Vector3 pos = new Vector3(transform.position.x + x, 0,transform.position.z + z);
+
+
+                FallDown fall = chird.GetComponent<FallDown>();
+                fall.enabled = true;
+                fall.SetPoint(pos, sp);
+
+                myList.Add(chird);
+                a++;
+            }
+        }
+        for (int i = 0; i < a; i++)
+        {
+            myList[i].parent = null;
+        }
+    }
+
     public void OnTriggerStay(Collider other)
     {
         if(other.name == "BackHitArea")
         {
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetButtonDown("PS4Circle") || Input.GetKeyDown(KeyCode.R))
             {
                 //持つカートの耐久値をもらう
                 myCartStatus.GetCart(other.transform.parent.gameObject.GetComponent<CartStatusWithCart>());
