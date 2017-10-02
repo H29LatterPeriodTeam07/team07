@@ -25,6 +25,7 @@ public class RunOverObject : MonoBehaviour
     public void NavReStart()
     {
         myNav.enabled = true;
+        //ここにアニメ再開入れるかも
     }
 
     public void OnTriggerEnter(Collider other)
@@ -32,6 +33,7 @@ public class RunOverObject : MonoBehaviour
         if (other.name == "FrontHitArea")
         {
             myNav.enabled = false;
+            //ここにアニメ停止や変更入れるかも
             var sc = other.gameObject.GetComponent<ShoppingCount>();
             Vector3 v = other.transform.parent.transform.position;
             Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
