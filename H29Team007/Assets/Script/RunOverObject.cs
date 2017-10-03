@@ -34,14 +34,13 @@ public class RunOverObject : MonoBehaviour
         {
             myNav.enabled = false;
             //ここにアニメ停止や変更入れるかも
-            var sc = other.gameObject.GetComponent<ShoppingCount>();
+            var sc = other.transform.root.GetComponent<ShoppingCount>();
             Vector3 v = other.transform.parent.transform.position;
             Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
             transform.position = nimotuPos;
             transform.parent = other.transform.root;
 
             sc.PlusY(runOverAfterHeight);
-            //Debug.Log("a");
         }
     }
 }
