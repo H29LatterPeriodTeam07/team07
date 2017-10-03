@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private GameObject myCart;
 
     private float moveSpeed = 3f;
-    private float rotateSpeed = 60.0f;
+    private float rotateSpeed = 90.0f;
 
     public GameObject cartBodyPrefab;
     public GameObject cartRigidPrefab;
@@ -115,10 +115,14 @@ public class Player : MonoBehaviour
             {
                 float x = Random.Range(-3.0f, 3.0f);
                 float z = Random.Range(-3.0f, 3.0f);
-                float sp = Random.Range(2.0f, 5.0f);
+                float sp = Random.Range(5.0f, 10.0f);
 
                 Vector3 pos = new Vector3(transform.position.x + x, 0,transform.position.z + z);
 
+                //RaycastHit hit;
+                //Physics.Raycast(pos,transform.position, out hit, 3.0f);
+
+                //pos = hit.point;
 
                 FallDown fall = chird.GetComponent<FallDown>();
                 fall.enabled = true;
