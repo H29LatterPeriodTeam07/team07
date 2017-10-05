@@ -119,7 +119,7 @@ public class Player : MonoBehaviour
 
         rb.velocity = moveForward * onCartMoveSpeed + new Vector3(0, rb.velocity.y, 0);
 
-        if (Input.GetButtonDown("PS4Cross") || Input.GetKeyDown(KeyCode.O))
+        if (Input.GetButtonDown("PS4R1") || Input.GetKeyDown(KeyCode.O))
         {
             rb.velocity = transform.forward * kickSpeed;
             ChangeState(2);
@@ -154,7 +154,7 @@ public class Player : MonoBehaviour
         a *= Quaternion.AngleAxis(inputHorizontal * -velocityRotateSpeed, Vector3.up);
         rb.velocity = new Vector3(a.x, 0, a.z);
 
-        if (Input.GetButtonDown("PS4Cross") || Input.GetKeyDown(KeyCode.O))
+        if (Input.GetButtonDown("PS4R1") || Input.GetKeyDown(KeyCode.O))
         {
             rb.velocity = transform.forward * kickSpeed;
         }
