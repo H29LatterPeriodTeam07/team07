@@ -12,10 +12,13 @@ public class FallDown : MonoBehaviour
     private float startTime;
     private float distance;
 
+    private RunOverObject runScr;
+
     // Use this for initialization
     void Start()
     {
-
+        runScr = GetComponent<RunOverObject>();
+        enabled = false;
     }
 
     // Update is called once per frame
@@ -28,6 +31,7 @@ public class FallDown : MonoBehaviour
         if (Vector3.Distance(transform.position, targetPos) < 0.1f)
         {
             transform.position = targetPos;
+            runScr.NavPosition(targetPos);
             enabled = false;
             //GetComponent<BoxCollider>().isTrigger = false;
         }
@@ -42,17 +46,6 @@ public class FallDown : MonoBehaviour
         distance = Vector3.Distance(transform.position, targetPos);
 
         //GetComponent<BoxCollider>().isTrigger = true;
-        GetComponent<RunOverObject>().NavReStart();
+        runScr.NavReStart();
     }
-
-    //public void OnTriggerStay(Collider other)
-    //{
-    //    if (other.transform.tag == "Wall")
-    //    {
-    //        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
-    //        enabled = false;
-    //        GetComponent<BoxCollider>().isTrigger = false;
-    //        Debug.Log("a");
-    //    }
-    //}
 }

@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     private GameObject myCart;
     private PlayerState myState;
 
+    //private List<Transform> myBaggege;
+
     [SerializeField, Header("カート持っていない時の速さ")]
     private float offCartMoveSpeed = 3f;
 
@@ -40,7 +42,7 @@ public class Player : MonoBehaviour
     public GameObject cartBodyPrefab;
     public GameObject cartRigidPrefab;
     public PhysicMaterial glidingPhysiMat;
-    private PhysicMaterial myPhysiMat;
+    private CapsuleCollider myCC;
 
     private CartStatusWithPlayer myCartStatus;
 
@@ -49,7 +51,8 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         myCartStatus = GetComponent<CartStatusWithPlayer>();
         myState = PlayerState.NoCart;
-        myPhysiMat = GetComponent<CapsuleCollider>().material;
+        //myBaggege = new List<Transform>();
+        myCC = GetComponent<CapsuleCollider>();
     }
 
     void Update()
@@ -99,11 +102,11 @@ public class Player : MonoBehaviour
         {
             case 0:myState = PlayerState.NoCart;break;
             case 1:myState = PlayerState.OnCart;break;
-            case 2:myState = PlayerState.Gliding;myPhysiMat = glidingPhysiMat; break;
+            case 2:myState = PlayerState.Gliding; myCC.material = glidingPhysiMat; break;
         }
-        if (myPhysiMat != null && state != 2)
+        if (myCC.material != null && state != 2)
         {
-            myPhysiMat = null;
+            myCC.material = null;
         }
     }
 
@@ -172,36 +175,59 @@ public class Player : MonoBehaviour
         ChangeState(0);
     }
 
-    public void BaggegeFall()
-    {
-        List<Transform> myList = new List<Transform>();
+    //ShoppingCount に引っ越しました
+    /* public void AddBaggege(Transform baggege)
+     {
+         baggege.parent = transform;
+         myBaggege.Add(baggege);
+     }
 
-        Transform[] nimotu = new Transform[10];
-        int a = 0;
-        foreach (Transform chird in transform)
-        {
-            if (chird.tag == "Enemy")
-            {
-                float x = Random.Range(-3.0f, 3.0f);
-                float z = Random.Range(-3.0f, 3.0f);
-                float sp = Random.Range(5.0f, 10.0f);
+     /// <summary>荷物落とすときの処理</summary>
+     public void BaggegeFall()
+     {
+         List<Transform> myList = new List<Transform>();
 
-                Vector3 pos = new Vector3(transform.position.x + x, 0,transform.position.z + z);
+         int a = 0;
+         foreach (Transform chird in transform)
+         {
+             if (chird.tag == "Enemy")
+             {
+                 float x = Random.Range(-3.0f, 3.0f);
+                 float z = Random.Range(-3.0f, 3.0f);
+                 float sp = Random.Range(5.0f, 10.0f);
 
-                FallDown fall = chird.GetComponent<FallDown>();
-                fall.enabled = true;
-                fall.SetPoint(pos, sp);
+                 Vector3 pos = new Vector3(transform.position.x + x, 0,transform.position.z + z);
 
-                myList.Add(chird);
-                a++;
-            }
-        }
-        for (int i = 0; i < a; i++)
-        {
-            myList[i].parent = null;
-        }
-        GetComponent<ShoppingCount>().Reset();
-    }
+                 FallDown fall = chird.GetComponent<FallDown>();
+                 fall.enabled = true;
+                 fall.SetPoint(pos, sp);
+
+                 myList.Add(chird);
+                 a++;
+             }
+         }
+         for (int i = 0; i < a; i++)
+         {
+             myList[i].parent = null;
+         }
+         for(int i = 0; i < myBaggege.Count; i++)
+         {
+             float x = Random.Range(-3.0f, 3.0f);
+             float z = Random.Range(-3.0f, 3.0f);
+             float sp = Random.Range(5.0f, 10.0f);
+
+             Vector3 pos = new Vector3(transform.position.x + x, 0, transform.position.z + z);
+
+             FallDown fall = myBaggege[i].GetComponent<FallDown>();
+             fall.enabled = true;
+             fall.SetPoint(pos, sp);
+
+             myBaggege[i].parent = null;
+
+         }
+         myBaggege.Clear();
+         GetComponent<ShoppingCount>().Reset();
+     }*/
 
     public void OnTriggerStay(Collider other)
     {
