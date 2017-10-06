@@ -86,7 +86,7 @@ public class SecurityGuard : MonoBehaviour {
             // プレイヤーが見えている場合
             if (CanSeePlayer())
             {
-                m_Agent.speed = 6.0f;
+                m_Agent.speed = 3.0f;
                 // プレイヤーの場所へ向かう
                 m_Agent.destination = m_Player.transform.position;
                 if (dis <= 2.5)
@@ -109,7 +109,7 @@ public class SecurityGuard : MonoBehaviour {
             m_ViewingAngle = 360;
             if (CanSeePlayer())
             {
-                m_Agent.speed = 6.0f;
+                m_Agent.speed = 3.0f;
                 // 追跡中に状態変更
                 m_State = EnemyState.Chasing;
                 m_Agent.destination = m_Player.transform.position;
