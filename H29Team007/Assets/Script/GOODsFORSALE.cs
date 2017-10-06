@@ -3,30 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-// 敵の状態種別
-public enum EnemyState
+public enum SaleAnimalState
 {
-    // 巡回中
-    Patrolling,
-    // 追跡中
-    Chasing,
-    // 追跡中（見失っている）
-    ChasingButLosed,
+    //ノーマルモード
+    NormalMode,
+    //警戒モード
+    WarningMode
 }
 
-public class SecurityGuard : MonoBehaviour {
+public class GOODsFORSALE : MonoBehaviour {
+
     //巡回ポイント
     public Transform[] m_PatrolPoints;
     //見える距離
     public float m_ViewingDistance;
     //視野角
     public float m_ViewingAngle;
-    public GameObject m_Enemy;
-    public float m_JumpPower = 10.0f;		// ジャンプ力（初速(メートル/秒)）
 
-    private EnemyState m_State = EnemyState.Patrolling;
+    private SaleAnimalState m_State = SaleAnimalState.NormalMode;
     private float m_Speed = 1.0f;
-    private Animator m_Animator;
     NavMeshAgent m_Agent;
     //現在の巡回ポイントのインデックス
     int m_CurrentPatrolPointIndex = 1;
@@ -36,11 +31,11 @@ public class SecurityGuard : MonoBehaviour {
     Transform m_PlayerLookpoint;
     //自身の目の位置
     Transform m_EyePoint;
-    float m_VelocityY = 0f;     // y軸方向の移動量
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         m_Agent = GetComponent<NavMeshAgent>();
         //目的地を設定する
         SetNewPatrolPointToDestination();
@@ -49,26 +44,21 @@ public class SecurityGuard : MonoBehaviour {
         //プレイヤーの注視点を名前で検索して保持
         m_PlayerLookpoint = m_Player.transform.Find("LookPoint");
         m_EyePoint = transform.Find("LookEye");
-        m_Animator = GetComponent<Animator>();
-	}
+    }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 PPos = m_Player.transform.position;
-        Vector3 EPos = m_Enemy.transform.position;
-        float dis = Vector3.Distance(PPos, EPos);
         //巡回中
-        if (m_State == EnemyState.Patrolling)
+        if (m_State == SaleAnimalState.NormalMode)
         {
-            m_Agent.speed = 1f;
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
-            //プレイヤーが見えた場合
+            //プレイイヤーorおばちゃんが見えた場合
             if (CanSeePlayer())
             {
-                //追跡中に状態変更
-                m_State = EnemyState.Chasing;
+                //退避に状態変更
+                m_State = SaleAnimalState.WarningMode;
                 m_Agent.destination = m_Player.transform.position;
             }
             //プレイヤーが見えなくて、目的地に到着した場合
@@ -79,57 +69,25 @@ public class SecurityGuard : MonoBehaviour {
             }
         }
         // プレイヤーを追跡中
-        else if (m_State == EnemyState.Chasing)
+        else if (m_State == SaleAnimalState.WarningMode)
         {
-            m_ViewingDistance = 1000;
-            m_ViewingAngle = 360;
             // プレイヤーが見えている場合
             if (CanSeePlayer())
             {
-                m_Agent.speed = 6.0f;
-                // プレイヤーの場所へ向かう
-                m_Agent.destination = m_Player.transform.position;
-                if (dis <= 2.5)
-                {
-                  //  m_VelocityY = m_JumpPower;
-                  //  m_Animator.SetTrigger("Jump");
-                }
+                m_ViewingDistance = 1000;
+                m_ViewingAngle = 360;
             }
             // 見失った場合
             else
             {
                 // 追跡中（見失い中）に状態変更
-                m_State = EnemyState.ChasingButLosed;
+                m_State = SaleAnimalState.NormalMode;
             }
         }
-        // 追跡中（見失い中）の場合
-        else if (m_State == EnemyState.ChasingButLosed)
-        {
-            m_ViewingDistance = 1000;
-            m_ViewingAngle = 360;
-            if (CanSeePlayer())
-            {
-                m_Agent.speed = 6.0f;
-                // 追跡中に状態変更
-                m_State = EnemyState.Chasing;
-                m_Agent.destination = m_Player.transform.position;
-            }
-            // プレイヤーを見つけられないまま目的地に到着
-            else if (HasArrived())
-            {
-                m_ViewingDistance = 1000;
-                m_ViewingAngle = 360;
-                // 巡回中に状態遷移
-                m_State = EnemyState.Patrolling;
-            }
-        }
-      //  Debug.Log(dis);
-        m_Animator.SetFloat("Speed", m_Agent.speed);
-
     }
 
-        //次の巡回ポイントを目的地に設定する
-        void SetNewPatrolPointToDestination()
+    //次の巡回ポイントを目的地に設定する
+    void SetNewPatrolPointToDestination()
     {
         m_CurrentPatrolPointIndex
             = (m_CurrentPatrolPointIndex + 1) % m_PatrolPoints.Length;

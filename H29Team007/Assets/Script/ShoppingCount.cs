@@ -6,8 +6,12 @@ public class ShoppingCount : MonoBehaviour {
 
     private float onPosition;
 
-	// Use this for initialization
-	void Start () {
+    private List<Transform> myBaggege;
+
+    // Use this for initialization
+    void Start ()
+    {
+        myBaggege = new List<Transform>();
         onPosition = 0.5f;
     }
 	
@@ -29,5 +33,33 @@ public class ShoppingCount : MonoBehaviour {
     public float GetY()
     {
         return onPosition;
+    }
+
+    public void AddBaggege(Transform baggege)
+    {
+        baggege.parent = transform;
+        myBaggege.Add(baggege);
+    }
+
+    /// <summary>荷物落とすときの処理</summary>
+    public void BaggegeFall()
+    {
+        for (int i = 0; i < myBaggege.Count; i++)
+        {
+            float x = Random.Range(-3.0f, 3.0f);
+            float z = Random.Range(-3.0f, 3.0f);
+            float sp = Random.Range(5.0f, 10.0f);
+
+            Vector3 pos = new Vector3(transform.position.x + x, 0, transform.position.z + z);
+
+            FallDown fall = myBaggege[i].GetComponent<FallDown>();
+            fall.enabled = true;
+            fall.SetPoint(pos, sp);
+
+            myBaggege[i].parent = null;
+
+        }
+        myBaggege.Clear();
+        GetComponent<ShoppingCount>().Reset();
     }
 }
