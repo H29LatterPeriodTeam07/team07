@@ -2,25 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CartStatusWithPlayer : MonoBehaviour {
-    
+public class CartStatusWithPlayer : MonoBehaviour
+{
+
     private Player playerScript;
+    private ShoppingCount scScript;
 
     private float[] cartStatus;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         playerScript = GetComponent<Player>();
+        scScript = GetComponent<ShoppingCount>();
 
         cartStatus = new float[4];
     }
-	
-	// Update is called once per frame
-	void Update () {
-		/*ここに部位の耐久値が０以下になったときに処理を書く
+
+    // Update is called once per frame
+    void Update()
+    {
+        /*ここに部位の耐久値が０以下になったときに処理を書く
          
          */
-	}
+    }
 
     /// <summary>
     /// カートを持った時にカートのデータをもらう
@@ -44,7 +49,7 @@ public class CartStatusWithPlayer : MonoBehaviour {
     {
         return cartStatus[0];
     }
-    
+
     public void DamageCart(float dm)
     {
         cartStatus[0] -= dm;
@@ -54,11 +59,18 @@ public class CartStatusWithPlayer : MonoBehaviour {
          
          */
 
-        if(cartStatus[0] <= 0)
+        if (cartStatus[0] <= 0)
         {
             playerScript.BreakCart();
-            GetComponent<ShoppingCount>().BaggegeFall();
+            scScript.BaggegeFall();
         }
     }
 
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Register")
+        {
+            scScript.PassTheRegister(playerScript.GetCart());
+        }
+    }
 }

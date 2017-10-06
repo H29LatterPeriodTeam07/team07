@@ -7,6 +7,9 @@ public class ShoppingCount : MonoBehaviour {
     private float onPosition;
 
     private List<Transform> myBaggege;
+    private float price = 0;
+
+    public GameObject bag;
 
     // Use this for initialization
     void Start ()
@@ -27,6 +30,7 @@ public class ShoppingCount : MonoBehaviour {
 
     public void Reset()
     {
+        myBaggege.Clear();
         onPosition = 0.5f;
     }
 
@@ -35,6 +39,8 @@ public class ShoppingCount : MonoBehaviour {
         return onPosition;
     }
 
+    /// <summary>荷物の追加</summary>
+    /// <param name="baggege">荷物のTransform</param>
     public void AddBaggege(Transform baggege)
     {
         baggege.parent = transform;
@@ -59,7 +65,47 @@ public class ShoppingCount : MonoBehaviour {
             myBaggege[i].parent = null;
 
         }
-        myBaggege.Clear();
-        GetComponent<ShoppingCount>().Reset();
+        Reset();
+    }
+
+    /// <summary>レジを通した時の処理</summary>
+    /// <param name="cart">袋を入れるカート</param>
+    public void PassTheRegister(GameObject cart)
+    {
+        List<Transform> mybags = new List<Transform>();
+        List<Transform> kesumono = new List<Transform>();
+        //ここでエネミーからの値段をもらう
+        for (int i = 0; i < myBaggege.Count; i++)
+        {
+            if(myBaggege[i].tag == "Plasticbag")
+            {
+                mybags.Add(myBaggege[i]);
+            }
+            else
+            {
+                kesumono.Add(myBaggege[i]);
+            }
+        }
+
+        if(kesumono.Count != 0)
+        {
+          
+            for (int i = 0; i < kesumono.Count; i++)
+            {
+                Destroy(kesumono[i].gameObject);
+            }
+            Reset();
+            for (int i = 0; i < mybags.Count; i++)
+            {
+                AddBaggege(mybags[i]);
+                Vector3 nimotuPos = mybags[i].position;
+                nimotuPos.y = GetY();
+                mybags[i].position = nimotuPos;
+                PlusY(mybags[i].GetComponent<RunOverObject>().GetHeight());
+            }
+            GameObject newbag = Instantiate(bag);
+
+            newbag.GetComponent<RunOverObject>().SetCartPos(cart);  
+        }
     }
 }

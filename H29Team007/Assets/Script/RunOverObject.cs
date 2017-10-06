@@ -35,10 +35,28 @@ public class RunOverObject : MonoBehaviour
         myNav.Warp(pos); //navmeshのポジション移動
     }
 
+    /// <summary>レジを通したレジ袋用の関数</summary>
+    /// <param name="cart">袋を入れるカート</param>
+    public void SetCartPos(GameObject cart)
+    {
+        //myNav.enabled = false;
+
+        var sc = cart.transform.root.GetComponent<ShoppingCount>();
+        Vector3 v = cart.transform.position;
+        Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
+        transform.position = nimotuPos;
+        sc.AddBaggege(transform);
+
+        sc.PlusY(runOverAfterHeight);
+    }
+
+    public float GetHeight()
+    {
+        return runOverAfterHeight;
+    }
+
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.transform.root.name);
-
         if (other.name == "FrontHitArea")
         {
             myNav.enabled = false;

@@ -229,6 +229,11 @@ public class Player : MonoBehaviour
          GetComponent<ShoppingCount>().Reset();
      }*/
 
+    public GameObject GetCart()
+    {
+        return myCart;
+    }
+
     public void OnTriggerStay(Collider other)
     {
         if(other.name == "BackHitArea")
