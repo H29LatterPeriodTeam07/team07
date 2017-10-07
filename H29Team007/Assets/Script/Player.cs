@@ -45,6 +45,8 @@ public class Player : MonoBehaviour
     private CapsuleCollider myCC;
 
     private CartStatusWithPlayer myCartStatus;
+    private Animator m_Animator;
+    
 
     void Start()
     {
@@ -53,6 +55,7 @@ public class Player : MonoBehaviour
         myState = PlayerState.NoCart;
         //myBaggege = new List<Transform>();
         myCC = GetComponent<CapsuleCollider>();
+        m_Animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -74,7 +77,7 @@ public class Player : MonoBehaviour
                 myCartStatus.SetCart(cart.GetComponent<CartStatusWithCart>());
 
                 Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
-                cart.transform.position = cartPos + transform.forward * 2.0f;
+                cart.transform.position = cartPos + transform.forward * 1.2f;
                 Vector3 relativePos = myCart.transform.position - transform.position;
                 relativePos.y = 0; //上下方向の回転はしないように制御
                 transform.rotation = Quaternion.LookRotation(relativePos);
@@ -92,6 +95,9 @@ public class Player : MonoBehaviour
             case PlayerState.OnCart:CartOnMove();break;
             case PlayerState.Gliding: CartGliding(); break;
         }
+        float playerSpeed = rb.velocity.sqrMagnitude;
+        if (myState != PlayerState.NoCart&&inputVertical < 0) playerSpeed *= -1;
+        m_Animator.SetFloat("Speed", playerSpeed);
     }
 
     /// <summary> 状態変化 </summary>
@@ -229,6 +235,11 @@ public class Player : MonoBehaviour
          GetComponent<ShoppingCount>().Reset();
      }*/
 
+    public GameObject GetCart()
+    {
+        return myCart;
+    }
+
     public void OnTriggerStay(Collider other)
     {
         if(other.name == "BackHitArea")
@@ -242,7 +253,7 @@ public class Player : MonoBehaviour
                 ChangeState(1);
                 myCart = Instantiate(cartBodyPrefab);
                 Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
-                myCart.transform.position = cartPos + transform.forward * 2.0f;
+                myCart.transform.position = cartPos + transform.forward * 1.2f;
                 Vector3 relativePos = myCart.transform.position - transform.position;
                 relativePos.y = 0; //上下方向の回転はしないように制御
                 transform.rotation = Quaternion.LookRotation(relativePos);
