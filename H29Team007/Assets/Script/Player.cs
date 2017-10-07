@@ -45,6 +45,8 @@ public class Player : MonoBehaviour
     private CapsuleCollider myCC;
 
     private CartStatusWithPlayer myCartStatus;
+    private Animator m_Animator;
+    
 
     void Start()
     {
@@ -53,6 +55,7 @@ public class Player : MonoBehaviour
         myState = PlayerState.NoCart;
         //myBaggege = new List<Transform>();
         myCC = GetComponent<CapsuleCollider>();
+        m_Animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -92,6 +95,9 @@ public class Player : MonoBehaviour
             case PlayerState.OnCart:CartOnMove();break;
             case PlayerState.Gliding: CartGliding(); break;
         }
+        float playerSpeed = rb.velocity.sqrMagnitude;
+        if (myState != PlayerState.NoCart&&inputVertical < 0) playerSpeed *= -1;
+        m_Animator.SetFloat("Speed", playerSpeed);
     }
 
     /// <summary> 状態変化 </summary>
