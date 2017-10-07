@@ -43,7 +43,7 @@ public class RunOverObject : MonoBehaviour
 
         var sc = cart.transform.root.GetComponent<ShoppingCount>();
         Vector3 v = cart.transform.position;
-        Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
+        Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z+0.3f);// 後で直す
         transform.position = nimotuPos;
         sc.AddBaggege(transform);
 
@@ -63,7 +63,7 @@ public class RunOverObject : MonoBehaviour
             //ここにアニメ停止や変更入れるかも
             var sc = other.transform.root.GetComponent<ShoppingCount>();
             Vector3 v = other.transform.parent.transform.position;
-            Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
+            Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z+0.3f);//後で直す
             transform.position = nimotuPos;
             sc.AddBaggege(transform);
             //transform.parent = other.transform.root;

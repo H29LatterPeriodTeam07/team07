@@ -15,7 +15,7 @@ public class ShoppingCount : MonoBehaviour {
     void Start ()
     {
         myBaggege = new List<Transform>();
-        onPosition = 0.5f;
+        onPosition = 0.6f;
     }
 	
 	// Update is called once per frame
@@ -31,7 +31,7 @@ public class ShoppingCount : MonoBehaviour {
     public void Reset()
     {
         myBaggege.Clear();
-        onPosition = 0.5f;
+        onPosition = 0.6f;
     }
 
     public float GetY()
