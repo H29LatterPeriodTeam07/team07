@@ -108,6 +108,7 @@ public class GOODsFORSALE : MonoBehaviour {
     //エージェントが向かう先をランダムに指定するメソッド
     public void DoPatrol()
     {
+        if (m_Agent.enabled == false) return;
         var x = Random.Range(-100.0f, 100.0f);
         var z = Random.Range(-100.0f, 100.0f);
         pos = new Vector3(x, 0, z);
