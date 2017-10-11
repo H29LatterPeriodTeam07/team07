@@ -22,13 +22,18 @@ public class GOODsFORSALE : MonoBehaviour {
 
     private SaleAnimalState m_State = SaleAnimalState.NormalMode;
     private float m_Speed = 1.0f;
+    private Vector3 pos;
     NavMeshAgent m_Agent;
     //現在の巡回ポイントのインデックス
     int m_CurrentPatrolPointIndex = 1;
     //プレイヤーへの参照
     GameObject m_Player;
+    //ババアへの参照
+    GameObject m_BBA;
     //プレイヤーへの注視点
     Transform m_PlayerLookpoint;
+    //ババアへの注視点
+    Transform m_BBALookpoint;
     //自身の目の位置
     Transform m_EyePoint;
 
@@ -38,67 +43,75 @@ public class GOODsFORSALE : MonoBehaviour {
     {
         m_Agent = GetComponent<NavMeshAgent>();
         //目的地を設定する
-        SetNewPatrolPointToDestination();
+       // SetNewPatrolPointToDestination();
+        DoPatrol();
         //タグでプレイヤーオブジェクトを検索して保持
         m_Player = GameObject.FindGameObjectWithTag("Player");
+        //タグでババアオブジェクトを検索して保持
+        m_BBA = GameObject.FindGameObjectWithTag("BBA");
         //プレイヤーの注視点を名前で検索して保持
         m_PlayerLookpoint = m_Player.transform.Find("LookPoint");
-        m_EyePoint = transform.Find("LookEye");
+        //プレイヤーの注視点を名前で検索して保持
+        m_BBALookpoint = m_BBA.transform.Find("BBAEye");
+        m_EyePoint = transform.Find("AnimalLookEye");
     }
 
     // Update is called once per frame
     void Update()
     {
-        //巡回中
         if (m_State == SaleAnimalState.NormalMode)
+        {
+            DoPatrol();
+        }
+        //巡回中
+      /*  if (m_State == SaleAnimalState.NormalMode)
         {
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
+            m_Agent.speed = 1.0f;
             //プレイイヤーorおばちゃんが見えた場合
-            if (CanSeePlayer())
+            if (CanSeePlayer()|| CanSeeBBA())
             {
                 //退避に状態変更
                 m_State = SaleAnimalState.WarningMode;
-                m_Agent.destination = m_Player.transform.position;
+                // m_Agent.destination = -m_Player.transform.position;
+               // SetNewPatrolPointToDestination();
             }
             //プレイヤーが見えなくて、目的地に到着した場合
             else if (HasArrived())
             {
-                //目的地を次の巡回ポイントに切り替える
+                // DoPatrol();
                 SetNewPatrolPointToDestination();
             }
         }
-        // プレイヤーを追跡中
+        // プレイヤーorババアから逃走中
         else if (m_State == SaleAnimalState.WarningMode)
         {
+            m_Agent.speed = 3.0f;
             // プレイヤーが見えている場合
-            if (CanSeePlayer())
+            if (CanSeePlayer() || CanSeeBBA())
             {
                 m_ViewingDistance = 1000;
                 m_ViewingAngle = 360;
+                SetNewPatrolPointToDestination();
             }
             // 見失った場合
             else
             {
                 // 追跡中（見失い中）に状態変更
                 m_State = SaleAnimalState.NormalMode;
+                SetNewPatrolPointToDestination();
             }
-        }
+        }*/
     }
 
-    //次の巡回ポイントを目的地に設定する
-    void SetNewPatrolPointToDestination()
+    //エージェントが向かう先をランダムに指定するメソッド
+    public void DoPatrol()
     {
-        m_CurrentPatrolPointIndex
-            = (m_CurrentPatrolPointIndex + 1) % m_PatrolPoints.Length;
-
-        m_Agent.destination = m_PatrolPoints[m_CurrentPatrolPointIndex].position;
-    }
-
-    // 目的地に到着したか
-    bool HasArrived()
-    {
-        return (Vector3.Distance(m_Agent.destination, transform.position) < 0.5f);
+        var x = Random.Range(-100.0f, 100.0f);
+        var z = Random.Range(-100.0f, 100.0f);
+        pos = new Vector3(x, 0, z);
+        m_Agent.SetDestination(pos);
     }
 
     //プレイヤーが見える距離内にいるか？
@@ -146,6 +159,56 @@ public class GOODsFORSALE : MonoBehaviour {
             return false;
         // Rayを飛ばして、それがプレイヤーに当たらない場合→見えない
         if (!CanHitRayToPlayer())
+            return false;
+        // ここまで到達したら、それはプレイヤーが見えるということ
+        return true;
+    }
+
+    //ババアが見える距離内にいるか？
+    bool IsBBAInViewingDistance()
+    {
+        //自身からプレイヤーまでの距離
+        float distanceToPlayer = Vector3.Distance(m_BBALookpoint.position, m_EyePoint.position);
+        //プレイヤーが見える距離内にいるかどうかを返却する
+        return (distanceToPlayer <= m_ViewingDistance);
+    }
+
+    //ババアが見える視野角内にいるか？
+    bool IsBBAInViewingAngle()
+    {
+        //自分からババアへの方向ベクトル(ワールド座標系)
+        Vector3 directionToPlayer = m_BBALookpoint.position - m_EyePoint.position;
+        // 自分の正面向きベクトルとババアへの方向ベクトルの差分角度
+        float angleToPlayer = Vector3.Angle(m_EyePoint.forward, directionToPlayer);
+
+        // 見える視野角の範囲内にババアがいるかどうかを返却する
+        return (Mathf.Abs(angleToPlayer) <= m_ViewingAngle);
+    }
+
+    // ババアにRayを飛ばしたら当たるか？
+    bool CanHitRayToBBA()
+    {
+        // 自分からババアへの方向ベクトル（ワールド座標系）
+        Vector3 directionToPlayer = m_BBALookpoint.position - m_EyePoint.position;
+        // 壁の向こう側などにいる場合は見えない
+        RaycastHit hitInfo;
+        bool hit
+            = Physics.Raycast(m_EyePoint.position, directionToPlayer, out hitInfo);
+        // ババアにRayが当たったかどうかを返却する
+        return (hit && hitInfo.collider.tag == "BBA");
+    }
+
+    // プレイヤーが見えるか？
+    bool CanSeeBBA()
+    {
+        // 見える距離の範囲内にプレイヤーがいない場合→見えない
+        if (!IsBBAInViewingDistance())
+            return false;
+        // 見える視野角の範囲内にプレイヤーがいない場合→見えない
+        if (!IsBBAInViewingAngle())
+            return false;
+        // Rayを飛ばして、それがプレイヤーに当たらない場合→見えない
+        if (!CanHitRayToBBA())
             return false;
         // ここまで到達したら、それはプレイヤーが見えるということ
         return true;
