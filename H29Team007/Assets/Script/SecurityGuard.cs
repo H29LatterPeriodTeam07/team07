@@ -12,6 +12,8 @@ public enum EnemyState
     Chasing,
     // 追跡中（見失っている）
     ChasingButLosed,
+    //　避ける
+    Avoid
 }
 
 public class SecurityGuard : MonoBehaviour {
@@ -91,8 +93,8 @@ public class SecurityGuard : MonoBehaviour {
                 m_Agent.destination = m_Player.transform.position;
                 if (dis <= 2.5)
                 {
-                  //  m_VelocityY = m_JumpPower;
-                  //  m_Animator.SetTrigger("Jump");
+                    //  m_VelocityY = m_JumpPower;
+                  //  m_Agent.speed = 4;
                 }
             }
             // 見失った場合

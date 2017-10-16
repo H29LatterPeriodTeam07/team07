@@ -31,6 +31,7 @@ public class SaleSpown : MonoBehaviour {
         {
             Appear();
             m_Num++;
+
         }
     }
 

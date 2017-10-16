@@ -44,14 +44,14 @@ public class GOODsFORSALE : MonoBehaviour {
         m_Agent = GetComponent<NavMeshAgent>();
         //目的地を設定する
        // SetNewPatrolPointToDestination();
-        DoPatrol();
+       // DoPatrol();
         //タグでプレイヤーオブジェクトを検索して保持
         m_Player = GameObject.FindGameObjectWithTag("Player");
         //タグでババアオブジェクトを検索して保持
         m_BBA = GameObject.FindGameObjectWithTag("BBA");
         //プレイヤーの注視点を名前で検索して保持
         m_PlayerLookpoint = m_Player.transform.Find("LookPoint");
-        //プレイヤーの注視点を名前で検索して保持
+        //BBAの注視点を名前で検索して保持
         m_BBALookpoint = m_BBA.transform.Find("BBAEye");
         m_EyePoint = transform.Find("AnimalLookEye");
     }
@@ -61,48 +61,48 @@ public class GOODsFORSALE : MonoBehaviour {
     {
         if (m_State == SaleAnimalState.NormalMode)
         {
-            DoPatrol();
-        }
-        //巡回中
-      /*  if (m_State == SaleAnimalState.NormalMode)
-        {
-            m_ViewingDistance = 100;
-            m_ViewingAngle = 45;
-            m_Agent.speed = 1.0f;
-            //プレイイヤーorおばちゃんが見えた場合
-            if (CanSeePlayer()|| CanSeeBBA())
+            if (CanSeePlayer() || CanSeeBBA())
             {
                 //退避に状態変更
                 m_State = SaleAnimalState.WarningMode;
-                // m_Agent.destination = -m_Player.transform.position;
-               // SetNewPatrolPointToDestination();
             }
-            //プレイヤーが見えなくて、目的地に到着した場合
-            else if (HasArrived())
+
+            else
             {
-                // DoPatrol();
-                SetNewPatrolPointToDestination();
+                DoPatrol();
             }
+
         }
-        // プレイヤーorババアから逃走中
         else if (m_State == SaleAnimalState.WarningMode)
         {
             m_Agent.speed = 3.0f;
             // プレイヤーが見えている場合
-            if (CanSeePlayer() || CanSeeBBA())
+            if (CanSeePlayer())
             {
                 m_ViewingDistance = 1000;
                 m_ViewingAngle = 360;
-                SetNewPatrolPointToDestination();
+                Vector3 dir = this.transform.position - m_Player.transform.position;
+                Vector3 pos = this.transform.position + dir * 0.5f;
+                m_Agent.destination = pos;
+                m_Agent.speed = 3;
+            }
+            if (CanSeeBBA())
+            {
+                m_ViewingDistance = 1000;
+                m_ViewingAngle = 360;
+                m_Agent.destination = -m_BBA.transform.position;
+                Vector3 dir = this.transform.position - m_BBA.transform.position;
+                Vector3 pos = this.transform.position + dir * 0.5f;
+                m_Agent.destination = pos;
+                m_Agent.speed = 3;
             }
             // 見失った場合
             else
             {
                 // 追跡中（見失い中）に状態変更
                 m_State = SaleAnimalState.NormalMode;
-                SetNewPatrolPointToDestination();
             }
-        }*/
+        }
     }
 
     //エージェントが向かう先をランダムに指定するメソッド

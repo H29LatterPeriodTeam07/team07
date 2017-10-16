@@ -62,9 +62,9 @@ public class BBA : MonoBehaviour {
         m_PlayerLookpoint = m_Player.transform.Find("LookPoint");
         m_EyePoint = transform.Find("BBAEye");
         //タグで特売品オブジェぅとを検索して保持
-        // m_SaleAnimals = GameObject.FindGameObjectWithTag("Animal");
+         m_SaleAnimals = GameObject.FindGameObjectWithTag("Animal");
         //特売品の注視点を名前で検索して保持
-        // m_SaleAnimalsLookPoint = m_SaleAnimals.transform.Find("AnimalLookEye");
+         m_SaleAnimalsLookPoint = m_SaleAnimals.transform.Find("AnimalLookEye");
     }
 
     // Update is called once per frame
