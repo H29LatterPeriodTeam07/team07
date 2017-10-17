@@ -46,7 +46,10 @@ public class Player : MonoBehaviour
 
     private CartStatusWithPlayer myCartStatus;
     private Animator m_Animator;
-    
+
+    private bool canGet = false; //カートを持てるか
+    private GameObject canGetCart; //もてるカート
+
 
     void Start()
     {
@@ -60,14 +63,23 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        
 
-        inputHorizontal = (Input.GetAxisRaw("PS4LeftHorizontal") != 0)?Input.GetAxisRaw("PS4LeftHorizontal"):Input.GetAxisRaw("Horizontal");
+
+        inputHorizontal = (Input.GetAxisRaw("PS4LeftHorizontal") != 0) ? Input.GetAxisRaw("PS4LeftHorizontal") : Input.GetAxisRaw("Horizontal");
         inputVertical = (Input.GetAxisRaw("PS4LeftVertical") != 0) ? Input.GetAxisRaw("PS4LeftVertical") : Input.GetAxisRaw("Vertical");
-        
+
+        if(myState == PlayerState.NoCart)
+        {
+            Vector3 inputVec = new Vector3(inputHorizontal, 0, inputVertical);
+            inputVec = Vector3.Normalize(inputVec);
+
+            inputHorizontal = inputVec.x;
+            inputVertical = inputVec.z;
+        }
+
         if (IsCart())
         {
-            if (Input.GetButtonDown("PS4Cross") ||Input.GetKeyDown(KeyCode.E))
+            if (Input.GetButtonDown("PS4Cross") || Input.GetKeyDown(KeyCode.R))
             {
                 BreakCart();
 
@@ -84,19 +96,38 @@ public class Player : MonoBehaviour
                 cart.transform.rotation = Quaternion.LookRotation(relativePos);
             }
         }
-        
+        else if (canGet)
+        {
+            if (Input.GetButtonDown("PS4Circle") || Input.GetKeyDown(KeyCode.R))
+            {
+                //持つカートの耐久値をもらう
+                myCartStatus.GetCart(canGetCart.transform.parent.gameObject.GetComponent<CartStatusWithCart>());
+
+                Destroy(canGetCart.transform.parent.gameObject);
+                ChangeState(1);
+                myCart = Instantiate(cartBodyPrefab);
+                Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
+                myCart.transform.position = cartPos + transform.forward * 1.5f;
+                Vector3 relativePos = myCart.transform.position - transform.position;
+                relativePos.y = 0; //上下方向の回転はしないように制御
+                transform.rotation = Quaternion.LookRotation(relativePos);
+                myCart.transform.rotation = Quaternion.LookRotation(relativePos);
+                myCart.transform.parent = transform;
+            }
+        }
+
     }
 
     void FixedUpdate()
     {
         switch (myState)
         {
-            case PlayerState.NoCart:CartOffMove();break;
-            case PlayerState.OnCart:CartOnMove();break;
+            case PlayerState.NoCart: CartOffMove(); break;
+            case PlayerState.OnCart: CartOnMove(); break;
             case PlayerState.Gliding: CartGliding(); break;
         }
         float playerSpeed = rb.velocity.sqrMagnitude;
-        if (myState != PlayerState.NoCart&&inputVertical < 0) playerSpeed *= -1;
+        if (myState != PlayerState.NoCart && inputVertical < 0) playerSpeed *= -1;
         m_Animator.SetFloat("Speed", playerSpeed);
     }
 
@@ -106,9 +137,9 @@ public class Player : MonoBehaviour
     {
         switch (state)
         {
-            case 0:myState = PlayerState.NoCart;break;
-            case 1:myState = PlayerState.OnCart;break;
-            case 2:myState = PlayerState.Gliding; myCC.material = glidingPhysiMat; break;
+            case 0: myState = PlayerState.NoCart; break;
+            case 1: myState = PlayerState.OnCart; break;
+            case 2: myState = PlayerState.Gliding; myCC.material = glidingPhysiMat; break;
         }
         if (myCC.material != null && state != 2)
         {
@@ -164,7 +195,7 @@ public class Player : MonoBehaviour
         {
             rb.velocity = transform.forward * kickSpeed;
         }
-        if(rb.velocity == Vector3.zero)
+        if (rb.velocity == Vector3.zero)
         {
             ChangeState(1);
         }
@@ -181,69 +212,28 @@ public class Player : MonoBehaviour
         ChangeState(0);
     }
 
-    //ShoppingCount に引っ越しました
-    /* public void AddBaggege(Transform baggege)
-     {
-         baggege.parent = transform;
-         myBaggege.Add(baggege);
-     }
-
-     /// <summary>荷物落とすときの処理</summary>
-     public void BaggegeFall()
-     {
-         List<Transform> myList = new List<Transform>();
-
-         int a = 0;
-         foreach (Transform chird in transform)
-         {
-             if (chird.tag == "Enemy")
-             {
-                 float x = Random.Range(-3.0f, 3.0f);
-                 float z = Random.Range(-3.0f, 3.0f);
-                 float sp = Random.Range(5.0f, 10.0f);
-
-                 Vector3 pos = new Vector3(transform.position.x + x, 0,transform.position.z + z);
-
-                 FallDown fall = chird.GetComponent<FallDown>();
-                 fall.enabled = true;
-                 fall.SetPoint(pos, sp);
-
-                 myList.Add(chird);
-                 a++;
-             }
-         }
-         for (int i = 0; i < a; i++)
-         {
-             myList[i].parent = null;
-         }
-         for(int i = 0; i < myBaggege.Count; i++)
-         {
-             float x = Random.Range(-3.0f, 3.0f);
-             float z = Random.Range(-3.0f, 3.0f);
-             float sp = Random.Range(5.0f, 10.0f);
-
-             Vector3 pos = new Vector3(transform.position.x + x, 0, transform.position.z + z);
-
-             FallDown fall = myBaggege[i].GetComponent<FallDown>();
-             fall.enabled = true;
-             fall.SetPoint(pos, sp);
-
-             myBaggege[i].parent = null;
-
-         }
-         myBaggege.Clear();
-         GetComponent<ShoppingCount>().Reset();
-     }*/
-
     public GameObject GetCart()
     {
         return myCart;
     }
-
-    public void OnTriggerStay(Collider other)
+    
+    /// <summary>エネミーのプレイヤーが見えてるかのパクリ</summary>
+    private bool CanGetCart()
     {
-        if(other.name == "BackHitArea")
+        //プレイヤーからカートへの方向ベクトル(ワールド座標系)
+        Vector3 directionToCart = canGetCart.transform.position - transform.position;
+        // プレイヤーの正面向きベクトルとカートへの方向ベクトルの差分角度
+        float angleToCart = Vector3.Angle(transform.forward, directionToCart);
+
+        // つかめる角度の範囲内にカートがあるかどうかを返却する
+        return (Mathf.Abs(angleToCart) <= 30);
+    }
+
+    /*public void OnTriggerStay(Collider other)
+    {
+        if (other.name == "BackHitArea")
         {
+            if (IsCart()) return;
             if (Input.GetButtonDown("PS4Circle") || Input.GetKeyDown(KeyCode.R))
             {
                 //持つカートの耐久値をもらう
@@ -260,6 +250,42 @@ public class Player : MonoBehaviour
                 myCart.transform.rotation = Quaternion.LookRotation(relativePos);
                 myCart.transform.parent = transform;
             }
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "BackHitArea")
+        {
+            float angleY = transform.localRotation.y - other.transform.localRotation.y;
+            angleY = Mathf.Abs(angleY);
+            canGet = true;
+            canGetCart = other.gameObject;
+        }
+    }*/
+
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.name == "BackHitArea")
+        {
+            canGetCart = other.gameObject;
+            if (CanGetCart())
+            {
+                canGet = true;
+            }
+            else
+            {
+                canGet = false;
+            }
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.name == "BackHitArea")
+        {
+            canGet = false;
+            canGetCart = null;
         }
     }
 }
