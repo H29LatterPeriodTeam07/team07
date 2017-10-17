@@ -14,7 +14,7 @@ public enum SaleAnimalState
 public class GOODsFORSALE : MonoBehaviour {
 
     //巡回ポイント
-    public Transform[] m_PatrolPoints;
+   // public Transform[] m_PatrolPoints;
     //見える距離
     public float m_ViewingDistance;
     //視野角
@@ -36,7 +36,9 @@ public class GOODsFORSALE : MonoBehaviour {
     Transform m_BBALookpoint;
     //自身の目の位置
     Transform m_EyePoint;
-
+    //巡回ポイントの親
+    GameObject m_PatrolPoint;
+    GameObject[] m_PatrolPoints;
 
     // Use this for initialization
     void Start()
@@ -54,6 +56,17 @@ public class GOODsFORSALE : MonoBehaviour {
         //BBAの注視点を名前で検索して保持
         m_BBALookpoint = m_BBA.transform.Find("BBAEye");
         m_EyePoint = transform.Find("AnimalLookEye");
+        //タグでパトロールポイントの親を検索して保持
+        m_PatrolPoint = GameObject.FindGameObjectWithTag("PatrolPoint");
+        m_PatrolPoints = new GameObject[m_PatrolPoint.transform.childCount];
+        //パトロールポイントの子を取得
+        for (int i = 0; m_PatrolPoint.transform.childCount > i; i++)
+        {
+            m_PatrolPoints[i] = m_PatrolPoint.transform.GetChild(i).gameObject;
+        }
+
+
+
     }
 
     // Update is called once per frame
@@ -81,10 +94,12 @@ public class GOODsFORSALE : MonoBehaviour {
             {
                 m_ViewingDistance = 1000;
                 m_ViewingAngle = 360;
+                m_Agent.speed = 3;
+                m_Agent.destination = -m_Player.transform.position;
                 Vector3 dir = this.transform.position - m_Player.transform.position;
                 Vector3 pos = this.transform.position + dir * 0.5f;
                 m_Agent.destination = pos;
-                m_Agent.speed = 3;
+
             }
             if (CanSeeBBA())
             {
@@ -113,6 +128,18 @@ public class GOODsFORSALE : MonoBehaviour {
         var z = Random.Range(-100.0f, 100.0f);
         pos = new Vector3(x, 0, z);
         m_Agent.SetDestination(pos);
+    }
+
+    //次の巡回ポイントを目的地に設定する
+    void SetNewPatrolPointToDestination()
+    {
+         
+    }
+
+    // 目的地に到着したか
+    bool HasArrived()
+    {
+        return (Vector3.Distance(m_Agent.destination, transform.position) < 0.5f);
     }
 
     //プレイヤーが見える距離内にいるか？
@@ -213,5 +240,10 @@ public class GOODsFORSALE : MonoBehaviour {
             return false;
         // ここまで到達したら、それはプレイヤーが見えるということ
         return true;
+    }
+
+    public void ChildCount()
+    {
+
     }
 }

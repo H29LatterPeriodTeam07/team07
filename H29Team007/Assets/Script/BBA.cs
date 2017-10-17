@@ -16,6 +16,7 @@ public enum BBAState
 }
 
 public class BBA : MonoBehaviour {
+
     //巡回ポイント
     public Transform[] m_PatrolPoints;
     //巡回ポイント2
