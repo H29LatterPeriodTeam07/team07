@@ -10,6 +10,7 @@ public class ShoppingCount : MonoBehaviour {
     private float price = 0;
 
     public GameObject bag;
+    public GameObject basket;
 
     // Use this for initialization
     void Start ()
