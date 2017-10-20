@@ -19,7 +19,7 @@ public class Parent : MonoBehaviour
     public float m_ViewingAngle;
 
     private ParentState m_State = ParentState.NormalMode;
-    private float m_Speed = 1.0f;
+    private Animator m_Animator;
     NavMeshAgent m_Agent;
     //現在の巡回ポイントのインデックス
     int m_CurrentPatrolPointIndex = 1;
@@ -42,11 +42,13 @@ public class Parent : MonoBehaviour
         //プレイヤーの注視点を名前で検索して保持
         m_PlayerLookpoint = m_Player.transform.Find("LookPoint");
         m_EyePoint = transform.Find("LookEye");
+        m_Animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        m_Animator.SetFloat("Speed", m_Agent.speed);
         //巡回中
         if (m_State == ParentState.NormalMode)
         {

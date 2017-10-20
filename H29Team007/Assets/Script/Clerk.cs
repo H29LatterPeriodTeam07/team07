@@ -23,6 +23,7 @@ public class Clerk : MonoBehaviour
     private ClerkState m_State = ClerkState.NormalMode;
     private float m_Speed = 1.0f;
     NavMeshAgent m_Agent;
+    private Animator m_Animator;
     //現在の巡回ポイントのインデックス
     int m_CurrentPatrolPointIndex = 1;
     //プレイヤーへの参照
@@ -44,6 +45,7 @@ public class Clerk : MonoBehaviour
         //プレイヤーの注視点を名前で検索して保持
         m_PlayerLookpoint = m_Player.transform.Find("LookPoint");
         m_EyePoint = transform.Find("LookEye");
+        m_Animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -51,12 +53,14 @@ public class Clerk : MonoBehaviour
     {
         //巡回中
         if (m_State == ClerkState.NormalMode)
-        { 
+        {
+            m_Agent.speed = 1.0f;
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
             //プレイイヤーが見えた場合
             if (CanSeePlayer())
             {
+                m_Agent.speed = 1.0f;
                 //追跡中に状態変更
                 m_State = ClerkState.WarningMode;
                 m_Agent.destination = m_Player.transform.position;
@@ -84,6 +88,7 @@ public class Clerk : MonoBehaviour
                 m_State = ClerkState.NormalMode;
             }
         }
+        m_Animator.SetFloat("Speed", m_Agent.speed);
     }
 
     //次の巡回ポイントを目的地に設定する

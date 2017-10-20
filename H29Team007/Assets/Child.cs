@@ -24,6 +24,7 @@ public class Child : MonoBehaviour {
     private Transform m_ParentEyePoint;
     private Transform m_LookEye;
     private Vector3 pos;
+    private Animator m_Animator;
     NavMeshAgent m_Agent;
 
 
@@ -33,6 +34,7 @@ public class Child : MonoBehaviour {
         m_Parent = GameObject.FindGameObjectWithTag("Parent");
         m_ParentEyePoint = m_Parent.transform.Find("ParentEye");
         m_LookEye = transform.Find("LookEye");
+        m_Animator = GetComponent<Animator>();
 	}
 
     // Update is called once per frame
@@ -41,22 +43,23 @@ public class Child : MonoBehaviour {
         Vector3 PPos = m_Parent.transform.position;
         Vector3 CPos = transform.position;
         float dis = Vector3.Distance(PPos, CPos);
+        print(dis);
+        m_Animator.SetFloat("Speed", m_Agent.speed);
         if (m_State == ChildState.NormalMode)
         {
-            m_Agent.speed = 1.0f;
+            m_Agent.speed = 1f;
             m_Agent.destination = PPos;
-            if(dis >= 3.0f)
+            if(dis > 3.0f)
             {
                 m_State = ChildState.WarningMode;
             }
         }
         else if(m_State == ChildState.WarningMode)
         {
-            m_ViewingDistance = 1000;
-            m_ViewingAngle = 360;
             if (CanSeePlayer())
             {
-                m_Agent.speed = 3.0f;
+                m_ViewingDistance = 100;
+                m_ViewingAngle = 360;
                 m_Agent.destination = PPos;
             }
             else
@@ -123,8 +126,8 @@ public class Child : MonoBehaviour {
     public void DoPatrol()
     {
         if (m_Agent.enabled == false) return;
-        var x = Random.Range(-10.0f, 10.0f);
-        var z = Random.Range(-10.0f, 10.0f);
+        var x = Random.Range(-15.0f, 15.0f);
+        var z = Random.Range(-15.0f, 15.0f);
         pos = new Vector3(x, 0, z);
         m_Agent.SetDestination(pos);
     }
