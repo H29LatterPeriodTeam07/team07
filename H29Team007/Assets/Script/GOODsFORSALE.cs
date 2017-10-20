@@ -92,7 +92,7 @@ public class GOODsFORSALE : MonoBehaviour {
             // プレイヤーが見えている場合
             if (CanSeePlayer())
             {
-                m_ViewingDistance = 1000;
+                m_ViewingDistance = 100;
                 m_ViewingAngle = 360;
                 m_Agent.speed = 3;
                 m_Agent.destination = -m_Player.transform.position;
@@ -103,7 +103,7 @@ public class GOODsFORSALE : MonoBehaviour {
             }
             if (CanSeeBBA())
             {
-                m_ViewingDistance = 1000;
+                m_ViewingDistance = 100;
                 m_ViewingAngle = 360;
                 m_Agent.destination = -m_BBA.transform.position;
                 Vector3 dir = this.transform.position - m_BBA.transform.position;

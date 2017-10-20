@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum ParentState
+public enum ChildState
 {
     //ノーマルモード
     NormalMode,
-    //警戒モード
-    WarningMode
+    //親を追いかけるモード
+    WarningMode,
+    //泣きわめくモード
+    CryMode
 }
 
 public class Child : MonoBehaviour {
@@ -17,23 +19,56 @@ public class Child : MonoBehaviour {
     //視野角
     public float m_ViewingAngle;
 
-    private ParentState m_State = ParentState.NormalMode;
+    private ChildState m_State = ChildState.NormalMode;
     private GameObject m_Parent;
     private Transform m_ParentEyePoint;
     private Transform m_LookEye;
-    
+    private Vector3 pos;
+    NavMeshAgent m_Agent;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
+        m_Agent = GetComponent<NavMeshAgent>();
         m_Parent = GameObject.FindGameObjectWithTag("Parent");
         m_ParentEyePoint = m_Parent.transform.Find("ParentEye");
         m_LookEye = transform.Find("LookEye");
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+        Vector3 PPos = m_Parent.transform.position;
+        Vector3 CPos = transform.position;
+        float dis = Vector3.Distance(PPos, CPos);
+        if (m_State == ChildState.NormalMode)
+        {
+            m_Agent.speed = 1.0f;
+            m_Agent.destination = PPos;
+            if(dis >= 3.0f)
+            {
+                m_State = ChildState.WarningMode;
+            }
+        }
+        else if(m_State == ChildState.WarningMode)
+        {
+            m_ViewingDistance = 1000;
+            m_ViewingAngle = 360;
+            if (CanSeePlayer())
+            {
+                m_Agent.speed = 3.0f;
+                m_Agent.destination = PPos;
+            }
+            else
+            {
+                m_State = ChildState.CryMode;
+            }
+        }
+        else if(m_State == ChildState.CryMode)
+        {
+            DoPatrol();
+        }
+    }
 
      //親が見える距離内にいるか？
     bool IsParentInViewingDistance()
@@ -66,7 +101,7 @@ public class Child : MonoBehaviour {
         bool hit
             = Physics.Raycast(m_ParentEyePoint.position, directionToPlayer, out hitInfo);
         // 親にRayが当たったかどうかを返却する
-        return (hit && hitInfo.collider.tag == "Player");
+        return (hit && hitInfo.collider.tag == "Parent");
     }
 
     // 親が見えるか？
@@ -83,5 +118,14 @@ public class Child : MonoBehaviour {
             return false;
         // ここまで到達したら、それは親が見えるということ
         return true;
+    }
+
+    public void DoPatrol()
+    {
+        if (m_Agent.enabled == false) return;
+        var x = Random.Range(-10.0f, 10.0f);
+        var z = Random.Range(-10.0f, 10.0f);
+        pos = new Vector3(x, 0, z);
+        m_Agent.SetDestination(pos);
     }
 }
