@@ -36,13 +36,13 @@ public class RunOverObject : MonoBehaviour
     }
 
     /// <summary>レジを通したレジ袋用の関数</summary>
-    /// <param name="cart">袋を入れるカート</param>
-    public void SetCartPos(GameObject cart)
+    /// <param name="basket">袋を入れるカゴ</param>
+    public void SetPlasticBagPos(GameObject basket)
     {
         //myNav.enabled = false;
 
-        var sc = cart.transform.root.GetComponent<ShoppingCount>();
-        Vector3 v = cart.transform.position;
+        var sc = basket.transform.root.GetComponent<ShoppingCount>();
+        Vector3 v = basket.transform.position;
         Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
         transform.position = nimotuPos;
         sc.AddBaggege(transform);

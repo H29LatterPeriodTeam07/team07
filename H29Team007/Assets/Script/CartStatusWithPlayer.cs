@@ -70,7 +70,7 @@ public class CartStatusWithPlayer : MonoBehaviour
     {
         if(other.tag == "Register")
         {
-            scScript.PassTheRegister(playerScript.GetCart());
+            scScript.PassTheRegister();
         }
     }
 }

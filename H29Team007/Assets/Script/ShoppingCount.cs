@@ -14,28 +14,34 @@ public class ShoppingCount : MonoBehaviour {
     public GameObject basket;
     private int aaaa = 0;//一回だけ呼びたいからのやつ、boolでいいゾ
 
+    private Basket basketScript;
+
     // Use this for initialization 
     void Start ()
     {
         playerScript = GetComponent<Player>();
         myBaggege = new List<Transform>();
-        onPosition = 0.6f;
+        onPosition = 0.0f;
+        basketScript = basket.GetComponent<Basket>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (playerScript.GetCart() == null && aaaa != 0)
-        {
-            basket.transform.localPosition = new Vector3(-0.09f, 0.4f, 0.65f);
-            basket.transform.localRotation = Quaternion.AngleAxis(90, new Vector3(0, 1, 0));
-            aaaa--;
-        }
-        else if(playerScript.GetCart() != null && aaaa == 0)
-        {
-            basket.transform.localPosition = new Vector3(0, 0.6f, 1.5f);
-            basket.transform.localRotation = Quaternion.AngleAxis(0, new Vector3(0, 1, 0));
-            aaaa++;
-        }
+       
+    }
+
+    public void BasketIn()
+    {
+        basketScript.SetCartPosition(new Vector3(0, 0.6f, 1.5f));
+        basketScript.SetCartRotation(0);
+        basketScript.enabled = false;
+    }
+
+    public void BasketOut()
+    {
+        basketScript.enabled = true;
+        basketScript.SetCartPosition(new Vector3(-0.09f, 1.4f, 0.65f));
+        basketScript.SetCartRotation(90);
     }
 
     public void PlusY(float y)
@@ -46,19 +52,19 @@ public class ShoppingCount : MonoBehaviour {
     public void Reset()
     {
         myBaggege.Clear();
-        onPosition = 0.6f;
+        onPosition = 0.0f;
     }
 
     public float GetY()
     {
-        return onPosition;
+        return basket.transform.position.y + onPosition;
     }
 
     /// <summary>荷物の追加</summary>
     /// <param name="baggege">荷物のTransform</param>
     public void AddBaggege(Transform baggege)
     {
-        baggege.parent = transform;
+        baggege.parent = basket.transform;
         myBaggege.Add(baggege);
     }
 
@@ -84,8 +90,7 @@ public class ShoppingCount : MonoBehaviour {
     }
 
     /// <summary>レジを通した時の処理</summary>
-    /// <param name="cart">袋を入れるカート</param>
-    public void PassTheRegister(GameObject cart)
+    public void PassTheRegister()
     {
         List<Transform> mybags = new List<Transform>();
         List<Transform> kesumono = new List<Transform>();
@@ -120,7 +125,7 @@ public class ShoppingCount : MonoBehaviour {
             }
             GameObject newbag = Instantiate(bag);
 
-            newbag.GetComponent<RunOverObject>().SetCartPos(cart);  
+            newbag.GetComponent<RunOverObject>().SetPlasticBagPos(basket);  
         }
     }
 }
