@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum CustomerState
+public class Parent : MonoBehaviour
 {
-    //ノーマルモード
-    NormalMode
-}
 
-public class Customer : MonoBehaviour {
-
+    public enum ParentState
+    {
+        //ノーマルモード
+        NormalMode,
+    }
     //巡回ポイント
     public Transform[] m_PatrolPoints;
     //見える距離
@@ -18,7 +18,7 @@ public class Customer : MonoBehaviour {
     //視野角
     public float m_ViewingAngle;
 
-    private CustomerState m_State = CustomerState.NormalMode;
+    private ParentState m_State = ParentState.NormalMode;
     private float m_Speed = 1.0f;
     NavMeshAgent m_Agent;
     //現在の巡回ポイントのインデックス
@@ -48,45 +48,17 @@ public class Customer : MonoBehaviour {
     void Update()
     {
         //巡回中
-        if (m_State == CustomerState.NormalMode)
+        if (m_State == ParentState.NormalMode)
         {
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
-            //プレイイヤーが見えた場合
-            /*   if (CanSeePlayer())
-               {
-                   //追跡中に状態変更
-                   m_State = CustomerState.WarningMode;
-                   m_Agent.destination = m_Player.transform.position;
-               }
-               //プレイヤーが見えなくて、目的地に到着した場合
-               else if (HasArrived())
-               {
-                   //目的地を次の巡回ポイントに切り替える
-                   SetNewPatrolPointToDestination();
-               }*/
-          //  SetNewPatrolPointToDestination();
+            m_Agent.speed = 1.0f;
+         //   SetNewPatrolPointToDestination();
             if (HasArrived())
             {
                 SetNewPatrolPointToDestination();
             }
         }
-        // プレイヤーを追跡中
-     /*   else if (m_State == CustomerState.WarningMode)
-        {
-            // プレイヤーが見えている場合
-            if (CanSeePlayer())
-            {
-                m_ViewingDistance = 1000;
-                m_ViewingAngle = 360;
-            }
-            // 見失った場合
-            else
-            {
-                // 追跡中（見失い中）に状態変更
-                m_State = CustomerState.NormalMode;
-            }
-        }*/
     }
 
     //次の巡回ポイントを目的地に設定する
