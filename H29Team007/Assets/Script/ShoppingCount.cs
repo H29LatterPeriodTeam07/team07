@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShoppingCount : MonoBehaviour {
+public class ShoppingCount : MonoBehaviour
+{
 
     private Player playerScript;
     private float onPosition;
@@ -10,24 +11,37 @@ public class ShoppingCount : MonoBehaviour {
     private List<Transform> myBaggege;
     private float price = 0;
 
-    public GameObject bag;
-    public GameObject basket;
-    private int aaaa = 0;//一回だけ呼びたいからのやつ、boolでいいゾ
+    public GameObject bagPrefab;
+    public GameObject basketPrefab;
+    public GameObject flyBasketPrefab;
+    private GameObject basket;
 
     private Basket basketScript;
 
     // Use this for initialization 
-    void Start ()
+    void Start()
     {
+        basket = Instantiate(basketPrefab);
+        basket.transform.parent = transform;
         playerScript = GetComponent<Player>();
         myBaggege = new List<Transform>();
         onPosition = 0.0f;
         basketScript = basket.GetComponent<Basket>();
+        BasketOut();
     }
-	
-	// Update is called once per frame
-	void Update () {
-       
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(basket.activeSelf&& playerScript.GetState() != Player.PlayerState.NoCart && Input.GetKeyDown(KeyCode.F))
+        {
+            GameObject flyBasket = Instantiate(flyBasketPrefab);
+            flyBasket.transform.position = basket.transform.position;
+            flyBasket.transform.position += Vector3.up;
+            flyBasket.transform.rotation = basket.transform.rotation;
+            playerScript.ReleaseCart();
+            basket.SetActive(false);
+        }
     }
 
     public void BasketIn()
@@ -58,6 +72,11 @@ public class ShoppingCount : MonoBehaviour {
     public float GetY()
     {
         return basket.transform.position.y + onPosition;
+    }
+
+    public bool IsCatchBasket()
+    {
+        return basket.activeSelf;
     }
 
     /// <summary>荷物の追加</summary>
@@ -97,7 +116,7 @@ public class ShoppingCount : MonoBehaviour {
         //ここでエネミーからの値段をもらう
         for (int i = 0; i < myBaggege.Count; i++)
         {
-            if(myBaggege[i].tag == "Plasticbag")
+            if (myBaggege[i].tag == "Plasticbag")
             {
                 mybags.Add(myBaggege[i]);
             }
@@ -107,9 +126,9 @@ public class ShoppingCount : MonoBehaviour {
             }
         }
 
-        if(kesumono.Count != 0)
+        if (kesumono.Count != 0)
         {
-          
+
             for (int i = 0; i < kesumono.Count; i++)
             {
                 Destroy(kesumono[i].gameObject);
@@ -123,9 +142,18 @@ public class ShoppingCount : MonoBehaviour {
                 mybags[i].position = nimotuPos;
                 PlusY(mybags[i].GetComponent<RunOverObject>().GetHeight());
             }
-            GameObject newbag = Instantiate(bag);
+            GameObject newbag = Instantiate(bagPrefab);
 
-            newbag.GetComponent<RunOverObject>().SetPlasticBagPos(basket);  
+            newbag.GetComponent<RunOverObject>().SetPlasticBagPos(basket);
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.name == "FlyBasket(Clone)")
+        {
+            Destroy(other.gameObject);
+            basket.SetActive(true);
         }
     }
 }

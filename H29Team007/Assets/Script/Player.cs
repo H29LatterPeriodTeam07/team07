@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    enum PlayerState
+    public enum PlayerState
     {
         NoCart,
         OnCart,
@@ -81,43 +81,20 @@ public class Player : MonoBehaviour
             inputVertical = inputVec.z;
         }
 
-        if (IsCart())
+        if (!scScript.IsCatchBasket()) return;
+
+        if (GetState() != PlayerState.NoCart)
         {
             if (Input.GetButtonDown("PS4Cross") || Input.GetKeyDown(KeyCode.R))
             {
-                BreakCart();
-
-                GameObject cart = Instantiate(cartRigidPrefab);
-
-                //離したカートに現在の耐久値を渡す
-                myCartStatus.SetCart(cart.GetComponent<CartStatusWithCart>());
-
-                Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
-                cart.transform.position = cartPos + transform.forward * 1.5f;
-                Vector3 relativePos = myCart.transform.position - transform.position;
-                relativePos.y = 0; //上下方向の回転はしないように制御
-                transform.rotation = Quaternion.LookRotation(relativePos);
-                cart.transform.rotation = Quaternion.LookRotation(relativePos);
+                ReleaseCart();
             }
         }
         else if (canGet)
         {
             if (Input.GetButtonDown("PS4Circle") || Input.GetKeyDown(KeyCode.R))
             {
-                //持つカートの耐久値をもらう
-                myCartStatus.GetCart(canGetCart.transform.parent.gameObject.GetComponent<CartStatusWithCart>());
-
-                Destroy(canGetCart.transform.parent.gameObject);
-                ChangeState(1);
-                myCart = Instantiate(cartBodyPrefab);
-                Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
-                myCart.transform.position = cartPos + transform.forward * 1.5f;
-                Vector3 relativePos = myCart.transform.position - transform.position;
-                relativePos.y = 0; //上下方向の回転はしないように制御
-                transform.rotation = Quaternion.LookRotation(relativePos);
-                myCart.transform.rotation = Quaternion.LookRotation(relativePos);
-                myCart.transform.parent = transform;
-                scScript.BasketIn();
+                CatchCart();
             }
         }
 
@@ -205,11 +182,7 @@ public class Player : MonoBehaviour
             ChangeState(1);
         }
     }
-
-    public bool IsCart()
-    {
-        return (myCart != null);
-    }
+    
 
     public void BreakCart()
     {
@@ -218,9 +191,46 @@ public class Player : MonoBehaviour
         ChangeState(0);
     }
 
-    public GameObject GetCart()
+    /// <summary>カートを離す </summary>
+    public void ReleaseCart()
     {
-        return myCart;
+        BreakCart();
+
+        GameObject cart = Instantiate(cartRigidPrefab);
+
+        //離したカートに現在の耐久値を渡す
+        myCartStatus.SetCart(cart.GetComponent<CartStatusWithCart>());
+
+        Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
+        cart.transform.position = cartPos + transform.forward * 1.5f;
+        Vector3 relativePos = myCart.transform.position - transform.position;
+        relativePos.y = 0; //上下方向の回転はしないように制御
+        transform.rotation = Quaternion.LookRotation(relativePos);
+        cart.transform.rotation = Quaternion.LookRotation(relativePos);
+    }
+
+    /// <summary>カートを持つ</summary>
+    public void CatchCart()
+    {
+        //持つカートの耐久値をもらう
+        myCartStatus.GetCart(canGetCart.transform.parent.gameObject.GetComponent<CartStatusWithCart>());
+
+        Destroy(canGetCart.transform.parent.gameObject);
+        ChangeState(1);
+        myCart = Instantiate(cartBodyPrefab);
+        Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
+        myCart.transform.position = cartPos + transform.forward * 1.5f;
+        Vector3 relativePos = myCart.transform.position - transform.position;
+        relativePos.y = 0; //上下方向の回転はしないように制御
+        transform.rotation = Quaternion.LookRotation(relativePos);
+        myCart.transform.rotation = Quaternion.LookRotation(relativePos);
+        myCart.transform.parent = transform;
+        scScript.BasketIn();
+    }
+
+    public PlayerState GetState()
+    {
+        return myState;
     }
     
     /// <summary>エネミーのプレイヤーが見えてるかのパクリ</summary>
