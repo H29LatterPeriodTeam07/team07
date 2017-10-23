@@ -40,36 +40,28 @@ public class Child : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        Vector3 PPos = m_Parent.transform.position;
-        Vector3 CPos = transform.position;
+        Vector3 PPos = m_ParentEyePoint.position;
+        Vector3 CPos = m_LookEye.position;
         float dis = Vector3.Distance(PPos, CPos);
-        print(dis);
+       // print(dis);
         m_Animator.SetFloat("Speed", m_Agent.speed);
         if (m_State == ChildState.NormalMode)
         {
             m_Agent.speed = 1f;
             m_Agent.destination = PPos;
-            if(dis > 3.0f)
-            {
-                m_State = ChildState.WarningMode;
-            }
-        }
-        else if(m_State == ChildState.WarningMode)
-        {
             if (CanSeePlayer())
             {
-                m_ViewingDistance = 100;
-                m_ViewingAngle = 360;
-                m_Agent.destination = PPos;
+                print("見える、見えるぞ");
             }
             else
             {
-                m_State = ChildState.CryMode;
+                print("？？？？");
             }
+
         }
         else if(m_State == ChildState.CryMode)
         {
-            DoPatrol();
+            m_Agent.speed = 0;
         }
     }
 

@@ -27,7 +27,6 @@ public class SecurityGuard : MonoBehaviour {
     public float m_JumpPower = 10.0f;		// ジャンプ力（初速(メートル/秒)）
 
     private EnemyState m_State = EnemyState.Patrolling;
-    private float m_Speed = 1.0f;
     private Animator m_Animator;
     NavMeshAgent m_Agent;
     //現在の巡回ポイントのインデックス
@@ -38,7 +37,6 @@ public class SecurityGuard : MonoBehaviour {
     Transform m_PlayerLookpoint;
     //自身の目の位置
     Transform m_EyePoint;
-    float m_VelocityY = 0f;     // y軸方向の移動量
 
 
     // Use this for initialization
@@ -93,7 +91,6 @@ public class SecurityGuard : MonoBehaviour {
                 m_Agent.destination = m_Player.transform.position;
                 if (dis <= 2.5)
                 {
-                    //  m_VelocityY = m_JumpPower;
                   //  m_Agent.speed = 4;
                 }
             }
@@ -119,8 +116,6 @@ public class SecurityGuard : MonoBehaviour {
             // プレイヤーを見つけられないまま目的地に到着
             else if (HasArrived())
             {
-                m_ViewingDistance = 1000;
-                m_ViewingAngle = 360;
                 // 巡回中に状態遷移
                 m_State = EnemyState.Patrolling;
             }

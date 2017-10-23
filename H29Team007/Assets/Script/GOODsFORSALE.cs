@@ -130,12 +130,6 @@ public class GOODsFORSALE : MonoBehaviour {
         m_Agent.SetDestination(pos);
     }
 
-    //次の巡回ポイントを目的地に設定する
-    void SetNewPatrolPointToDestination()
-    {
-         
-    }
-
     // 目的地に到着したか
     bool HasArrived()
     {

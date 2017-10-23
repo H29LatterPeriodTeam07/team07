@@ -21,7 +21,6 @@ public class Clerk : MonoBehaviour
     public float m_ViewingAngle;
 
     private ClerkState m_State = ClerkState.NormalMode;
-    private float m_Speed = 1.0f;
     NavMeshAgent m_Agent;
     private Animator m_Animator;
     //現在の巡回ポイントのインデックス

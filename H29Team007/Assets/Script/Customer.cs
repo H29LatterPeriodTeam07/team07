@@ -19,7 +19,6 @@ public class Customer : MonoBehaviour {
     public float m_ViewingAngle;
 
     private CustomerState m_State = CustomerState.NormalMode;
-    private float m_Speed = 1.0f;
     private Animator m_Animator;
     NavMeshAgent m_Agent;
     //現在の巡回ポイントのインデックス
@@ -49,6 +48,7 @@ public class Customer : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        
         m_Agent.speed = 1.0f;
         //巡回中
         if (m_State == CustomerState.NormalMode)
