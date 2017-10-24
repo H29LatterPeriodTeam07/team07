@@ -7,31 +7,41 @@ public class SaleSpown : MonoBehaviour {
     //ランダムに出現させる特売品のプレハブ
     public GameObject[] m_SaleAnimals;
     //出現時間
-    public float m_ApperTime = 30.0f;
+    public float[] m_ApperTime;
     //ここから何匹出現するか
     [SerializeField, Header("何匹出現させる？")]
-    public int m_Total = 1;
+    public int m_Total;
+    public GameObject m_Time;
+    public Queue<GameObject> m_Sale;
     //何匹出現したか
     private int m_Num = 0;
     private float m_CurrentTime = 0.0f;
     private int m_number;
+    Timer m_timer;
 
     // Use this for initialization
     void Start()
     {
         m_number = Random.Range(0, m_SaleAnimals.Length);
+        m_timer = m_Time.GetComponent<Timer>();
+        for(int i =0; m_SaleAnimals.Length > i; i++)
+        {
+            
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        m_CurrentTime += Time.deltaTime;
-
-        if (m_CurrentTime > m_ApperTime)
+        for (int i = 0; m_ApperTime.Length > i; i++)
         {
-            Appear();
-            m_Num++;
+            if (m_timer.timer > m_ApperTime[i])
+            {
+                Appear();
+                m_Num++;
 
+            }
         }
     }
 

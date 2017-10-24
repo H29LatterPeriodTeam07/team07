@@ -33,6 +33,7 @@ public class SecurityGuard : MonoBehaviour {
     int m_CurrentPatrolPointIndex = 1;
     //プレイヤーへの参照
     GameObject m_Player;
+    Player m_PlayerSC;
     //プレイヤーへの注視点
     Transform m_PlayerLookpoint;
     //自身の目の位置
@@ -46,6 +47,7 @@ public class SecurityGuard : MonoBehaviour {
         SetNewPatrolPointToDestination();
         //タグでプレイヤーオブジェクトを検索して保持
         m_Player = GameObject.FindGameObjectWithTag("Player");
+        m_PlayerSC = GetComponent<Player>();
         //プレイヤーの注視点を名前で検索して保持
         m_PlayerLookpoint = m_Player.transform.Find("LookPoint");
         m_EyePoint = transform.Find("LookEye");
@@ -58,6 +60,7 @@ public class SecurityGuard : MonoBehaviour {
         Vector3 PPos = m_Player.transform.position;
         Vector3 EPos = m_Enemy.transform.position;
         float dis = Vector3.Distance(PPos, EPos);
+
         //巡回中
         if (m_State == EnemyState.Patrolling)
         {
@@ -91,7 +94,7 @@ public class SecurityGuard : MonoBehaviour {
                 m_Agent.destination = m_Player.transform.position;
                 if (dis <= 2.5)
                 {
-                  //  m_Agent.speed = 4;
+                    m_Agent.speed = 4;
                 }
             }
             // 見失った場合

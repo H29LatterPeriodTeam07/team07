@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour {
 
     Slider m_slider;
-    float timer = 0.0f;
+    public float timer = 0.0f;
 
 	// Use this for initialization
 	void Start () {

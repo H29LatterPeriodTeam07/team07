@@ -9,6 +9,8 @@ public enum ChildState
     NormalMode,
     //親を追いかけるモード
     WarningMode,
+    //親を追いかけるモード(見失い中)
+    ChasingWarningMode,
     //泣きわめくモード
     CryMode
 }
@@ -18,6 +20,7 @@ public class Child : MonoBehaviour {
     public float m_ViewingDistance;
     //視野角
     public float m_ViewingAngle;
+    public bool m_GaurdCoal = false;
 
     private ChildState m_State = ChildState.NormalMode;
     private GameObject m_Parent;
@@ -49,23 +52,52 @@ public class Child : MonoBehaviour {
         {
             m_Agent.speed = 1f;
             m_Agent.destination = PPos;
-            if (CanSeePlayer())
+            if (dis > 5.0f)
             {
-                print("見える、見えるぞ");
+                m_ViewingDistance = 100;
+                m_ViewingAngle = 180;
+                if (CanSeeParent())
+                {
+                    print("見える、見えるぞ");
+                    m_Agent.speed = 2.0f;
+                    m_Agent.destination = PPos;
+                }
+                else
+                {
+                    m_State = ChildState.ChasingWarningMode;
+                }
             }
-            else
-            {
-                print("？？？？");
-            }
+        }
 
+        else if(m_State == ChildState.ChasingWarningMode)
+        {
+            m_ViewingDistance = 100;
+            m_ViewingAngle = 180;
+            if (CanSeeParent())
+            {
+                print("いたぞおおおおおお");
+                m_Agent.speed = 2.0f;
+                m_Agent.destination = PPos;
+            }
+            else if(HasArrived())
+            {
+                m_State = ChildState.CryMode;
+            }
         }
         else if(m_State == ChildState.CryMode)
         {
             m_Agent.speed = 0;
+            print("おーいおいおいおいおい、おいおい");
+            m_GaurdCoal = true;
         }
     }
 
-     //親が見える距離内にいるか？
+    bool HasArrived()
+    {
+        return (Vector3.Distance(m_Agent.destination, transform.position) < 0.5f);
+    }
+
+    //親が見える距離内にいるか？
     bool IsParentInViewingDistance()
     {
         //自身から親までの距離
@@ -94,13 +126,13 @@ public class Child : MonoBehaviour {
         // 壁の向こう側などにいる場合は見えない
         RaycastHit hitInfo;
         bool hit
-            = Physics.Raycast(m_ParentEyePoint.position, directionToPlayer, out hitInfo);
+            = Physics.Raycast(m_LookEye.position, directionToPlayer, out hitInfo);
         // 親にRayが当たったかどうかを返却する
         return (hit && hitInfo.collider.tag == "Parent");
     }
 
     // 親が見えるか？
-    bool CanSeePlayer()
+    bool CanSeeParent()
     {
         // 見える距離の範囲内に親がいない場合→見えない
         if (!IsParentInViewingDistance())
