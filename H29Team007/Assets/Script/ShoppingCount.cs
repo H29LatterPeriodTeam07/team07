@@ -33,29 +33,40 @@ public class ShoppingCount : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(basket.activeSelf&& playerScript.GetState() != Player.PlayerState.NoCart && Input.GetKeyDown(KeyCode.F))
+        if (basket.activeSelf && Input.GetButtonDown("XboxB") ||
+            basket.activeSelf && Input.GetKeyDown(KeyCode.F))
         {
             GameObject flyBasket = Instantiate(flyBasketPrefab);
-            flyBasket.transform.position = basket.transform.position;
-            flyBasket.transform.position += Vector3.up;
+
             flyBasket.transform.rotation = basket.transform.rotation;
-            playerScript.ReleaseCart();
+            if (myBaggege.Count != 0)
+            {
+                flyBasket.transform.position = basket.transform.position;
+                for (int i = 0; i < myBaggege.Count; i++)
+                {
+                    myBaggege[i].parent = flyBasket.transform;
+                }
+            }
+            Vector3 baspos = basket.transform.position;
+            baspos.y = 1.6f;
+            flyBasket.transform.position = baspos;
+
             basket.SetActive(false);
         }
     }
 
     public void BasketIn()
     {
-        basketScript.SetCartPosition(new Vector3(0, 0.6f, 1.5f));
-        basketScript.SetCartRotation(0);
+        basketScript.SetBasketLocalPosition(new Vector3(0, 0.6f, 1.5f));
+        basketScript.SetBasketLocalRotation(0);
         basketScript.enabled = false;
     }
 
     public void BasketOut()
     {
         basketScript.enabled = true;
-        basketScript.SetCartPosition(new Vector3(-0.09f, 1.4f, 0.65f));
-        basketScript.SetCartRotation(90);
+        basketScript.SetBasketLocalPosition(new Vector3(-0.09f, 1.4f, 0.65f));
+        basketScript.SetBasketLocalRotation(90);
     }
 
     public void PlusY(float y)
@@ -74,6 +85,26 @@ public class ShoppingCount : MonoBehaviour
         return basket.transform.position.y + onPosition;
     }
 
+    public void BasketActive(bool active)
+    {
+        basket.SetActive(active);
+    }
+
+    public void SetBasketParent(Transform parent)
+    {
+        basketScript.SetParent(parent);
+    }
+
+    public void SetBasketPos(Vector3 pos)
+    {
+        basketScript.SetBasketGlobalPosition(pos);
+    }
+
+    public void SetBasketAngle(Quaternion angle)
+    {
+        basketScript.SetBasketGlobalRotation(angle);
+    }
+
     public bool IsCatchBasket()
     {
         return basket.activeSelf;
@@ -87,8 +118,33 @@ public class ShoppingCount : MonoBehaviour
         myBaggege.Add(baggege);
     }
 
+    public void BaggegeParentPlayer()
+    {
+        List<Transform> mybags = new List<Transform>();
+        for (int i = 0; i < myBaggege.Count; i++)
+        {
+            mybags.Add(myBaggege[i]);
+
+        }
+
+
+        Reset();
+        for (int i = 0; i < mybags.Count; i++)
+        {
+            AddBaggege(mybags[i]);
+            Vector3 nimotuPos = basket.transform.position;
+            nimotuPos.y = GetY();
+            mybags[i].position = nimotuPos;
+            PlusY(mybags[i].GetComponent<RunOverObject>().GetHeight());
+        }
+        //GameObject newbag = Instantiate(bagPrefab);
+
+        //newbag.GetComponent<RunOverObject>().SetPlasticBagPos(basket);
+
+    }
+
     /// <summary>荷物落とすときの処理</summary>
-    public void BaggegeFall()
+    public void BaggegeFall(Vector3 startPos)
     {
         for (int i = 0; i < myBaggege.Count; i++)
         {
@@ -96,7 +152,8 @@ public class ShoppingCount : MonoBehaviour
             float z = Random.Range(-3.0f, 3.0f);
             float sp = Random.Range(5.0f, 10.0f);
 
-            Vector3 pos = new Vector3(transform.position.x + x, 0, transform.position.z + z);
+            //Vector3 pos = new Vector3(transform.position.x + x, 0, transform.position.z + z);
+            Vector3 pos = new Vector3(startPos.x + x, 0, startPos.z + z);
 
             FallDown fall = myBaggege[i].GetComponent<FallDown>();
             fall.enabled = true;
@@ -150,8 +207,10 @@ public class ShoppingCount : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.name == "FlyBasket(Clone)")
+        if (other.name == "FlyBasket(Clone)")
         {
+            other.transform.position = basket.transform.position;
+            other.transform.rotation = basket.transform.rotation;
             Destroy(other.gameObject);
             basket.SetActive(true);
         }

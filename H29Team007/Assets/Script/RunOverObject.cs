@@ -62,6 +62,7 @@ public class RunOverObject : MonoBehaviour
             myNav.enabled = false;
             //ここにアニメ停止や変更入れるかも
             var sc = other.transform.root.GetComponent<ShoppingCount>();
+            if (!sc.IsCatchBasket()) return;
             Vector3 v = other.transform.parent.transform.position;
             Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
             transform.position = nimotuPos;

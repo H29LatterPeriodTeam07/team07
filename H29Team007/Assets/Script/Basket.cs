@@ -6,11 +6,13 @@ public class Basket : MonoBehaviour
 {
     private GameObject nearCart; //近いカート
     private float searchTime = 0; //経過時間
+    private Player playerScr;
 
     // Use this for initialization
     void Start()
     {
         nearCart = SerchTag("Cart");
+        playerScr = transform.root.GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -25,7 +27,7 @@ public class Basket : MonoBehaviour
             Debug.Log("カートないやんけ！このハゲー！");
             return;
         }
-
+        if (playerScr.GetState() == Player.PlayerState.Takeover) return;
         searchTime += Time.deltaTime;
 
         if (searchTime >= 1.0f)
@@ -41,11 +43,11 @@ public class Basket : MonoBehaviour
 
         if(distancce < 5.0f)
         {
-            SetCartPosition(new Vector3(-0.09f, 1.4f, 0.65f));
+            SetBasketLocalPosition(new Vector3(-0.09f, 1.4f, 0.65f));
         }
         else
         {
-            SetCartPosition(new Vector3(-0.09f, 0.4f, 0.65f));
+            SetBasketLocalPosition(new Vector3(-0.09f, 0.4f, 0.65f));
         }
 
     }
@@ -82,12 +84,30 @@ public class Basket : MonoBehaviour
         return transform.localPosition;
     }
 
-    public void SetCartPosition(Vector3 pos)
+    public void SetParent(Transform parent)
+    {
+        transform.parent = parent;
+    }
+    
+    public void SetBasketGlobalPosition(Vector3 pos)
+    {
+        //Debug.Log("iei"+transform.position);
+
+        transform.position = pos;
+        //Debug.Log("fe" + transform.position);
+    }
+
+    public void SetBasketGlobalRotation(Quaternion angle)
+    {
+        transform.rotation = angle;
+    }
+
+    public void SetBasketLocalPosition(Vector3 pos)
     {
         transform.localPosition = pos;
     }
 
-    public void SetCartRotation(float angle)
+    public void SetBasketLocalRotation(float angle)
     {
         transform.localRotation = Quaternion.AngleAxis(angle, new Vector3(0, 1, 0));
     }

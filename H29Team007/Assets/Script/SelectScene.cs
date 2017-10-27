@@ -24,11 +24,11 @@ public class SelectScene : MonoBehaviour
     }
     public void StageLoad()
     {
-        SceneManager.LoadScene("Stage");
+        SceneManager.LoadScene("Alpha");
     }
     public void StageSelectLoad()
     {
-        SceneManager.LoadScene("StageSelect");
+        SceneManager.LoadScene("StageSelectTest");
     }
 
 }

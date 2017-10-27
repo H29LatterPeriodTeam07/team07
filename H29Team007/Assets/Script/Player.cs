@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Player : MonoBehaviour
 {
     public enum PlayerState
     {
-        NoCart,
-        OnCart,
-        Gliding
+        NoCart, // カート無し
+        OnCart, // カート持ち
+        Gliding, // 滑走中
+        Takeover // カートジャック
     }
 
     private float inputHorizontal;
@@ -50,6 +52,8 @@ public class Player : MonoBehaviour
     private bool canGet = false; //カートを持てるか
     private GameObject canGetCart; //もてるカート
 
+    private NavMeshAgent myNav;
+    private GameObject nextCart;
 
     private ShoppingCount scScript;
 
@@ -63,14 +67,16 @@ public class Player : MonoBehaviour
         //myBaggege = new List<Transform>();
         myCC = GetComponent<CapsuleCollider>();
         m_Animator = GetComponent<Animator>();
+        myNav = GetComponent<NavMeshAgent>();
+        myNav.enabled = false;
     }
 
     void Update()
     {
+        if (GetState() == PlayerState.Takeover) return;
 
-
-        inputHorizontal = (Input.GetAxisRaw("PS4LeftHorizontal") != 0) ? Input.GetAxisRaw("PS4LeftHorizontal") : Input.GetAxisRaw("Horizontal");
-        inputVertical = (Input.GetAxisRaw("PS4LeftVertical") != 0) ? Input.GetAxisRaw("PS4LeftVertical") : Input.GetAxisRaw("Vertical");
+        inputHorizontal = (Input.GetAxisRaw("XboxLeftHorizontal") != 0) ? Input.GetAxisRaw("XboxLeftHorizontal") : Input.GetAxisRaw("Horizontal");
+        inputVertical = (Input.GetAxisRaw("XboxLeftVertical") != 0) ? Input.GetAxisRaw("XboxLeftVertical") : Input.GetAxisRaw("Vertical");
 
         if(myState == PlayerState.NoCart)
         {
@@ -81,18 +87,18 @@ public class Player : MonoBehaviour
             inputVertical = inputVec.z;
         }
 
-        if (!scScript.IsCatchBasket()) return;
+        //if (!scScript.IsCatchBasket()) return;
 
         if (GetState() != PlayerState.NoCart)
         {
-            if (Input.GetButtonDown("PS4Cross") || Input.GetKeyDown(KeyCode.R))
+            if (Input.GetButtonDown("XboxA") || Input.GetKeyDown(KeyCode.R))
             {
                 ReleaseCart();
             }
         }
         else if (canGet)
         {
-            if (Input.GetButtonDown("PS4Circle") || Input.GetKeyDown(KeyCode.R))
+            if (Input.GetButtonDown("XboxA") || Input.GetKeyDown(KeyCode.R))
             {
                 CatchCart();
             }
@@ -107,14 +113,16 @@ public class Player : MonoBehaviour
             case PlayerState.NoCart: CartOffMove(); break;
             case PlayerState.OnCart: CartOnMove(); break;
             case PlayerState.Gliding: CartGliding(); break;
+            case PlayerState.Takeover: PlayerHacking(); break;
         }
         float playerSpeed = rb.velocity.sqrMagnitude;
         if (myState != PlayerState.NoCart && inputVertical < 0) playerSpeed *= -1;
+        if (myState == PlayerState.Takeover) playerSpeed = myNav.velocity.sqrMagnitude;
         m_Animator.SetFloat("Speed", playerSpeed);
     }
 
     /// <summary> 状態変化 </summary>
-    /// <param name="state">0:カート無し 1:カートあり 2:滑走</param>
+    /// <param name="state">0:カート無し 1:カートあり 2:滑走 3:カートチェンジ</param>
     public void ChangeState(int state)
     {
         switch (state)
@@ -122,6 +130,7 @@ public class Player : MonoBehaviour
             case 0: myState = PlayerState.NoCart; break;
             case 1: myState = PlayerState.OnCart; break;
             case 2: myState = PlayerState.Gliding; myCC.material = glidingPhysiMat; break;
+            case 3: myState = PlayerState.Takeover; break;
         }
         if (myCC.material != null && state != 2)
         {
@@ -138,7 +147,7 @@ public class Player : MonoBehaviour
 
         rb.velocity = moveForward * onCartMoveSpeed + new Vector3(0, rb.velocity.y, 0);
 
-        if (Input.GetButtonDown("PS4R1") || Input.GetKeyDown(KeyCode.O))
+        if (Input.GetButtonDown("XboxR") || Input.GetKeyDown(KeyCode.O))
         {
             rb.velocity = transform.forward * kickSpeed;
             ChangeState(2);
@@ -173,7 +182,7 @@ public class Player : MonoBehaviour
         a *= Quaternion.AngleAxis(inputHorizontal * -velocityRotateSpeed, Vector3.up);
         rb.velocity = new Vector3(a.x, 0, a.z);
 
-        if (Input.GetButtonDown("PS4R1") || Input.GetKeyDown(KeyCode.O))
+        if (Input.GetButtonDown("XboxR") || Input.GetKeyDown(KeyCode.O))
         {
             rb.velocity = transform.forward * kickSpeed;
         }
@@ -183,7 +192,43 @@ public class Player : MonoBehaviour
         }
     }
     
+    /// <summary>カートのジャック</summary>
+    private void PlayerHacking()
+    {
+        //Vector3 basPos = nextCart.transform.position + transform.forward * 0.1f;
+        //basPos.y = 0.6f;
+        //scScript.SetBasketPos(basPos);
+        //scScript.SetBasketAngle(nextCart.transform.rotation);
+        myNav.destination = nextCart.transform.position + nextCart.transform.forward * (-1.5f);
+        if (Vector3.Distance(myNav.destination, transform.position) < 0.5f){
+            transform.position = myNav.destination;
+            transform.rotation = nextCart.transform.rotation;
+            myNav.enabled = false;
+            canGetCart = nextCart.transform.Find("BackHitArea").gameObject;
+            scScript.SetBasketParent(transform);
+            CatchCart();
+        }
+    }
 
+    /// <summary>カゴを投げ当てたカートに乗り移る </summary>
+    /// <param name="nextcart">乗り移るカート</param>
+    public void ChangeCart(GameObject nextcart)
+    {
+        scScript.BasketActive(true);
+        ReleaseCart();
+        nextCart = nextcart;
+        myNav.enabled = true;
+        canGetCart = nextCart.transform.Find("BackHitArea").gameObject;
+        Vector3 basPos = nextCart.transform.position + transform.forward * 0.1f;
+        basPos.y = 0.6f;
+        scScript.SetBasketPos(basPos);
+        scScript.SetBasketAngle(nextCart.transform.rotation);
+        scScript.SetBasketParent(null);
+        //myNav.destination = nextCart.transform.position + nextCart.transform.forward * (-1.5f);
+        ChangeState(3);
+    }
+
+    /// <summary>カート壊れる</summary>
     public void BreakCart()
     {
         scScript.BasketOut();
@@ -194,6 +239,8 @@ public class Player : MonoBehaviour
     /// <summary>カートを離す </summary>
     public void ReleaseCart()
     {
+        if (myCart == null) return;
+        //Debug.Log("あほう");
         BreakCart();
 
         GameObject cart = Instantiate(cartRigidPrefab);
@@ -212,6 +259,7 @@ public class Player : MonoBehaviour
     /// <summary>カートを持つ</summary>
     public void CatchCart()
     {
+        //Debug.Log(canGetCart);
         //持つカートの耐久値をもらう
         myCartStatus.GetCart(canGetCart.transform.parent.gameObject.GetComponent<CartStatusWithCart>());
 

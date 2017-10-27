@@ -22,8 +22,8 @@ public class PlayerCamera : MonoBehaviour {
         // 追跡対象に位置を合わせる
         transform.position = m_Target.position;
 
-        float inputHorizontal = (Input.GetAxisRaw("PS4RightHorizontal") != 0) ? Input.GetAxisRaw("PS4RightHorizontal") : Input.GetAxisRaw("Mouse X");
-        float inputVertical = (Input.GetAxisRaw("PS4RightVertical") != 0) ? Input.GetAxisRaw("PS4RightVertical") : Input.GetAxisRaw("Mouse Y");
+        float inputHorizontal = (Input.GetAxisRaw("XboxRightHorizontal") != 0) ? Input.GetAxisRaw("XboxRightHorizontal") : Input.GetAxisRaw("Mouse X");
+        float inputVertical = (Input.GetAxisRaw("XboxRightVertical") != 0) ? Input.GetAxisRaw("XboxRightVertical") : Input.GetAxisRaw("Mouse Y");
 
 
         if (Input.GetKey("mouse 0"))//作業の邪魔だからクリックしてる間にしてる、いらないif
@@ -42,7 +42,7 @@ public class PlayerCamera : MonoBehaviour {
             // Quaternionに変換してtransform.rotationに設定し直す
             transform.rotation = Quaternion.Euler(rotation);
         }
-        else if(Input.GetAxisRaw("PS4RightHorizontal") != 0 || Input.GetAxisRaw("PS4RightVertical") != 0)
+        else if(Input.GetAxisRaw("XboxRightHorizontal") != 0 || Input.GetAxisRaw("XboxRightVertical") != 0)
         {
             // 横回転（ヨー）
             transform.Rotate(Vector3.up, inputHorizontal * m_YawSpeed * Time.deltaTime, Space.World);

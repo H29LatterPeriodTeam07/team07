@@ -62,7 +62,7 @@ public class CartStatusWithPlayer : MonoBehaviour
         if (cartStatus[0] <= 0)
         {
             playerScript.BreakCart();
-            scScript.BaggegeFall();
+            scScript.BaggegeFall(transform.position);
         }
     }
 
