@@ -55,14 +55,27 @@ public class RunOverObject : MonoBehaviour
         return runOverAfterHeight;
     }
 
+    /// <summary>エネミーのプレイヤーが見えてるかのパクリのパクリ</summary>
+    private bool CanGetEnemy(Transform cart)
+    {
+        //カートからエネミーへの方向ベクトル(ワールド座標系)
+        Vector3 directionToEnemy = transform.position - cart.position;
+        // エネミーの正面向きベクトルとエネミーへの方向ベクトルの差分角度
+        float angleToEnemy = Vector3.Angle(transform.forward, directionToEnemy);
+
+        // 引ける角度の範囲内にエネミーがいるかどうかを返却する
+        return (Mathf.Abs(angleToEnemy) <= 90);
+    }
+
     public void OnTriggerEnter(Collider other)
     {
-        if (other.name == "FrontHitArea")
+        if (other.name == "FrontHitArea")//プレイヤーババア用　ババアが特売品を轢く処理は頑張って
         {
+            if (transform.tag == "Enemy" && !CanGetEnemy(other.transform)) return;
+            var sc = other.transform.root.GetComponent<ShoppingCount>();
+            if (!sc.IsCatchBasket() || sc.IsBaggegeMax()) return;
             myNav.enabled = false;
             //ここにアニメ停止や変更入れるかも
-            var sc = other.transform.root.GetComponent<ShoppingCount>();
-            if (!sc.IsCatchBasket()) return;
             Vector3 v = other.transform.parent.transform.position;
             Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
             transform.position = nimotuPos;

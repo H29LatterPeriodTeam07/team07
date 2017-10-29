@@ -8,6 +8,8 @@ public class BasketFly : MonoBehaviour
     private Rigidbody m_rigid;
     private GameObject player;
 
+    public GameObject cartRigidPrefab;
+
     // Use this for initialization
     void Start()
     {
@@ -36,6 +38,20 @@ public class BasketFly : MonoBehaviour
             //transform.position = collision.transform.position + collision.transform.
             player.GetComponent<Player>().ChangeCart(collision.gameObject);
             player.SendMessage("BaggegeParentPlayer", SendMessageOptions.DontRequireReceiver);
+            Destroy(gameObject);
+        }
+        else if (collision.transform.tag == "EnemyCart")
+        {
+            EnemyCart ec = collision.gameObject.GetComponent<EnemyCart>();
+            ec.Independence();
+            
+
+            GameObject newcart = ec.NewCart();
+
+            newcart.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            player.GetComponent<Player>().ChangeCart(newcart.gameObject);
+            player.SendMessage("BaggegeParentPlayer", SendMessageOptions.DontRequireReceiver);
+            Destroy(collision.gameObject);
             Destroy(gameObject);
         }
         else if (collision.transform.tag != "Player")

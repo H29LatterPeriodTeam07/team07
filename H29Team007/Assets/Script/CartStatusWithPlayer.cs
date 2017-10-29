@@ -10,6 +10,12 @@ public class CartStatusWithPlayer : MonoBehaviour
 
     private float[] cartStatus;
 
+
+    [SerializeField, Header("カートのタイヤが壊れた時に毎フレーム下げる本体の耐久度")]
+    private float minusCartHP = 0.01f;
+    [SerializeField, Header("カートのハンドルが壊れた時に下げる回転速度")]
+    private float minusRotateSpeedDefault = 60;
+
     // Use this for initialization
     void Start()
     {
@@ -22,9 +28,13 @@ public class CartStatusWithPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*ここに部位の耐久値が０以下になったときに処理を書く
-         
-         */
+        if (!playerScript.IsCart()) return;
+        /*ここに部位の耐久値が０以下になったときの処理を書く*/
+         if(cartStatus[1] <= 0)
+        {
+            cartStatus[0] -= minusCartHP;
+        }
+
     }
 
     /// <summary>
@@ -34,6 +44,10 @@ public class CartStatusWithPlayer : MonoBehaviour
     public void GetCart(CartStatusWithCart cart)
     {
         cartStatus = cart.PassStatus();
+        if (cartStatus[3] <= 0)
+        {
+            playerScript.SetMinusRotateSpeed(minusRotateSpeedDefault);
+        }
     }
 
     /// <summary>
@@ -43,6 +57,7 @@ public class CartStatusWithPlayer : MonoBehaviour
     public void SetCart(CartStatusWithCart cart)
     {
         cart.SetStatus(cartStatus);
+        playerScript.SetMinusRotateSpeed(0);
     }
 
     public float HPNow()
@@ -52,17 +67,31 @@ public class CartStatusWithPlayer : MonoBehaviour
 
     public void DamageCart(float dm)
     {
-        cartStatus[0] -= dm;
-        /*ここでランダム部位にダメージを与える
-         
-         
-         
-         */
+        float dame = dm;
+        if (cartStatus[2] <= 0)dame = dame * 2;
+        cartStatus[0] -= dame;
+        /*ここでランダム部位にダメージを与える*/
+        int rand = Random.Range(1, 4);
+        
+        switch (rand)
+        {
+            case 1:cartStatus[1] -= dame; break;
+            case 2:cartStatus[2] -= dame; break;
+            case 3:cartStatus[3] -= dame; break;
+        }
 
+
+
+
+        if (cartStatus[3] <= 0)
+        {
+            playerScript.SetMinusRotateSpeed(minusRotateSpeedDefault);
+        }
         if (cartStatus[0] <= 0)
         {
             playerScript.BreakCart();
             scScript.BaggegeFall(transform.position);
+            playerScript.SetMinusRotateSpeed(0);
         }
     }
 

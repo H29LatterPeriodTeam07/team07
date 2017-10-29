@@ -18,6 +18,9 @@ public class ShoppingCount : MonoBehaviour
 
     private Basket basketScript;
 
+    public int maxCountDefault = 10;
+    private int maxCount;
+
     // Use this for initialization 
     void Start()
     {
@@ -26,6 +29,7 @@ public class ShoppingCount : MonoBehaviour
         playerScript = GetComponent<Player>();
         myBaggege = new List<Transform>();
         onPosition = 0.0f;
+        maxCount = maxCountDefault;
         basketScript = basket.GetComponent<Basket>();
         BasketOut();
     }
@@ -108,6 +112,29 @@ public class ShoppingCount : MonoBehaviour
     public bool IsCatchBasket()
     {
         return basket.activeSelf;
+    }
+
+    public bool IsBaggegeMax()
+    {
+        return (myBaggege.Count > maxCount - 1);
+    }
+
+    public bool IsBaggegeinHuman()
+    {
+        //List<Transform> mybags = new List<Transform>();
+        List<Transform> kesumono = new List<Transform>();
+        for (int i = 0; i < myBaggege.Count; i++)
+        {
+            if (myBaggege[i].tag == "Plasticbag" || myBaggege[i].tag == "Animal")
+            {
+                //mybags.Add(myBaggege[i]);
+            }
+            else
+            {
+                kesumono.Add(myBaggege[i]);
+            }
+        }
+        return (kesumono.Count > 0);
     }
 
     /// <summary>荷物の追加</summary>

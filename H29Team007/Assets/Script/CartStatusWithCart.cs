@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CartStatusWithCart : MonoBehaviour {
-    
 
-    //全体、カート下、荷台？の下、持つところの耐久値
-    private float[] cartStatus = {100.0f,0.0f,0.0f,0.0f };
+
+    [SerializeField, Header("全体、カート下、荷台？の下、持つところの耐久値")]
+    private float[] cartStatus = {100.0f,30.0f,30.0f,30.0f };
 
     // Use this for initialization
     void Start () {

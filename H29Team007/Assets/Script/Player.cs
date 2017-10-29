@@ -40,6 +40,9 @@ public class Player : MonoBehaviour
     private float kickSpeed = 10.0f;
 
 
+    private float minusRotateSpeed;
+
+
     [SerializeField, Header("その他")]
     public GameObject cartBodyPrefab;
     public GameObject cartRigidPrefab;
@@ -78,7 +81,7 @@ public class Player : MonoBehaviour
         inputHorizontal = (Input.GetAxisRaw("XboxLeftHorizontal") != 0) ? Input.GetAxisRaw("XboxLeftHorizontal") : Input.GetAxisRaw("Horizontal");
         inputVertical = (Input.GetAxisRaw("XboxLeftVertical") != 0) ? Input.GetAxisRaw("XboxLeftVertical") : Input.GetAxisRaw("Vertical");
 
-        if(myState == PlayerState.NoCart)
+        if (myState == PlayerState.NoCart)
         {
             Vector3 inputVec = new Vector3(inputHorizontal, 0, inputVertical);
             inputVec = Vector3.Normalize(inputVec);
@@ -141,7 +144,7 @@ public class Player : MonoBehaviour
     /// <summary>カートを持っているときの動き</summary>
     private void CartOnMove()
     {
-        transform.Rotate(new Vector3(0, inputHorizontal * onCartRotateSpeed * Time.deltaTime, 0));
+        transform.Rotate(new Vector3(0, inputHorizontal * (onCartRotateSpeed - minusRotateSpeed) * Time.deltaTime, 0));
 
         Vector3 moveForward = transform.forward * inputVertical * 3.0f;
 
@@ -176,7 +179,7 @@ public class Player : MonoBehaviour
     /// <summary>滑走中の動き </summary>
     private void CartGliding()
     {
-        transform.Rotate(new Vector3(0, inputHorizontal * angleRotateSpeed * Time.deltaTime, 0));
+        transform.Rotate(new Vector3(0, inputHorizontal * (angleRotateSpeed - minusRotateSpeed) * Time.deltaTime, 0));
 
         Quaternion a = new Quaternion(rb.velocity.x, 0, rb.velocity.z, 0);
         a *= Quaternion.AngleAxis(inputHorizontal * -velocityRotateSpeed, Vector3.up);
@@ -279,6 +282,25 @@ public class Player : MonoBehaviour
     public PlayerState GetState()
     {
         return myState;
+    }
+
+    /// <summary>プレイヤーがカートを持っているかどうか</summary>
+    /// <returns>持っていたらtrue</returns>
+    public bool IsCart()
+    {
+        return (myCart != null);
+    }
+
+    /// <summary>カゴの中に人が入っているか</summary>
+    /// <returns>入っていらたtrue</returns>
+    public bool IsGetHuman()
+    {
+        return scScript.IsBaggegeinHuman();
+    }
+
+    public void SetMinusRotateSpeed(float speed)
+    {
+        minusRotateSpeed = speed;
     }
     
     /// <summary>エネミーのプレイヤーが見えてるかのパクリ</summary>
