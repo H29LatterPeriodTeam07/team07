@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShoppingCount : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class ShoppingCount : MonoBehaviour
     public int maxCountDefault = 10;
     private int maxCount;
 
+    public Text score;
+
     // Use this for initialization 
     void Start()
     {
@@ -32,6 +35,7 @@ public class ShoppingCount : MonoBehaviour
         maxCount = maxCountDefault;
         basketScript = basket.GetComponent<Basket>();
         BasketOut();
+        SetScore();
     }
 
     // Update is called once per frame
@@ -82,6 +86,7 @@ public class ShoppingCount : MonoBehaviour
     {
         myBaggege.Clear();
         onPosition = 0.0f;
+        SetScore();
     }
 
     public float GetY()
@@ -143,6 +148,7 @@ public class ShoppingCount : MonoBehaviour
     {
         baggege.parent = basket.transform;
         myBaggege.Add(baggege);
+        SetScore();
     }
 
     public void BaggegeParentPlayer()
@@ -197,7 +203,8 @@ public class ShoppingCount : MonoBehaviour
     {
         List<Transform> mybags = new List<Transform>();
         List<Transform> kesumono = new List<Transform>();
-        //ここでエネミーからの値段をもらう
+        int bagprice = 0;
+
         for (int i = 0; i < myBaggege.Count; i++)
         {
             if (myBaggege[i].tag == "Plasticbag")
@@ -207,6 +214,7 @@ public class ShoppingCount : MonoBehaviour
             else
             {
                 kesumono.Add(myBaggege[i]);
+                bagprice += myBaggege[i].GetComponent<EnemyScore>().GetPrice();
             }
         }
 
@@ -228,8 +236,21 @@ public class ShoppingCount : MonoBehaviour
             }
             GameObject newbag = Instantiate(bagPrefab);
 
+            newbag.GetComponent<EnemyScore>().SetPrice(bagprice);
             newbag.GetComponent<RunOverObject>().SetPlasticBagPos(basket);
         }
+    }
+
+    private void SetScore()
+    {
+        int goukei = 0;
+        //ここでエネミーからの値段をもらう
+        for (int i = 0; i < myBaggege.Count; i++)
+        {
+            goukei += myBaggege[i].GetComponent<EnemyScore>().GetPrice();
+        }
+        string printscore = goukei.ToString();
+        score.text = "￥" + printscore;
     }
 
     public void OnTriggerEnter(Collider other)
