@@ -28,12 +28,22 @@ public class BasketFly : MonoBehaviour
             m_rigid.constraints = RigidbodyConstraints.FreezePositionY;
             GetComponent<BoxCollider>().isTrigger = true;
         }
+        if(transform.position.y < -1) //デバッグ中に下に落ちた('ω')
+        {
+            transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+            m_rigid.velocity = Vector3.zero;
+            m_rigid.constraints = RigidbodyConstraints.FreezePositionY;
+            GetComponent<BoxCollider>().isTrigger = true;
+
+        }
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.tag == "Cart")
+        if (collision.transform.tag == "Cart")
         {
+            //Debug.Log(gameObject.name);
             collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             //transform.position = collision.transform.position + collision.transform.
             player.GetComponent<Player>().ChangeCart(collision.gameObject);
@@ -42,9 +52,10 @@ public class BasketFly : MonoBehaviour
         }
         else if (collision.transform.tag == "EnemyCart")
         {
+            //Debug.Log(collision.gameObject.name);
             EnemyCart ec = collision.gameObject.GetComponent<EnemyCart>();
             ec.Independence();
-            
+
 
             GameObject newcart = ec.NewCart();
 
@@ -59,7 +70,7 @@ public class BasketFly : MonoBehaviour
             ShoppingCount sc = player.GetComponent<ShoppingCount>();
             sc.BaggegeFall(transform.position);
         }
-        
+
 
     }
 }

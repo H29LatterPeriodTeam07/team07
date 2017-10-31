@@ -9,11 +9,13 @@ public class RunOverObject : MonoBehaviour
     private float runOverAfterHeight = 1.0f;
 
     private NavMeshAgent myNav;
+    private BoxCollider myCollider;
 
     // Use this for initialization
     void Start()
     {
         myNav = GetComponent<NavMeshAgent>();
+        myCollider = GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
@@ -25,6 +27,7 @@ public class RunOverObject : MonoBehaviour
     public void NavReStart()
     {
         myNav.enabled = true;
+        myCollider.enabled = true;
         //ここにアニメ再開入れるかも
     }
 
@@ -42,6 +45,8 @@ public class RunOverObject : MonoBehaviour
         //myNav.enabled = false;
 
         var sc = basket.transform.root.GetComponent<ShoppingCount>();
+        //myCollider = GetComponent<BoxCollider>();
+        //myCollider.enabled = false;
         Vector3 v = basket.transform.position;
         Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
         transform.position = nimotuPos;
@@ -69,12 +74,13 @@ public class RunOverObject : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.name == "FrontHitArea")//プレイヤーババア用　ババアが特売品を轢く処理は頑張って
+        if (other.name == "FrontHitArea")//プレイヤーババア用　敵ババアが特売品を轢く処理は頑張って
         {
             if (transform.tag == "Enemy" && !CanGetEnemy(other.transform)) return;
             var sc = other.transform.root.GetComponent<ShoppingCount>();
             if (!sc.IsCatchBasket() || sc.IsBaggegeMax()) return;
             myNav.enabled = false;
+            myCollider.enabled = false;  //荷物のあたり判定のせいでカート増えてたあばばばばば 敵全部ボックスコライダーでありがと
             //ここにアニメ停止や変更入れるかも
             Vector3 v = other.transform.parent.transform.position;
             Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);

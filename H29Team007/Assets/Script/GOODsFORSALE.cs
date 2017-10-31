@@ -54,7 +54,7 @@ public class GOODsFORSALE : MonoBehaviour {
         //プレイヤーの注視点を名前で検索して保持
         m_PlayerLookpoint = m_Player.transform.Find("LookPoint");
         //BBAの注視点を名前で検索して保持
-        m_BBALookpoint = m_BBA.transform.Find("BBAEye");
+        if(m_BBA != null)m_BBALookpoint = m_BBA.transform.Find("BBAEye");
         m_EyePoint = transform.Find("AnimalLookEye");
         //タグでパトロールポイントの親を検索して保持
         m_PatrolPoint = GameObject.FindGameObjectWithTag("PatrolPoint");
@@ -74,12 +74,11 @@ public class GOODsFORSALE : MonoBehaviour {
     {
         if (m_State == SaleAnimalState.NormalMode)
         {
-            if (CanSeePlayer() || CanSeeBBA())
+            if (CanSeePlayer()|| CanSeeBBA())
             {
                 //退避に状態変更
                 m_State = SaleAnimalState.WarningMode;
             }
-
             else
             {
                 DoPatrol();
@@ -92,6 +91,7 @@ public class GOODsFORSALE : MonoBehaviour {
             // プレイヤーが見えている場合
             if (CanSeePlayer())
             {
+                if (!m_Agent.enabled) return;
                 m_ViewingDistance = 10;
                 m_ViewingAngle = 360;
                 m_Agent.speed = 3;
@@ -223,6 +223,7 @@ public class GOODsFORSALE : MonoBehaviour {
     // プレイヤーが見えるか？
     bool CanSeeBBA()
     {
+        if (m_BBA == null) return false;
         // 見える距離の範囲内にプレイヤーがいない場合→見えない
         if (!IsBBAInViewingDistance())
             return false;

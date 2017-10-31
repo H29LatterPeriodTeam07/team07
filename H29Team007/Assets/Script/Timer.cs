@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-//using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour {
 
@@ -23,6 +23,8 @@ public class Timer : MonoBehaviour {
         {
             timer = 0.0f;
             //リザルト画面表示
+            SceneManager.LoadScene("Title");
+
         }
 
         m_slider.value = timer;

@@ -12,6 +12,10 @@ public class EnemyScore : MonoBehaviour {
         switch (transform.tag)
         {
             case "Untagged": m_price = 100;break;
+            case "Enemy": m_price = 100; break;
+            case "BBA": m_price = 100; break;
+            case "Parent": m_price = 100; break;
+            case "Animal": m_price = 100; break;
         }
 	}
 	

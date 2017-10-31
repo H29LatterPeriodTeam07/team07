@@ -43,6 +43,7 @@ public class Child : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (m_Parent == null) Destroy(gameObject);
         Vector3 PPos = m_ParentEyePoint.position;
         Vector3 CPos = m_LookEye.position;
         float dis = Vector3.Distance(PPos, CPos);

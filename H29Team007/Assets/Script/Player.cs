@@ -92,7 +92,8 @@ public class Player : MonoBehaviour
 
         //if (!scScript.IsCatchBasket()) return;
 
-        if (GetState() != PlayerState.NoCart)
+        if (GetState() != PlayerState.NoCart &&
+            GetState() != PlayerState.Takeover)
         {
             if (Input.GetButtonDown("XboxA") || Input.GetKeyDown(KeyCode.R))
             {
@@ -243,8 +244,6 @@ public class Player : MonoBehaviour
     public void ReleaseCart()
     {
         if (myCart == null) return;
-        //Debug.Log("あほう");
-        BreakCart();
 
         GameObject cart = Instantiate(cartRigidPrefab);
 
@@ -257,6 +256,7 @@ public class Player : MonoBehaviour
         relativePos.y = 0; //上下方向の回転はしないように制御
         transform.rotation = Quaternion.LookRotation(relativePos);
         cart.transform.rotation = Quaternion.LookRotation(relativePos);
+        BreakCart();
     }
 
     /// <summary>カートを持つ</summary>
