@@ -194,6 +194,7 @@ public class SecurityGuard : MonoBehaviour {
         return true;
     }
 
+    //プレイヤーを追いかける   
     public bool StateChasing()
     {
         return m_State == EnemyState.Chasing;

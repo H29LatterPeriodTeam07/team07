@@ -30,15 +30,16 @@ public class BBA : MonoBehaviour {
     public bool m_sale = false;
     //特売品ゲットだぜ
     public bool m_GetSaleAnimal = false;
-    
 
+    [SerializeField, Header("特売品の出現場所を入れるところ")]
+    private GameObject[] m_SaleAnimalSpowns;
     private BBAState m_State = BBAState.NormalMode;
     private float m_Speed = 1.0f;
-
-    NavMeshAgent m_Agent;
     //現在の巡回ポイントのインデックス
     int m_CurrentPatrolPointIndex = 1;
     int m_CurrentPatrolPoint2Index = 1;
+
+    NavMeshAgent m_Agent;
     //プレイヤーへの参照
     GameObject m_Player;
     //プレイヤーへの注視点
@@ -46,9 +47,10 @@ public class BBA : MonoBehaviour {
     //自身の目の位置
     Transform m_EyePoint;
     //特売品への参照
-    public GameObject m_SaleAnimals;
+    GameObject m_SaleAnimals;
     //特売品への注視点
-    public Transform m_SaleAnimalsLookPoint;
+    Transform m_SaleAnimalsLookPoint;
+    SaleSpown m_scSaleSpown;
 
 
     // Use this for initialization
@@ -62,6 +64,10 @@ public class BBA : MonoBehaviour {
         //プレイヤーの注視点を名前で検索して保持
         m_PlayerLookpoint = m_Player.transform.Find("LookPoint");
         m_EyePoint = transform.Find("BBAEye");
+        //スクリプトSaleSpownへの参照
+        for (int i = 0; i < m_SaleAnimalSpowns.Length; i++) {
+            m_scSaleSpown = m_SaleAnimalSpowns[i].GetComponent<SaleSpown>();
+        }
         //タグで特売品オブジェぅとを検索して保持
          m_SaleAnimals = GameObject.FindGameObjectWithTag("Animal");
         //特売品の注視点を名前で検索して保持
@@ -77,9 +83,9 @@ public class BBA : MonoBehaviour {
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
             //特売品が出てくる時間になったら特売品モードに
-            if (m_sale)
+            if (m_scSaleSpown.SaleMode())
             {
-                //退避に状態変更
+                //特売品モードに状態変更
                 m_State = BBAState.SaleMode;
              //   m_Agent.destination = m_Player.transform.position;
             }
@@ -99,6 +105,7 @@ public class BBA : MonoBehaviour {
                 //特売品が見えた場合
                 if (CanSeePlayer())
                 {
+                    m_Agent.speed = 3;
                     m_Agent.destination = m_SaleAnimals.transform.position;
                 }
                 else if (HasArrived())

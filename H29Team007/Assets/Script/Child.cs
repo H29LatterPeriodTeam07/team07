@@ -47,58 +47,61 @@ public class Child : MonoBehaviour {
     {
         if (m_Parent == null)
         {
+            m_Agent.speed = 3;
             m_Agent.destination = m_ExitPoition.transform.position;
             if (HasArrived())
             {
                 m_Agent.speed = 0;
             }
         }
-        Vector3 PPos = m_ParentEyePoint.position;
-        Vector3 CPos = m_LookEye.position;
-        float dis = Vector3.Distance(PPos, CPos);
-       // print(dis);
-        m_Animator.SetFloat("Speed", m_Agent.speed);
-        if (m_State == ChildState.NormalMode)
-        {
-            m_Agent.speed = 1f;
-            m_Agent.destination = PPos;
-            if (dis > 5.0f)
+        else {
+            Vector3 PPos = m_ParentEyePoint.position;
+            Vector3 CPos = m_LookEye.position;
+            float dis = Vector3.Distance(PPos, CPos);
+            // print(dis);
+            m_Animator.SetFloat("Speed", m_Agent.speed);
+            if (m_State == ChildState.NormalMode)
+            {
+                m_Agent.speed = 1f;
+                m_Agent.destination = PPos;
+                if (dis > 5.0f)
+                {
+                    m_ViewingDistance = 100;
+                    m_ViewingAngle = 180;
+                    if (CanSeeParent())
+                    {
+                        print("見える、見えるぞ");
+                        m_Agent.speed = 2.0f;
+                        m_Agent.destination = PPos;
+                    }
+                    else
+                    {
+                        m_State = ChildState.ChasingWarningMode;
+                    }
+                }
+            }
+
+            else if (m_State == ChildState.ChasingWarningMode)
             {
                 m_ViewingDistance = 100;
                 m_ViewingAngle = 180;
                 if (CanSeeParent())
                 {
-                    print("見える、見えるぞ");
+                    print("いたぞおおおおおお");
                     m_Agent.speed = 2.0f;
                     m_Agent.destination = PPos;
                 }
-                else
+                else if (HasArrived())
                 {
-                    m_State = ChildState.ChasingWarningMode;
+                    m_State = ChildState.CryMode;
                 }
             }
-        }
-
-        else if(m_State == ChildState.ChasingWarningMode)
-        {
-            m_ViewingDistance = 100;
-            m_ViewingAngle = 180;
-            if (CanSeeParent())
+            else if (m_State == ChildState.CryMode)
             {
-                print("いたぞおおおおおお");
-                m_Agent.speed = 2.0f;
-                m_Agent.destination = PPos;
+                m_Agent.speed = 0;
+                print("おーいおいおいおいおい、おいおい");
+                m_GaurdCoal = true;
             }
-            else if(HasArrived())
-            {
-                m_State = ChildState.CryMode;
-            }
-        }
-        else if(m_State == ChildState.CryMode)
-        {
-            m_Agent.speed = 0;
-            print("おーいおいおいおいおい、おいおい");
-            m_GaurdCoal = true;
         }
     }
 
