@@ -115,20 +115,35 @@ public class ShoppingCount : MonoBehaviour
         basketScript.SetBasketGlobalRotation(angle);
     }
 
+    /// <summary>プレイヤーが持っているカゴのあたり判定のactive</summary>
+    /// <param name="active">あたり判定を有効にするかどうか</param>
+    public void SetBasketColliderActive(bool active)
+    {
+        basket.GetComponent<BoxCollider>().enabled = active;
+    }
+
+
+    /// <summary>プレイヤーが持っているカゴがactiveか</summary>
+    /// <returns>activeならtrue</returns>
     public bool IsCatchBasket()
     {
         return basket.activeSelf;
     }
 
+    /// <summary>カゴにのる量が最大以上か</summary>
+    /// <returns>ぴったり、または乗りすぎていたらtrue</returns>
     public bool IsBaggegeMax()
     {
         return (myBaggege.Count > maxCount - 1);
     }
 
+    /// <summary>カゴの中に人が入っているか</summary>
+    /// <returns>入っていたらtrue</returns>
     public bool IsBaggegeinHuman()
     {
         //List<Transform> mybags = new List<Transform>();
-        List<Transform> kesumono = new List<Transform>();
+        //List<Transform> kesumono = new List<Transform>();
+        int hc = 0;
         for (int i = 0; i < myBaggege.Count; i++)
         {
             if (myBaggege[i].tag == "Plasticbag" || myBaggege[i].tag == "Animal")
@@ -137,10 +152,32 @@ public class ShoppingCount : MonoBehaviour
             }
             else
             {
-                kesumono.Add(myBaggege[i]);
+                hc++;
             }
         }
-        return (kesumono.Count > 0);
+        return (hc > 0);
+    }
+
+    public bool IsHumanMoreThanAnimal()
+    {
+        int humanCount = 1;
+        int animalCount = 0;
+        for (int i = 0; i < myBaggege.Count; i++)
+        {
+            if (myBaggege[i].tag == "Plasticbag")
+            {
+                //mybags.Add(myBaggege[i]);
+            }
+            else if (myBaggege[i].tag == "Animal")
+            {
+                animalCount++;
+            }
+            else
+            {
+                humanCount++;
+            }
+        }
+        return (humanCount > animalCount);
     }
 
     /// <summary>荷物の追加</summary>

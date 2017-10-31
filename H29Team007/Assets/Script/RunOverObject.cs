@@ -78,6 +78,7 @@ public class RunOverObject : MonoBehaviour
         {
             if (transform.tag == "Enemy" && !CanGetEnemy(other.transform)) return;
             var sc = other.transform.root.GetComponent<ShoppingCount>();
+            if (transform.tag == "Animal" && !sc.IsHumanMoreThanAnimal()) return;
             if (!sc.IsCatchBasket() || sc.IsBaggegeMax()) return;
             myNav.enabled = false;
             myCollider.enabled = false;  //荷物のあたり判定のせいでカート増えてたあばばばばば 敵全部ボックスコライダーでありがと

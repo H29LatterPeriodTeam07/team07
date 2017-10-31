@@ -60,6 +60,8 @@ public class Player : MonoBehaviour
 
     private ShoppingCount scScript;
 
+    public Transform exitPoint;
+
 
     void Start()
     {
@@ -131,8 +133,8 @@ public class Player : MonoBehaviour
     {
         switch (state)
         {
-            case 0: myState = PlayerState.NoCart; break;
-            case 1: myState = PlayerState.OnCart; break;
+            case 0: myState = PlayerState.NoCart; scScript.SetBasketColliderActive(true); break;
+            case 1: myState = PlayerState.OnCart; scScript.SetBasketColliderActive(false); break;
             case 2: myState = PlayerState.Gliding; myCC.material = glidingPhysiMat; break;
             case 3: myState = PlayerState.Takeover; break;
         }
@@ -195,7 +197,7 @@ public class Player : MonoBehaviour
             ChangeState(1);
         }
     }
-    
+
     /// <summary>カートのジャック</summary>
     private void PlayerHacking()
     {
@@ -204,7 +206,8 @@ public class Player : MonoBehaviour
         //scScript.SetBasketPos(basPos);
         //scScript.SetBasketAngle(nextCart.transform.rotation);
         myNav.destination = nextCart.transform.position + nextCart.transform.forward * (-1.5f);
-        if (Vector3.Distance(myNav.destination, transform.position) < 0.5f){
+        if (Vector3.Distance(myNav.destination, transform.position) < 0.5f)
+        {
             transform.position = myNav.destination;
             transform.rotation = nextCart.transform.rotation;
             myNav.enabled = false;
@@ -292,7 +295,7 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>カゴの中に人が入っているか</summary>
-    /// <returns>入っていらたtrue</returns>
+    /// <returns>入っていたらtrue</returns>
     public bool IsGetHuman()
     {
         return scScript.IsBaggegeinHuman();
@@ -302,7 +305,7 @@ public class Player : MonoBehaviour
     {
         minusRotateSpeed = speed;
     }
-    
+
     /// <summary>エネミーのプレイヤーが見えてるかのパクリ</summary>
     private bool CanGetCart()
     {
@@ -315,6 +318,15 @@ public class Player : MonoBehaviour
         return (Mathf.Abs(angleToCart) <= 90);
     }
 
+    public void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.tag == "Enemy")
+        {
+            ReleaseCart();
+            transform.position = exitPoint.position;
+        }
+    }
+
     public void OnTriggerStay(Collider other)
     {
         if (other.name == "BackHitArea")
@@ -323,12 +335,10 @@ public class Player : MonoBehaviour
             if (CanGetCart())
             {
                 canGet = true;
-               // Debug.Log("a");
             }
             else
             {
                 canGet = false;
-               // Debug.Log("b");
             }
         }
     }
