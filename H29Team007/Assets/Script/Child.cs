@@ -22,6 +22,8 @@ public class Child : MonoBehaviour {
     public float m_ViewingAngle;
     public bool m_GaurdCoal = false;
 
+    [SerializeField, Header("出口")]
+    private Transform m_ExitPoition;
     private ChildState m_State = ChildState.NormalMode;
     private GameObject m_Parent;
     private Transform m_ParentEyePoint;
@@ -43,7 +45,14 @@ public class Child : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (m_Parent == null) Destroy(gameObject);
+        if (m_Parent == null)
+        {
+            m_Agent.destination = m_ExitPoition.transform.position;
+            if (HasArrived())
+            {
+                m_Agent.speed = 0;
+            }
+        }
         Vector3 PPos = m_ParentEyePoint.position;
         Vector3 CPos = m_LookEye.position;
         float dis = Vector3.Distance(PPos, CPos);

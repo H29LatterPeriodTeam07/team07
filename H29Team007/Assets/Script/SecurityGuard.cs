@@ -24,8 +24,8 @@ public class SecurityGuard : MonoBehaviour {
     //視野角
     public float m_ViewingAngle;
     public GameObject m_Enemy;
-    public float m_JumpPower = 10.0f;		// ジャンプ力（初速(メートル/秒)）
 
+    private Player m_scPlayer;
     private EnemyState m_State = EnemyState.Patrolling;
     private Animator m_Animator;
     NavMeshAgent m_Agent;
@@ -52,6 +52,7 @@ public class SecurityGuard : MonoBehaviour {
         m_PlayerLookpoint = m_Player.transform.Find("LookPoint");
         m_EyePoint = transform.Find("LookEye");
         m_Animator = GetComponent<Animator>();
+        m_scPlayer = m_Player.GetComponent<Player>();
 	}
 
     // Update is called once per frame
@@ -68,7 +69,7 @@ public class SecurityGuard : MonoBehaviour {
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
             //プレイヤーが見えた場合
-            if (CanSeePlayer())
+            if (CanSeePlayer() && m_scPlayer.IsGetHuman())
             {
                 //追跡中に状態変更
                 m_State = EnemyState.Chasing;
@@ -191,5 +192,10 @@ public class SecurityGuard : MonoBehaviour {
             return false;
         // ここまで到達したら、それはプレイヤーが見えるということ
         return true;
+    }
+
+    public bool StateChasing()
+    {
+        return m_State == EnemyState.Chasing;
     }
 }
