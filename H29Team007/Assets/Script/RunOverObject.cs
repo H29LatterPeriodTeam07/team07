@@ -93,9 +93,7 @@ public class RunOverObject : MonoBehaviour
         }
         if (other.name == "EnemyFrontHitArea")//敵ババア用
         {
-            if (transform.tag == "Animal" && !CanGetEnemy(other.transform)) return;
             var sc = other.transform.root.GetComponent<ShoppingCount>();
-            if (!sc.IsCatchBasket() || sc.IsBaggegeMax()) return;
             myNav.enabled = false;
             myCollider.enabled = false;
             Vector3 v = other.transform.parent.transform.position;

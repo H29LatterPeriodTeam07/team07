@@ -51,6 +51,7 @@ public class BBA : MonoBehaviour {
     //特売品への注視点
     Transform m_SaleAnimalsLookPoint;
     SaleSpown m_scSaleSpown;
+    BBACartCount m_scBBAcount;
 
 
     // Use this for initialization
@@ -112,7 +113,7 @@ public class BBA : MonoBehaviour {
                 {
                     SetNewSalePatrolPointToDestination();
                 }
-                if (m_sale == false)
+                if (!m_scSaleSpown.SaleMode())
                 {
                     m_State = BBAState.NormalMode;
                 }
