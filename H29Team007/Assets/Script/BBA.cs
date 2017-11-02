@@ -117,8 +117,8 @@ public class BBA : MonoBehaviour {
                 {
                     m_State = BBAState.NormalMode;
                 }
-            
-            if(m_GetSaleAnimal)
+
+            if (isGetAnimal())
             {
               m_Agent.destination = m_ReziPoint.transform.position;
             }
@@ -200,5 +200,10 @@ public class BBA : MonoBehaviour {
             return false;
         // ここまで到達したら、それはプレイヤーが見えるということ
         return true;
+    }
+
+    public bool isGetAnimal()
+    {
+        return m_scBBAcount.IsAnimal();
     }
 }

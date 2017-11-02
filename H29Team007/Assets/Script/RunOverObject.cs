@@ -93,15 +93,10 @@ public class RunOverObject : MonoBehaviour
         }
         if (other.name == "EnemyFrontHitArea")//敵ババア用
         {
-            var sc = other.transform.root.GetComponent<ShoppingCount>();
+            var sc = other.transform.root.GetComponent<BBACartCount>();
             myNav.enabled = false;
             myCollider.enabled = false;
             Vector3 v = other.transform.parent.transform.position;
-            Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
-            transform.position = nimotuPos;
-            sc.AddBaggege(transform);
-
-            sc.PlusY(runOverAfterHeight);
         }
     }
 }
