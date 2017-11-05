@@ -39,6 +39,7 @@ public class SaleMaterial : MonoBehaviour {
             m_scSaleSpwn.Appear();
             m_scSaleSpwn.m_CurrentApperTimeIndex++;
             m_scSaleSpwn.m_Num++;
+            m_time = 0;
         }
     }
 
@@ -54,6 +55,7 @@ public class SaleMaterial : MonoBehaviour {
             m_scSaleSpwn.Appear();
             m_scSaleSpwn.m_CurrentApperTimeIndex++;
             m_scSaleSpwn.m_Num++;
+            m_time = 0;
         }
     }
 
@@ -69,6 +71,7 @@ public class SaleMaterial : MonoBehaviour {
             m_scSaleSpwn.Appear();
             m_scSaleSpwn.m_CurrentApperTimeIndex++;
             m_scSaleSpwn.m_Num++;
+            m_time = 0;
         }
     }
 }
