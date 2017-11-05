@@ -91,12 +91,19 @@ public class RunOverObject : MonoBehaviour
 
             sc.PlusY(runOverAfterHeight);
         }
-        if (other.name == "EnemyFrontHitArea")//敵ババア用
+        if (other.name == "EnemyFrontHitArea")//プレイヤーババア用　敵ババアが特売品を轢く処理は頑張って
         {
-            var sc = other.transform.root.GetComponent<BBACartCount>();
+            var sc = other.transform.root.GetComponent<ShoppingCount>();
             myNav.enabled = false;
-            myCollider.enabled = false;
+            myCollider.enabled = false;  //荷物のあたり判定のせいでカート増えてたあばばばばば 敵全部ボックスコライダーでありがと
+            //ここにアニメ停止や変更入れるかも
             Vector3 v = other.transform.parent.transform.position;
+            Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
+            transform.position = nimotuPos;
+            sc.AddBaggege(transform);
+            //transform.parent = other.transform.root;
+
+            sc.PlusY(runOverAfterHeight);
         }
     }
 }

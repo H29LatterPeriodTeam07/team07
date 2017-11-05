@@ -27,9 +27,6 @@ public class BBA : MonoBehaviour {
     public float m_ViewingDistance;
     //視野角
     public float m_ViewingAngle;
-    public bool m_sale = false;
-    //特売品ゲットだぜ
-    public bool m_GetSaleAnimal = false;
 
     [SerializeField, Header("特売品の出現場所を入れるところ")]
     private GameObject[] m_SaleAnimalSpowns;
@@ -47,12 +44,12 @@ public class BBA : MonoBehaviour {
     //自身の目の位置
     Transform m_EyePoint;
     //特売品への参照
-    GameObject m_SaleAnimals;
+    public GameObject m_SaleAnimals;
     //特売品への注視点
-    Transform m_SaleAnimalsLookPoint;
+    public Transform m_SaleAnimalsLookPoint;
     SaleSpown m_scSaleSpown;
     BBACartCount m_scBBAcount;
-
+    int m_SaleSpownIndex = 0;
 
     // Use this for initialization
     void Start()
@@ -69,15 +66,12 @@ public class BBA : MonoBehaviour {
         for (int i = 0; i < m_SaleAnimalSpowns.Length; i++) {
             m_scSaleSpown = m_SaleAnimalSpowns[i].GetComponent<SaleSpown>();
         }
-        //タグで特売品オブジェぅとを検索して保持
-         m_SaleAnimals = GameObject.FindGameObjectWithTag("Animal");
-        //特売品の注視点を名前で検索して保持
-         m_SaleAnimalsLookPoint = m_SaleAnimals.transform.Find("AnimalLookEye");
     }
 
     // Update is called once per frame
     void Update()
     {
+        print(m_State);
         //巡回中
         if (m_State == BBAState.NormalMode)
         {
@@ -101,27 +95,28 @@ public class BBA : MonoBehaviour {
         //特売品モード
         else if (m_State == BBAState.SaleMode)
         {
+            SetNewSalePatrolPointToDestination();
+            
             m_ViewingDistance = 100;
             m_ViewingAngle = 180;
-                //特売品が見えた場合
-                if (CanSeePlayer())
-                {
-                    m_Agent.speed = 3;
-                    m_Agent.destination = m_SaleAnimals.transform.position;
-                }
-                else if (HasArrived())
-                {
-                    SetNewSalePatrolPointToDestination();
-                }
-                if (!m_scSaleSpown.SaleMode())
-                {
-                    m_State = BBAState.NormalMode;
-                }
-
-            if (isGetAnimal())
+            Ray ray = new Ray(m_EyePoint.position, m_EyePoint.forward);
+            RaycastHit hitInfo;
+            bool hit = Physics.Raycast(ray, out hitInfo);
+            if(hit && hitInfo.collider.tag == "Animal")
             {
-              m_Agent.destination = m_ReziPoint.transform.position;
+                m_SaleAnimals = GameObject.FindGameObjectWithTag("Animal");
+                m_Agent.destination = m_SaleAnimals.transform.position;
             }
+
+            else if (HasArrived())
+            {
+                transform.LookAt(m_SaleAnimalSpowns[0].transform.position);
+            }
+
+            //if (isGetAnimal())
+            //{
+            //  m_Agent.destination = m_ReziPoint.transform.position;
+            //}
         }
         //攻撃モード
         else if (m_State == BBAState.attackMode)
@@ -150,60 +145,5 @@ public class BBA : MonoBehaviour {
     bool HasArrived()
     {
         return (Vector3.Distance(m_Agent.destination, transform.position) < 0.5f);
-    }
-
-    //プレイヤーが見える距離内にいるか？
-    bool IsPlayerInViewingDistance()
-    {
-        //自身からプレイヤーまでの距離
-        float distanceToPlayer = Vector3.Distance(m_SaleAnimalsLookPoint.position, m_EyePoint.position);
-        //プレイヤーが見える距離内にいるかどうかを返却する
-        return (distanceToPlayer <= m_ViewingDistance);
-    }
-
-    //プレイヤーが見える視野角内にいるか？
-    bool IsPlayerInViewingAngle()
-    {
-        //自分からプレイヤーへの方向ベクトル(ワールド座標系)
-        Vector3 directionToPlayer = m_SaleAnimalsLookPoint.position - m_EyePoint.position;
-        // 自分の正面向きベクトルとプレイヤーへの方向ベクトルの差分角度
-        float angleToPlayer = Vector3.Angle(m_EyePoint.forward, directionToPlayer);
-
-        // 見える視野角の範囲内にプレイヤーがいるかどうかを返却する
-        return (Mathf.Abs(angleToPlayer) <= m_ViewingAngle);
-    }
-
-    // プレイヤーにRayを飛ばしたら当たるか？
-    bool CanHitRayToPlayer()
-    {
-        // 自分からプレイヤーへの方向ベクトル（ワールド座標系）
-        Vector3 directionToPlayer = m_SaleAnimalsLookPoint.position - m_EyePoint.position;
-        // 壁の向こう側などにいる場合は見えない
-        RaycastHit hitInfo;
-        bool hit
-            = Physics.Raycast(m_EyePoint.position, directionToPlayer, out hitInfo);
-        // プレイヤーにRayが当たったかどうかを返却する
-        return (hit && hitInfo.collider.tag == "Animal");
-    }
-
-    // プレイヤーが見えるか？
-    bool CanSeePlayer()
-    {
-        // 見える距離の範囲内にプレイヤーがいない場合→見えない
-        if (!IsPlayerInViewingDistance())
-            return false;
-        // 見える視野角の範囲内にプレイヤーがいない場合→見えない
-        if (!IsPlayerInViewingAngle())
-            return false;
-        // Rayを飛ばして、それがプレイヤーに当たらない場合→見えない
-        if (!CanHitRayToPlayer())
-            return false;
-        // ここまで到達したら、それはプレイヤーが見えるということ
-        return true;
-    }
-
-    public bool isGetAnimal()
-    {
-        return m_scBBAcount.IsAnimal();
     }
 }

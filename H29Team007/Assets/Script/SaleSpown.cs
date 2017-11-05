@@ -12,17 +12,21 @@ public class SaleSpown : MonoBehaviour {
     public float[] m_ApperTime;
     public float m_SaleModeTime;
     public GameObject m_Time;
-    private int m_Num = 0;
+    public GameObject m_SaleMaterial;
+    public int m_Num = 0;
+
     Timer m_timer;
     int m_CurrentSaleAnimeIndex=0;
-    int m_CurrentApperTimeIndex=0;
+    public int m_CurrentApperTimeIndex=0;
     float m_SaleMode=0;
+    SaleMaterial m_scSale;
+    string m_Pigname, FishName, CowName;
 
     // Use this for initialization
     void Start()
     {
         m_timer = m_Time.GetComponent<Timer>();
-
+        m_scSale = m_SaleMaterial.GetComponent<SaleMaterial>();
     }
 
     // Update is called once per frame
@@ -32,20 +36,39 @@ public class SaleSpown : MonoBehaviour {
         {
             m_SaleMode = m_ApperTime[m_CurrentApperTimeIndex] - m_SaleModeTime;
             if (m_timer.timer > m_ApperTime[m_CurrentApperTimeIndex])
-            { 
-                m_CurrentApperTimeIndex++;
-                Appear();
-                m_Num++;
+            {
+                if (m_SaleAnimals[m_CurrentSaleAnimeIndex].gameObject.name == "SaleAnimalCow")
+                {
+                    m_scSale.ApperCow();
+                    //m_CurrentApperTimeIndex++;
+                    //Appear();
+                    //m_Num++;
+                }
+                if (m_SaleAnimals[m_CurrentSaleAnimeIndex].gameObject.name == "SaleAnimalFish")
+                {
+                    m_scSale.ApperFish();
+                    //m_CurrentApperTimeIndex++;
+                    //Appear();
+                    //m_Num++;
+                }
+                if (m_SaleAnimals[m_CurrentSaleAnimeIndex].gameObject.name == "SaleAnimalPig")
+                {
+                    m_scSale.ApperPig();
+                    //m_CurrentApperTimeIndex++;
+                    //Appear();
+                    //m_Num++;
+                }
             }
         }
     }
 
-    void Appear()
+   public void Appear()
     {
         if (m_Num < m_SaleAnimals.Length)
         {
-            Instantiate(m_SaleAnimals[m_CurrentSaleAnimeIndex], transform.position, transform.rotation);
-            m_CurrentSaleAnimeIndex++;
+                Instantiate(m_SaleAnimals[m_CurrentSaleAnimeIndex], transform.position, transform.rotation);
+                m_CurrentSaleAnimeIndex++;
+            
         }
     }
 

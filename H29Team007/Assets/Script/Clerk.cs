@@ -14,7 +14,7 @@ public enum ClerkState
 public class Clerk : MonoBehaviour
 {
     //巡回ポイント
-    public Transform[] m_PatrolPoints;
+   // public Transform[] m_PatrolPoints;
     //見える距離
     public float m_ViewingDistance;
     //視野角
@@ -31,11 +31,22 @@ public class Clerk : MonoBehaviour
     Transform m_PlayerLookpoint;
     //自身の目の位置
     Transform m_EyePoint;
+    int m_rand;
+    GameObject m_PatrolPoint;
+    GameObject[] m_PatrolPoints;
 
 
     // Use this for initialization
     void Start()
     {
+        //タグでパトロールポイントの親を検索して保持
+        m_PatrolPoint = GameObject.FindGameObjectWithTag("PatrolPoint");
+        m_PatrolPoints = new GameObject[m_PatrolPoint.transform.childCount];
+        //パトロールポイントの子を取得
+        for (int i = 0; m_PatrolPoint.transform.childCount > i; i++)
+        {
+            m_PatrolPoints[i] = m_PatrolPoint.transform.GetChild(i).gameObject;
+        }
         m_Agent = GetComponent<NavMeshAgent>();
         //目的地を設定する
         SetNewPatrolPointToDestination();
@@ -45,6 +56,7 @@ public class Clerk : MonoBehaviour
         m_PlayerLookpoint = m_Player.transform.Find("LookPoint");
         m_EyePoint = transform.Find("LookEye");
         m_Animator = GetComponent<Animator>();
+        m_rand = Random.Range(0, m_PatrolPoints.Length);
     }
 
     // Update is called once per frame
@@ -67,6 +79,7 @@ public class Clerk : MonoBehaviour
             //プレイヤーが見えなくて、目的地に到着した場合
             else if (HasArrived())
             {
+                m_rand = Random.Range(0, m_PatrolPoints.Length);
                 //目的地を次の巡回ポイントに切り替える
                 SetNewPatrolPointToDestination();
             }
@@ -93,10 +106,8 @@ public class Clerk : MonoBehaviour
     //次の巡回ポイントを目的地に設定する
     void SetNewPatrolPointToDestination()
     {
-        m_CurrentPatrolPointIndex
-            = (m_CurrentPatrolPointIndex + 1) % m_PatrolPoints.Length;
 
-        m_Agent.destination = m_PatrolPoints[m_CurrentPatrolPointIndex].position;
+        m_Agent.destination = m_PatrolPoints[m_rand].transform.position;
     }
 
     // 目的地に到着したか
