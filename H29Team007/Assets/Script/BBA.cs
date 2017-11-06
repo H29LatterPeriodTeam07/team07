@@ -72,6 +72,7 @@ public class BBA : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (transform.parent != null) return;
         print(m_State);
         //巡回中
         if (m_State == BBAState.NormalMode)

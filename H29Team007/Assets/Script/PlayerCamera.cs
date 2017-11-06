@@ -16,16 +16,40 @@ public class PlayerCamera : MonoBehaviour {
 
     // 現在の仰角
     float m_PitchAngle = 0f;
+    
+    private Transform mainCamera;
+
+
+    // 追跡対象とカメラのデフォルトの距離
+    public float m_DefaultDistance = 4f;
+
+    void Start()
+    {
+        mainCamera = Camera.main.transform;
+    }
 
     void Update()
     {
         // 追跡対象に位置を合わせる
         transform.position = m_Target.position;
+        float dis = Vector3.Distance(m_Target.position, mainCamera.position);
+
+        Ray ray = new Ray(m_Target.position, transform.forward);
+        RaycastHit hitInfo;
+
+        if (Physics.Raycast(ray, out hitInfo, m_DefaultDistance))
+        {
+            mainCamera.position = hitInfo.point;
+        }
+        else
+        {
+            mainCamera.position = transform.position + transform.forward * m_DefaultDistance;
+        }
+
 
         float inputHorizontal = (Input.GetAxisRaw("XboxRightHorizontal") != 0) ? Input.GetAxisRaw("XboxRightHorizontal") : Input.GetAxisRaw("Mouse X");
         float inputVertical = (Input.GetAxisRaw("XboxRightVertical") != 0) ? Input.GetAxisRaw("XboxRightVertical") : Input.GetAxisRaw("Mouse Y");
-
-
+        
         if (Input.GetKey("mouse 0"))//作業の邪魔だからクリックしてる間にしてる、いらないif
         {
             // 横回転（ヨー）

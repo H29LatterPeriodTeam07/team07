@@ -23,6 +23,7 @@ public class ShoppingCount : MonoBehaviour
     private int maxCount;
 
     public Text score;
+    private int childCount = 0;
 
     // Use this for initialization 
     void Start()
@@ -177,7 +178,7 @@ public class ShoppingCount : MonoBehaviour
                 humanCount++;
             }
         }
-        return (humanCount > animalCount);
+        return (humanCount + childCount > animalCount);
     }
 
     /// <summary>荷物の追加</summary>
@@ -242,6 +243,7 @@ public class ShoppingCount : MonoBehaviour
         List<Transform> mybags = new List<Transform>();
         List<Transform> kesumono = new List<Transform>();
         int bagprice = 0;
+        List<int> bagnums = new List<int>();
 
         for (int i = 0; i < myBaggege.Count; i++)
         {
@@ -253,6 +255,7 @@ public class ShoppingCount : MonoBehaviour
             {
                 kesumono.Add(myBaggege[i]);
                 bagprice += myBaggege[i].GetComponent<EnemyScore>().GetPrice();
+                bagnums.Add(myBaggege[i].GetComponent<EnemyScore>().GetNumber());
             }
         }
 
@@ -275,20 +278,43 @@ public class ShoppingCount : MonoBehaviour
             GameObject newbag = Instantiate(bagPrefab);
 
             newbag.GetComponent<EnemyScore>().SetPrice(bagprice);
+            newbag.GetComponent<EnemyScore>().SetNumber(bagnums);
             newbag.GetComponent<RunOverObject>().SetPlasticBagPos(basket);
+            childCount = 0;
         }
     }
 
     private void SetScore()
     {
         int goukei = 0;
+        ScoreManager.Reset();
         //ここでエネミーからの値段をもらう
         for (int i = 0; i < myBaggege.Count; i++)
         {
-            goukei += myBaggege[i].GetComponent<EnemyScore>().GetPrice();
+            EnemyScore es = myBaggege[i].GetComponent<EnemyScore>();
+            if (myBaggege[i].tag == "Plasticbag")
+            {
+                ScoreManager.AddCount(es.GetNumbers());
+            }
+            else
+            {
+                ScoreManager.AddCount(es.GetNumber());
+            }
+
+            goukei += es.GetPrice();
         }
         string printscore = goukei.ToString();
         score.text = "￥" + printscore;
+    }
+
+    public void PlusChild()
+    {
+        childCount++;
+    }
+
+    public void MinusChild()
+    {
+        childCount--;
     }
 
     public void OnTriggerEnter(Collider other)
