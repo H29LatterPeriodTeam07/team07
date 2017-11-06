@@ -5,28 +5,23 @@ using UnityEngine.UI;
 
 public class BBACartCount : MonoBehaviour {
 
-    private Player playerScript;
     private float onPosition;
 
     private List<Transform> myBaggege;
     private float price = 0;
 
     public GameObject bagPrefab;
-    public GameObject basketPrefab;
-    public GameObject flyBasketPrefab;
+  //  public GameObject basketPrefab;
+    public GameObject basket;
 
-    private GameObject enemyCart;
-
-    public int maxCountDefault = 10;
+    public int maxCountDefault = 1;
     private int maxCount;
-
-    public Text score;
 
     // Use this for initialization 
     void Start()
     {
-        enemyCart = GameObject.Find("EnemyCart");
-        playerScript = GetComponent<Player>();
+     //  basket = Instantiate(basketPrefab);
+     //  basket.transform.parent = transform;
         myBaggege = new List<Transform>();
         onPosition = 0.0f;
         maxCount = maxCountDefault;
@@ -51,18 +46,28 @@ public class BBACartCount : MonoBehaviour {
 
     public float GetY()
     {
-        return enemyCart.transform.position.y + onPosition;
+        return basket.transform.position.y + onPosition;
+    }
+
+    public void BasketActive(bool active)
+    {
+        basket.SetActive(active);
     }
 
     /// <summary>プレイヤーが持っているカゴのあたり判定のactive</summary>
     /// <param name="active">あたり判定を有効にするかどうか</param>
     public void SetBasketColliderActive(bool active)
     {
-       enemyCart.GetComponent<BoxCollider>().enabled = active;
+        basket.GetComponent<BoxCollider>().enabled = active;
     }
 
 
-    
+    /// <summary>プレイヤーが持っているカゴがactiveか</summary>
+    /// <returns>activeならtrue</returns>
+    public bool IsCatchBasket()
+    {
+        return basket.activeSelf;
+    }
 
     /// <summary>カゴにのる量が最大以上か</summary>
     /// <returns>ぴったり、または乗りすぎていたらtrue</returns>
@@ -80,13 +85,13 @@ public class BBACartCount : MonoBehaviour {
         int hc = 0;
         for (int i = 0; i < myBaggege.Count; i++)
         {
-            if (myBaggege[i].tag == "Animal")
+            if ( myBaggege[i].tag == "Animal")
             {
-                //mybags.Add(myBaggege[i]);
+                hc++;
             }
             else
             {
-                hc++;
+                //mybags.Add(myBaggege[i]);
             }
         }
         return (hc > 0);
@@ -98,7 +103,11 @@ public class BBACartCount : MonoBehaviour {
         int animalCount = 0;
         for (int i = 0; i < myBaggege.Count; i++)
         {
-            if (myBaggege[i].tag == "Animal")
+            if (myBaggege[i].tag == "Plasticbag")
+            {
+                //mybags.Add(myBaggege[i]);
+            }
+            else if (myBaggege[i].tag == "Animal")
             {
                 animalCount++;
             }
@@ -108,6 +117,14 @@ public class BBACartCount : MonoBehaviour {
             }
         }
         return (humanCount > animalCount);
+    }
+
+    /// <summary>荷物の追加</summary>
+    /// <param name="baggege">荷物のTransform</param>
+    public void AddBaggege(Transform baggege)
+    {
+        baggege.parent = basket.transform;
+        myBaggege.Add(baggege);
     }
 
     public void BaggegeParentPlayer()
@@ -123,7 +140,8 @@ public class BBACartCount : MonoBehaviour {
         Reset();
         for (int i = 0; i < mybags.Count; i++)
         {
-            Vector3 nimotuPos = enemyCart.transform.position;
+            AddBaggege(mybags[i]);
+            Vector3 nimotuPos = basket.transform.position;
             nimotuPos.y = GetY();
             mybags[i].position = nimotuPos;
             PlusY(mybags[i].GetComponent<RunOverObject>().GetHeight());
@@ -186,6 +204,7 @@ public class BBACartCount : MonoBehaviour {
             Reset();
             for (int i = 0; i < mybags.Count; i++)
             {
+                AddBaggege(mybags[i]);
                 Vector3 nimotuPos = mybags[i].position;
                 nimotuPos.y = GetY();
                 mybags[i].position = nimotuPos;
@@ -194,8 +213,7 @@ public class BBACartCount : MonoBehaviour {
             GameObject newbag = Instantiate(bagPrefab);
 
             newbag.GetComponent<EnemyScore>().SetPrice(bagprice);
-            newbag.GetComponent<RunOverObject>().SetPlasticBagPos(enemyCart);
+            newbag.GetComponent<RunOverObject>().SetPlasticBagPos(basket);
         }
     }
 }
-
