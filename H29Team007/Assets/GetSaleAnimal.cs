@@ -5,6 +5,8 @@ using UnityEngine;
 public class GetSaleAnimal : MonoBehaviour
 {
 
+    
+
     // Use this for initialization
     void Start()
     {
@@ -21,7 +23,7 @@ public class GetSaleAnimal : MonoBehaviour
     {
         if (other.tag == "Animal")
         {
-            Destroy(gameObject);
+            
         }
     }
 }

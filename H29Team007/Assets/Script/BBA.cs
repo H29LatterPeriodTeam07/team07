@@ -57,10 +57,10 @@ public class BBA : MonoBehaviour {
         m_Agent = GetComponent<NavMeshAgent>();
         //目的地を設定する
         SetNewPatrolPointToDestination();
-        //タグでプレイヤーオブジェクトを検索して保持
+       /* //タグでプレイヤーオブジェクトを検索して保持
         m_Player = GameObject.FindGameObjectWithTag("Player");
         //プレイヤーの注視点を名前で検索して保持
-        m_PlayerLookpoint = m_Player.transform.Find("LookPoint");
+        m_PlayerLookpoint = m_Player.transform.Find("LookPoint");*/
         m_EyePoint = transform.Find("BBAEye");
         //スクリプトSaleSpownへの参照
         for (int i = 0; i < m_SaleAnimalSpowns.Length; i++) {

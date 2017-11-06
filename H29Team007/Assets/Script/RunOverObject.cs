@@ -10,12 +10,14 @@ public class RunOverObject : MonoBehaviour
 
     private NavMeshAgent myNav;
     private BoxCollider myCollider;
+    Rigidbody rb;
 
     // Use this for initialization
     void Start()
     {
         myNav = GetComponent<NavMeshAgent>();
         myCollider = GetComponent<BoxCollider>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -90,20 +92,33 @@ public class RunOverObject : MonoBehaviour
             //transform.parent = other.transform.root;
 
             sc.PlusY(runOverAfterHeight);
+            if (rb != null) {
+                rb.velocity = Vector3.zero;
+                rb.isKinematic = true;
+            }
         }
+
         if (other.name == "EnemyFrontHitArea")//プレイヤーババア用　敵ババアが特売品を轢く処理は頑張って
         {
-            var sc = other.transform.root.GetComponent<ShoppingCount>();
-            myNav.enabled = false;
-            myCollider.enabled = false;  //荷物のあたり判定のせいでカート増えてたあばばばばば 敵全部ボックスコライダーでありがと
-            //ここにアニメ停止や変更入れるかも
-            Vector3 v = other.transform.parent.transform.position;
-            Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
-            transform.position = nimotuPos;
-            sc.AddBaggege(transform);
-            //transform.parent = other.transform.root;
 
-            sc.PlusY(runOverAfterHeight);
+
+                var sc = other.transform.root.GetComponent<BBACartCount>();
+                if (transform.tag == "Animal" && !sc.IsHumanMoreThanAnimal()) return;
+                myNav.enabled = false;
+                myCollider.enabled = false;  //荷物のあたり判定のせいでカート増えてたあばばばばば 敵全部ボックスコライダーでありがと
+                                             //ここにアニメ停止や変更入れるかも
+                Vector3 v = other.transform.parent.transform.position;
+                Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
+                transform.position = nimotuPos;
+                //transform.parent = other.transform.root;
+
+                sc.PlusY(runOverAfterHeight);
+                if (rb != null)
+                {
+                    rb.velocity = Vector3.zero;
+                    rb.isKinematic = true;
+                }
+            
         }
     }
 }
