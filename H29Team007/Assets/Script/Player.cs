@@ -78,6 +78,12 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (!MainGameDate.IsStart())
+        {
+            m_Animator.SetFloat("Speed",0);
+            rb.velocity = Vector3.zero;
+            return;
+        }
         if (GetState() == PlayerState.Takeover) return;
 
         inputHorizontal = (Input.GetAxisRaw("XboxLeftHorizontal") != 0) ? Input.GetAxisRaw("XboxLeftHorizontal") : Input.GetAxisRaw("Horizontal");
@@ -114,6 +120,12 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!MainGameDate.IsStart())
+        {
+           
+            return;
+        }
+
         switch (myState)
         {
             case PlayerState.NoCart: CartOffMove(); break;
@@ -322,6 +334,7 @@ public class Player : MonoBehaviour
     {
         if(collision.transform.tag == "Enemy")
         {
+            scScript.BaggegeFall(transform.position);
             ReleaseCart();
             transform.position = exitPoint.position;
         }

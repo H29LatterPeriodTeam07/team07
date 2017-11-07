@@ -98,18 +98,20 @@ public class RunOverObject : MonoBehaviour
             }
         }
 
-        if (other.name == "EnemyFrontHitArea")//プレイヤーババア用　敵ババアが特売品を轢く処理は頑張って
+        if (other.name == "EnemyFrontHitArea")//敵ババア用　敵ババアが特売品を轢く処理は頑張って
         {
 
-
+            if (transform.tag == "Animal")
+            {
                 var sc = other.transform.root.GetComponent<BBACartCount>();
                 if (transform.tag == "Animal" && !sc.IsHumanMoreThanAnimal()) return;
                 myNav.enabled = false;
-                myCollider.enabled = false;  //荷物のあたり判定のせいでカート増えてたあばばばばば 敵全部ボックスコライダーでありがと
-                                             //ここにアニメ停止や変更入れるかも
+                myCollider.enabled = false;
+                //ここにアニメ停止や変更入れるかも
                 Vector3 v = other.transform.parent.transform.position;
                 Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
                 transform.position = nimotuPos;
+                sc.AddBaggege(transform);
                 //transform.parent = other.transform.root;
 
                 sc.PlusY(runOverAfterHeight);
@@ -118,7 +120,7 @@ public class RunOverObject : MonoBehaviour
                     rb.velocity = Vector3.zero;
                     rb.isKinematic = true;
                 }
-            
+            }
         }
     }
 }

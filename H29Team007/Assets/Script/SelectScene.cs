@@ -24,7 +24,7 @@ public class SelectScene : MonoBehaviour
     }
     public void StageLoad()
     {
-        SceneManager.LoadScene("OneWeekBeforeTheAlpha");
+        SceneManager.LoadScene("Alpha");
     }
     public void StageSelectLoad()
     {
