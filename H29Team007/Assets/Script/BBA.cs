@@ -15,14 +15,17 @@ public enum BBAState
     CashMode
 }
 
-public class BBA : MonoBehaviour {
-
+public class BBA : MonoBehaviour
+{
+    public GameObject m_BBAplehab;
     //巡回ポイント
     public Transform[] m_PatrolPoints;
     //巡回ポイント2
     public Transform[] m_Patrolpoints2;
     //レジから出口のポイント
-    public Transform[] m_Exitpoint;
+    public Transform[] m_ReziExitpoints;
+    //出口を指定
+    public Transform m_ExitPoint;
     //見える距離
     public float m_ViewingDistance;
     //視野角
@@ -36,6 +39,7 @@ public class BBA : MonoBehaviour {
     //現在の巡回ポイントのインデックス
     int m_CurrentPatrolPointIndex = 1;
     int m_CurrentPatrolPoint2Index = 1;
+    int m_CurrentPatrolPoint3Index = 1;
 
     NavMeshAgent m_Agent;
     //プレイヤーへの参照
@@ -45,26 +49,27 @@ public class BBA : MonoBehaviour {
     //自身の目の位置
     Transform m_EyePoint;
     //特売品への参照
- GameObject m_SaleAnimals;
+    GameObject m_SaleAnimals;
     //特売品への注視点
- Transform m_SaleAnimalsLookPoint;
+    Transform m_SaleAnimalsLookPoint;
     SaleSpown m_scSaleSpown;
     int m_SaleSpownIndex = 0;
 
     // Use this for initialization
     void Start()
     {
-        
+
         m_Agent = GetComponent<NavMeshAgent>();
         //目的地を設定する
         SetNewPatrolPointToDestination();
-       /* //タグでプレイヤーオブジェクトを検索して保持
-        m_Player = GameObject.FindGameObjectWithTag("Player");
-        //プレイヤーの注視点を名前で検索して保持
-        m_PlayerLookpoint = m_Player.transform.Find("LookPoint");*/
+        /* //タグでプレイヤーオブジェクトを検索して保持
+         m_Player = GameObject.FindGameObjectWithTag("Player");
+         //プレイヤーの注視点を名前で検索して保持
+         m_PlayerLookpoint = m_Player.transform.Find("LookPoint");*/
         m_EyePoint = transform.Find("BBAEye");
         //スクリプトSaleSpownへの参照
-        for (int i = 0; i < m_SaleAnimalSpowns.Length; i++) {
+        for (int i = 0; i < m_SaleAnimalSpowns.Length; i++)
+        {
             m_scSaleSpown = m_SaleAnimalSpowns[i].GetComponent<SaleSpown>();
         }
     }
@@ -84,7 +89,7 @@ public class BBA : MonoBehaviour {
             {
                 //特売品モードに状態変更
                 m_State = BBAState.SaleMode;
-             //   m_Agent.destination = m_Player.transform.position;
+                //   m_Agent.destination = m_Player.transform.position;
             }
             else
             {
@@ -98,13 +103,13 @@ public class BBA : MonoBehaviour {
         else if (m_State == BBAState.SaleMode)
         {
             SetNewSalePatrolPointToDestination();
-            
+
             m_ViewingDistance = 100;
             m_ViewingAngle = 180;
             Ray ray = new Ray(m_EyePoint.position, m_EyePoint.forward);
             RaycastHit hitInfo;
             bool hit = Physics.Raycast(ray, out hitInfo);
-            if(hit && hitInfo.collider.tag == "Animal")
+            if (hit && hitInfo.collider.tag == "Animal")
             {
                 m_SaleAnimals = GameObject.FindGameObjectWithTag("Animal");
                 m_Agent.destination = m_SaleAnimals.transform.position;
@@ -117,12 +122,14 @@ public class BBA : MonoBehaviour {
 
             if (IsGetAnimal())
             {
-                SetNewExitPointToDestination();
+                m_State = BBAState.CashMode;
             }
         }
-        //攻撃モード
-        else if (m_State == BBAState.attackMode)
+        //レジ～出入り口へGOモード
+        else if (m_State == BBAState.CashMode)
         {
+            SetNewExitPointToDestination();
+            m_Speed = 3;
         }
     }
 
@@ -145,10 +152,10 @@ public class BBA : MonoBehaviour {
 
     void SetNewExitPointToDestination()
     {
-        m_CurrentPatrolPoint2Index
-            = (m_CurrentPatrolPoint2Index + 1) % m_Exitpoint.Length;
+        m_CurrentPatrolPoint3Index
+            = (m_CurrentPatrolPoint2Index + 1) % m_ReziExitpoints.Length;
 
-        m_Agent.destination = m_Exitpoint[m_CurrentPatrolPoint2Index].position;
+        m_Agent.destination = m_ReziExitpoints[m_CurrentPatrolPoint3Index].position;
     }
 
     // 目的地に到着したか
@@ -160,5 +167,13 @@ public class BBA : MonoBehaviour {
     public bool IsGetAnimal()
     {
         return m_scBBAcount.IsBaggegeinHuman();
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.tag== "ExitPoint")
+        {
+            Destroy(gameObject);
+        }
     }
 }

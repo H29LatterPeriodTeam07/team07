@@ -19,6 +19,7 @@ public class GOODsFORSALE : MonoBehaviour {
     public float m_ViewingDistance;
     //視野角
     public float m_ViewingAngle;
+    public GameObject obj;
 
     private SaleAnimalState m_State = SaleAnimalState.NormalMode;
     private float m_Speed = 1.0f;
@@ -72,6 +73,12 @@ public class GOODsFORSALE : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (transform.root.name == "BBA")
+        {
+            Independence();
+
+        }
+
         if (m_State == SaleAnimalState.NormalMode)
         {
             if (CanSeePlayer()|| CanSeeBBA())
@@ -237,8 +244,10 @@ public class GOODsFORSALE : MonoBehaviour {
         return true;
     }
 
-    public void ChildCount()
+    public void Independence()
     {
-
+        gameObject.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        gameObject.transform.rotation = transform.rotation;
+        // transform.root.position -= transform.root.forward;
     }
 }

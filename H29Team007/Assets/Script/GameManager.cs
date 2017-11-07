@@ -4,26 +4,34 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-    public GameObject[] SaleSpawnPosition;
-    public int[] SaleSpawnTime;
-    //ランダムに出現させる特売品のプレハブ
-    public GameObject[] m_SaleAnimals;
+    //出口
+    public Transform exitPoint;
+    //BBAオブジェクト
+    private GameObject m_BBA;
+    //警備員オブジェクト
+    private GameObject m_SG;
 
-    //タイマー
-    private float m_timer = 0.0f;
-    //何匹出現したか
-    private int m_Num = 0;
-    private float m_CurrentTime = 0.0f;
-    private int m_number;
 
+    //サウンドマネージャーオブジェクト
+    GameObject SM;
+    //サウンドマネージャースクリプト
+    SoundManagerScript smScript;
 
     // Use this for initialization
     void Start () {
-		
+        m_BBA = GameObject.FindGameObjectWithTag("BBA");
+        SM = GameObject.Find("SoundManager");
+        smScript = SM.transform.GetComponent<SoundManagerScript>();
+        smScript.PlayBGM(0);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        m_timer += Time.deltaTime;
+        
 	}
+
+    public void EnterShopBBA()
+    {
+
+    }
 }

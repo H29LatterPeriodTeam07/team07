@@ -16,7 +16,8 @@ public enum EnemyState
     Avoid
 }
 
-public class SecurityGuard : MonoBehaviour {
+public class SecurityGuard : MonoBehaviour
+{
     //巡回ポイント
     public Transform[] m_PatrolPoints;
     //見える距離
@@ -41,7 +42,8 @@ public class SecurityGuard : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         m_Agent = GetComponent<NavMeshAgent>();
         //目的地を設定する
         SetNewPatrolPointToDestination();
@@ -53,7 +55,7 @@ public class SecurityGuard : MonoBehaviour {
         m_EyePoint = transform.Find("LookEye");
         m_Animator = GetComponent<Animator>();
         m_scPlayer = m_Player.GetComponent<Player>();
-	}
+    }
 
     // Update is called once per frame
     void Update()
@@ -108,8 +110,8 @@ public class SecurityGuard : MonoBehaviour {
         // 追跡中（見失い中）の場合
         else if (m_State == EnemyState.ChasingButLosed)
         {
-            m_ViewingDistance = 1000;
-            m_ViewingAngle = 360;
+            m_ViewingDistance = 3;
+            m_ViewingAngle = 140;
             if (CanSeePlayer())
             {
                 m_Agent.speed = 3.0f;
@@ -124,13 +126,13 @@ public class SecurityGuard : MonoBehaviour {
                 m_State = EnemyState.Patrolling;
             }
         }
-      //  Debug.Log(dis);
+        //  Debug.Log(dis);
         m_Animator.SetFloat("Speed", m_Agent.speed);
 
     }
 
-        //次の巡回ポイントを目的地に設定する
-        void SetNewPatrolPointToDestination()
+    //次の巡回ポイントを目的地に設定する
+    void SetNewPatrolPointToDestination()
     {
         m_CurrentPatrolPointIndex
             = (m_CurrentPatrolPointIndex + 1) % m_PatrolPoints.Length;
@@ -198,5 +200,13 @@ public class SecurityGuard : MonoBehaviour {
     public bool StateChasing()
     {
         return m_State == EnemyState.Chasing;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+
+        }
     }
 }
