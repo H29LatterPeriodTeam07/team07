@@ -74,7 +74,6 @@ public class Clerk : MonoBehaviour
                 m_Agent.speed = 1.0f;
                 //追跡中に状態変更
                 m_State = ClerkState.WarningMode;
-                m_Agent.destination = m_Player.transform.position;
             }
             //プレイヤーが見えなくて、目的地に到着した場合
             else if (HasArrived())

@@ -11,10 +11,11 @@ public enum SaleAnimalState
     WarningMode
 }
 
-public class GOODsFORSALE : MonoBehaviour {
+public class GOODsFORSALE : MonoBehaviour
+{
 
     //巡回ポイント
-   // public Transform[] m_PatrolPoints;
+    // public Transform[] m_PatrolPoints;
     //見える距離
     public float m_ViewingDistance;
     //視野角
@@ -40,14 +41,15 @@ public class GOODsFORSALE : MonoBehaviour {
     //巡回ポイントの親
     GameObject m_PatrolPoint;
     GameObject[] m_PatrolPoints;
+    GameObject m_ParentBBA;
 
     // Use this for initialization
     void Start()
     {
         m_Agent = GetComponent<NavMeshAgent>();
         //目的地を設定する
-       // SetNewPatrolPointToDestination();
-       // DoPatrol();
+        // SetNewPatrolPointToDestination();
+        // DoPatrol();
         //タグでプレイヤーオブジェクトを検索して保持
         m_Player = GameObject.FindGameObjectWithTag("Player");
         //タグでババアオブジェクトを検索して保持
@@ -55,7 +57,7 @@ public class GOODsFORSALE : MonoBehaviour {
         //プレイヤーの注視点を名前で検索して保持
         m_PlayerLookpoint = m_Player.transform.Find("LookPoint");
         //BBAの注視点を名前で検索して保持
-        if(m_BBA != null)m_BBALookpoint = m_BBA.transform.Find("BBAEye");
+        if (m_BBA != null) m_BBALookpoint = m_BBA.transform.Find("BBAEye");
         m_EyePoint = transform.Find("AnimalLookEye");
         //タグでパトロールポイントの親を検索して保持
         m_PatrolPoint = GameObject.FindGameObjectWithTag("PatrolPoint");
@@ -73,15 +75,10 @@ public class GOODsFORSALE : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (transform.root.name == "BBA")
-        {
-            Independence();
-
-        }
-
+        if (transform.parent == null) return;
         if (m_State == SaleAnimalState.NormalMode)
         {
-            if (CanSeePlayer()|| CanSeeBBA())
+            if (CanSeePlayer() || CanSeeBBA())
             {
                 //退避に状態変更
                 m_State = SaleAnimalState.WarningMode;
@@ -125,6 +122,10 @@ public class GOODsFORSALE : MonoBehaviour {
                 m_State = SaleAnimalState.NormalMode;
             }
         }
+        //if (transform.root.name == "Player")
+        //{
+        //    Independence();
+        //}
     }
 
     //エージェントが向かう先をランダムに指定するメソッド
@@ -246,8 +247,8 @@ public class GOODsFORSALE : MonoBehaviour {
 
     public void Independence()
     {
+        gameObject.transform.parent = null;
         gameObject.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
         gameObject.transform.rotation = transform.rotation;
-        // transform.root.position -= transform.root.forward;
     }
 }
