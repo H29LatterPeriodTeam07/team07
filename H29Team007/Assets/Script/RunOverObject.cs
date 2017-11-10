@@ -9,14 +9,14 @@ public class RunOverObject : MonoBehaviour
     private float runOverAfterHeight = 1.0f;
 
     private NavMeshAgent myNav;
-    private BoxCollider myCollider;
+    private Collider myCollider;
     Rigidbody rb;
 
     // Use this for initialization
     void Start()
     {
         myNav = GetComponent<NavMeshAgent>();
-        myCollider = GetComponent<BoxCollider>();
+        myCollider = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -86,6 +86,7 @@ public class RunOverObject : MonoBehaviour
             myCollider.enabled = false;  //荷物のあたり判定のせいでカート増えてたあばばばばば 敵全部ボックスコライダーでありがと
             //ここにアニメ停止や変更入れるかも
             Vector3 v = other.transform.parent.transform.position;
+
             Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
             transform.position = nimotuPos;
             sc.AddBaggege(transform);

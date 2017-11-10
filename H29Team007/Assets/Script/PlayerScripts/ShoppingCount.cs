@@ -12,17 +12,22 @@ public class ShoppingCount : MonoBehaviour
     private List<Transform> myBaggege;
     private float price = 0;
 
-    public GameObject bagPrefab;
-    public GameObject basketPrefab;
-    public GameObject flyBasketPrefab;
+    [SerializeField, Header("買い物袋のプレハブ")]
+    private GameObject bagPrefab;
+    [SerializeField, Header("プレイヤーが持つカゴのプレハブ")]
+    private GameObject basketPrefab;
+    [SerializeField, Header("プレイヤーが飛ばすカートのプレハブ")]
+    private GameObject flyBasketPrefab;
     private GameObject basket;
 
     private Basket basketScript;
 
-    public int maxCountDefault = 10;
+    [SerializeField, Header("カートに乗れる最大の値")]
+    private int maxCountDefault = 10;
     private int maxCount;
 
-    public Text score;
+    [SerializeField, Header("スコアUI")]
+    private Text score;
     private int childCount = 0;
 
     // Use this for initialization 
@@ -94,6 +99,16 @@ public class ShoppingCount : MonoBehaviour
     public float GetY()
     {
         return basket.transform.position.y + onPosition;
+    }
+
+    public float GetCameraLookPoiintPluseY()
+    {
+        return onPosition / 2;
+    }
+
+    public int GetBaggageCount()
+    {
+        return myBaggege.Count;
     }
 
     public void BasketActive(bool active)
