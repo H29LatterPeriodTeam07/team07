@@ -54,11 +54,12 @@ public class BBA : MonoBehaviour
     Transform m_SaleAnimalsLookPoint;
     SaleSpown m_scSaleSpown;
     int m_SaleSpownIndex = 0;
+    BBACartCount bcScript;
 
     // Use this for initialization
     void Start()
     {
-
+        bcScript = GetComponent<BBACartCount>();
         m_Agent = GetComponent<NavMeshAgent>();
         //目的地を設定する
         SetNewPatrolPointToDestination();
@@ -171,9 +172,14 @@ public class BBA : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.tag== "ExitPoint")
+        if (other.tag == "ExitPoint")
         {
             Destroy(gameObject);
+        }
+        if (other.name == "FrontHitArea")
+        {
+                bcScript.BaggegeFall(transform.position);
+            
         }
     }
 }

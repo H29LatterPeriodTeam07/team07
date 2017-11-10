@@ -168,7 +168,7 @@ public class BBACartCount : MonoBehaviour {
             fall.enabled = true;
             fall.SetPoint(pos, sp);
 
-            myBaggege[i].parent = null;
+            myBaggege[i].parent.parent = null;
 
         }
         Reset();
@@ -190,7 +190,6 @@ public class BBACartCount : MonoBehaviour {
             else
             {
                 kesumono.Add(myBaggege[i]);
-                bagprice += myBaggege[i].GetComponent<EnemyScore>().GetPrice();
             }
         }
 
