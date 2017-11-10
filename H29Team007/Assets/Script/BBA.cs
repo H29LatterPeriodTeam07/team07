@@ -36,6 +36,7 @@ public class BBA : MonoBehaviour
     private GameObject[] m_SaleAnimalSpowns;
     private BBAState m_State = BBAState.NormalMode;
     private float m_Speed = 1.0f;
+    private Rigidbody rb;
     //現在の巡回ポイントのインデックス
     int m_CurrentPatrolPointIndex = 1;
     int m_CurrentPatrolPoint2Index = 1;
@@ -59,6 +60,7 @@ public class BBA : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         bcScript = GetComponent<BBACartCount>();
         m_Agent = GetComponent<NavMeshAgent>();
         //目的地を設定する
@@ -110,6 +112,8 @@ public class BBA : MonoBehaviour
             Ray ray = new Ray(m_EyePoint.position, m_EyePoint.forward);
             RaycastHit hitInfo;
             bool hit = Physics.Raycast(ray, out hitInfo);
+            rb.velocity = Vector3.zero;
+            rb.isKinematic = true;
             if (hit && hitInfo.collider.tag == "Animal")
             {
                 m_SaleAnimals = GameObject.FindGameObjectWithTag("Animal");

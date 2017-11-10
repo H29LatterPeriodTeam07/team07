@@ -10,6 +10,8 @@ public class SaleSpown : MonoBehaviour {
     //出現時間
     [SerializeField, TooltipAttribute("指定した特売品が出現する時間の指定(float型)")]
     public float[] m_ApperTime;
+    //巡回ポイント
+    public Transform[] m_PatrolPoints;
     public float m_SaleModeTime;
     public GameObject m_Time;
     public GameObject m_SaleMaterial;
@@ -21,6 +23,7 @@ public class SaleSpown : MonoBehaviour {
     float m_SaleMode=0;
     SaleMaterial m_scSale;
     string m_Pigname, FishName, CowName;
+    int m_CurrentPatrolPointIndex = 1;
 
     // Use this for initialization
     void Start()
@@ -70,6 +73,14 @@ public class SaleSpown : MonoBehaviour {
                 m_CurrentSaleAnimeIndex++;
             
         }
+    }
+
+    void SetNewPatrolPointToDestination()
+    {
+        m_CurrentPatrolPointIndex
+            = (m_CurrentPatrolPointIndex + 1) % m_PatrolPoints.Length;
+
+      //  m_Agent.destination = m_PatrolPoints[m_CurrentPatrolPointIndex].position;
     }
 
     public bool SaleMode()

@@ -90,7 +90,7 @@ public class SecurityGuard : MonoBehaviour
             m_ViewingDistance = 1000;
             m_ViewingAngle = 360;
             // プレイヤーが見えている場合
-            if (CanSeePlayer())
+            if (CanSeePlayer() && m_scPlayer.IsGetHuman())
             {
                 m_Agent.speed = 3.0f;
                 // プレイヤーの場所へ向かう
@@ -112,7 +112,7 @@ public class SecurityGuard : MonoBehaviour
         {
             m_ViewingDistance = 3;
             m_ViewingAngle = 140;
-            if (CanSeePlayer())
+            if (CanSeePlayer() && m_scPlayer.IsGetHuman())
             {
                 m_Agent.speed = 3.0f;
                 // 追跡中に状態変更
@@ -200,13 +200,5 @@ public class SecurityGuard : MonoBehaviour
     public bool StateChasing()
     {
         return m_State == EnemyState.Chasing;
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-
-        }
     }
 }

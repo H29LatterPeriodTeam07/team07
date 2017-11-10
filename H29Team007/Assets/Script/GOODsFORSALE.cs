@@ -75,7 +75,6 @@ public class GOODsFORSALE : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.parent == null) return;
         if (m_State == SaleAnimalState.NormalMode)
         {
             if (CanSeePlayer() || CanSeeBBA())
@@ -122,10 +121,6 @@ public class GOODsFORSALE : MonoBehaviour
                 m_State = SaleAnimalState.NormalMode;
             }
         }
-        //if (transform.root.name == "Player")
-        //{
-        //    Independence();
-        //}
     }
 
     //エージェントが向かう先をランダムに指定するメソッド
@@ -243,12 +238,5 @@ public class GOODsFORSALE : MonoBehaviour
             return false;
         // ここまで到達したら、それはプレイヤーが見えるということ
         return true;
-    }
-
-    public void Independence()
-    {
-        gameObject.transform.parent = null;
-        gameObject.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
-        gameObject.transform.rotation = transform.rotation;
     }
 }
