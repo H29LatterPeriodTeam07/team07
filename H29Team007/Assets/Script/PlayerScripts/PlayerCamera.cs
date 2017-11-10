@@ -49,7 +49,7 @@ public class PlayerCamera : MonoBehaviour {
         cameraLeaveVec = CameraLeaveVec();
         targetPos = mainCamera.transform.position;
         transform.position = targetPos;
-        mainCamera.position = transform.position + cameraLeaveVec * CameraToPlayerDistance();
+        mainCamera.position = transform.position + cameraLeaveVec * m_DefaultDistance;
     }
 
     void Update()

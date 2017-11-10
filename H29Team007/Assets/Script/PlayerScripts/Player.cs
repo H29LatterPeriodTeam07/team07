@@ -266,7 +266,7 @@ public class Player : MonoBehaviour
         myCartStatus.SetCart(cart.GetComponent<CartStatusWithCart>());
 
         Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
-        cart.transform.position = cartPos + transform.forward * 1.5f;
+        cart.transform.position = cartPos + transform.forward * 1.2f;
         Vector3 relativePos = myCart.transform.position - transform.position;
         relativePos.y = 0; //上下方向の回転はしないように制御
         transform.rotation = Quaternion.LookRotation(relativePos);
@@ -285,7 +285,7 @@ public class Player : MonoBehaviour
         ChangeState(1);
         myCart = Instantiate(cartBodyPrefab);
         Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
-        myCart.transform.position = cartPos + transform.forward * 1.5f;
+        myCart.transform.position = cartPos + transform.forward * 1.2f;
         Vector3 relativePos = myCart.transform.position - transform.position;
         relativePos.y = 0; //上下方向の回転はしないように制御
         transform.rotation = Quaternion.LookRotation(relativePos);
