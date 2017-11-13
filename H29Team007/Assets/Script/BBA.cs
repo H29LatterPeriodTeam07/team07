@@ -31,18 +31,18 @@ public class BBA : MonoBehaviour
     //視野角
     public float m_ViewingAngle;
     public BBACartCount m_scBBAcount;
+    [System.NonSerialized]
+    public NavMeshAgent m_Agent;
 
-    [SerializeField, Header("特売品の出現場所を入れるところ")]
-    private GameObject[] m_SaleAnimalSpowns;
     private BBAState m_State = BBAState.NormalMode;
     private float m_Speed = 1.0f;
     private Rigidbody rb;
+    private GameObject m_GameManager;
+    private GameManager m_gmScript;
     //現在の巡回ポイントのインデックス
     int m_CurrentPatrolPointIndex = 1;
     int m_CurrentPatrolPoint2Index = 1;
     int m_CurrentPatrolPoint3Index = 1;
-
-    NavMeshAgent m_Agent;
     //プレイヤーへの参照
     GameObject m_Player;
     //プレイヤーへの注視点
@@ -53,28 +53,20 @@ public class BBA : MonoBehaviour
     GameObject m_SaleAnimals;
     //特売品への注視点
     Transform m_SaleAnimalsLookPoint;
-    SaleSpown m_scSaleSpown;
     int m_SaleSpownIndex = 0;
     BBACartCount bcScript;
 
     // Use this for initialization
     void Start()
     {
+        m_GameManager = GameObject.FindGameObjectWithTag("GameManager");
+        m_gmScript = m_GameManager.GetComponent<GameManager>();
         rb = GetComponent<Rigidbody>();
         bcScript = GetComponent<BBACartCount>();
         m_Agent = GetComponent<NavMeshAgent>();
         //目的地を設定する
-        SetNewPatrolPointToDestination();
-        /* //タグでプレイヤーオブジェクトを検索して保持
-         m_Player = GameObject.FindGameObjectWithTag("Player");
-         //プレイヤーの注視点を名前で検索して保持
-         m_PlayerLookpoint = m_Player.transform.Find("LookPoint");*/
+        m_gmScript.SetNewPatrolPointToDestination();
         m_EyePoint = transform.Find("BBAEye");
-        //スクリプトSaleSpownへの参照
-        for (int i = 0; i < m_SaleAnimalSpowns.Length; i++)
-        {
-            m_scSaleSpown = m_SaleAnimalSpowns[i].GetComponent<SaleSpown>();
-        }
     }
 
     // Update is called once per frame
@@ -88,7 +80,7 @@ public class BBA : MonoBehaviour
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
             //特売品が出てくる時間になったら特売品モードに
-            if (m_scSaleSpown.SaleMode())
+            if (m_gmScript.m_scSaleSpown.SaleMode())
             {
                 //特売品モードに状態変更
                 m_State = BBAState.SaleMode;
@@ -96,16 +88,16 @@ public class BBA : MonoBehaviour
             }
             else
             {
-                if (HasArrived())
+                if (m_gmScript.HasArrived())
                 {
-                    SetNewPatrolPointToDestination();
+                    m_gmScript.SetNewPatrolPointToDestination();
                 }
             }
         }
         //特売品モード
         else if (m_State == BBAState.SaleMode)
         {
-            SetNewSalePatrolPointToDestination();
+            m_gmScript.SetNewSalePatrolPointToDestination();
 
             m_ViewingDistance = 100;
             m_ViewingAngle = 180;
@@ -120,9 +112,9 @@ public class BBA : MonoBehaviour
                 m_Agent.destination = m_SaleAnimals.transform.position;
             }
 
-            else if (HasArrived())
+            else if (m_gmScript.HasArrived())
             {
-                transform.LookAt(m_SaleAnimalSpowns[0].transform.position);
+                transform.LookAt(m_gmScript.m_SaleAnimalSpowns[0].transform.position);
             }
 
             if (IsGetAnimal())
@@ -133,40 +125,11 @@ public class BBA : MonoBehaviour
         //レジ～出入り口へGOモード
         else if (m_State == BBAState.CashMode)
         {
-            SetNewExitPointToDestination();
+            m_gmScript.SetNewExitPointToDestination();
             m_Speed = 3;
+
+            if (!IsGetAnimal()) m_State = BBAState.NormalMode;
         }
-    }
-
-    //次の巡回ポイントを目的地に設定する
-    void SetNewPatrolPointToDestination()
-    {
-        m_CurrentPatrolPointIndex
-            = (m_CurrentPatrolPointIndex + 1) % m_PatrolPoints.Length;
-
-        m_Agent.destination = m_PatrolPoints[m_CurrentPatrolPointIndex].position;
-    }
-
-    void SetNewSalePatrolPointToDestination()
-    {
-        m_CurrentPatrolPoint2Index
-            = (m_CurrentPatrolPoint2Index + 1) % m_Patrolpoints2.Length;
-
-        m_Agent.destination = m_Patrolpoints2[m_CurrentPatrolPoint2Index].position;
-    }
-
-    void SetNewExitPointToDestination()
-    {
-        m_CurrentPatrolPoint3Index
-            = (m_CurrentPatrolPoint2Index + 1) % m_ReziExitpoints.Length;
-
-        m_Agent.destination = m_ReziExitpoints[m_CurrentPatrolPoint3Index].position;
-    }
-
-    // 目的地に到着したか
-    bool HasArrived()
-    {
-        return (Vector3.Distance(m_Agent.destination, transform.position) < 0.5f);
     }
 
     public bool IsGetAnimal()
@@ -176,14 +139,9 @@ public class BBA : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "ExitPoint")
-        {
-            Destroy(gameObject);
-        }
         if (other.name == "FrontHitArea")
         {
-                bcScript.BaggegeFall(transform.position);
-            
+                bcScript.BaggegeFall(transform.position);        
         }
     }
 }
