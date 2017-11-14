@@ -18,6 +18,7 @@ public class Exit : MonoBehaviour
     Timer m_timer;
     int m_CurentApperTimeIndex = 0;
     int m_Num = 0;
+    bool m_bullApper = false;
 
     // Use this for initialization
     void Start()
@@ -41,6 +42,7 @@ public class Exit : MonoBehaviour
 
     public void Appear()
     {
+        m_bullApper = true;
         if (m_Num < 1)
         {
             Instantiate(m_prBull, m_EntrancePoint.transform.position, transform.rotation);
@@ -58,8 +60,14 @@ public class Exit : MonoBehaviour
 
         if (other.tag == "Bull")
         {
+            m_bullApper = false;
             Destroy(other.gameObject);
             m_Num--;
         }
+    }
+
+    public bool BullApper()
+    {
+        return m_bullApper;
     }
 }

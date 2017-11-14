@@ -42,6 +42,8 @@ public class GOODsFORSALE : MonoBehaviour
     GameObject m_PatrolPoint;
     GameObject[] m_PatrolPoints;
     GameObject m_ParentBBA;
+    GameObject m_exitPont;
+    Exit m_eScript;
 
     // Use this for initialization
     void Start()
@@ -67,7 +69,8 @@ public class GOODsFORSALE : MonoBehaviour
         {
             m_PatrolPoints[i] = m_PatrolPoint.transform.GetChild(i).gameObject;
         }
-
+        m_exitPont = GameObject.FindGameObjectWithTag("ExitPoint");
+        m_eScript = m_exitPont.GetComponent<Exit>();
 
 
     }
@@ -84,7 +87,14 @@ public class GOODsFORSALE : MonoBehaviour
             }
             else
             {
-                DoPatrol();
+                if (m_eScript.BullApper())
+                {
+                    BullPatrol();
+                }
+                else
+                {
+                    DoPatrol();
+                }
             }
 
         }
@@ -130,6 +140,15 @@ public class GOODsFORSALE : MonoBehaviour
         var x = Random.Range(-100.0f, 100.0f);
         var z = Random.Range(-100.0f, 100.0f);
         pos = new Vector3(x, 0, z);
+        m_Agent.SetDestination(pos);
+    }
+
+    public void BullPatrol()
+    {
+        if (m_Agent.enabled == false) return;
+        var x = Random.Range(-100.0f, 100.0f);
+        var z = Random.Range(-100.0f, 100.0f);
+        pos = new Vector3(0+x, 0, 0+z);
         m_Agent.SetDestination(pos);
     }
 
