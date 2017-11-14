@@ -62,6 +62,8 @@ public class Player : MonoBehaviour
 
     public Transform exitPoint;
 
+    private Transform cartRotatePoint;
+
 
     void Start()
     {
@@ -74,6 +76,7 @@ public class Player : MonoBehaviour
         m_Animator = GetComponent<Animator>();
         myNav = GetComponent<NavMeshAgent>();
         myNav.enabled = false;
+        cartRotatePoint = transform.Find("cartrotatepoint");
     }
 
     void Update()
@@ -134,7 +137,7 @@ public class Player : MonoBehaviour
             case PlayerState.Takeover: PlayerHacking(); break;
         }
         float playerSpeed = rb.velocity.sqrMagnitude;
-        if (myState != PlayerState.NoCart && inputVertical < 0) playerSpeed *= -1;
+        if (myState != PlayerState.NoCart&& myState != PlayerState.Gliding && inputVertical < 0) playerSpeed *= -1;
         if (myState == PlayerState.Takeover) playerSpeed = myNav.velocity.sqrMagnitude;
         m_Animator.SetFloat("Speed", playerSpeed);
     }
@@ -213,16 +216,14 @@ public class Player : MonoBehaviour
     /// <summary>カートのジャック</summary>
     private void PlayerHacking()
     {
-        //Vector3 basPos = nextCart.transform.position + transform.forward * 0.1f;
-        //basPos.y = 0.6f;
-        //scScript.SetBasketPos(basPos);
-        //scScript.SetBasketAngle(nextCart.transform.rotation);
-        myNav.destination = nextCart.transform.position + nextCart.transform.forward * (-1.5f);
+        Vector3 dis = nextCart.transform.position + nextCart.transform.forward * (-1.5f);
+        myNav.destination = new Vector3(dis.x, -0.8f, dis.z);
         if (Vector3.Distance(myNav.destination, transform.position) < 0.5f)
         {
             transform.position = myNav.destination;
             transform.rotation = nextCart.transform.rotation;
             myNav.enabled = false;
+            transform.position = new Vector3(transform.position.x, 0, transform.position.z);
             canGetCart = nextCart.transform.Find("BackHitArea").gameObject;
             scScript.SetBasketParent(transform);
             CatchCart();
@@ -238,8 +239,8 @@ public class Player : MonoBehaviour
         nextCart = nextcart;
         myNav.enabled = true;
         canGetCart = nextCart.transform.Find("BackHitArea").gameObject;
-        Vector3 basPos = nextCart.transform.position + transform.forward * 0.1f;
-        basPos.y = 0.6f;
+        Vector3 basPos = nextCart.transform.position;
+        basPos.y = 0.5f;
         scScript.SetBasketPos(basPos);
         scScript.SetBasketAngle(nextCart.transform.rotation);
         scScript.SetBasketParent(null);
@@ -250,6 +251,8 @@ public class Player : MonoBehaviour
     /// <summary>カート壊れる</summary>
     public void BreakCart()
     {
+        cartRotatePoint.transform.localRotation = Quaternion.AngleAxis(0, new Vector3(1, 0, 0));
+        scScript.SetBasketParent(transform);
         scScript.BasketOut();
         Destroy(myCart);
         ChangeState(0);
@@ -277,7 +280,7 @@ public class Player : MonoBehaviour
     /// <summary>カートを持つ</summary>
     public void CatchCart()
     {
-        //Debug.Log(canGetCart);
+
         //持つカートの耐久値をもらう
         myCartStatus.GetCart(canGetCart.transform.parent.gameObject.GetComponent<CartStatusWithCart>());
 

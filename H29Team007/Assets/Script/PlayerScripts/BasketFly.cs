@@ -47,7 +47,7 @@ public class BasketFly : MonoBehaviour
             collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             //transform.position = collision.transform.position + collision.transform.
             player.GetComponent<Player>().ChangeCart(collision.gameObject);
-            player.SendMessage("BaggegeParentPlayer", SendMessageOptions.DontRequireReceiver);
+            player.GetComponent<ShoppingCount>().BaggegeParentPlayer();
             Destroy(gameObject);
         }
         else if (collision.transform.tag == "EnemyCart")
@@ -55,13 +55,12 @@ public class BasketFly : MonoBehaviour
             //Debug.Log(collision.gameObject.name);
             EnemyCart ec = collision.gameObject.GetComponent<EnemyCart>();
             ec.Independence();
-
-
+            
             GameObject newcart = ec.NewCart();
-
+            
             newcart.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             player.GetComponent<Player>().ChangeCart(newcart.gameObject);
-            player.SendMessage("BaggegeParentPlayer", SendMessageOptions.DontRequireReceiver);
+            player.GetComponent<ShoppingCount>().BaggegeParentPlayer();
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }

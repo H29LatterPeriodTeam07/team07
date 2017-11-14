@@ -34,6 +34,7 @@ public class Child : MonoBehaviour {
 
     private GameObject m_Player;
     private Transform m_PlayerEyePoint;
+    private ShoppingCount scScript;
 
     private bool isParentinBaggege = false;
 
@@ -51,6 +52,7 @@ public class Child : MonoBehaviour {
         m_Player = GameObject.FindGameObjectWithTag("Player");
         //プレイヤーの注視点を名前で検索して保持
         m_PlayerEyePoint = m_Player.transform.Find("LookPoint");
+        scScript = m_Player.GetComponent<ShoppingCount>();
     }
 
     // Update is called once per frame
@@ -72,7 +74,7 @@ public class Child : MonoBehaviour {
             {
                 if (m_Parent.transform.parent == null)
                 {
-                    m_Player.SendMessage("MinusChild", SendMessageOptions.DontRequireReceiver);
+                    scScript.MinusChild();
                     isParentinBaggege = false;
                 }
             }
@@ -80,8 +82,8 @@ public class Child : MonoBehaviour {
             {
                 if (m_Parent.transform.parent != null)
                 {
-                    m_Player.SendMessage("PlusChild", SendMessageOptions.DontRequireReceiver);
-
+                    
+                    scScript.PlusChild();
                     isParentinBaggege = true;
                 }
             }

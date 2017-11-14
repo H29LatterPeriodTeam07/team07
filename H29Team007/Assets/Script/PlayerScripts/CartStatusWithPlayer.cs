@@ -95,6 +95,11 @@ public class CartStatusWithPlayer : MonoBehaviour
         }
     }
 
+    public void SetBasketParent(Transform parent)
+    {
+        scScript.SetBasketParent(parent);
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Register")
