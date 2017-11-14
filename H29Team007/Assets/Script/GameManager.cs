@@ -5,29 +5,41 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     //ＢＢＡの巡回ポイント
+    [SerializeField, Header("BBAのノーマル巡回ルート")]
     public Transform[] m_PatrolPoints;
     //ＢＢＡの巡回ポイント2
+    [SerializeField, Header("BBAの特売品モードの巡回ルート")]
     public Transform[] m_Patrolpoints2;
+    [SerializeField, Header("闘牛の特売品モードの巡回ルート")]
+    public Transform[] m_BullPatrolPoints;
+
     //レジから出口のポイント
+    [SerializeField, Header("レジポイントと出口を入れる")]
     public Transform[] m_ReziExitpoints;
+    [SerializeField, Header("特売品出現場所をすべて入れる")]
     public GameObject[] m_SaleAnimalSpowns;
     [System.NonSerialized]
     public SaleSpown m_scSaleSpown;
+    //ＢＢＡの現在の巡回ポイントのインデックス
+    [System.NonSerialized]
+    public int m_CurrentPatrolPointIndex = 1;
+    [System.NonSerialized]
+    public int m_CurrentPatrolPoint2Index = 1;
+    [System.NonSerialized]
+    public int m_CurrentPatrolPoint3Index = 1;
+    //闘牛の現在の巡回ポイントのインデックス
+    [System.NonSerialized]
+    public int m_CurentBullPatrolPointIndex = 1;
 
     //BBAオブジェクト
     private GameObject m_BBA;
     //警備員オブジェクト
     private GameObject m_SG;
     BBA m_BBAScript;
-
     //サウンドマネージャーオブジェクト
     GameObject SM;
     //サウンドマネージャースクリプト
     SoundManagerScript smScript;
-    //ＢＢＡの現在の巡回ポイントのインデックス
-    int m_CurrentPatrolPointIndex = 1;
-    int m_CurrentPatrolPoint2Index = 1;
-    int m_CurrentPatrolPoint3Index = 1;
 
     // Use this for initialization
     void Start () {
@@ -47,40 +59,4 @@ public class GameManager : MonoBehaviour {
 	void Update () {
         
 	}
-
-    public void EnterShopBBA()
-    {
-
-    }
-
-    //次の巡回ポイントを目的地に設定する
-    public void SetNewPatrolPointToDestination()
-    {
-        m_CurrentPatrolPointIndex
-            = (m_CurrentPatrolPointIndex + 1) % m_PatrolPoints.Length;
-
-        m_BBAScript.m_Agent.destination = m_PatrolPoints[m_CurrentPatrolPointIndex].position;
-    }
-
-    public void SetNewSalePatrolPointToDestination()
-    {
-        m_CurrentPatrolPoint2Index
-            = (m_CurrentPatrolPoint2Index + 1) % m_Patrolpoints2.Length;
-
-        m_BBAScript.m_Agent.destination = m_Patrolpoints2[m_CurrentPatrolPoint2Index].position;
-    }
-
-    public void SetNewExitPointToDestination()
-    {
-        m_CurrentPatrolPoint3Index
-            = (m_CurrentPatrolPoint2Index + 1) % m_ReziExitpoints.Length;
-
-      m_BBAScript.m_Agent.destination = m_ReziExitpoints[m_CurrentPatrolPoint3Index].position;
-    }
-
-    // 目的地に到着したか
-    public bool HasArrived()
-    {
-        return (Vector3.Distance(m_BBAScript.m_Agent.destination, m_BBA.transform.position) < 0.5f);
-    }
 }

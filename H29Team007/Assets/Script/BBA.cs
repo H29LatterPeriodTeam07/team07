@@ -18,14 +18,6 @@ public enum BBAState
 public class BBA : MonoBehaviour
 {
     public GameObject m_BBAplehab;
-    //巡回ポイント
-    public Transform[] m_PatrolPoints;
-    //巡回ポイント2
-    public Transform[] m_Patrolpoints2;
-    //レジから出口のポイント
-    public Transform[] m_ReziExitpoints;
-    //出口を指定
-    public Transform m_ExitPoint;
     //見える距離
     public float m_ViewingDistance;
     //視野角
@@ -39,10 +31,6 @@ public class BBA : MonoBehaviour
     private Rigidbody rb;
     private GameObject m_GameManager;
     private GameManager m_gmScript;
-    //現在の巡回ポイントのインデックス
-    int m_CurrentPatrolPointIndex = 1;
-    int m_CurrentPatrolPoint2Index = 1;
-    int m_CurrentPatrolPoint3Index = 1;
     //プレイヤーへの参照
     GameObject m_Player;
     //プレイヤーへの注視点
@@ -65,7 +53,7 @@ public class BBA : MonoBehaviour
         bcScript = GetComponent<BBACartCount>();
         m_Agent = GetComponent<NavMeshAgent>();
         //目的地を設定する
-        m_gmScript.SetNewPatrolPointToDestination();
+        SetNewPatrolPointToDestination();
         m_EyePoint = transform.Find("BBAEye");
     }
 
@@ -88,16 +76,16 @@ public class BBA : MonoBehaviour
             }
             else
             {
-                if (m_gmScript.HasArrived())
+                if (BBAHasArrived())
                 {
-                    m_gmScript.SetNewPatrolPointToDestination();
+                    SetNewPatrolPointToDestination();
                 }
             }
         }
         //特売品モード
         else if (m_State == BBAState.SaleMode)
         {
-            m_gmScript.SetNewSalePatrolPointToDestination();
+            SetNewSalePatrolPointToDestination();
 
             m_ViewingDistance = 100;
             m_ViewingAngle = 180;
@@ -112,7 +100,7 @@ public class BBA : MonoBehaviour
                 m_Agent.destination = m_SaleAnimals.transform.position;
             }
 
-            else if (m_gmScript.HasArrived())
+            else if (BBAHasArrived())
             {
                 transform.LookAt(m_gmScript.m_SaleAnimalSpowns[0].transform.position);
             }
@@ -125,11 +113,42 @@ public class BBA : MonoBehaviour
         //レジ～出入り口へGOモード
         else if (m_State == BBAState.CashMode)
         {
-            m_gmScript.SetNewExitPointToDestination();
+            SetNewExitPointToDestination();
             m_Speed = 3;
 
             if (!IsGetAnimal()) m_State = BBAState.NormalMode;
         }
+    }
+
+    //次の巡回ポイントを目的地に設定する
+    public void SetNewPatrolPointToDestination()
+    {
+        m_gmScript.m_CurrentPatrolPointIndex
+            = (m_gmScript.m_CurrentPatrolPointIndex + 1) % m_gmScript.m_PatrolPoints.Length;
+
+       m_Agent.destination = m_gmScript.m_PatrolPoints[m_gmScript.m_CurrentPatrolPointIndex].position;
+    }
+
+    public void SetNewSalePatrolPointToDestination()
+    {
+        m_gmScript.m_CurrentPatrolPoint2Index
+            = (m_gmScript.m_CurrentPatrolPoint2Index + 1) % m_gmScript.m_Patrolpoints2.Length;
+
+       m_Agent.destination = m_gmScript.m_Patrolpoints2[m_gmScript.m_CurrentPatrolPoint2Index].position;
+    }
+
+    public void SetNewExitPointToDestination()
+    {
+        m_gmScript.m_CurrentPatrolPoint3Index
+            = (m_gmScript.m_CurrentPatrolPoint2Index + 1) % m_gmScript.m_ReziExitpoints.Length;
+
+        m_Agent.destination = m_gmScript.m_ReziExitpoints[m_gmScript.m_CurrentPatrolPoint3Index].position;
+    }
+
+    // 目的地に到着したか
+    public bool BBAHasArrived()
+    {
+        return (Vector3.Distance(m_Agent.destination, transform.position) < 0.5f);
     }
 
     public bool IsGetAnimal()

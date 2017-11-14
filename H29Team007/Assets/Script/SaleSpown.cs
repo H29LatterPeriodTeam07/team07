@@ -5,10 +5,10 @@ using UnityEngine;
 public class SaleSpown : MonoBehaviour {
 
     //上から順番に出現させる特売品のプレハブ
-    [SerializeField, TooltipAttribute("上から順に出現する特売品のプレハブを入れる(ApperTimeと要素数は同じにするように)")]
+    [SerializeField, Header("上から順に出現する特売品のプレハブを入れる(ApperTimeと要素数は同じにするように)")]
     private GameObject[] m_SaleAnimals;
     //出現時間
-    [SerializeField, TooltipAttribute("指定した特売品が出現する時間の指定(float型)")]
+    [SerializeField, Header("指定した特売品が出現する時間の指定(float型)")]
     public float[] m_ApperTime;
     //巡回ポイント
     public Transform[] m_PatrolPoints;
