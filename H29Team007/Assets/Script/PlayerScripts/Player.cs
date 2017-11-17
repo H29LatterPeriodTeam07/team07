@@ -64,6 +64,8 @@ public class Player : MonoBehaviour
 
     private Transform cartRotatePoint;
 
+    private GameObject havedCart;
+
 
     void Start()
     {
@@ -83,7 +85,7 @@ public class Player : MonoBehaviour
     {
         if (!MainGameDate.IsStart())
         {
-            m_Animator.SetFloat("Speed",0);
+            m_Animator.SetFloat("Speed", 0);
             rb.velocity = Vector3.zero;
             return;
         }
@@ -113,10 +115,9 @@ public class Player : MonoBehaviour
         }
         else if (canGet)
         {
-            if (Input.GetButtonDown("XboxA") || Input.GetKeyDown(KeyCode.R))
-            {
-                CatchCart();
-            }
+            
+            CatchCart();
+            canGet = false;
         }
 
     }
@@ -125,7 +126,7 @@ public class Player : MonoBehaviour
     {
         if (!MainGameDate.IsStart())
         {
-           
+
             return;
         }
 
@@ -137,7 +138,7 @@ public class Player : MonoBehaviour
             case PlayerState.Takeover: PlayerHacking(); break;
         }
         float playerSpeed = rb.velocity.sqrMagnitude;
-        if (myState != PlayerState.NoCart&& myState != PlayerState.Gliding && inputVertical < 0) playerSpeed *= -1;
+        if (myState != PlayerState.NoCart && myState != PlayerState.Gliding && inputVertical < 0) playerSpeed *= -1;
         if (myState == PlayerState.Takeover) playerSpeed = myNav.velocity.sqrMagnitude;
         m_Animator.SetFloat("Speed", playerSpeed);
     }
@@ -274,17 +275,17 @@ public class Player : MonoBehaviour
         relativePos.y = 0; //上下方向の回転はしないように制御
         transform.rotation = Quaternion.LookRotation(relativePos);
         cart.transform.rotation = Quaternion.LookRotation(relativePos);
+        havedCart = cart;
         BreakCart();
     }
 
     /// <summary>カートを持つ</summary>
     public void CatchCart()
     {
-
         //持つカートの耐久値をもらう
-        myCartStatus.GetCart(canGetCart.transform.parent.gameObject.GetComponent<CartStatusWithCart>());
+        myCartStatus.GetCart(canGetCart.transform.gameObject.GetComponent<CartStatusWithCart>());
 
-        Destroy(canGetCart.transform.parent.gameObject);
+        Destroy(canGetCart.transform.gameObject);
         ChangeState(1);
         myCart = Instantiate(cartBodyPrefab);
         Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
@@ -335,36 +336,51 @@ public class Player : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.tag == "Enemy")
+        if (collision.transform.tag == "Enemy")
         {
             scScript.BaggegeFall(transform.position);
             ReleaseCart();
             transform.position = exitPoint.position;
         }
-    }
-
-    public void OnTriggerStay(Collider other)
-    {
-        if (other.name == "BackHitArea")
+        if (collision.transform.tag == "Cart" && havedCart == null)
         {
-            canGetCart = other.gameObject;
-            if (CanGetCart())
-            {
-                canGet = true;
-            }
-            else
-            {
-                canGet = false;
-            }
+            canGetCart = collision.gameObject;
+            canGet = true;
         }
     }
 
-    public void OnTriggerExit(Collider other)
+    public void OnCollisionExit(Collision collision)
     {
-        if (other.name == "BackHitArea")
+        if (collision.transform.tag == "Cart" && havedCart != null)
         {
-            canGet = false;
-            canGetCart = null;
+            havedCart = null;
         }
     }
+
+
+
+    //public void OnTriggerStay(Collider other)
+    //{
+    //    if (other.name == "BackHitArea")
+    //    {
+    //        canGetCart = other.gameObject;
+    //        if (CanGetCart())
+    //        {
+    //            canGet = true;
+    //        }
+    //        else
+    //        {
+    //            canGet = false;
+    //        }
+    //    }
+    //}
+
+    //public void OnTriggerExit(Collider other)
+    //{
+    //    if (other.name == "BackHitArea")
+    //    {
+    //        canGet = false;
+    //        canGetCart = null;
+    //    }
+    //}
 }
