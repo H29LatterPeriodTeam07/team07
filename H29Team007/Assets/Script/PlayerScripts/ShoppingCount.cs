@@ -30,6 +30,9 @@ public class ShoppingCount : MonoBehaviour
     private Text score;
     private int childCount = 0;
 
+    private Transform nimotuparent;
+    private InclinationOfLuggage nimotuScript;
+
     // Use this for initialization 
     void Start()
     {
@@ -40,6 +43,8 @@ public class ShoppingCount : MonoBehaviour
         onPosition = 0.0f;
         maxCount = maxCountDefault;
         basketScript = basket.GetComponent<Basket>();
+        nimotuparent = basket.transform.Find("nimotuParent");
+        
         BasketOut();
         SetScore();
     }
@@ -200,7 +205,7 @@ public class ShoppingCount : MonoBehaviour
     /// <param name="baggege">荷物のTransform</param>
     public void AddBaggege(Transform baggege)
     {
-        baggege.parent = basket.transform;
+        baggege.parent = nimotuparent;
         myBaggege.Add(baggege);
         SetScore();
     }
