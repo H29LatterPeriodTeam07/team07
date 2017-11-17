@@ -39,7 +39,7 @@ public class SaleSpown : MonoBehaviour {
         {
             m_SaleMode = m_ApperTime[m_CurrentApperTimeIndex] - m_SaleModeTime;
             if (m_timer.timer > m_ApperTime[m_CurrentApperTimeIndex])
-            {
+            { 
                 if (m_SaleAnimals[m_CurrentSaleAnimeIndex].gameObject.name == "SaleAnimalCow")
                 {
                     m_scSale.ApperCow();

@@ -39,7 +39,8 @@ public class SecurityGuard : MonoBehaviour
     Transform m_PlayerLookpoint;
     //自身の目の位置
     Transform m_EyePoint;
-
+    public GameObject m_SoundManager;
+    SoundManagerScript m_smScript;
 
     // Use this for initialization
     void Start()
@@ -55,6 +56,7 @@ public class SecurityGuard : MonoBehaviour
         m_EyePoint = transform.Find("LookEye");
         m_Animator = GetComponent<Animator>();
         m_scPlayer = m_Player.GetComponent<Player>();
+        m_smScript = m_SoundManager.GetComponent<SoundManagerScript>();
     }
 
     // Update is called once per frame
@@ -73,6 +75,7 @@ public class SecurityGuard : MonoBehaviour
             //プレイヤーが見えた場合
             if (CanSeePlayer() && m_scPlayer.IsGetHuman())
             {
+                m_smScript.PlaySE(1);
                 //追跡中に状態変更
                 m_State = EnemyState.Chasing;
                 m_Agent.destination = m_Player.transform.position;

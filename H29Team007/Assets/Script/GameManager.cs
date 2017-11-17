@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour {
         m_BBAScript = m_BBA.GetComponent<BBA>();
         SM = GameObject.Find("SoundManager");
         smScript = SM.transform.GetComponent<SoundManagerScript>();
-        smScript.PlayBGM(0);
+     //   smScript.PlayBGM(0);
         //スクリプトSaleSpownへの参照
         for (int i = 0; i < m_SaleAnimalSpowns.Length; i++)
         {
