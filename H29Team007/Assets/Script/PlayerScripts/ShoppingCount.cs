@@ -31,7 +31,7 @@ public class ShoppingCount : MonoBehaviour
     private int childCount = 0;
 
     private Transform nimotuparent;
-    private InclinationOfLuggage nimotuScript;
+    private SpringManagerArrange nimotuScript;
 
     // Use this for initialization 
     void Start()
@@ -44,6 +44,7 @@ public class ShoppingCount : MonoBehaviour
         maxCount = maxCountDefault;
         basketScript = basket.GetComponent<Basket>();
         nimotuparent = basket.transform.Find("nimotuParent");
+        nimotuScript = nimotuparent.GetComponent<SpringManagerArrange>();
         
         BasketOut();
         SetScore();
@@ -62,10 +63,10 @@ public class ShoppingCount : MonoBehaviour
             if (myBaggege.Count != 0)
             {
                 flyBasket.transform.position = basket.transform.position;
-                for (int i = 0; i < myBaggege.Count; i++)
-                {
-                    myBaggege[i].parent = flyBasket.transform;
-                }
+                //for (int i = 0; i < myBaggege.Count; i++)
+                //{
+                    myBaggege[0].parent = flyBasket.transform;
+                //}
             }
             Vector3 baspos = basket.transform.position;
             baspos.y = 1.6f;
@@ -96,6 +97,7 @@ public class ShoppingCount : MonoBehaviour
 
     public void Reset()
     {
+        nimotuScript.NullChildren();
         myBaggege.Clear();
         onPosition = 0.0f;
         SetScore();
@@ -205,8 +207,9 @@ public class ShoppingCount : MonoBehaviour
     /// <param name="baggege">荷物のTransform</param>
     public void AddBaggege(Transform baggege)
     {
-        baggege.parent = nimotuparent;
+        //baggege.parent = nimotuparent;
         myBaggege.Add(baggege);
+        nimotuScript.SetChildren(baggege);
         SetScore();
     }
 

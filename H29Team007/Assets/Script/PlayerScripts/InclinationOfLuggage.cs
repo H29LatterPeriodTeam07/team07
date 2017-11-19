@@ -22,7 +22,7 @@ public class InclinationOfLuggage : MonoBehaviour
     {
         if (transform.childCount != nowChildCount)
         {
-            //RotateChild();
+            RotateChild();
             nowChildCount = transform.childCount;
         }
         //foreach (Transform child in transform)
@@ -44,7 +44,7 @@ public class InclinationOfLuggage : MonoBehaviour
         {
             child.RotateAround(transform.position, transform.right, slope);
         }
-        slope = newslope;
+        //slope = newslope;
     }
 
     public void RotateNewChild(Transform newChild)
@@ -56,5 +56,10 @@ public class InclinationOfLuggage : MonoBehaviour
     public float GetSlope()
     {
         return slope;
+    }
+
+    public void PlusSlope(float angle)
+    {
+        slope += angle;
     }
 }

@@ -16,6 +16,8 @@ public class CartStatusWithPlayer : MonoBehaviour
     [SerializeField, Header("カートのハンドルが壊れた時に下げる回転速度")]
     private float minusRotateSpeedDefault = 60;
 
+    private PlayerSE seScript;
+
     // Use this for initialization
     void Start()
     {
@@ -23,6 +25,8 @@ public class CartStatusWithPlayer : MonoBehaviour
         scScript = GetComponent<ShoppingCount>();
 
         cartStatus = new float[4];
+
+        seScript = GetComponent<PlayerSE>();
     }
 
     // Update is called once per frame
@@ -92,6 +96,11 @@ public class CartStatusWithPlayer : MonoBehaviour
             playerScript.BreakCart();
             scScript.BaggegeFall(transform.position);
             playerScript.SetMinusRotateSpeed(0);
+            seScript.OnePlay(3);
+        }
+        else
+        {
+            seScript.OnePlay(2);
         }
     }
 

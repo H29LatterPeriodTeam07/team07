@@ -9,6 +9,7 @@ public class CartBody : MonoBehaviour
 
     private CartStatusWithPlayer cs;
     private GameObject rotatepoint;
+    //private InclinationOfLuggage pointScr;
 
     public Vector3 willyPoint = new Vector3(0, 0, 0.3f);
     public Vector3 motiagePoint = new Vector3(0, 0, 1.65f);
@@ -17,11 +18,18 @@ public class CartBody : MonoBehaviour
 
     private bool isWilly = false;
 
+    //[SerializeField, Header("カート持っていない時の速さ")]
+    private float willTime = 0.3f;
+    private float nowTime = 0.0f;
+
+    private float moderuAngle = 0.0f;
+
     // Use this for initialization
     void Start()
     {
         cs = transform.root.GetComponent<CartStatusWithPlayer>();
         rotatepoint = transform.root.Find("cartrotatepoint").gameObject;
+        //pointScr = transform.root.Find("PlayerBasket(Clone)").Find("nimotuParent").GetComponent<InclinationOfLuggage>();
     }
 
     // Update is called once per frame
@@ -57,11 +65,12 @@ public class CartBody : MonoBehaviour
     /// <summary>ウィリー時</summary>
     private void Willy()
     {
-        if (isR&&Input.GetKeyUp(KeyCode.L)
-            || !isR && Input.GetKeyUp(KeyCode.K))
+        if (nowTime >= willTime)
         {
             NoSlopeCart();
+            nowTime = 0.0f;
         }
+        nowTime += Time.deltaTime;
     }
 
     /// <summary>カート傾け</summary>
@@ -72,6 +81,8 @@ public class CartBody : MonoBehaviour
         transform.parent = rotatepoint.transform;
         rotatepoint.transform.localRotation = Quaternion.AngleAxis(angle, new Vector3(1, 0, 0));
         isWilly = true;
+        //pointScr.PlusSlope(angle);
+        moderuAngle = angle;
     }
 
     /// <summary>カート傾けない</summary>
@@ -81,6 +92,7 @@ public class CartBody : MonoBehaviour
         cs.SetBasketParent(transform.root);
         transform.parent = transform.root;
         isWilly = false;
+        //pointScr.PlusSlope(moderuAngle);
     }
 
     public void OnTriggerEnter(Collider other)

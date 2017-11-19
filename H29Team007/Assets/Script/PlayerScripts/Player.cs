@@ -66,6 +66,7 @@ public class Player : MonoBehaviour
 
     private GameObject havedCart;
 
+    private PlayerSE seScript;
 
     void Start()
     {
@@ -79,6 +80,7 @@ public class Player : MonoBehaviour
         myNav = GetComponent<NavMeshAgent>();
         myNav.enabled = false;
         cartRotatePoint = transform.Find("cartrotatepoint");
+        seScript = GetComponent<PlayerSE>();
     }
 
     void Update()
@@ -137,10 +139,24 @@ public class Player : MonoBehaviour
             case PlayerState.Gliding: CartGliding(); break;
             case PlayerState.Takeover: PlayerHacking(); break;
         }
+
         float playerSpeed = rb.velocity.sqrMagnitude;
         if (myState != PlayerState.NoCart && myState != PlayerState.Gliding && inputVertical < 0) playerSpeed *= -1;
         if (myState == PlayerState.Takeover) playerSpeed = myNav.velocity.sqrMagnitude;
         m_Animator.SetFloat("Speed", playerSpeed);
+
+        if(playerSpeed == 0 
+            || myState != PlayerState.Gliding && myState != PlayerState.OnCart)
+        {
+            seScript.SEPlay(5);
+        }
+        else if(myState == PlayerState.Gliding && inputHorizontal != 0){
+            seScript.SEPlay(1);
+        }
+        else if(myState == PlayerState.OnCart || myState == PlayerState.Gliding)
+        {
+            seScript.SEPlay(0);
+        }
     }
 
     /// <summary> 状態変化 </summary>
@@ -225,7 +241,7 @@ public class Player : MonoBehaviour
             transform.rotation = nextCart.transform.rotation;
             myNav.enabled = false;
             transform.position = new Vector3(transform.position.x, 0, transform.position.z);
-            canGetCart = nextCart.transform.Find("BackHitArea").gameObject;
+            canGetCart = nextCart;
             scScript.SetBasketParent(transform);
             CatchCart();
         }
@@ -336,13 +352,15 @@ public class Player : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Enemy")
+        if (collision.transform.tag == "Enemy" )
         {
             scScript.BaggegeFall(transform.position);
             ReleaseCart();
             transform.position = exitPoint.position;
+            seScript.OnePlay(4);
+            havedCart = null;
         }
-        if (collision.transform.tag == "Cart" && havedCart == null)
+        if (collision.transform.tag == "Cart" && havedCart == null && myCart == null)
         {
             canGetCart = collision.gameObject;
             canGet = true;

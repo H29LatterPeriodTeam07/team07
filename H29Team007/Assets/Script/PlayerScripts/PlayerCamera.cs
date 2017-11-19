@@ -52,7 +52,7 @@ public class PlayerCamera : MonoBehaviour {
         mainCamera.position = transform.position + cameraLeaveVec * m_DefaultDistance;
     }
 
-    void Update()
+    void LateUpdate()
     {
         Vector3 targetPos = m_Target.position;
         //targetPos.y += playerSC.GetCameraLookPoiintPluseY();
