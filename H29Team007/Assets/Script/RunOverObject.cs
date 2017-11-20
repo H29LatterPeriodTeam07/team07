@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class RunOverObject : MonoBehaviour
 {
+    public AudioClip m_se;
+
+    private AudioSource m_AS;
     [SerializeField, Header("カートに乗った後の高さ")]
     private float runOverAfterHeight = 1.0f;
 
@@ -18,6 +21,7 @@ public class RunOverObject : MonoBehaviour
         myNav = GetComponent<NavMeshAgent>();
         myCollider = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
+        m_AS = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -97,6 +101,8 @@ public class RunOverObject : MonoBehaviour
                 rb.velocity = Vector3.zero;
                 rb.isKinematic = true;
             }
+            m_AS.clip = m_se;
+            m_AS.Play();
         }
 
         if (other.name == "EnemyFrontHitArea")//敵ババア用　敵ババアが特売品を轢く処理は頑張って

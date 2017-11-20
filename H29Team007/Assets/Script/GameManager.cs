@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
     private GameObject m_SG;
     BBA m_BBAScript;
     //サウンドマネージャーオブジェクト
-    GameObject SM;
+    public GameObject SM;
     //サウンドマネージャースクリプト
     SoundManagerScript smScript;
 
@@ -45,9 +45,8 @@ public class GameManager : MonoBehaviour {
     void Start () {
         m_BBA = GameObject.FindGameObjectWithTag("BBA");
         m_BBAScript = m_BBA.GetComponent<BBA>();
-        SM = GameObject.Find("SoundManager");
         smScript = SM.transform.GetComponent<SoundManagerScript>();
-     //   smScript.PlayBGM(0);
+        smScript.PlayBGM(2);
         //スクリプトSaleSpownへの参照
         for (int i = 0; i < m_SaleAnimalSpowns.Length; i++)
         {
@@ -57,6 +56,6 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
-	}
+
+    }
 }

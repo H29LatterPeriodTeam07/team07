@@ -19,10 +19,12 @@ public class Clerk : MonoBehaviour
     public float m_ViewingDistance;
     //視野角
     public float m_ViewingAngle;
+    public AudioClip m_se;
 
     private ClerkState m_State = ClerkState.NormalMode;
     NavMeshAgent m_Agent;
     private Animator m_Animator;
+    private AudioSource m_AS;
     //現在の巡回ポイントのインデックス
     int m_CurrentPatrolPointIndex = 1;
     //プレイヤーへの参照
@@ -57,6 +59,7 @@ public class Clerk : MonoBehaviour
         m_EyePoint = transform.Find("LookEye");
         m_Animator = GetComponent<Animator>();
         m_rand = Random.Range(0, m_PatrolPoints.Length);
+        m_AS = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

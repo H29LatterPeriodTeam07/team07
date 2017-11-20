@@ -25,10 +25,12 @@ public class SecurityGuard : MonoBehaviour
     //視野角
     public float m_ViewingAngle;
     public GameObject m_Enemy;
+    public AudioClip m_se;
 
     private Player m_scPlayer;
     private EnemyState m_State = EnemyState.Patrolling;
     private Animator m_Animator;
+    private AudioSource m_AS;
     NavMeshAgent m_Agent;
     //現在の巡回ポイントのインデックス
     int m_CurrentPatrolPointIndex = 1;
@@ -57,6 +59,7 @@ public class SecurityGuard : MonoBehaviour
         m_Animator = GetComponent<Animator>();
         m_scPlayer = m_Player.GetComponent<Player>();
         m_smScript = m_SoundManager.GetComponent<SoundManagerScript>();
+        m_AS = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -75,7 +78,8 @@ public class SecurityGuard : MonoBehaviour
             //プレイヤーが見えた場合
             if (CanSeePlayer() && m_scPlayer.IsGetHuman())
             {
-                m_smScript.PlaySE(1);
+                //  m_smScript.PlaySE(1);
+                m_AS.Play();
                 //追跡中に状態変更
                 m_State = EnemyState.Chasing;
                 m_Agent.destination = m_Player.transform.position;

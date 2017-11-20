@@ -20,7 +20,7 @@ public class BullHitArea : MonoBehaviour
     {
         if (other.name == "Player")
         {
-            var sc = transform.root.GetComponent<BullCount>();
+          /*  var sc = transform.root.GetComponent<BullCount>();
             if (transform.tag == "Animal" && !sc.IsHumanMoreThanAnimal()) return;
             myCollider.enabled = false;
             //ここにアニメ停止や変更入れるかも
@@ -36,7 +36,7 @@ public class BullHitArea : MonoBehaviour
                 rb.velocity = Vector3.zero;
                 rb.isKinematic = true;
             }
-            if (myNav != null) myNav.enabled = false;
+            if (myNav != null) myNav.enabled = false;*/
         }
     }
 }
