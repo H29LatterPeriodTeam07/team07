@@ -129,8 +129,7 @@ public class RunOverObject : MonoBehaviour
                 }
             }
         }
-
-        if (other.name == "tougyu")//闘牛用
+        if (other.name == "BullHitArea")//闘牛用
         {
             var sc = other.transform.root.GetComponent<BullCount>();
             if (transform.tag == "Animal" && !sc.IsHumanMoreThanAnimal()) return;

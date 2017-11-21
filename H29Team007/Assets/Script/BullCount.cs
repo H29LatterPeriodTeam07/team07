@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BullCount : MonoBehaviour {
 
@@ -17,6 +18,8 @@ public class BullCount : MonoBehaviour {
     // Use this for initialization 
     void Start()
     {
+        //  basket = Instantiate(basketPrefab);
+        //  basket.transform.parent = transform;
         myBaggege = new List<Transform>();
         onPosition = 0.0f;
         maxCount = maxCountDefault;
@@ -174,7 +177,6 @@ public class BullCount : MonoBehaviour {
     {
         List<Transform> mybags = new List<Transform>();
         List<Transform> kesumono = new List<Transform>();
-        int bagprice = 0;
 
         for (int i = 0; i < myBaggege.Count; i++)
         {
@@ -207,4 +209,3 @@ public class BullCount : MonoBehaviour {
         }
     }
 }
-
