@@ -33,6 +33,8 @@ public class ShoppingCount : MonoBehaviour
     private Transform nimotuparent;
     private SpringManagerArrange nimotuScript;
 
+    private PlayerSE seScript;
+
     // Use this for initialization 
     void Start()
     {
@@ -45,7 +47,8 @@ public class ShoppingCount : MonoBehaviour
         basketScript = basket.GetComponent<Basket>();
         nimotuparent = basket.transform.Find("nimotuParent");
         nimotuScript = nimotuparent.GetComponent<SpringManagerArrange>();
-        
+        seScript = GetComponent<PlayerSE>();
+
         BasketOut();
         SetScore();
     }
@@ -285,6 +288,7 @@ public class ShoppingCount : MonoBehaviour
         if (kesumono.Count != 0)
         {
 
+            seScript.OnePlay(5);
             for (int i = 0; i < kesumono.Count; i++)
             {
                 Destroy(kesumono[i].gameObject);

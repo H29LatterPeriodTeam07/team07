@@ -148,7 +148,7 @@ public class Player : MonoBehaviour
         if(playerSpeed == 0 
             || myState != PlayerState.Gliding && myState != PlayerState.OnCart)
         {
-            seScript.SEPlay(5);
+            seScript.SEPlay(6);
         }
         else if(myState == PlayerState.Gliding && inputHorizontal != 0){
             seScript.SEPlay(1);
