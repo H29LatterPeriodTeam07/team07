@@ -354,6 +354,7 @@ public class Player : MonoBehaviour
     {
         if (collision.transform.tag == "Enemy" )
         {
+            if (!collision.gameObject.GetComponent<SecurityGuard>().StateChasing()) return;
             scScript.BaggegeFall(transform.position);
             ReleaseCart();
             transform.position = exitPoint.position;

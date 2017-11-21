@@ -212,7 +212,7 @@ public class ShoppingCount : MonoBehaviour
     {
         //baggege.parent = nimotuparent;
         myBaggege.Add(baggege);
-        nimotuScript.SetChildren(baggege);
+        nimotuScript.SetChildren(baggege,baggege.GetComponent<RunOverObject>().GetHeight());
         SetScore();
     }
 
@@ -230,9 +230,9 @@ public class ShoppingCount : MonoBehaviour
         for (int i = 0; i < mybags.Count; i++)
         {
             AddBaggege(mybags[i]);
-            Vector3 nimotuPos = basket.transform.position;
-            nimotuPos.y = GetY();
-            mybags[i].position = nimotuPos;
+            //Vector3 nimotuPos = basket.transform.position;
+            //nimotuPos.y = GetY();
+            //mybags[i].position = nimotuPos;
             PlusY(mybags[i].GetComponent<RunOverObject>().GetHeight());
         }
         //GameObject newbag = Instantiate(bagPrefab);
@@ -297,9 +297,9 @@ public class ShoppingCount : MonoBehaviour
             for (int i = 0; i < mybags.Count; i++)
             {
                 AddBaggege(mybags[i]);
-                Vector3 nimotuPos = mybags[i].position;
-                nimotuPos.y = GetY();
-                mybags[i].position = nimotuPos;
+                //Vector3 nimotuPos = mybags[i].position;
+                //nimotuPos.y = GetY();
+                //mybags[i].position = nimotuPos;
                 PlusY(mybags[i].GetComponent<RunOverObject>().GetHeight());
             }
             GameObject newbag = Instantiate(bagPrefab);

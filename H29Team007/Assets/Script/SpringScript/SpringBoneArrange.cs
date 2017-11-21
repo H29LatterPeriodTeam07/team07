@@ -72,9 +72,10 @@ public class SpringBoneArrange : MonoBehaviour {
         trs.rotation = aimRotation * trs.rotation;
     }
 
-    public void ChildSet(Transform newChild)
+    public void ChildSet(Transform newChild, float height = 1.0f)
     {
         newChild.parent = transform;
+        newChild.localPosition = Vector3.up * height;
         springLength = Vector3.Distance(trs.position, newChild.position);
         currTipPos = newChild.position;
         prevTipPos = newChild.position;
@@ -85,5 +86,10 @@ public class SpringBoneArrange : MonoBehaviour {
     {
         //child.parent = null;
         child = null;
+    }
+
+    public void RotateReset()
+    {
+        trs.localRotation = Quaternion.identity * localRotation;
     }
 }
