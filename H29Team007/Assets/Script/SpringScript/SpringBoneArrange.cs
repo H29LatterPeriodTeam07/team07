@@ -84,7 +84,6 @@ public class SpringBoneArrange : MonoBehaviour {
 
     public void ChildNull()
     {
-        //child.parent = null;
         child = null;
     }
 

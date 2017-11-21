@@ -24,7 +24,11 @@ public class FallDown : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.parent != null) enabled = false;
+        if (transform.parent != null)
+        {
+            enabled = false;
+            return;
+        }
         float basyo = (Time.time - startTime) * speed;
         float donohenka = basyo / distance;
         transform.position = Vector3.Lerp(startPos, targetPos, donohenka);

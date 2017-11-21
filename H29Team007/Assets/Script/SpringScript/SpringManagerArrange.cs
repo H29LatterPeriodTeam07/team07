@@ -25,17 +25,17 @@ public class SpringManagerArrange : MonoBehaviour {
     {
         if (springBones.Count < 1) return;
 
-        float allAngle = 0;
+        //float allAngle = 0;
 
         for (int i = 0; i < springBones.Count; i++)
         {
             springBones[i].UpdateSpring();
-            allAngle += Mathf.Abs(springBones[i].transform.localRotation.x);
+            //allAngle += Mathf.Abs(springBones[i].transform.localRotation.x);
         }
 
-        //Debug.Log(allAngle);
 
-        if (allAngle >= 60)
+        //Debug.Log(springBones[springBones.Count - 1].transform.eulerAngles.x - 180);
+        if (Mathf.Abs(springBones[springBones.Count - 1].transform.eulerAngles.x - 180) <= 90 )
         {
             scScript.BaggegeFall(transform.root.position);
         }
