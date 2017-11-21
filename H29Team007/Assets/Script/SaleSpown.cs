@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SaleSpown : MonoBehaviour {
+    public AudioClip m_se;
+    private AudioSource m_AS;
 
     //上から順番に出現させる特売品のプレハブ
     [SerializeField, Header("上から順に出現する特売品のプレハブを入れる(ApperTimeと要素数は同じにするように)")]
@@ -30,6 +32,7 @@ public class SaleSpown : MonoBehaviour {
     {
         m_timer = m_Time.GetComponent<Timer>();
         m_scSale = m_SaleMaterial.GetComponent<SaleMaterial>();
+        m_AS = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -39,7 +42,7 @@ public class SaleSpown : MonoBehaviour {
         {
             m_SaleMode = m_ApperTime[m_CurrentApperTimeIndex] - m_SaleModeTime;
             if (m_timer.timer > m_ApperTime[m_CurrentApperTimeIndex])
-            { 
+            {
                 if (m_SaleAnimals[m_CurrentSaleAnimeIndex].gameObject.name == "SaleAnimalCow")
                 {
                     m_scSale.ApperCow();
