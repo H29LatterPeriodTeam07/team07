@@ -24,6 +24,11 @@ public class CartBody : MonoBehaviour
 
     private float moderuAngle = 0.0f;
 
+    public Material myColor;
+
+    private float alphaTime = 0.0f;
+    private int alphaPlus = 1;
+
     // Use this for initialization
     void Start()
     {
@@ -43,6 +48,14 @@ public class CartBody : MonoBehaviour
         {
             Normal();
         }
+        if(alphaTime > 1 || alphaTime < 0)
+        {            
+            alphaPlus *= -1;
+        }
+        alphaTime = Mathf.Clamp(alphaTime, 0, 1);
+
+        CartHPColor();
+        alphaTime += Time.deltaTime * alphaPlus;
     }
 
     /// <summary>通常時</summary>
@@ -93,6 +106,11 @@ public class CartBody : MonoBehaviour
         transform.parent = transform.root;
         isWilly = false;
         //pointScr.PlusSlope(moderuAngle);
+    }
+
+    private void CartHPColor()
+    {
+        myColor.color = new Color(myColor.color.r, myColor.color.g, myColor.color.b, alphaTime);
     }
 
     public void OnTriggerEnter(Collider other)

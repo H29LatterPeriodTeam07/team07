@@ -144,8 +144,9 @@ public class Player : MonoBehaviour
         if (myState != PlayerState.NoCart && myState != PlayerState.Gliding && inputVertical < 0) playerSpeed *= -1;
         if (myState == PlayerState.Takeover) playerSpeed = myNav.velocity.sqrMagnitude;
         m_Animator.SetFloat("Speed", playerSpeed);
+        m_Animator.SetBool("OnCart", IsCart());
 
-        if(playerSpeed == 0 
+        if (playerSpeed == 0 
             || myState != PlayerState.Gliding && myState != PlayerState.OnCart)
         {
             seScript.SEPlay(6);
@@ -167,12 +168,14 @@ public class Player : MonoBehaviour
         {
             case 0: myState = PlayerState.NoCart; scScript.SetBasketColliderActive(true); break;
             case 1: myState = PlayerState.OnCart; scScript.SetBasketColliderActive(false); break;
-            case 2: myState = PlayerState.Gliding; myCC.material = glidingPhysiMat; break;
+            case 2: myState = PlayerState.Gliding; myCC.material = glidingPhysiMat;
+                m_Animator.SetBool("Gliding", true); break;
             case 3: myState = PlayerState.Takeover; break;
         }
         if (myCC.material != null && state != 2)
         {
             myCC.material = null;
+            m_Animator.SetBool("Gliding", false);
         }
     }
 
@@ -181,7 +184,7 @@ public class Player : MonoBehaviour
     {
         transform.Rotate(new Vector3(0, inputHorizontal * (onCartRotateSpeed - minusRotateSpeed) * Time.deltaTime, 0));
 
-        Vector3 moveForward = transform.forward * inputVertical * 3.0f;
+        Vector3 moveForward = transform.forward * inputVertical;
 
         rb.velocity = moveForward * onCartMoveSpeed + new Vector3(0, rb.velocity.y, 0);
 
@@ -223,6 +226,8 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("XboxR") || Input.GetKeyDown(KeyCode.O))
         {
             rb.velocity = transform.forward * kickSpeed;
+            var info = m_Animator.GetCurrentAnimatorStateInfo(0);
+            m_Animator.Play(info.nameHash, 0, 0.0f);
         }
         if (rb.velocity == Vector3.zero)
         {
