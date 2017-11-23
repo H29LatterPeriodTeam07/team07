@@ -43,6 +43,7 @@ public class SecurityGuard : MonoBehaviour
     Transform m_EyePoint;
     public GameObject m_SoundManager;
     SoundManagerScript m_smScript;
+    RunOverObject m_run;
 
     // Use this for initialization
     void Start()
@@ -208,4 +209,5 @@ public class SecurityGuard : MonoBehaviour
     {
         return m_State == EnemyState.Chasing;
     }
+
 }

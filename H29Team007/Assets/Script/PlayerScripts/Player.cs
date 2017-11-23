@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
         Gliding, // 滑走中
         Takeover // カートジャック
     }
+    public RunOverObject rn;
 
     private float inputHorizontal;
     private float inputVertical;
@@ -380,7 +381,6 @@ public class Player : MonoBehaviour
             havedCart = null;
         }
     }
-
 
 
     //public void OnTriggerStay(Collider other)

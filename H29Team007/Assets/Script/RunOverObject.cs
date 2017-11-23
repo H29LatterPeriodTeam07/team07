@@ -6,6 +6,10 @@ using UnityEngine.AI;
 public class RunOverObject : MonoBehaviour
 {
     public AudioClip m_se;
+    [SerializeField, Header("元のモデル")]
+    public GameObject m_model;
+    [SerializeField, Header("ぐてモデル")]
+    public GameObject m_gutemodel;
 
     private AudioSource m_AS;
     [SerializeField, Header("カートに乗った後の高さ")]
@@ -95,8 +99,9 @@ public class RunOverObject : MonoBehaviour
             transform.position = nimotuPos;
             sc.AddBaggege(transform);
             //transform.parent = other.transform.root;
-
             sc.PlusY(runOverAfterHeight);
+            m_model.SetActive(false);
+            m_gutemodel.SetActive(true);
             if (rb != null) {
                 rb.velocity = Vector3.zero;
                 rb.isKinematic = true;
@@ -140,7 +145,8 @@ public class RunOverObject : MonoBehaviour
             transform.position = nimotuPos;
             sc.AddBaggege(transform);
             //transform.parent = other.transform.root;
-
+            m_model.SetActive(false);
+            m_gutemodel.SetActive(true);
             sc.PlusY(runOverAfterHeight);
             if (rb != null)
             {
@@ -149,6 +155,15 @@ public class RunOverObject : MonoBehaviour
             }
             if(myNav != null) myNav.enabled = false;
 
+        }
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.name == "Plane")
+        {
+            m_model.SetActive(true);
+            m_gutemodel.SetActive(false);
         }
     }
 }

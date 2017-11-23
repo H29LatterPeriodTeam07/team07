@@ -9,15 +9,17 @@ public class fightingBull : MonoBehaviour {
     GameManager m_gmScript;
     NavMeshAgent m_Agent;
     BoxCollider m_Box;
+    BullCount bcScript;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
         m_Agent = GetComponent<NavMeshAgent>();
         m_GameManager = GameObject.FindGameObjectWithTag("GameManager");
         m_gmScript = m_GameManager.GetComponent<GameManager>();
         BullSetNewPatrolPoint();
-        m_Box = transform.Find("tougyu").GetComponent<BoxCollider>();
-	}
+        bcScript = transform.GetComponent<BullCount>();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -40,4 +42,5 @@ public class fightingBull : MonoBehaviour {
         
         return (Vector3.Distance(m_Agent.destination, transform.position) < 0.5f);
     }
+
 }

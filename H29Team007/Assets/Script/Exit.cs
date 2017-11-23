@@ -19,12 +19,18 @@ public class Exit : MonoBehaviour
     int m_CurentApperTimeIndex = 0;
     int m_Num = 0;
     bool m_bullApper = false;
+    Player pScript;
+    GameObject m_player;
+    BullCount m_bc;
 
     // Use this for initialization
     void Start()
     {
         m_GameBBA = GameObject.FindGameObjectWithTag("BBA");
         m_timer = m_time.GetComponent<Timer>();
+        m_player = GameObject.FindGameObjectWithTag("Player");
+        pScript = m_player.GetComponent<Player>();
+        m_bc = m_prBull.transform.root.GetComponent<BullCount>();
     }
 
     // Update is called once per frame
@@ -60,6 +66,11 @@ public class Exit : MonoBehaviour
 
         if (other.tag == "Bull")
         {
+            if (m_bc.IsBaggegeinHuman())
+            {
+                print("ssddssdsdsd");
+               // pScript.BullDown();
+            }
             m_bullApper = false;
             Destroy(other.gameObject);
             m_Num--;

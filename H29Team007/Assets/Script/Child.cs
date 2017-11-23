@@ -245,7 +245,7 @@ public class Child : MonoBehaviour {
     bool CanSeeParent2()
     {
         Transform target = (isParentinBaggege) ? m_Player.transform : m_ParentEyePoint;
-        Debug.Log(target);
+      //  Debug.Log(target);
         // 見える距離の範囲内に親がいない場合→見えない
         if (!IsParentInViewingDistance(target))
             return false;

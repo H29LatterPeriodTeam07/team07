@@ -83,7 +83,7 @@ public class BullCount : MonoBehaviour {
         int hc = 0;
         for (int i = 0; i < myBaggege.Count; i++)
         {
-            if (myBaggege[i].tag == "Animal")
+            if (myBaggege[i].tag == "Player")
             {
                 hc++;
             }
