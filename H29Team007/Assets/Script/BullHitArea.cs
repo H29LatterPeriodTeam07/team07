@@ -40,7 +40,7 @@ public class BullHitArea : MonoBehaviour
 
             m_col.enabled = false;
             //ここにアニメ停止や変更入れるかも
-            Vector3 v = transform.position;
+            Vector3 v = transform.root.position;
             Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
             other.transform.position = nimotuPos;
             sc.AddBaggege(other.transform);

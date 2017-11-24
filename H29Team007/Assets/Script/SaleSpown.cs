@@ -46,23 +46,14 @@ public class SaleSpown : MonoBehaviour {
                 if (m_SaleAnimals[m_CurrentSaleAnimeIndex].gameObject.name == "SaleAnimalCow")
                 {
                     m_scSale.ApperCow();
-                    //m_CurrentApperTimeIndex++;
-                    //Appear();
-                    //m_Num++;
                 }
                 if (m_SaleAnimals[m_CurrentSaleAnimeIndex].gameObject.name == "SaleAnimalFish")
                 {
                     m_scSale.ApperFish();
-                    //m_CurrentApperTimeIndex++;
-                    //Appear();
-                    //m_Num++;
                 }
                 if (m_SaleAnimals[m_CurrentSaleAnimeIndex].gameObject.name == "SaleAnimalPig")
                 {
                     m_scSale.ApperPig();
-                    //m_CurrentApperTimeIndex++;
-                    //Appear();
-                    //m_Num++;
                 }
             }
         }

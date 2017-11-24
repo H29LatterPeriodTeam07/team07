@@ -103,9 +103,9 @@ public class SecurityGuard : MonoBehaviour
                 m_Agent.speed = 3.0f;
                 // プレイヤーの場所へ向かう
                 m_Agent.destination = m_Player.transform.position;
-                if (dis <= 2.5)
+                if (dis <= 3)
                 {
-                    m_Agent.speed = 4;
+                    m_Animator.SetTrigger("BigJump");
                 }
             }
             // 見失った場合

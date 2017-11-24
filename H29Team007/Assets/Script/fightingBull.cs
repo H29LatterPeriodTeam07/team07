@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class fightingBull : MonoBehaviour {
 
+    GameObject m_ExitPoint;
     GameObject m_GameManager;
     GameManager m_gmScript;
     NavMeshAgent m_Agent;
@@ -13,22 +14,22 @@ public class fightingBull : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+        m_ExitPoint = GameObject.FindGameObjectWithTag("ExitPoint");
         m_Agent = GetComponent<NavMeshAgent>();
         m_GameManager = GameObject.FindGameObjectWithTag("GameManager");
         m_gmScript = m_GameManager.GetComponent<GameManager>();
         BullSetNewPatrolPoint();
         bcScript = transform.GetComponent<BullCount>();
-
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         m_Agent.speed = 8.0f;
         if (BUllHasArrived())
         {
             BullSetNewPatrolPoint();
         }
-	}
+    }
     void BullSetNewPatrolPoint()
     {
         m_gmScript.m_CurentBullPatrolPointIndex
@@ -39,8 +40,19 @@ public class fightingBull : MonoBehaviour {
 
     bool BUllHasArrived()
     {
-        
         return (Vector3.Distance(m_Agent.destination, transform.position) < 0.5f);
     }
 
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "ExitPoint")
+        {
+            bcScript.BaggegeFall(transform.position);
+            Destroy(gameObject);
+
+        }
+    }
 }
+
+
+

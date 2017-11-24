@@ -168,7 +168,7 @@ public class BBACartCount : MonoBehaviour {
             fall.enabled = true;
             fall.SetPoint(pos, sp);
 
-            myBaggege[i].parent.parent = null;
+            myBaggege[i].parent = null;
 
         }
         Reset();

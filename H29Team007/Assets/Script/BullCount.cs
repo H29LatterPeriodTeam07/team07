@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class BullCount : MonoBehaviour {
 
@@ -15,6 +16,9 @@ public class BullCount : MonoBehaviour {
     public int maxCountDefault = 1;
     private int maxCount;
 
+    GameObject m_Exitpoint;
+    GameObject m_Player;
+
     // Use this for initialization 
     void Start()
     {
@@ -23,6 +27,8 @@ public class BullCount : MonoBehaviour {
         myBaggege = new List<Transform>();
         onPosition = 0.0f;
         maxCount = maxCountDefault;
+        m_Exitpoint = GameObject.FindGameObjectWithTag("ExitPoint");
+        m_Player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -155,7 +161,21 @@ public class BullCount : MonoBehaviour {
     {
         for (int i = 0; i < myBaggege.Count; i++)
         {
-            float x = Random.Range(-3.0f, 3.0f);
+            if (myBaggege[i].tag == "Player")
+            {
+
+
+                m_Player.transform.position = new Vector3(startPos.x, 0, startPos.z);
+                Rigidbody rb = m_Player.GetComponent<Rigidbody>();
+                NavMeshAgent nav = m_Player.GetComponent<NavMeshAgent>();
+                Collider m_coll = m_Player.GetComponent<Collider>();
+                m_coll.enabled=true;
+                nav.enabled = true;
+                rb.velocity = Vector3.one;
+                rb.isKinematic = false;
+                myBaggege[i].parent = null;
+            }
+            /*float x = Random.Range(-3.0f, 3.0f);
             float z = Random.Range(-3.0f, 3.0f);
             float sp = Random.Range(5.0f, 10.0f);
 
@@ -166,7 +186,7 @@ public class BullCount : MonoBehaviour {
             fall.enabled = true;
             fall.SetPoint(pos, sp);
 
-            myBaggege[i].parent.parent = null;
+            myBaggege[i].parent.parent = null;*/
 
         }
         Reset();

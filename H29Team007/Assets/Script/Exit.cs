@@ -66,13 +66,9 @@ public class Exit : MonoBehaviour
 
         if (other.tag == "Bull")
         {
-            if (m_bc.IsBaggegeinHuman())
-            {
-                print("ssddssdsdsd");
-               // pScript.BullDown();
-            }
+            
             m_bullApper = false;
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
             m_Num--;
         }
     }
