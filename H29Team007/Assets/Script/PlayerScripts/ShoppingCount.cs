@@ -81,7 +81,7 @@ public class ShoppingCount : MonoBehaviour
 
     public void BasketIn()
     {
-        basketScript.SetBasketLocalPosition(new Vector3(0, 0.5f, 1.1f));
+        basketScript.SetBasketLocalPosition(new Vector3(0, 0.5f, 1.25f));
         basketScript.SetBasketLocalRotation(0);
         basketScript.enabled = false;
     }

@@ -227,8 +227,8 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("XboxR") || Input.GetKeyDown(KeyCode.O))
         {
             rb.velocity = transform.forward * kickSpeed;
-            var info = m_Animator.GetCurrentAnimatorStateInfo(0);
-            m_Animator.Play(info.nameHash, 0, 0.0f);
+            //var info = m_Animator.GetCurrentAnimatorStateInfo(0);
+            m_Animator.Play("Kick", 0, 0.0f);
         }
         if (rb.velocity == Vector3.zero)
         {
@@ -262,7 +262,7 @@ public class Player : MonoBehaviour
         nextCart = nextcart;
         myNav.enabled = true;
         canGetCart = nextCart.transform.Find("BackHitArea").gameObject;
-        Vector3 basPos = nextCart.transform.position;
+        Vector3 basPos = nextCart.transform.position - nextCart.transform.forward * 0.1f;
         basPos.y = 0.5f;
         scScript.SetBasketPos(basPos);
         scScript.SetBasketAngle(nextCart.transform.rotation);
@@ -292,7 +292,7 @@ public class Player : MonoBehaviour
         myCartStatus.SetCart(cart.GetComponent<CartStatusWithCart>());
 
         Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
-        cart.transform.position = cartPos + transform.forward * 1.2f;
+        cart.transform.position = cartPos + transform.forward * 1.35f;
         Vector3 relativePos = myCart.transform.position - transform.position;
         relativePos.y = 0; //上下方向の回転はしないように制御
         transform.rotation = Quaternion.LookRotation(relativePos);
@@ -311,7 +311,7 @@ public class Player : MonoBehaviour
         ChangeState(1);
         myCart = Instantiate(cartBodyPrefab);
         Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
-        myCart.transform.position = cartPos + transform.forward * 1.2f;
+        myCart.transform.position = cartPos + transform.forward * 1.35f;
         Vector3 relativePos = myCart.transform.position - transform.position;
         relativePos.y = 0; //上下方向の回転はしないように制御
         transform.rotation = Quaternion.LookRotation(relativePos);

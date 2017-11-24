@@ -100,8 +100,11 @@ public class RunOverObject : MonoBehaviour
             sc.AddBaggege(transform);
             //transform.parent = other.transform.root;
             sc.PlusY(runOverAfterHeight);
-            m_model.SetActive(false);
-            m_gutemodel.SetActive(true);
+            if (m_model != null)
+            {
+                m_model.SetActive(false);
+                m_gutemodel.SetActive(true);
+            }
             if (rb != null) {
                 rb.velocity = Vector3.zero;
                 rb.isKinematic = true;
@@ -145,8 +148,11 @@ public class RunOverObject : MonoBehaviour
             transform.position = nimotuPos;
             sc.AddBaggege(transform);
             //transform.parent = other.transform.root;
-            m_model.SetActive(false);
-            m_gutemodel.SetActive(true);
+            if (m_model != null)
+            {
+                m_model.SetActive(false);
+                m_gutemodel.SetActive(true);
+            }
             sc.PlusY(runOverAfterHeight);
             if (rb != null)
             {
@@ -160,7 +166,7 @@ public class RunOverObject : MonoBehaviour
 
     public void OnTriggerStay(Collider other)
     {
-        if (other.name == "Plane")
+        if (m_model != null&&other.name == "Plane")
         {
             m_model.SetActive(true);
             m_gutemodel.SetActive(false);
