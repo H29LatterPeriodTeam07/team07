@@ -30,8 +30,8 @@ public class ShoppingCount : MonoBehaviour
     private Text score;
     private int childCount = 0;
 
-    private Transform nimotuparent;
-    private SpringManagerArrange nimotuScript;
+    private Transform baggageParent;
+    private SpringManagerArrange baggageScript;
 
     private PlayerSE seScript;
 
@@ -45,8 +45,8 @@ public class ShoppingCount : MonoBehaviour
         onPosition = 0.0f;
         maxCount = maxCountDefault;
         basketScript = basket.GetComponent<Basket>();
-        nimotuparent = basket.transform.Find("nimotuParent");
-        nimotuScript = nimotuparent.GetComponent<SpringManagerArrange>();
+        baggageParent = basket.transform.Find("nimotuParent");
+        baggageScript = baggageParent.GetComponent<SpringManagerArrange>();
         seScript = GetComponent<PlayerSE>();
 
         BasketOut();
@@ -56,7 +56,9 @@ public class ShoppingCount : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerScript.GetState() == Player.PlayerState.Takeover && transform.parent != null) return;
+        if (playerScript.GetState() == Player.PlayerState.Takeover
+            || transform.parent != null
+            ) return;
         if (basket.activeSelf && Input.GetButtonDown("XboxB") ||
             basket.activeSelf && Input.GetKeyDown(KeyCode.F))
         {
@@ -72,7 +74,7 @@ public class ShoppingCount : MonoBehaviour
                 //}
             }
             Vector3 baspos = basket.transform.position;
-            baspos.y = 1.6f;
+            baspos.y = CartRelatedData.cartFlyStartPosY;
             flyBasket.transform.position = baspos;
 
             basket.SetActive(false);
@@ -81,7 +83,7 @@ public class ShoppingCount : MonoBehaviour
 
     public void BasketIn()
     {
-        basketScript.SetBasketLocalPosition(new Vector3(0, 0.5f, 1.25f));
+        basketScript.SetBasketLocalPosition(new Vector3(0, CartRelatedData.cartInBagLocalPosY, CartRelatedData.cartInBagLocalPosZ));
         basketScript.SetBasketLocalRotation(0);
         basketScript.enabled = false;
     }
@@ -89,7 +91,7 @@ public class ShoppingCount : MonoBehaviour
     public void BasketOut()
     {
         basketScript.enabled = true;
-        basketScript.SetBasketLocalPosition(new Vector3(-0.09f, 1.4f, 0.65f));
+        basketScript.SetBasketLocalPosition(new Vector3(CartRelatedData.cartOutBagLocalPosX, CartRelatedData.cartOutBagLocalPosY, CartRelatedData.cartOutBagLocalPosZ));
         basketScript.SetBasketLocalRotation(90);
     }
 
@@ -100,7 +102,7 @@ public class ShoppingCount : MonoBehaviour
 
     public void Reset()
     {
-        nimotuScript.NullChildren();
+        baggageScript.NullChildren();
         myBaggege.Clear();
         onPosition = 0.0f;
         SetScore();
@@ -212,7 +214,7 @@ public class ShoppingCount : MonoBehaviour
     {
         //baggege.parent = nimotuparent;
         myBaggege.Add(baggege);
-        nimotuScript.SetChildren(baggege,baggege.GetComponent<RunOverObject>().GetHeight());
+        baggageScript.SetChildren(baggege,baggege.GetComponent<RunOverObject>().GetHeight());
         SetScore();
     }
 

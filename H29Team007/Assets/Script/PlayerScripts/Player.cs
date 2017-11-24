@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     private GameObject myCart;
     private PlayerState myState;
 
+    private GameObject mySecondCart;
+
     //private List<Transform> myBaggege;
 
     [SerializeField, Header("カート持っていない時の速さ")]
@@ -86,10 +88,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (!MainGameDate.IsStart())
+        if (!MainGameDate.IsStart() || transform.parent != null)
         {
             m_Animator.SetFloat("Speed", 0);
             rb.velocity = Vector3.zero;
+            BreakCart();
             return;
         }
         if (GetState() == PlayerState.Takeover) return;
@@ -116,7 +119,7 @@ public class Player : MonoBehaviour
                 ReleaseCart();
             }
         }
-        else if (canGet)
+        if (canGet && GetState() != PlayerState.Takeover)
         {
             
             CatchCart();
@@ -239,9 +242,9 @@ public class Player : MonoBehaviour
     /// <summary>カートのジャック</summary>
     private void PlayerHacking()
     {
-        Vector3 dis = nextCart.transform.position + nextCart.transform.forward * (-1.5f);
+        Vector3 dis = nextCart.transform.position + nextCart.transform.forward * (CartRelatedData.cartNavPoint);
         myNav.destination = new Vector3(dis.x, -0.8f, dis.z);
-        if (Vector3.Distance(myNav.destination, transform.position) < 0.5f)
+        if (Vector3.Distance(myNav.destination, transform.position) < 1.0f)
         {
             transform.position = myNav.destination;
             transform.rotation = nextCart.transform.rotation;
@@ -263,7 +266,7 @@ public class Player : MonoBehaviour
         myNav.enabled = true;
         canGetCart = nextCart.transform.Find("BackHitArea").gameObject;
         Vector3 basPos = nextCart.transform.position - nextCart.transform.forward * 0.1f;
-        basPos.y = 0.5f;
+        basPos.y = CartRelatedData.cartInBagLocalPosY;
         scScript.SetBasketPos(basPos);
         scScript.SetBasketAngle(nextCart.transform.rotation);
         scScript.SetBasketParent(null);
@@ -292,7 +295,7 @@ public class Player : MonoBehaviour
         myCartStatus.SetCart(cart.GetComponent<CartStatusWithCart>());
 
         Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
-        cart.transform.position = cartPos + transform.forward * 1.35f;
+        cart.transform.position = cartPos + transform.forward * CartRelatedData.cartLocalPosZ;
         Vector3 relativePos = myCart.transform.position - transform.position;
         relativePos.y = 0; //上下方向の回転はしないように制御
         transform.rotation = Quaternion.LookRotation(relativePos);
@@ -304,20 +307,39 @@ public class Player : MonoBehaviour
     /// <summary>カートを持つ</summary>
     public void CatchCart()
     {
+        if (myCart != null) return;
         //持つカートの耐久値をもらう
         myCartStatus.GetCart(canGetCart.transform.gameObject.GetComponent<CartStatusWithCart>());
 
         Destroy(canGetCart.transform.gameObject);
-        ChangeState(1);
-        myCart = Instantiate(cartBodyPrefab);
-        Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
-        myCart.transform.position = cartPos + transform.forward * 1.35f;
-        Vector3 relativePos = myCart.transform.position - transform.position;
-        relativePos.y = 0; //上下方向の回転はしないように制御
-        transform.rotation = Quaternion.LookRotation(relativePos);
-        myCart.transform.rotation = Quaternion.LookRotation(relativePos);
-        myCart.transform.parent = transform;
-        scScript.BasketIn();
+        if (myCart == null)
+        {
+            ChangeState(1);
+            myCart = Instantiate(cartBodyPrefab);
+            myCart.transform.parent = transform;
+            //Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
+            myCart.transform.localPosition = Vector3.forward * CartRelatedData.cartLocalPosZ;
+            Vector3 relativePos = myCart.transform.position - transform.position;
+            relativePos.y = 0; //上下方向の回転はしないように制御
+            transform.rotation = Quaternion.LookRotation(relativePos);
+            myCart.transform.rotation = Quaternion.LookRotation(relativePos);
+            scScript.BasketIn();
+        }
+        else if(mySecondCart == null)
+        {
+            mySecondCart = Instantiate(cartBodyPrefab);
+            mySecondCart.transform.parent = transform;
+            //Vector3 cartPos = new Vector3(transform.position.x + 0.7f, 0, transform.position.z);
+            myCart.transform.localPosition = Vector3.forward * CartRelatedData.cartLocalPosZ + Vector3.right * 0.5f;
+            //cartPos = new Vector3(transform.position.x - 0.7f, 0, transform.position.z);
+            mySecondCart.transform.localPosition = Vector3.forward * CartRelatedData.cartLocalPosZ - Vector3.right * 0.5f;
+            Vector3 center = (mySecondCart.transform.position + myCart.transform.position) / 2;
+            Vector3 relativePos = center - transform.position;
+            relativePos.y = 0; //上下方向の回転はしないように制御
+            transform.rotation = Quaternion.LookRotation(relativePos);
+            mySecondCart.transform.rotation = Quaternion.LookRotation(relativePos);
+            scScript.BasketIn();
+        }
     }
 
     public PlayerState GetState()
@@ -367,10 +389,13 @@ public class Player : MonoBehaviour
             seScript.OnePlay(4);
             havedCart = null;
         }
-        if (collision.transform.tag == "Cart" && havedCart == null && myCart == null)
+        if (collision.transform.tag == "Cart"
+            //&& havedCart == null 
+            && mySecondCart == null)
         {
             canGetCart = collision.gameObject;
             canGet = true;
+            //Debug.Log("YES");
         }
     }
 

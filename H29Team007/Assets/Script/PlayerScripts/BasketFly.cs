@@ -10,6 +10,8 @@ public class BasketFly : MonoBehaviour
 
     public GameObject cartRigidPrefab;
 
+    private bool oneHit = false;
+
     // Use this for initialization
     void Start()
     {
@@ -41,8 +43,10 @@ public class BasketFly : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
+        if (oneHit) return;
         if (collision.transform.tag == "Cart")
         {
+            oneHit = true;
             //Debug.Log(gameObject.name);
             collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             //transform.position = collision.transform.position + collision.transform.
@@ -50,10 +54,13 @@ public class BasketFly : MonoBehaviour
             player.GetComponent<ShoppingCount>().BaggegeParentPlayer();
             Destroy(gameObject);
         }
-        else if (collision.transform.tag == "EnemyCart")
+        else if (collision.transform.tag == "BBA")
         {
+            oneHit = true;
+            GameObject enemyCart = collision.transform.Find("EnemyCart").gameObject;
             //Debug.Log(collision.gameObject.name);
-            EnemyCart ec = collision.gameObject.GetComponent<EnemyCart>();
+            collision.gameObject.GetComponent<BBACartCount>().BaggegeFall(collision.transform.position);
+            EnemyCart ec = enemyCart.GetComponent<EnemyCart>();
             ec.Independence();
             
             GameObject newcart = ec.NewCart();
@@ -61,7 +68,7 @@ public class BasketFly : MonoBehaviour
             newcart.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             player.GetComponent<Player>().ChangeCart(newcart.gameObject);
             player.GetComponent<ShoppingCount>().BaggegeParentPlayer();
-            Destroy(collision.gameObject);
+            Destroy(enemyCart.gameObject);
             Destroy(gameObject);
         }
         else if (collision.transform.tag != "Player")

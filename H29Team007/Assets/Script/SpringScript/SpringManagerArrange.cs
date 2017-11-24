@@ -11,12 +11,14 @@ public class SpringManagerArrange : MonoBehaviour {
     private float nextHeight = 0.0f;
 
     private ShoppingCount scScript;
+    private CartStatusWithPlayer csScript;
 
     // Use this for initialization
     void Start () {
         springBones = new List<SpringBoneArrange>();
         youngestChild = transform.Find("YoungestChild");
         scScript = transform.root.gameObject.GetComponent<ShoppingCount>();
+        csScript = transform.root.gameObject.GetComponent<CartStatusWithPlayer>();
 
         springBones.Clear();
     }
@@ -35,7 +37,7 @@ public class SpringManagerArrange : MonoBehaviour {
 
 
         //Debug.Log(springBones[springBones.Count - 1].transform.eulerAngles.x - 180);
-        if (Mathf.Abs(springBones[springBones.Count - 1].transform.eulerAngles.x - 180) <= 90 )
+        if (Mathf.Abs(springBones[springBones.Count - 1].transform.eulerAngles.x - 180) <= csScript.BaggageRotateLimit() )
         {
             scScript.BaggegeFall(transform.root.position);
         }

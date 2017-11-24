@@ -29,11 +29,19 @@ public class CartBody : MonoBehaviour
     private float alphaTime = 0.0f;
     private int alphaPlus = 1;
 
+    private GameObject wheel;
+    private GameObject bagUnder;
+    private GameObject handle;
+
+
     // Use this for initialization
     void Start()
     {
         cs = transform.root.GetComponent<CartStatusWithPlayer>();
         rotatepoint = transform.root.Find("cartrotatepoint").gameObject;
+        wheel = transform.Find("WheelHP").gameObject;
+        bagUnder = transform.Find("BagUnderHP").gameObject;
+        handle = transform.Find("HandleHP").gameObject;
         //pointScr = transform.root.Find("PlayerBasket(Clone)").Find("nimotuParent").GetComponent<InclinationOfLuggage>();
     }
 
@@ -56,6 +64,10 @@ public class CartBody : MonoBehaviour
 
         CartHPColor();
         alphaTime += Time.deltaTime * alphaPlus;
+
+        wheel.SetActive(cs.WheelHP0());
+        bagUnder.SetActive(cs.BagUnderHP0());
+        handle.SetActive(cs.HandleHP0());
     }
 
     /// <summary>通常時</summary>

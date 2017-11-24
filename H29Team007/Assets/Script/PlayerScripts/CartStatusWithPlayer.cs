@@ -15,6 +15,12 @@ public class CartStatusWithPlayer : MonoBehaviour
     private float minusCartHP = 0.01f;
     [SerializeField, Header("カートのハンドルが壊れた時に下げる回転速度")]
     private float minusRotateSpeedDefault = 60;
+    [SerializeField, Header("カートの荷台が壊れた時の荷物の傾きの限界")]
+    private float baggageRotateLimit = 60;
+
+
+    [SerializeField, Header("デフォの荷物の傾きの限界")]
+    private float baggageRotateLimitDefault = 90;
 
     private PlayerSE seScript;
 
@@ -34,7 +40,7 @@ public class CartStatusWithPlayer : MonoBehaviour
     {
         if (!playerScript.IsCart()) return;
         /*ここに部位の耐久値が０以下になったときの処理を書く*/
-         if(cartStatus[1] <= 0)
+         if(BagUnderHP0())
         {
             cartStatus[0] -= minusCartHP;
         }
@@ -48,7 +54,7 @@ public class CartStatusWithPlayer : MonoBehaviour
     public void GetCart(CartStatusWithCart cart)
     {
         cartStatus = cart.PassStatus();
-        if (cartStatus[3] <= 0)
+        if (HandleHP0())
         {
             playerScript.SetMinusRotateSpeed(minusRotateSpeedDefault);
         }
@@ -69,10 +75,25 @@ public class CartStatusWithPlayer : MonoBehaviour
         return cartStatus[0];
     }
 
+    public bool WheelHP0()
+    {
+        return cartStatus[1] <= 0;
+    }
+
+    public bool BagUnderHP0()
+    {
+        return cartStatus[2] <= 0;
+    }
+
+    public bool HandleHP0()
+    {
+        return cartStatus[3] <= 0;
+    }
+
     public void DamageCart(float dm)
     {
         float dame = dm;
-        if (cartStatus[2] <= 0)dame = dame * 2;
+        //if (cartStatus[2] <= 0)dame = dame * 2;
         cartStatus[0] -= dame;
         /*ここでランダム部位にダメージを与える*/
         int rand = Random.Range(1, 4);
@@ -87,7 +108,7 @@ public class CartStatusWithPlayer : MonoBehaviour
 
 
 
-        if (cartStatus[3] <= 0)
+        if (HandleHP0())
         {
             playerScript.SetMinusRotateSpeed(minusRotateSpeedDefault);
         }
@@ -115,5 +136,12 @@ public class CartStatusWithPlayer : MonoBehaviour
         {
             scScript.PassTheRegister();
         }
+    }
+
+    public float BaggageRotateLimit()
+    {
+        float result = baggageRotateLimitDefault;
+        if (BagUnderHP0()) result = baggageRotateLimit;
+        return (180 - result);
     }
 }
