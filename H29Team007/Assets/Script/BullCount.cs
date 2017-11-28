@@ -6,6 +6,9 @@ using UnityEngine.AI;
 
 public class BullCount : MonoBehaviour {
 
+    [SerializeField, Header("入店ポイント入れる")]
+    private GameObject m_Entrance;
+
     private float onPosition;
 
     private List<Transform> myBaggege;
@@ -163,7 +166,6 @@ public class BullCount : MonoBehaviour {
         {
             if (myBaggege[i].tag == "Player")
             {
-
 
                 m_Player.transform.position = new Vector3(startPos.x, 0, startPos.z);
                 Rigidbody rb = m_Player.GetComponent<Rigidbody>();

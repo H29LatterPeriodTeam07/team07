@@ -44,6 +44,7 @@ public class SecurityGuard : MonoBehaviour
     public GameObject m_SoundManager;
     SoundManagerScript m_smScript;
     RunOverObject m_run;
+    bool m_bool = false;
 
     // Use this for initialization
     void Start()
@@ -103,9 +104,10 @@ public class SecurityGuard : MonoBehaviour
                 m_Agent.speed = 3.0f;
                 // プレイヤーの場所へ向かう
                 m_Agent.destination = m_Player.transform.position;
-                if (dis <= 3)
+                if (dis <= 5 && m_bool == false)
                 {
-                    m_Animator.SetTrigger("BigJump");
+                    m_Animator.SetTrigger("Jump");
+                    m_bool = true; 
                 }
             }
             // 見失った場合

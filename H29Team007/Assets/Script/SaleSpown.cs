@@ -11,17 +11,24 @@ public class SaleSpown : MonoBehaviour {
     private GameObject[] m_SaleAnimals;
     //出現時間
     [SerializeField, Header("指定した特売品が出現する時間の指定(float型)")]
-    public float[] m_ApperTime;
+    private float[] m_ApperTime;
+    [SerializeField, Header("ニワトリを出す時間の指定")]
+    private float[] m_ChikinApperTime;
+    [SerializeField, Header("ニワトリのプレハブ")]
+    private GameObject m_preChikin;
     //巡回ポイント
     public Transform[] m_PatrolPoints;
     public float m_SaleModeTime;
     public GameObject m_Time;
     public GameObject m_SaleMaterial;
     public int m_Num = 0;
+    public int m_Chikintortal = 0;
 
+    private int m_ChikinNum = 0;
     Timer m_timer;
     int m_CurrentSaleAnimeIndex=0;
     public int m_CurrentApperTimeIndex=0;
+    public int m_CurrentChikinApperTimeIndex = 0;
     float m_SaleMode=0;
     SaleMaterial m_scSale;
     string m_Pigname, FishName, CowName;
@@ -57,6 +64,13 @@ public class SaleSpown : MonoBehaviour {
                 }
             }
         }
+        if(m_ChikinApperTime.Length > m_CurrentChikinApperTimeIndex)
+        {
+            if(m_timer.timer > m_ChikinApperTime[m_CurrentChikinApperTimeIndex])
+            {
+                ChikinApper();
+            }
+        }
     }
 
    public void Appear()
@@ -67,6 +81,15 @@ public class SaleSpown : MonoBehaviour {
                 m_CurrentSaleAnimeIndex++;
             
         }
+    }
+
+    private void ChikinApper()
+    {
+        for (int i = 0; i < m_Chikintortal; i++)
+        {
+            Instantiate(m_preChikin, transform.position, m_preChikin.transform.rotation);
+        }
+        m_CurrentChikinApperTimeIndex++;
     }
 
     void SetNewPatrolPointToDestination()

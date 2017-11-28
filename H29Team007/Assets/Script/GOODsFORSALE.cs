@@ -20,7 +20,6 @@ public class GOODsFORSALE : MonoBehaviour
     public float m_ViewingDistance;
     //視野角
     public float m_ViewingAngle;
-    public GameObject obj;
 
     private SaleAnimalState m_State = SaleAnimalState.NormalMode;
     private float m_Speed = 1.0f;
