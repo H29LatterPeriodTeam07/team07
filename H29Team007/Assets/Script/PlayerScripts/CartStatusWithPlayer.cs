@@ -141,7 +141,7 @@ public class CartStatusWithPlayer : MonoBehaviour
     public float BaggageRotateLimit()
     {
         float result = baggageRotateLimitDefault;
-        if (BagUnderHP0()) result = baggageRotateLimit;
+        if (WheelHP0()) result = baggageRotateLimit;
         return (180 - result);
     }
 }

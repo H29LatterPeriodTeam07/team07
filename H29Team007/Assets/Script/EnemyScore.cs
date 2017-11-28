@@ -19,6 +19,7 @@ public class EnemyScore : MonoBehaviour {
             case "BBA": m_price = 100; break;
             case "Parent": m_price = 100; break;
             case "Animal":m_Number = 2; m_price = 100; break;
+            default: m_price = 100; break;
         }
 	}
 	

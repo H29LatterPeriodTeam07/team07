@@ -83,7 +83,7 @@ public class ShoppingCount : MonoBehaviour
 
     public void BasketIn()
     {
-        basketScript.SetBasketLocalPosition(new Vector3(0, CartRelatedData.cartInBagLocalPosY, CartRelatedData.cartInBagLocalPosZ));
+        basketScript.SetBasketLocalPosition(CartRelatedData.cartInBagLocalPos);
         basketScript.SetBasketLocalRotation(0);
         basketScript.enabled = false;
     }
@@ -91,7 +91,7 @@ public class ShoppingCount : MonoBehaviour
     public void BasketOut()
     {
         basketScript.enabled = true;
-        basketScript.SetBasketLocalPosition(new Vector3(CartRelatedData.cartOutBagLocalPosX, CartRelatedData.cartOutBagLocalPosY, CartRelatedData.cartOutBagLocalPosZ));
+        basketScript.SetBasketLocalPosition(CartRelatedData.cartOutBagLocalPos);
         basketScript.SetBasketLocalRotation(90);
     }
 
@@ -133,9 +133,14 @@ public class ShoppingCount : MonoBehaviour
         basketScript.SetParent(parent);
     }
 
-    public void SetBasketPos(Vector3 pos)
+    public void SetBasketGlobalPos(Vector3 pos)
     {
         basketScript.SetBasketGlobalPosition(pos);
+    }
+
+    public void SetBasketLocalPos(Vector3 pos)
+    {
+        basketScript.SetBasketLocalPosition(pos);
     }
 
     public void SetBasketAngle(Quaternion angle)

@@ -68,6 +68,7 @@ public class BasketFly : MonoBehaviour
             newcart.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             player.GetComponent<Player>().ChangeCart(newcart.gameObject);
             player.GetComponent<ShoppingCount>().BaggegeParentPlayer();
+            collision.transform.tag = "Cutomer";
             Destroy(enemyCart.gameObject);
             Destroy(gameObject);
         }

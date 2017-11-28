@@ -49,6 +49,7 @@ public class SpringManagerArrange : MonoBehaviour {
         if(springBones.Count == 1)
         {
             newChild.parent = transform;
+            springBones[0].transform.localPosition = Vector3.zero;
             springBones[0].ChildSet(youngestChild);
             
         }

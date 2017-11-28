@@ -43,11 +43,11 @@ public class Basket : MonoBehaviour
 
         if(distancce < 5.0f)
         {
-            SetBasketLocalPosition(new Vector3(CartRelatedData.cartOutBagLocalPosX, CartRelatedData.cartOutBagLocalPosY, CartRelatedData.cartOutBagLocalPosZ));
+            SetBasketLocalPosition(CartRelatedData.cartOutBagLocalPos);
         }
         else
         {
-            SetBasketLocalPosition(new Vector3(CartRelatedData.cartOutBagLocalPosX, CartRelatedData.cartOutBagLocalPosY - 1.0f, CartRelatedData.cartOutBagLocalPosZ));
+            SetBasketLocalPosition(CartRelatedData.cartOutBagLocalPos - Vector3.up);
         }
 
     }

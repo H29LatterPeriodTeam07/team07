@@ -29,17 +29,23 @@ public class CartBody : MonoBehaviour
     private float alphaTime = 0.0f;
     private int alphaPlus = 1;
 
-    private GameObject wheel;
+    private GameObject AllHP;
+    private GameObject wheel1;
+    private GameObject wheel2;
     private GameObject bagUnder;
     private GameObject handle;
 
+
+    public GameObject[] effects;
 
     // Use this for initialization
     void Start()
     {
         cs = transform.root.GetComponent<CartStatusWithPlayer>();
         rotatepoint = transform.root.Find("cartrotatepoint").gameObject;
-        wheel = transform.Find("WheelHP").gameObject;
+        AllHP = transform.Find("AllHPCart").gameObject;
+        wheel1 = transform.Find("WheelHP1").gameObject;
+        wheel2 = transform.Find("WheelHP2").gameObject;
         bagUnder = transform.Find("BagUnderHP").gameObject;
         handle = transform.Find("HandleHP").gameObject;
         //pointScr = transform.root.Find("PlayerBasket(Clone)").Find("nimotuParent").GetComponent<InclinationOfLuggage>();
@@ -65,7 +71,12 @@ public class CartBody : MonoBehaviour
         CartHPColor();
         alphaTime += Time.deltaTime * alphaPlus;
 
-        wheel.SetActive(cs.WheelHP0());
+        if(cs.HPNow() <= 30)
+        {
+            AllHP.SetActive(true);
+        }
+        wheel1.SetActive(cs.WheelHP0());
+        wheel2.SetActive(cs.WheelHP0());
         bagUnder.SetActive(cs.BagUnderHP0());
         handle.SetActive(cs.HandleHP0());
     }
@@ -127,12 +138,28 @@ public class CartBody : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        
+        GameObject effect = effects[0];
         switch (other.transform.tag)
         {
             case "Wall":
                 cs.DamageCart(wallDamage);
                 break;
+            case "Animal":
+            case "Bull":
+                effect = effects[1];
+                break;
+            case "Enemy":
+            case "BBA":
+            case "Customer":
+                effect = effects[2];
+                break;
+            default:
+                effect = null;
+                break;
         }
+        if (effect == null) return;
+        effect = Instantiate(effect);
+        //Vector3 hitPos = other.ClosestPointOnBounds(this.transform.position);
+        effect.transform.position = other.ClosestPointOnBounds(this.transform.position) + Vector3.up;
     }
 }
