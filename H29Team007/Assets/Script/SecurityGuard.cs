@@ -46,6 +46,11 @@ public class SecurityGuard : MonoBehaviour
     RunOverObject m_run;
     bool m_bool = false;
 
+	float minAngle = 0.0F;
+    float maxAngle = 90.0F;
+    float m_Horizntal = 0;
+    float m_ho = 2.0f;
+
     // Use this for initialization
     void Start()
     {
@@ -77,6 +82,16 @@ public class SecurityGuard : MonoBehaviour
             m_Agent.speed = 1f;
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
+            if (CanSeePlayer() && m_bool == false && dis <= 10 && m_scPlayer.GetState() == Player.PlayerState.Gliding)
+            {
+                float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
+                transform.eulerAngles = new Vector3(0, angle, 0);
+                m_Agent.enabled = false;
+                m_Horizntal = m_ho;
+                
+                m_bool = true;
+                m_Animator.SetTrigger("Jump2");
+            }
             //プレイヤーが見えた場合
             if (CanSeePlayer() && m_scPlayer.IsGetHuman())
             {
@@ -98,16 +113,28 @@ public class SecurityGuard : MonoBehaviour
         {
             m_ViewingDistance = 1000;
             m_ViewingAngle = 360;
+            if (CanSeePlayer() && m_bool == false && dis <= 10 && m_scPlayer.GetState() == Player.PlayerState.Gliding)
+            {
+                m_Agent.speed = -1;
+                m_bool = true;
+                m_Animator.SetTrigger("Jump2");
+            }
+
             // プレイヤーが見えている場合
             if (CanSeePlayer() && m_scPlayer.IsGetHuman())
             {
                 m_Agent.speed = 3.0f;
                 // プレイヤーの場所へ向かう
                 m_Agent.destination = m_Player.transform.position;
-                if (dis <= 5 && m_bool == false)
+                if (dis <= 3 && m_bool == false)
                 {
                     m_Animator.SetTrigger("Jump");
-                    m_bool = true; 
+                    m_bool = true;
+                }
+                else if (dis > 3)
+                {
+                    m_bool = false;
+                    m_Animator.SetTrigger("Trigger");
                 }
             }
             // 見失った場合

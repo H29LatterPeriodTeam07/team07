@@ -172,7 +172,6 @@ public class BullCount : MonoBehaviour {
                 NavMeshAgent nav = m_Player.GetComponent<NavMeshAgent>();
                 Collider m_coll = m_Player.GetComponent<Collider>();
                 m_coll.enabled=true;
-                nav.enabled = true;
                 rb.velocity = Vector3.one;
                 rb.isKinematic = false;
                 myBaggege[i].parent = null;

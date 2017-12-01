@@ -64,6 +64,7 @@ public class BBA : MonoBehaviour
         //巡回中
         if (m_State == BBAState.NormalMode)
         {
+            m_Agent.speed = 1.0f;
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
             //特売品が出てくる時間になったら特売品モードに
@@ -84,6 +85,7 @@ public class BBA : MonoBehaviour
         //特売品モード
         else if (m_State == BBAState.SaleMode)
         {
+            m_Agent.speed = 3.0f;
             SetNewSalePatrolPointToDestination();
 
             m_ViewingDistance = 100;
