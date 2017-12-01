@@ -11,8 +11,8 @@ public class CartBody : MonoBehaviour
     private GameObject rotatepoint;
     //private InclinationOfLuggage pointScr;
 
-    public Vector3 willyPoint = new Vector3(0, 0, 0.3f);
-    public Vector3 motiagePoint = new Vector3(0, 0, 1.65f);
+    private Vector3 willyPoint = CartRelatedData.cartRotatePointBack;
+    private Vector3 motiagePoint = CartRelatedData.cartRotatePointFront;
 
     private bool isR = false;
 
@@ -84,13 +84,13 @@ public class CartBody : MonoBehaviour
     /// <summary>通常時</summary>
     private void Normal()
     {
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetButtonDown("XboxR") || Input.GetKeyDown(KeyCode.L))
         {
             rotatepoint.transform.localPosition = willyPoint;
             SlopeCart(-13);
             isR = true;
         }
-        else if (Input.GetKeyDown(KeyCode.K))
+        else if (Input.GetButtonDown("XboxL") || Input.GetKeyDown(KeyCode.K))
         {
             rotatepoint.transform.localPosition = motiagePoint;
             SlopeCart(13);
@@ -118,7 +118,7 @@ public class CartBody : MonoBehaviour
         rotatepoint.transform.localRotation = Quaternion.AngleAxis(angle, new Vector3(1, 0, 0));
         isWilly = true;
         //pointScr.PlusSlope(angle);
-        moderuAngle = angle;
+        //moderuAngle = angle;
     }
 
     /// <summary>カート傾けない</summary>

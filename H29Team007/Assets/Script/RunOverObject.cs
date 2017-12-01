@@ -86,18 +86,19 @@ public class RunOverObject : MonoBehaviour
     {
         if (other.name == "FrontHitArea")//プレイヤーババア用　敵ババアが特売品を轢く処理は頑張って
         {
-            if (transform.tag == "Enemy" && !CanGetEnemy(other.transform)) return;
+            if (transform.tag == "Enemy" && !CanGetEnemy(other.transform)
+                || transform.tag == "BBA" && !CanGetEnemy(other.transform)) return;
             var sc = other.transform.root.GetComponent<ShoppingCount>();
             if (transform.tag == "Animal" && !sc.IsHumanMoreThanAnimal()) return;
-            if (!sc.IsCatchBasket() || sc.IsBaggegeMax()) return;
+            if (!sc.IsCatchBasket() || sc.IsBaggegeMax(other.transform.parent.gameObject)) return;
             myNav.enabled = false;
-            myCollider.enabled = false;  //荷物のあたり判定のせいでカート増えてたあばばばばば 敵全部ボックスコライダーでありがと
+            myCollider.enabled = false;
             //ここにアニメ停止や変更入れるかも
-            Vector3 v = other.transform.parent.transform.position;
-
+            Vector3 v = other.transform.parent.position;
+            bool a = sc.IsHumanMoreThanAnimal();
             Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
             transform.position = nimotuPos;
-            sc.AddBaggege(transform);
+            sc.AddBaggege(transform,other.transform.parent.gameObject);
             //transform.parent = other.transform.root;
             sc.PlusY(runOverAfterHeight);
             if (m_model != null)

@@ -18,4 +18,7 @@ public class CartRelatedData {
     public static float cartFlyStartPosY = 1.6f;  //カゴを投げ始めるときのy座標
     public static float cartNavPoint = -1.5f;  //カートをジャックするときの目標のz座標
 
+    public static Vector3 cartRotatePointBack = new Vector3(0, 0, 0.4f); //カートを手前に傾けるときの回す軸の位置
+    public static Vector3 cartRotatePointFront = new Vector3(0, 0, 1.8f); //カートを奥に傾けるときの回す軸の位置
+
 }

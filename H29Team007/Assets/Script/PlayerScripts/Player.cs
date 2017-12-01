@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
         Gliding, // 滑走中
         Takeover // カートジャック
     }
-    public RunOverObject rn;
 
     private float inputHorizontal;
     private float inputVertical;
@@ -114,7 +113,8 @@ public class Player : MonoBehaviour
         if (GetState() != PlayerState.NoCart &&
             GetState() != PlayerState.Takeover)
         {
-            if (Input.GetButtonDown("XboxA") || Input.GetKeyDown(KeyCode.R))
+
+            if (Input.GetButtonUp("XboxA") || Input.GetKeyDown(KeyCode.R)|| !scScript.IsCatchBasket())
             {
                 ReleaseCart();
             }
@@ -192,7 +192,7 @@ public class Player : MonoBehaviour
 
         rb.velocity = moveForward * onCartMoveSpeed + new Vector3(0, rb.velocity.y, 0);
 
-        if (Input.GetButtonDown("XboxR") || Input.GetKeyDown(KeyCode.O))
+        if (Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O))
         {
             //rb.velocity = transform.forward * kickSpeed;
             rb.AddForce(transform.forward * kickSpeed, ForceMode.VelocityChange);
@@ -228,7 +228,7 @@ public class Player : MonoBehaviour
         a *= Quaternion.AngleAxis(inputHorizontal * -velocityRotateSpeed, Vector3.up);
         rb.velocity = new Vector3(a.x, 0, a.z);
         //Debug.Log(rb.velocity);
-        if (Input.GetButtonDown("XboxR") || Input.GetKeyDown(KeyCode.O))
+        if (Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O))
         {
             rb.velocity = transform.forward * kickSpeed;
             //var info = m_Animator.GetCurrentAnimatorStateInfo(0);
@@ -351,9 +351,7 @@ public class Player : MonoBehaviour
         {
             mySecondCart = Instantiate(cartBodyPrefab);
             mySecondCart.transform.parent = transform;
-            //Vector3 cartPos = new Vector3(transform.position.x + 0.7f, 0, transform.position.z);
             myCart.transform.localPosition = Vector3.forward * CartRelatedData.cartLocalPosZ + Vector3.right * 0.5f;
-            //cartPos = new Vector3(transform.position.x - 0.7f, 0, transform.position.z);
             mySecondCart.transform.localPosition = Vector3.forward * CartRelatedData.cartLocalPosZ - Vector3.right * 0.5f;
             Vector3 center = (mySecondCart.transform.position + myCart.transform.position) / 2;
             Vector3 relativePos = center - transform.position;
@@ -374,6 +372,16 @@ public class Player : MonoBehaviour
     public bool IsCart()
     {
         return (myCart != null);
+    }
+
+    public bool IsCart2()
+    {
+        return (mySecondCart != null);
+    }
+
+    public GameObject MyCart()
+    {
+        return myCart;
     }
 
     /// <summary>カゴの中に人が入っているか</summary>
@@ -414,7 +422,8 @@ public class Player : MonoBehaviour
         if (collision.transform.tag == "Cart"
             //&& havedCart == null 
             && mySecondCart == null
-            && GetState() != PlayerState.Takeover)
+            && GetState() != PlayerState.Takeover
+            && scScript.IsCatchBasket())
         {
             canGetCart = collision.gameObject;
             canGet = true;

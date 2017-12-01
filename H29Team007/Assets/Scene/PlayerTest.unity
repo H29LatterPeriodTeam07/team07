@@ -10674,21 +10674,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 114144468848037314, guid: 3879be98e357daa4fb80e0222850e9de,
-        type: 2}
-      propertyPath: score
-      value: 
-      objectReference: {fileID: 1601364330}
     - target: {fileID: 114570305927051202, guid: 3879be98e357daa4fb80e0222850e9de,
         type: 2}
       propertyPath: exitPoint
       value: 
       objectReference: {fileID: 466432369}
-    - target: {fileID: 54782501363904332, guid: 3879be98e357daa4fb80e0222850e9de,
+    - target: {fileID: 114144468848037314, guid: 3879be98e357daa4fb80e0222850e9de,
         type: 2}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: score
+      value: 
+      objectReference: {fileID: 1601364330}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3879be98e357daa4fb80e0222850e9de, type: 2}
   m_IsPrefabParent: 0

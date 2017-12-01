@@ -76,6 +76,12 @@ public class SpringBoneArrange : MonoBehaviour {
     {
         newChild.parent = transform;
         newChild.localPosition = Vector3.up * height;
+
+        float x = Random.Range(-0.1f, 0.1f);
+        float z = Random.Range(-0.1f, 0.1f);
+
+        newChild.localPosition += new Vector3(x, 0, z);
+
         springLength = Vector3.Distance(trs.position, newChild.position);
         currTipPos = newChild.position;
         prevTipPos = newChild.position;
