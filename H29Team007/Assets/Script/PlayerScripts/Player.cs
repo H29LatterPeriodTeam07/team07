@@ -88,10 +88,16 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (!MainGameDate.IsStart() || transform.parent != null)
+        if (!MainGameDate.IsStart())
         {
             m_Animator.SetFloat("Speed", 0);
             rb.velocity = Vector3.zero;
+            return;
+        }
+        if(transform.parent != null)
+        {
+            rb.velocity = Vector3.zero;
+            BreakCart2();
             BreakCart();
             return;
         }
@@ -130,9 +136,10 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!MainGameDate.IsStart())
+        if (!MainGameDate.IsStart() || transform.parent != null)
         {
-
+            m_Animator.SetFloat("Speed", 0);
+            m_Animator.SetBool("OnCart", IsCart());
             return;
         }
 
