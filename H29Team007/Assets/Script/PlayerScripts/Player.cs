@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
 
 
     private float minusRotateSpeed;
+    private float minusRotateSpeed2;
 
 
     [SerializeField, Header("その他")]
@@ -51,7 +52,7 @@ public class Player : MonoBehaviour
     public PhysicMaterial glidingPhysiMat;
     private CapsuleCollider myCC;
 
-    private CartStatusWithPlayer myCartStatus;
+    //private CartStatusWithPlayer myCartStatus;
     private Animator m_Animator;
 
     private bool canGet = false; //カートを持てるか
@@ -73,7 +74,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        myCartStatus = GetComponent<CartStatusWithPlayer>();
+        //myCartStatus = GetComponent<CartStatusWithPlayer>();
         scScript = GetComponent<ShoppingCount>();
         myState = PlayerState.NoCart;
         //myBaggege = new List<Transform>();
@@ -121,7 +122,6 @@ public class Player : MonoBehaviour
         }
         if (canGet && GetState() != PlayerState.Takeover && canGetCart != null)
         {
-            
             CatchCart();
             canGet = false;
         }
@@ -186,7 +186,8 @@ public class Player : MonoBehaviour
     /// <summary>カートを持っているときの動き</summary>
     private void CartOnMove()
     {
-        transform.Rotate(new Vector3(0, inputHorizontal * (onCartRotateSpeed - minusRotateSpeed) * Time.deltaTime, 0));
+        float mrs = Mathf.Max(minusRotateSpeed, minusRotateSpeed2);
+        transform.Rotate(new Vector3(0, inputHorizontal * (onCartRotateSpeed - mrs) * Time.deltaTime, 0));
 
         Vector3 moveForward = transform.forward * inputVertical;
 
@@ -222,7 +223,8 @@ public class Player : MonoBehaviour
     /// <summary>滑走中の動き </summary>
     private void CartGliding()
     {
-        transform.Rotate(new Vector3(0, inputHorizontal * (angleRotateSpeed - minusRotateSpeed) * Time.deltaTime, 0));
+        float mrs = Mathf.Max(minusRotateSpeed, minusRotateSpeed2);
+        transform.Rotate(new Vector3(0, inputHorizontal * (angleRotateSpeed - mrs) * Time.deltaTime, 0));
 
         Quaternion a = new Quaternion(rb.velocity.x, 0, rb.velocity.z, 0);
         a *= Quaternion.AngleAxis(inputHorizontal * -velocityRotateSpeed, Vector3.up);
@@ -278,28 +280,38 @@ public class Player : MonoBehaviour
     /// <summary>カート壊れる</summary>
     public void BreakCart()
     {
-        cartRotatePoint.transform.localRotation = Quaternion.AngleAxis(0, new Vector3(1, 0, 0));
+        //cartRotatePoint.transform.localRotation = Quaternion.AngleAxis(0, new Vector3(1, 0, 0));
         scScript.SetBasketParent(transform);
         scScript.BasketOut();
         Destroy(myCart);
-        Destroy(mySecondCart);
         ChangeState(0);
     }
+
+    /// <summary>カート壊れる</summary>
+    public void BreakCart2()
+    {
+        //cartRotatePoint.transform.localRotation = Quaternion.AngleAxis(0, new Vector3(1, 0, 0));
+        scScript.SetBasketParent(transform);
+        myCart.transform.localPosition = Vector3.forward * CartRelatedData.cartLocalPosZ;
+        scScript.BasketIn();
+        Destroy(mySecondCart);
+        //ChangeState(0);
+    }
+
 
     /// <summary>カートを離す </summary>
     public void ReleaseCart()
     {
         if (myCart == null) return;
-
-        GameObject cart = Instantiate(cartRigidPrefab);
-
-        //離したカートに現在の耐久値を渡す
-        myCartStatus.SetCart(cart.GetComponent<CartStatusWithCart>());
-
+        
         Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
-
         if (mySecondCart == null)
         {
+
+            GameObject cart = Instantiate(cartRigidPrefab);
+
+            //離したカートに現在の耐久値を渡す
+            myCart.GetComponent<CartBody>().SetCart(cart.GetComponent<CartStatusWithCart>());
 
             cart.transform.position = cartPos + transform.forward * CartRelatedData.cartLocalPosZ;
             Vector3 relativePos = myCart.transform.position - transform.position;
@@ -307,37 +319,49 @@ public class Player : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(relativePos);
             cart.transform.rotation = Quaternion.LookRotation(relativePos);
             //havedCart = cart;
+            BreakCart();
         }
         else
         {
+            CartBody cartScript = myCart.GetComponent<CartBody>();
+            if (cartScript.IsWilly())
+            {
+                cartScript.NoSlopeCart();
+                mySecondCart.GetComponent<CartBody>().NoSlopeCart();
+            }
+            scScript.BaggegeFall2(mySecondCart.transform.position);
             GameObject cart2 = Instantiate(cartRigidPrefab);
 
             //離したカートに現在の耐久値を渡す
-            myCartStatus.SetCart(cart2.GetComponent<CartStatusWithCart>());
+            mySecondCart.GetComponent<CartBody>().SetCart(cart2.GetComponent<CartStatusWithCart>());
 
-            cart.transform.position = cartPos + transform.forward * CartRelatedData.cartLocalPosZ + transform.right * 0.5f;
-            cart2.transform.position = cartPos + transform.forward * CartRelatedData.cartLocalPosZ - transform.right * 0.5f;
+           // cart.transform.position = cartPos + transform.forward * CartRelatedData.cartLocalPosZ + transform.right * 0.5f;
+            cart2.transform.position = cartPos + transform.forward * CartRelatedData.cartLocalPosZ - transform.right * 1.0f;
             Vector3 center = (mySecondCart.transform.position + myCart.transform.position) / 2;
             Vector3 relativePos = center - transform.position;
             relativePos.y = 0; //上下方向の回転はしないように制御
             transform.rotation = Quaternion.LookRotation(relativePos);
-            cart.transform.rotation = Quaternion.LookRotation(relativePos);
+            //cart.transform.rotation = Quaternion.LookRotation(relativePos);
             cart2.transform.rotation = Quaternion.LookRotation(relativePos);
+            Destroy(mySecondCart);
+            myCart.transform.localPosition = Vector3.forward * CartRelatedData.cartLocalPosZ;
+            scScript.BasketIn();
         }
-        BreakCart();
     }
 
     /// <summary>カートを持つ</summary>
     public void CatchCart()
     {
         //持つカートの耐久値をもらう
-        myCartStatus.GetCart(canGetCart.transform.gameObject.GetComponent<CartStatusWithCart>());
+        //myCartStatus.GetCart(canGetCart.transform.gameObject.GetComponent<CartStatusWithCart>());
 
-        Destroy(canGetCart.transform.gameObject);
         if (myCart == null)
         {
             ChangeState(1);
             myCart = Instantiate(cartBodyPrefab);
+            //持つカートの耐久値をもらう
+            myCart.GetComponent<CartBody>().GetCart(canGetCart.transform.gameObject.GetComponent<CartStatusWithCart>());
+
             myCart.transform.parent = transform;
             //Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
             myCart.transform.localPosition = Vector3.forward * CartRelatedData.cartLocalPosZ;
@@ -349,7 +373,15 @@ public class Player : MonoBehaviour
         }
         else if(mySecondCart == null)
         {
+            CartBody cartScript = myCart.GetComponent<CartBody>();
+            if (cartScript.IsWilly())
+            {
+                cartScript.NoSlopeCart();
+            }
             mySecondCart = Instantiate(cartBodyPrefab);
+            //持つカートの耐久値をもらう
+            mySecondCart.GetComponent<CartBody>().GetCart(canGetCart.transform.gameObject.GetComponent<CartStatusWithCart>());
+
             mySecondCart.transform.parent = transform;
             myCart.transform.localPosition = Vector3.forward * CartRelatedData.cartLocalPosZ + Vector3.right * 0.5f;
             mySecondCart.transform.localPosition = Vector3.forward * CartRelatedData.cartLocalPosZ - Vector3.right * 0.5f;
@@ -360,6 +392,7 @@ public class Player : MonoBehaviour
             mySecondCart.transform.rotation = Quaternion.LookRotation(relativePos);
             scScript.SetBasketLocalPos(CartRelatedData.cartInBagLocalPos + Vector3.right * 0.5f);
         }
+        Destroy(canGetCart.transform.gameObject);
     }
 
     public PlayerState GetState()
@@ -394,6 +427,11 @@ public class Player : MonoBehaviour
     public void SetMinusRotateSpeed(float speed)
     {
         minusRotateSpeed = speed;
+    }
+
+    public void SetMinusRotateSpeed2(float speed)
+    {
+        minusRotateSpeed2 = speed;
     }
 
     /// <summary>エネミーのプレイヤーが見えてるかのパクリ</summary>

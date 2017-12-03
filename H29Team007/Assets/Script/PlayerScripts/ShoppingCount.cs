@@ -389,9 +389,22 @@ public class ShoppingCount : MonoBehaviour
             }
         }
 
+        for (int i = 0; i < myBaggage2.Count; i++)
+        {
+            if (myBaggage2[i].tag == "Plasticbag")
+            {
+                mybags.Add(myBaggage2[i]);
+            }
+            else
+            {
+                kesumono.Add(myBaggage2[i]);
+                bagprice += myBaggage2[i].GetComponent<EnemyScore>().GetPrice();
+                bagnums.Add(myBaggage2[i].GetComponent<EnemyScore>().GetNumber());
+            }
+        }
         if (kesumono.Count != 0)
         {
-
+            
             seScript.OnePlay(5);
             for (int i = 0; i < kesumono.Count; i++)
             {
@@ -434,6 +447,20 @@ public class ShoppingCount : MonoBehaviour
 
             goukei += es.GetPrice();
         }
+        for (int i = 0; i < myBaggage2.Count; i++)
+        {
+            EnemyScore es = myBaggage2[i].GetComponent<EnemyScore>();
+            if (myBaggage2[i].tag == "Plasticbag")
+            {
+                ScoreManager.AddCount(es.GetNumbers());
+            }
+            else
+            {
+                ScoreManager.AddCount(es.GetNumber());
+            }
+
+            goukei += es.GetPrice();
+        }
         string printscore = goukei.ToString();
         score.text = "￥" + printscore;
     }
@@ -456,6 +483,10 @@ public class ShoppingCount : MonoBehaviour
             other.transform.rotation = basket.transform.rotation;
             Destroy(other.gameObject);
             basket.SetActive(true);
+        }
+        if (other.tag == "Register")
+        {
+            PassTheRegister();
         }
     }
 }

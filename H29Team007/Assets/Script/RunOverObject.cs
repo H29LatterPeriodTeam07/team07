@@ -84,6 +84,7 @@ public class RunOverObject : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+        if (transform.parent != null) return;
         if (other.name == "FrontHitArea")//プレイヤーババア用　敵ババアが特売品を轢く処理は頑張って
         {
             if (transform.tag == "Enemy" && !CanGetEnemy(other.transform)

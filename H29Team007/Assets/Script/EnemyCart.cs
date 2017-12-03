@@ -24,7 +24,7 @@ public class EnemyCart : MonoBehaviour {
     public void Independence()
     {
         newcart = Instantiate(cartRigidPrefab);
-        newcart.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        newcart.transform.position = new Vector3(transform.position.x, 0, transform.position.z);// + transform.forward;
         newcart.transform.rotation = transform.rotation;
        // transform.root.position -= transform.root.forward;
     }
