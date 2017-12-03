@@ -102,15 +102,15 @@ public class RunOverObject : MonoBehaviour
             sc.AddBaggege(transform,other.transform.parent.gameObject);
             //transform.parent = other.transform.root;
             sc.PlusY(runOverAfterHeight);
-            if (m_model != null)
-            {
-                m_model.SetActive(false);
-                m_gutemodel.SetActive(true);
-            }
-            if (rb != null) {
-                rb.velocity = Vector3.zero;
-                rb.isKinematic = true;
-            }
+            //if (m_model != null)
+            //{
+            //    m_model.SetActive(false);
+            //    m_gutemodel.SetActive(true);
+            //}
+            //if (rb != null) {
+            //    rb.velocity = Vector3.zero;
+            //    rb.isKinematic = true;
+            //}
             m_AS.clip = m_se;
             m_AS.Play();
         }

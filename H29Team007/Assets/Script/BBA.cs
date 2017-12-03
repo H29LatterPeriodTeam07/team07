@@ -17,6 +17,7 @@ public enum BBAState
 
 public class BBA : MonoBehaviour
 {
+    public GameObject m_plane;
     public GameObject m_BBAplehab;
     //見える距離
     public float m_ViewingDistance;
@@ -43,6 +44,8 @@ public class BBA : MonoBehaviour
     Transform m_SaleAnimalsLookPoint;
     int m_SaleSpownIndex = 0;
     BBACartCount bcScript;
+    private Animator m_Animator;
+    bool m_bo = true;
 
     // Use this for initialization
     void Start()
@@ -52,6 +55,7 @@ public class BBA : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         bcScript = GetComponent<BBACartCount>();
         m_Agent = GetComponent<NavMeshAgent>();
+        m_Animator = GetComponent<Animator>();
         //目的地を設定する
         SetNewPatrolPointToDestination();
         m_EyePoint = transform.Find("BBAEye");
@@ -60,11 +64,22 @@ public class BBA : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.parent != null) return;
+
+            Ray aray = new Ray(m_EyePoint.position, new Vector3(0, -1, 0));
+        RaycastHit ahitInfo;
+        bool ahit = Physics.Raycast(aray, out ahitInfo);
+        //Rayの飛ばせる距離
+        int distance = 1;
+
+        //Rayの可視化    ↓Rayの原点　　　　↓Rayの方向　　　　　　　　　↓Rayの色
+        Debug.DrawLine(aray.origin, aray.direction * distance, Color.red);
+
+        print(m_bo);
         //巡回中
         if (m_State == BBAState.NormalMode)
         {
             m_Agent.speed = 1.0f;
+            m_Animator.SetFloat("Speed", m_Agent.speed);
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
             //特売品が出てくる時間になったら特売品モードに
@@ -81,11 +96,17 @@ public class BBA : MonoBehaviour
                     SetNewPatrolPointToDestination();
                 }
             }
+            if ( m_bo==false)
+            {
+                m_Animator.SetTrigger("Kago");
+              //  m_bo = true;
+            }
         }
         //特売品モード
         else if (m_State == BBAState.SaleMode)
         {
-            m_Agent.speed = 3.0f;
+            m_Agent.speed = 4.0f;
+            m_Animator.SetFloat("Speed", m_Agent.speed);
             SetNewSalePatrolPointToDestination();
 
             m_ViewingDistance = 100;
@@ -97,7 +118,6 @@ public class BBA : MonoBehaviour
             rb.isKinematic = true;
             if (hit && hitInfo.collider.tag == "Animal")
             {
-                m_SaleAnimals = GameObject.FindGameObjectWithTag("Animal");
                 m_Agent.destination = m_SaleAnimals.transform.position;
             }
 
@@ -110,12 +130,17 @@ public class BBA : MonoBehaviour
             {
                 m_State = BBAState.CashMode;
             }
+            if (m_bo == false)
+            {
+                m_Animator.SetTrigger("Kago");
+            }
         }
+
         //レジ～出入り口へGOモード
         else if (m_State == BBAState.CashMode)
         {
             SetNewExitPointToDestination();
-            m_Speed = 3;
+            m_Speed = 4.0f;
 
             if (!IsGetAnimal()) m_State = BBAState.NormalMode;
         }
@@ -161,7 +186,8 @@ public class BBA : MonoBehaviour
     {
         if (other.name == "FrontHitArea")
         {
-                bcScript.BaggegeFall(transform.position);        
+            bcScript.BaggegeFall(transform.position);
         }
+
     }
 }

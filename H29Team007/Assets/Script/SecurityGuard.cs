@@ -115,11 +115,14 @@ public class SecurityGuard : MonoBehaviour
             m_ViewingAngle = 360;
             if (CanSeePlayer() && m_bool == false && dis <= 10 && m_scPlayer.GetState() == Player.PlayerState.Gliding)
             {
-                m_Agent.speed = -1;
+                float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
+                transform.eulerAngles = new Vector3(0, angle, 0);
+                m_Agent.enabled = false;
+                m_Horizntal = m_ho;
+
                 m_bool = true;
                 m_Animator.SetTrigger("Jump2");
             }
-
             // プレイヤーが見えている場合
             if (CanSeePlayer() && m_scPlayer.IsGetHuman())
             {
