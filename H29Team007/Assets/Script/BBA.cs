@@ -64,17 +64,9 @@ public class BBA : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.parent != null) return;
 
-            Ray aray = new Ray(m_EyePoint.position, new Vector3(0, -1, 0));
-        RaycastHit ahitInfo;
-        bool ahit = Physics.Raycast(aray, out ahitInfo);
-        //Rayの飛ばせる距離
-        int distance = 1;
-
-        //Rayの可視化    ↓Rayの原点　　　　↓Rayの方向　　　　　　　　　↓Rayの色
-        Debug.DrawLine(aray.origin, aray.direction * distance, Color.red);
-
-        print(m_bo);
+    //    print(m_bo);
         //巡回中
         if (m_State == BBAState.NormalMode)
         {
@@ -96,10 +88,11 @@ public class BBA : MonoBehaviour
                     SetNewPatrolPointToDestination();
                 }
             }
-            if ( m_bo==false)
+            if (m_bo == false )
             {
-                m_Animator.SetTrigger("Kago");
-              //  m_bo = true;
+                m_Agent.speed = 0.0f;
+                // m_Animator.SetTrigger("Kago");
+                //  m_bo = true;
             }
         }
         //特売品モード
@@ -129,10 +122,6 @@ public class BBA : MonoBehaviour
             if (IsGetAnimal())
             {
                 m_State = BBAState.CashMode;
-            }
-            if (m_bo == false)
-            {
-                m_Animator.SetTrigger("Kago");
             }
         }
 
@@ -187,6 +176,7 @@ public class BBA : MonoBehaviour
         if (other.name == "FrontHitArea")
         {
             bcScript.BaggegeFall(transform.position);
+            m_bo = false;
         }
 
     }

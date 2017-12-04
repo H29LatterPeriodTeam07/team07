@@ -18,6 +18,7 @@ public class RunOverObject : MonoBehaviour
     private NavMeshAgent myNav;
     private Collider myCollider;
     Rigidbody rb;
+    Animator m_Anime;
 
     // Use this for initialization
     void Start()
@@ -26,12 +27,23 @@ public class RunOverObject : MonoBehaviour
         myCollider = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
         m_AS = GetComponent<AudioSource>();
+        m_Anime = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (m_Anime != null)
+        {
+            if (transform.position.y > 0.3f)
+            {
+                m_Anime.SetTrigger("Kago");
+            }
+            else
+            {
+                m_Anime.SetTrigger("Trigger");
+            }
+        }
     }
 
     public void NavReStart()
@@ -163,15 +175,6 @@ public class RunOverObject : MonoBehaviour
             }
             if(myNav != null) myNav.enabled = false;
 
-        }
-    }
-
-    public void OnTriggerStay(Collider other)
-    {
-        if (m_model != null&&other.name == "Plane")
-        {
-            m_model.SetActive(true);
-            m_gutemodel.SetActive(false);
         }
     }
 }

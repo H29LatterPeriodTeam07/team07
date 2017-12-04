@@ -7731,7 +7731,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1135743514729614}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.3, y: 0, z: 5.1}
+  m_LocalPosition: {x: -19.97, y: 0, z: -10.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4951207183722958}
@@ -9153,7 +9153,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1896082879981648}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.594, z: 0}
+  m_LocalPosition: {x: 0, y: 1.2, z: -0.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4636304157354800}
@@ -10166,7 +10166,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1746036325210406}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: 576f5047179309e45a23e7b69848b0fe, type: 3}
   m_Controller: {fileID: 0}
   m_CullingMode: 1
@@ -10301,7 +10301,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1135743514729614}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bcef6aa1415d3454fb65b8ae219f5f0b, type: 3}
   m_Name: 
@@ -10320,6 +10320,10 @@ MonoBehaviour:
   wallDamage: 5
   myColor: {fileID: 0}
   effects: []
+  minusCartHP: 0.01
+  minusRotateSpeedDefault: 60
+  baggageRotateLimit: 60
+  baggageRotateLimitDefault: 90
 --- !u!114 &114712492353143548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10342,6 +10346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32bc47a5a6edf474dab6112a89363648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_plane: {fileID: 0}
   m_BBAplehab: {fileID: 1135743514729614}
   m_ViewingDistance: 100
   m_ViewingAngle: 45
@@ -10371,6 +10376,10 @@ MonoBehaviour:
   wallDamage: 5
   myColor: {fileID: 0}
   effects: []
+  minusCartHP: 0.01
+  minusRotateSpeedDefault: 60
+  baggageRotateLimit: 60
+  baggageRotateLimitDefault: 90
 --- !u!136 &136229183455007790
 CapsuleCollider:
   m_ObjectHideFlags: 1
