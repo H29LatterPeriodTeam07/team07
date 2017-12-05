@@ -31,6 +31,11 @@ public class GameManager : MonoBehaviour {
     [System.NonSerialized]
     public int m_CurentBullPatrolPointIndex = 1;
 
+    [SerializeField,Header("太陽")]
+    private GameObject m_Sun;
+    [SerializeField, Header("タイマー")]
+    private GameObject m_Timer;
+    Timer m_tmScript;
     //BBAオブジェクト
     private GameObject m_BBA;
     //警備員オブジェクト
@@ -47,15 +52,17 @@ public class GameManager : MonoBehaviour {
         m_BBAScript = m_BBA.GetComponent<BBA>();
         smScript = SM.transform.GetComponent<SoundManagerScript>();
         smScript.PlayBGM(2);
+        m_tmScript = m_Timer.GetComponent<Timer>();
         //スクリプトSaleSpownへの参照
         for (int i = 0; i < m_SaleAnimalSpowns.Length; i++)
         {
             m_scSaleSpown = m_SaleAnimalSpowns[i].GetComponent<SaleSpown>();
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
 
+    // Update is called once per frame
+    void Update()
+    {
+        m_Sun.transform.eulerAngles = new Vector3(m_tmScript.timer, 0, 0);
     }
 }

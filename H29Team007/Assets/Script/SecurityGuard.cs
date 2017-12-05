@@ -49,7 +49,8 @@ public class SecurityGuard : MonoBehaviour
 	float minAngle = 0.0F;
     float maxAngle = 90.0F;
     float m_Horizntal = 0;
-    float m_ho = 2.0f;
+    float m_ho = -2.0f;
+    Rigidbody m_rb;
 
     // Use this for initialization
     void Start()
@@ -67,6 +68,7 @@ public class SecurityGuard : MonoBehaviour
         m_scPlayer = m_Player.GetComponent<Player>();
         m_smScript = m_SoundManager.GetComponent<SoundManagerScript>();
         m_AS = GetComponent<AudioSource>();
+        m_rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -75,22 +77,25 @@ public class SecurityGuard : MonoBehaviour
         Vector3 PPos = m_Player.transform.position;
         Vector3 EPos = m_Enemy.transform.position;
         float dis = Vector3.Distance(PPos, EPos);
-
         //巡回中
         if (m_State == EnemyState.Patrolling)
         {
             m_Agent.speed = 1f;
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
-            if (CanSeePlayer() && m_bool == false && dis <= 10 && m_scPlayer.GetState() == Player.PlayerState.Gliding)
+            if (CanSeePlayer() && m_bool == false && dis <= 5 && m_scPlayer.GetState() == Player.PlayerState.Gliding)
             {
-                float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
-                transform.eulerAngles = new Vector3(0, angle, 0);
                 m_Agent.enabled = false;
-                m_Horizntal = m_ho;
-                
                 m_bool = true;
                 m_Animator.SetTrigger("Jump2");
+
+                iTween.MoveTo(gameObject, iTween.Hash(
+                    "x",transform.position.x-2,
+                    "z",transform.position.z-2,
+                    "easeType", iTween.EaseType.linear,
+                    "time",2.5f,
+                    "oncomplete", "OnCompleteHandler",
+                    "oncompletetarget", this.gameObject));
             }
             //プレイヤーが見えた場合
             if (CanSeePlayer() && m_scPlayer.IsGetHuman())
@@ -119,7 +124,6 @@ public class SecurityGuard : MonoBehaviour
                 transform.eulerAngles = new Vector3(0, angle, 0);
                 m_Agent.enabled = false;
                 m_Horizntal = m_ho;
-
                 m_bool = true;
                 m_Animator.SetTrigger("Jump2");
             }
@@ -168,7 +172,14 @@ public class SecurityGuard : MonoBehaviour
         }
         //  Debug.Log(dis);
         m_Animator.SetFloat("Speed", m_Agent.speed);
+        
+    }
 
+    void OnCompleteHandler()
+    {
+        m_Animator.SetTrigger("Trigger");
+        m_Agent.enabled = true;
+        m_bool = false;
     }
 
     //次の巡回ポイントを目的地に設定する
