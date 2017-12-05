@@ -50,6 +50,7 @@ public class SpringManagerArrange : MonoBehaviour {
         {
             newChild.parent = transform;
             springBones[0].transform.localPosition = Vector3.zero;
+            springBones[0].SetLocalRotation();
             springBones[0].ChildSet(youngestChild);
             
         }
@@ -60,6 +61,7 @@ public class SpringManagerArrange : MonoBehaviour {
                 springBones[i].RotateReset();
             }
             springBones[springBones.Count - 2].ChildSet(newChild, nextHeight);
+            springBones[springBones.Count - 1].SetLocalRotation();
             springBones[springBones.Count - 1].ChildSet(youngestChild);
         }
         nextHeight = height;
@@ -73,5 +75,16 @@ public class SpringManagerArrange : MonoBehaviour {
         }
         youngestChild.parent = transform;
         springBones.Clear();
+    }
+
+    //闘牛回転用---
+    public Transform YoungestChild()
+    {
+        return youngestChild;
+    }
+
+    public float NextHeight()
+    {
+        return nextHeight;
     }
 }

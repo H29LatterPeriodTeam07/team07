@@ -76,6 +76,10 @@ public class SpringBoneArrange : MonoBehaviour {
     {
         newChild.parent = transform;
         newChild.localPosition = Vector3.up * height;
+        if(newChild.parent.tag == "Bull")
+        {
+            newChild.localPosition = Vector3.up * height + Vector3.right * -0.3f;
+        }
 
         float x = Random.Range(-0.1f, 0.1f);
         float z = Random.Range(-0.1f, 0.1f);
@@ -96,5 +100,27 @@ public class SpringBoneArrange : MonoBehaviour {
     public void RotateReset()
     {
         trs.localRotation = Quaternion.identity * localRotation;
+    }
+
+    public void SetLocalRotation()
+    {
+        if (transform.tag == "Bull")
+        {
+            transform.eulerAngles = transform.root.eulerAngles + new Vector3(0, -90, 0);
+            Vector3 pos = transform.localPosition;
+            pos += transform.forward * -0.3f;
+            transform.localPosition = pos;
+
+            //SpringManagerArrange mySMA = transform.root.Find("SecondBaggage").GetComponent<SpringManagerArrange>();
+            //SpringManagerArrange otherSMA = transform.root.Find("PlayerBasket(Clone)").Find("nimotuParent").GetComponent<SpringManagerArrange>();
+
+            //float dx = otherSMA.YoungestChild().localPosition.x - mySMA.YoungestChild().localPosition.x;
+            //float dy = otherSMA.YoungestChild().localPosition.y - mySMA.YoungestChild().localPosition.y;
+            //float rad = Mathf.Atan2(dy, dx);
+            //transform.Find("tougyu").RotateAround(mySMA.YoungestChild().position, transform.right, -rad * Mathf.Rad2Deg);
+             //rad * Mathf.Rad2Deg;
+        }
+        localRotation = transform.localRotation;
+        
     }
 }

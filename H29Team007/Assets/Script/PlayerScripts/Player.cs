@@ -97,11 +97,15 @@ public class Player : MonoBehaviour
         if(transform.parent != null)
         {
             rb.velocity = Vector3.zero;
-            BreakCart2();
-            BreakCart();
+            if (myCart != null)
+            {
+                BreakCart2();
+                BreakCart();
+            }
             return;
         }
         if (GetState() == PlayerState.Takeover) return;
+        
 
         inputHorizontal = (Input.GetAxisRaw("XboxLeftHorizontal") != 0) ? Input.GetAxisRaw("XboxLeftHorizontal") : Input.GetAxisRaw("Horizontal");
         inputVertical = (Input.GetAxisRaw("XboxLeftVertical") != 0) ? Input.GetAxisRaw("XboxLeftVertical") : Input.GetAxisRaw("Vertical");
@@ -113,6 +117,11 @@ public class Player : MonoBehaviour
 
             inputHorizontal = inputVec.x;
             inputVertical = inputVec.z;
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            m_Animator.Play("BBAButtobi");
         }
 
         //if (!scScript.IsCatchBasket()) return;
@@ -424,6 +433,11 @@ public class Player : MonoBehaviour
         return myCart;
     }
 
+    public GameObject MySecondCart()
+    {
+        return mySecondCart;
+    }
+
     /// <summary>カゴの中に人が入っているか</summary>
     /// <returns>入っていたらtrue</returns>
     public bool IsGetHuman()
@@ -441,16 +455,18 @@ public class Player : MonoBehaviour
         minusRotateSpeed2 = speed;
     }
 
-    /// <summary>エネミーのプレイヤーが見えてるかのパクリ</summary>
-    private bool CanGetCart()
+    /// <summary>闘牛を捕まえることができるか</summary>
+    public bool CanGetBull(Transform bull)
     {
-        //プレイヤーからカートへの方向ベクトル(ワールド座標系)
-        Vector3 directionToCart = canGetCart.transform.position - transform.position;
-        // プレイヤーの正面向きベクトルとカートへの方向ベクトルの差分角度
-        float angleToCart = Vector3.Angle(transform.forward, directionToCart);
+        //カートが2台なかったら捕獲できない or 人間が動物以下だったら捕獲できない
+        if (mySecondCart == null || !scScript.IsHumanMoreThanAnimal()) return false;
+        //プレイヤーから闘牛への方向ベクトル(ワールド座標系)
+        Vector3 directionToBull = bull.position - transform.position;
+        // プレイヤーの正面向きベクトルと闘牛への方向ベクトルの差分角度
+        float angleToBull = Vector3.Angle(transform.forward, directionToBull);
 
-        // つかめる角度の範囲内にカートがあるかどうかを返却する
-        return (Mathf.Abs(angleToCart) <= 90);
+        // 捕獲できる角度の範囲内に闘牛がいるかどうかを返却する
+        return (Mathf.Abs(angleToBull) <= 90);
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -472,8 +488,16 @@ public class Player : MonoBehaviour
         {
             canGetCart = collision.gameObject;
             canGet = true;
-            //Debug.Log("YES");
         }
+        //if(collision.transform.tag == "Bull")
+        //{
+        //    if (CanGetBull(collision.transform))
+        //    {
+        //        collision.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+        //        collision.gameObject.GetComponent<Collider>().enabled = false;
+        //        scScript.AddBaggege(collision.transform, mySecondCart, 1);
+        //    }
+        //}
     }
 
     public void OnCollisionExit(Collision collision)

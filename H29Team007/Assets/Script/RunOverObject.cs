@@ -51,6 +51,10 @@ public class RunOverObject : MonoBehaviour
         myNav.enabled = true;
         myCollider.enabled = true;
         //ここにアニメ再開入れるかも
+        if (transform.tag == "Bull")
+        {
+            transform.Find("BullHitArea").gameObject.SetActive(true);
+        }
     }
 
     /// <summary>navmeshのポジション移動</summary>
@@ -70,8 +74,8 @@ public class RunOverObject : MonoBehaviour
         //myCollider = GetComponent<BoxCollider>();
         //myCollider.enabled = false;
         Vector3 v = basket.transform.position;
-        Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
-        transform.position = nimotuPos;
+        //Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
+        //transform.position = nimotuPos;
         sc.AddBaggege(transform);
 
         sc.PlusY(runOverAfterHeight);
@@ -94,11 +98,29 @@ public class RunOverObject : MonoBehaviour
         return (Mathf.Abs(angleToEnemy) <= 90);
     }
 
+    private void BullOver(Transform player)
+    {
+        var ps = player.GetComponent<Player>();
+        if (!ps.CanGetBull(transform)) return;
+        var sc = player.GetComponent<ShoppingCount>();
+        if (!sc.IsCatchBasket() || sc.IsBaggegeMax(ps.MySecondCart())) return;
+        myNav.enabled = false;
+        myCollider.enabled = false;
+        sc.AddBaggege(transform, ps.MySecondCart(), 2);
+        transform.Find("BullHitArea").gameObject.SetActive(false);
+
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         if (transform.parent != null) return;
         if (other.name == "FrontHitArea")//プレイヤーババア用　敵ババアが特売品を轢く処理は頑張って
         {
+            if (transform.tag == "Bull")
+            {
+                BullOver(other.transform.root);
+                return;
+            }
             if (transform.tag == "Enemy" && !CanGetEnemy(other.transform)
                 || transform.tag == "BBA" && !CanGetEnemy(other.transform)) return;
             var sc = other.transform.root.GetComponent<ShoppingCount>();
@@ -107,10 +129,9 @@ public class RunOverObject : MonoBehaviour
             myNav.enabled = false;
             myCollider.enabled = false;
             //ここにアニメ停止や変更入れるかも
-            Vector3 v = other.transform.parent.position;
-            bool a = sc.IsHumanMoreThanAnimal();
-            Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
-            transform.position = nimotuPos;
+            //Vector3 v = other.transform.parent.position;
+            //Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
+            //transform.position = nimotuPos;
             sc.AddBaggege(transform,other.transform.parent.gameObject);
             //transform.parent = other.transform.root;
             sc.PlusY(runOverAfterHeight);

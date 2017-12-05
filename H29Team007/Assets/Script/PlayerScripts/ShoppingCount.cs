@@ -7,7 +7,7 @@ public class ShoppingCount : MonoBehaviour
 {
 
     private Player playerScript;
-    private float onPosition;
+    private float onPosition;//いらない可能性大（12/03）
 
     private List<Transform> myBaggage;
     private float price = 0;
@@ -274,16 +274,13 @@ public class ShoppingCount : MonoBehaviour
     /// <param name="baggege">荷物のTransform</param>
     public void AddBaggege(Transform baggege)
     {
-        //baggege.parent = nimotuparent;
         myBaggage.Add(baggege);
-        //if (playerScript.MyCart()) ;
         baggageScript.SetChildren(baggege,baggege.GetComponent<RunOverObject>().GetHeight());
         SetScore();
     }
 
     public void AddBaggege(Transform baggege,GameObject cart)
     {
-        //baggege.parent = nimotuparent;
         if (playerScript.MyCart() == cart)
         {
             myBaggage.Add(baggege);
@@ -293,6 +290,21 @@ public class ShoppingCount : MonoBehaviour
         {
             myBaggage2.Add(baggege);
             baggage2Script.SetChildren(baggege, baggege.GetComponent<RunOverObject>().GetHeight());
+        }
+        SetScore();
+    }
+
+    public void AddBaggege(Transform baggege, GameObject cart,float height)
+    {
+        if (playerScript.MyCart() == cart)
+        {
+            myBaggage.Add(baggege);
+            baggageScript.SetChildren(baggege, height);
+        }
+        else
+        {
+            myBaggage2.Add(baggege);
+            baggage2Script.SetChildren(baggege, height);
         }
         SetScore();
     }

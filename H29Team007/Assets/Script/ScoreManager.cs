@@ -22,6 +22,8 @@ public class ScoreManager
         doubutuCount = 0;
     }
 
+    /// <summary>捕まえた敵の数を増やす</summary>
+    /// <param name="num">増やす敵の番号</param>
     public static void AddCount(int num)
     {
         switch (num)
@@ -31,6 +33,9 @@ public class ScoreManager
         }
     }
 
+    /// <summary>番号ごとの捕まえた敵の数</summary>
+    /// <param name="num">敵の番号</param>
+    /// <returns>何人（体）いるかを返す</returns>
     public static int GetCount(int num)
     {
         int result = 0;
@@ -42,6 +47,8 @@ public class ScoreManager
         return result;
     }
 
+    /// <summary>捕まえた敵の数を増やす（袋版）</summary>
+    /// <param name="num">増やす敵の番号</param>
     public static void AddCount(int[] num)
     {
         for (int i = 0; i < num.Length; i++)
@@ -54,6 +61,9 @@ public class ScoreManager
         }
     }
 
+    /// <summary>ステージごとの敵のスコア</summary>
+    /// <param name="num">敵の番号</param>
+    /// <returns>敵の番号によるスコアを返す</returns>
     public static int EnemyPrice(int num)
     {
         int result = 0;
@@ -64,6 +74,9 @@ public class ScoreManager
         return result;
     }
 
+    /// <summary>ステージ1の各スコア</summary>
+    /// <param name="num">敵の番号</param>
+    /// <returns>敵の番号によるスコアを返す</returns>
     private static int Stage1Score(int num)
     {
         int result = 0;
@@ -75,6 +88,8 @@ public class ScoreManager
         return result;
     }
 
+    /// <summary>各ステージでの敵の種類は何種類かを返す</summary>
+    /// <returns></returns>
     public static int EnemyTypeCount()
     {
         int result = 0;
