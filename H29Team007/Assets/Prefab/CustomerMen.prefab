@@ -5947,8 +5947,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_se: {fileID: 8300000, guid: 122e88abb0a4a444a9fea97de8752229, type: 3}
-  m_model: {fileID: 1145395762830044}
-  m_gutemodel: {fileID: 1168046080204678}
+  m_model: {fileID: 0}
+  m_gutemodel: {fileID: 0}
   runOverAfterHeight: 0.2
 --- !u!114 &114580587759228230
 MonoBehaviour:
@@ -5967,7 +5967,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1651861089722626}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bcef6aa1415d3454fb65b8ae219f5f0b, type: 3}
   m_Name: 
