@@ -32,6 +32,7 @@ public class BullCount : MonoBehaviour {
         maxCount = maxCountDefault;
         m_Exitpoint = GameObject.FindGameObjectWithTag("ExitPoint");
         m_Player = GameObject.FindGameObjectWithTag("Player");
+
     }
 
     // Update is called once per frame

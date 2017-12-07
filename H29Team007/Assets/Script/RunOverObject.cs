@@ -74,8 +74,11 @@ public class RunOverObject : MonoBehaviour
         //myCollider = GetComponent<BoxCollider>();
         //myCollider.enabled = false;
         Vector3 v = basket.transform.position;
+        Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
+        transform.position = nimotuPos;
         //Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
         //transform.position = nimotuPos;
+
         sc.AddBaggege(transform);
 
         sc.PlusY(runOverAfterHeight);
@@ -129,17 +132,22 @@ public class RunOverObject : MonoBehaviour
             myNav.enabled = false;
             myCollider.enabled = false;
             //ここにアニメ停止や変更入れるかも
+            Vector3 v = other.transform.parent.position;
+            bool a = sc.IsHumanMoreThanAnimal();
+            Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
+            transform.position = nimotuPos;
             //Vector3 v = other.transform.parent.position;
             //Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
             //transform.position = nimotuPos;
+
             sc.AddBaggege(transform,other.transform.parent.gameObject);
             //transform.parent = other.transform.root;
             sc.PlusY(runOverAfterHeight);
-            //if (m_model != null)
-            //{
-            //    m_model.SetActive(false);
-            //    m_gutemodel.SetActive(true);
-            //}
+            if (m_model != null)
+            {
+                m_model.SetActive(false);
+                m_gutemodel.SetActive(true);
+            }
             //if (rb != null) {
             //    rb.velocity = Vector3.zero;
             //    rb.isKinematic = true;
@@ -165,6 +173,11 @@ public class RunOverObject : MonoBehaviour
                 //transform.parent = other.transform.root;
 
                 sc.PlusY(runOverAfterHeight);
+                if (m_model != null)
+                {
+                    m_model.SetActive(false);
+                    m_gutemodel.SetActive(true);
+                }
                 if (rb != null)
                 {
                     rb.velocity = Vector3.zero;
@@ -198,4 +211,13 @@ public class RunOverObject : MonoBehaviour
 
         }
     }
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.name == "Plane")
+        {
+            m_model.SetActive(true);
+            m_gutemodel.SetActive(false);
+        }
+    }
+
 }
