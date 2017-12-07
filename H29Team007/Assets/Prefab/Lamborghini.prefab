@@ -60,6 +60,9 @@ GameObject:
   - component: {fileID: 54602016115380944}
   - component: {fileID: 95896984037605808}
   - component: {fileID: 82518815129846178}
+  - component: {fileID: 114923251469549208}
+  - component: {fileID: 114685983796529208}
+  - component: {fileID: 114953030303559170}
   m_Layer: 0
   m_Name: Lamborghini
   m_TagString: Bull
@@ -1953,7 +1956,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1013476734242064}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5064043, y: -1.842753e-18, z: 0.41495112}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4575840473180070}
@@ -2375,6 +2378,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9925cdc065e22004c892d6f90a3bdbf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114685983796529208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1013476734242064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 991c4d9953529034296f3942c5b8af6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_se: {fileID: 0}
+  m_model: {fileID: 0}
+  m_gutemodel: {fileID: 0}
+  runOverAfterHeight: 1
 --- !u!114 &114735070199805712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2399,6 +2417,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa1f0000c04e8c84f9910bb30eaa1126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114923251469549208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1013476734242064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed9a5f8230cdd947bb9d295d2468281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114953030303559170
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1013476734242064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a462f4f41dd47d488c1d61062d29f85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boneAxis: {x: 0, y: 1, z: 0}
+  stiffnessForce: 1
+  dragForce: 1
+  springForce: {x: 0, y: -0.05, z: 0}
 --- !u!137 &137150815231859782
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

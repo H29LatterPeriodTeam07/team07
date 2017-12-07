@@ -207,7 +207,6 @@ public class CartBody : MonoBehaviour
         if (cartStatus[3] <= 0)
         {
             playerScript.SetMinusRotateSpeed(minusRotateSpeedDefault);
-            Debug.Log(cart.PassStatus()[0]);
         }
     }
 
@@ -254,7 +253,10 @@ public class CartBody : MonoBehaviour
         {            
             if (playerScript.MyCart() == gameObject)
             {
-                playerScript.ReleaseCart();
+                if (playerScript.IsCart2())
+                {
+                    playerScript.ReleaseCart();
+                }
                 playerScript.BreakCart();
                 scScript.BaggegeFall(transform.position);
                 playerScript.SetMinusRotateSpeed(0);

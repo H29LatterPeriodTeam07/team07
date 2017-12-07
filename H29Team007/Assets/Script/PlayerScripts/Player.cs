@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -10,7 +11,10 @@ public class Player : MonoBehaviour
         NoCart, // カート無し
         OnCart, // カート持ち
         Gliding, // 滑走中
-        Takeover // カートジャック
+        Takeover, // カートジャック
+        Outside, //追い出される
+        Entry,  //入店
+        Exit  //退店
     }
 
     private float inputHorizontal;
@@ -63,38 +67,52 @@ public class Player : MonoBehaviour
 
     private ShoppingCount scScript;
 
-    public Transform exitPoint;
+    private Transform exitPoint;  //ExitPoint
+    private Transform entrancePoint;  //EntrancePoint
+    private Transform playerExitPoint; //PlayerExitPoint
 
-    private Transform cartRotatePoint;
+    private bool enemyHit = false; //敵につかまったか
 
-    private GameObject havedCart;
+    //private Transform cartRotatePoint; 
 
-    private PlayerSE seScript;
+    //private GameObject havedCart;
+
+    private PlayerSE seScript;  //プレイヤーSEのスクリプト
+
+    private PlayerCamera cameraScript;  //playerカメラのスクリプト
+
+    private Fade fade;  //フェードのスクリプト
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         //myCartStatus = GetComponent<CartStatusWithPlayer>();
         scScript = GetComponent<ShoppingCount>();
-        myState = PlayerState.NoCart;
+        myState = PlayerState.Entry;
         //myBaggege = new List<Transform>();
         myCC = GetComponent<CapsuleCollider>();
         m_Animator = GetComponent<Animator>();
         myNav = GetComponent<NavMeshAgent>();
-        myNav.enabled = false;
-        cartRotatePoint = transform.Find("cartrotatepoint");
+        myNav.enabled = true;
+        exitPoint = GameObject.Find("ExitPoint").transform;
+        entrancePoint = GameObject.Find("EntrancePoint").transform;
+        playerExitPoint = GameObject.Find("PlayerExitPoint").transform;
+        myNav.destination = entrancePoint.position;
+        //cartRotatePoint = transform.Find("cartrotatepoint");
         seScript = GetComponent<PlayerSE>();
+        cameraScript = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.GetComponent<PlayerCamera>();
+        fade = GameObject.Find("fade").GetComponent<Fade>();
     }
 
     void Update()
     {
         if (!MainGameDate.IsStart())
         {
-            m_Animator.SetFloat("Speed", 0);
+            //m_Animator.SetFloat("Speed", 0);
             rb.velocity = Vector3.zero;
             return;
         }
-        if(transform.parent != null)
+        if(transform.parent != null && myState != PlayerState.Outside)
         {
             rb.velocity = Vector3.zero;
             if (myCart != null)
@@ -102,6 +120,10 @@ public class Player : MonoBehaviour
                 BreakCart2();
                 BreakCart();
             }
+            scScript.BaggegeFall(transform.position);
+            fade.FadeOut(5.0f);
+            m_Animator.Play("BBAButtobi");
+            ChangeState(4);
             return;
         }
         if (GetState() == PlayerState.Takeover) return;
@@ -119,10 +141,7 @@ public class Player : MonoBehaviour
             inputVertical = inputVec.z;
         }
 
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            m_Animator.Play("BBAButtobi");
-        }
+        
 
         //if (!scScript.IsCatchBasket()) return;
 
@@ -135,10 +154,22 @@ public class Player : MonoBehaviour
                 ReleaseCart();
             }
         }
-        if (canGet && GetState() != PlayerState.Takeover && canGetCart != null)
+        if (canGet && GetState() < PlayerState.Takeover && canGetCart != null)
         {
             CatchCart();
             canGet = false;
+        }
+        if (enemyHit)
+        {
+            scScript.BaggegeFall(transform.position);
+            //BreakCart2();
+            //BreakCart();
+            ReleaseCart();
+            if (IsCart()) ReleaseCart();
+            fade.FadeOut(1.0f);
+            m_Animator.Play("BBAButtobi");
+            ChangeState(4);
+            enemyHit = false;
         }
 
     }
@@ -147,8 +178,11 @@ public class Player : MonoBehaviour
     {
         if (!MainGameDate.IsStart() || transform.parent != null)
         {
-            m_Animator.SetFloat("Speed", 0);
+            m_Animator.SetFloat("Speed",  myNav.velocity.sqrMagnitude);
             m_Animator.SetBool("OnCart", IsCart());
+            if (myState == PlayerState.Outside) OutSide();
+            if (myState == PlayerState.Entry) Entry();
+            if (myState == PlayerState.Exit) Exit();
             return;
         }
 
@@ -158,11 +192,14 @@ public class Player : MonoBehaviour
             case PlayerState.OnCart: CartOnMove(); break;
             case PlayerState.Gliding: CartGliding(); break;
             case PlayerState.Takeover: PlayerHacking(); break;
+            case PlayerState.Outside: OutSide();break;
+            case PlayerState.Entry: Entry();break;
+            case PlayerState.Exit: Exit(); break;
         }
 
         float playerSpeed = rb.velocity.sqrMagnitude;
         if (myState != PlayerState.NoCart && myState != PlayerState.Gliding && inputVertical < 0) playerSpeed *= -1;
-        if (myState == PlayerState.Takeover) playerSpeed = myNav.velocity.sqrMagnitude;
+        if (myState >= PlayerState.Takeover) playerSpeed = myNav.velocity.sqrMagnitude;
         m_Animator.SetFloat("Speed", playerSpeed);
         m_Animator.SetBool("OnCart", IsCart());
 
@@ -191,6 +228,12 @@ public class Player : MonoBehaviour
             case 2: myState = PlayerState.Gliding; myCC.material = glidingPhysiMat;
                 m_Animator.SetBool("Gliding", true); break;
             case 3: myState = PlayerState.Takeover; break;
+            case 4: myState = PlayerState.Outside;
+                myNav.enabled = false; break;
+            case 5: myState = PlayerState.Entry; break;
+            case 6: myState = PlayerState.Exit;
+                fade.FadeOut(1.0f);
+                myNav.enabled = false; break;
         }
         if (myCC.material != null && state != 2)
         {
@@ -258,6 +301,7 @@ public class Player : MonoBehaviour
         }
     }
 
+
     /// <summary>カートのジャック</summary>
     private void PlayerHacking()
     {
@@ -272,6 +316,88 @@ public class Player : MonoBehaviour
             canGetCart = nextCart;
             scScript.SetBasketParent(transform);
             CatchCart();
+        }
+    }
+
+    /// <summary>追い出され</summary>
+    private void OutSide()
+    {
+        if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("BBAButtobiLoop") && fade.IsFadeEnd())
+        {
+            if(transform.parent != null)
+            {
+                GameObject bull = transform.root.gameObject;
+                transform.parent = null;
+                Destroy(bull);
+            }
+            transform.position = exitPoint.position;
+            transform.LookAt(exitPoint.position+exitPoint.forward);
+            cameraScript.Oidashi(exitPoint);
+            fade.FadeIn(1.0f);
+
+            m_Animator.Play("BBAButtobiFukki");
+
+        }
+        if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("NoCart") && myNav.enabled == false && fade.IsFadeEnd())
+        {
+            cameraScript.CameraReset();
+            myNav.enabled = true;
+            myNav.destination = entrancePoint.position;
+        }
+        if (Vector3.Distance(myNav.destination, transform.position) < 1.0f)
+        {
+            seScript.OnePlay(4);
+            transform.position = myNav.destination;
+            myNav.enabled = false;
+            myCC.enabled = true;
+            //rb.velocity = Vector3.one;
+            rb.isKinematic = false;
+            transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+            ChangeState(0);
+        }
+    }
+
+    /// <summary>入店</summary>
+    private void Entry()
+    {
+        if (Vector3.Distance(myNav.destination, transform.position) < 1.0f)
+        {
+            seScript.OnePlay(4);
+            transform.position = myNav.destination;
+            myNav.enabled = false;
+            transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+            cameraScript.Entry();
+            ChangeState(0);
+        }
+    }
+
+    /// <summary>退店</summary>
+    private void Exit()
+    {
+        if (myNav.enabled == false && fade.IsFadeEnd())
+        {
+            if (transform.parent != null)
+            {
+                GameObject bull = transform.root.gameObject;
+                transform.parent = null;
+                Destroy(bull);
+            }
+            transform.position = entrancePoint.position;
+            transform.LookAt(playerExitPoint);
+            cameraScript.ChangeState(3);
+            fade.FadeIn(1.0f);
+            myNav.enabled = true;
+            myNav.destination = playerExitPoint.position;
+
+        }
+
+        if (Vector3.Distance(myNav.destination, transform.position) < 1.0f)
+        {
+            if (fade.IsFadeEnd())
+            {
+                SceneManager.LoadScene("Result");
+            }
+            fade.FadeOut(1.0f);
         }
     }
 
@@ -300,6 +426,7 @@ public class Player : MonoBehaviour
         scScript.SetBasketParent(transform);
         scScript.BasketOut();
         Destroy(myCart);
+        myCart = null;
         ChangeState(0);
     }
 
@@ -307,10 +434,11 @@ public class Player : MonoBehaviour
     public void BreakCart2()
     {
         //cartRotatePoint.transform.localRotation = Quaternion.AngleAxis(0, new Vector3(1, 0, 0));
-        scScript.SetBasketParent(transform);
+        //scScript.SetBasketParent(transform);
         myCart.transform.localPosition = Vector3.forward * CartRelatedData.cartLocalPosZ;
         scScript.BasketIn();
         Destroy(mySecondCart);
+        mySecondCart = null;
         //ChangeState(0);
     }
 
@@ -359,9 +487,10 @@ public class Player : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(relativePos);
             //cart.transform.rotation = Quaternion.LookRotation(relativePos);
             cart2.transform.rotation = Quaternion.LookRotation(relativePos);
-            Destroy(mySecondCart);
-            myCart.transform.localPosition = Vector3.forward * CartRelatedData.cartLocalPosZ;
-            scScript.BasketIn();
+            BreakCart2();
+            //Destroy(mySecondCart);
+            //myCart.transform.localPosition = Vector3.forward * CartRelatedData.cartLocalPosZ;
+            //scScript.BasketIn();
         }
     }
 
@@ -474,20 +603,37 @@ public class Player : MonoBehaviour
         if (collision.transform.tag == "Enemy" )
         {
             if (!collision.gameObject.GetComponent<SecurityGuard>().StateChasing()) return;
-            scScript.BaggegeFall(transform.position);
-            ReleaseCart();
-            transform.position = exitPoint.position;
-            seScript.OnePlay(4);
+            enemyHit = true;
+            //scScript.BaggegeFall(transform.position);
+            //BreakCart2();
+            //BreakCart();
+            ////ReleaseCart();
+            ////if (IsCart()) ReleaseCart();
+            //fade.FadeOut(1.0f);
+            //m_Animator.Play("BBAButtobi");
+            //ChangeState(4);
+            transform.LookAt(collision.transform);
             //havedCart = null;
         }
         if (collision.transform.tag == "Cart"
             //&& havedCart == null 
             && mySecondCart == null
-            && GetState() != PlayerState.Takeover
+            && GetState() < PlayerState.Takeover
             && scScript.IsCatchBasket())
         {
             canGetCart = collision.gameObject;
             canGet = true;
+        }
+        if(collision.transform.tag == "Carts"
+            && myCart == null
+            && GetState() < PlayerState.Takeover
+            && scScript.IsCatchBasket())
+        {
+            if(GameObject.FindGameObjectsWithTag("Cart").Length < 2)
+            {
+                canGetCart = Instantiate(cartRigidPrefab);
+                canGet = true;
+            }
         }
         //if(collision.transform.tag == "Bull")
         //{

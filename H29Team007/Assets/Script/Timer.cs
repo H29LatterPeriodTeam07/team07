@@ -24,22 +24,22 @@ public class Timer : MonoBehaviour {
 
             return;
         }
-        timer += Time.deltaTime * 2;
+        timer += Time.deltaTime * 4;
 
         //タイムアップ
         if (timer > m_slider.maxValue)
         {
-            timer = 0.0f;
+            timer = m_slider.maxValue;
             //リザルト画面表示
-            SceneManager.LoadScene("Result");
+            //SceneManager.LoadScene("Result");
 
         }
 
         //終了カウントの表示
-        if (m_slider.maxValue - timer <= 3&& !iscdon)
+        if (m_slider.maxValue - timer <= 4 * 4&& !iscdon)
         {
             countdownUI.enabled = true;
-            countdownUI.SetCount(m_slider.maxValue - timer);
+            countdownUI.SetCount(3);// m_slider.maxValue - timer);
             iscdon = true;
         }
 

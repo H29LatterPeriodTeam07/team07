@@ -5416,7 +5416,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1899221567807338}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15, y: 0, z: -16}
+  m_LocalPosition: {x: -45.06, y: 0, z: -20.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4531881708725058}
@@ -6406,7 +6406,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 7f56337a5721483458dbeb2b2d3a492a, type: 2}
+  - {fileID: 2100000, guid: 2d2d52add71ff2d4ba9f0e1a0c48a8e7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6438,7 +6438,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 7f56337a5721483458dbeb2b2d3a492a, type: 2}
+  - {fileID: 2100000, guid: 2d2d52add71ff2d4ba9f0e1a0c48a8e7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6775,7 +6775,7 @@ MonoBehaviour:
   flyBasketPrefab: {fileID: 1643120543486778, guid: 2d5a5a7f77cf02942aa001304b7821eb,
     type: 2}
   maxCountDefault: 10
-  score: {fileID: 0}
+  coinPrefab: {fileID: 1451065956282974, guid: 16c93022b3c02994193c15b02eaa14ca, type: 2}
 --- !u!114 &114298644907255324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6817,7 +6817,6 @@ MonoBehaviour:
   cartRigidPrefab: {fileID: 1196292320950856, guid: 03854730aa3ab5b4fb1652e1f91a084f,
     type: 2}
   glidingPhysiMat: {fileID: 13400000, guid: 42c3a16dc0495a647bc949a1bb36a953, type: 2}
-  exitPoint: {fileID: 0}
 --- !u!114 &114700332331264412
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7209,7 +7208,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 637a02df65909ec40bd3b36b913674d0, type: 2}
+  - {fileID: 2100000, guid: 281aa7e7f52fe5045abc5862bade7a14, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7468,7 +7467,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f5719b3d9aef13b4c8bb0c5fdb14b660, type: 2}
+  - {fileID: 2100000, guid: dd96752e63d62d54b96b295d1ac72a56, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7971,7 +7970,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 66db212d31a315a48a8cb2504aa594a9, type: 2}
+  - {fileID: 2100000, guid: cf406411879535e409c760eee4df6826, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

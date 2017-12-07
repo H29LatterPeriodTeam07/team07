@@ -17,16 +17,27 @@ public class CountDown : MonoBehaviour {
     [SerializeField, Header("エンド文字")]
     private GameObject endUI;
 
+    private Player playerScript;
+
     // Use this for initialization
     void Start () {
         countNumber = GetComponent<Image>();
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        if (playerScript.GetState() == Player.PlayerState.Entry) {
+            countNumber.color = new Color(1, 1, 1, 0);
+            return;
+        }
+        else
+        {
+            countNumber.color = new Color(1, 1, 1, 1);
+        }
         if(count <= 0.0f)
         {
-            countNumber.color = new Color(255, 255, 255,0);
+            countNumber.color = new Color(1, 1, 1,0);
             MainGameDate.ChangeStartFlag();
             if (MainGameDate.IsStart())
             {
@@ -35,6 +46,7 @@ public class CountDown : MonoBehaviour {
             else
             {
                 endUI.SetActive(true);
+                playerScript.ChangeState(6);
             }
             //countNumber.sprite = numberImages[2];
             enabled = false;
@@ -54,6 +66,6 @@ public class CountDown : MonoBehaviour {
     {
         count = time;
         countNumber.sprite = numberImages[2];
-        countNumber.color = new Color(255, 255, 255, 255);
+        countNumber.color = new Color(1, 1, 1, 1);
     }
 }

@@ -22,7 +22,7 @@ public class UIDead : MonoBehaviour {
         {
             if(name == "End")
             {
-               SceneManager.LoadScene("Result");
+               //SceneManager.LoadScene("Result");
             }
             Destroy(gameObject);
         }

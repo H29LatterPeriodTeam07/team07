@@ -26,8 +26,12 @@ public class ShoppingCount : MonoBehaviour
     private int maxCountDefault = 10;
     private int maxCount;
 
-    [SerializeField, Header("スコアUI")]
+    //[SerializeField, Header("スコアUI")]
     private Text score;
+    private GameObject scoreUI;
+    [SerializeField, Header("コインプレハブ")]
+    private GameObject coinPrefab;
+
     private int childCount = 0;
 
     private Transform baggageParent;
@@ -51,6 +55,8 @@ public class ShoppingCount : MonoBehaviour
         onPosition = 0.0f;
         maxCount = maxCountDefault;
         basketScript = basket.GetComponent<Basket>();
+        scoreUI = GameObject.Find("Score");
+        score = scoreUI.GetComponent<Text>();
         baggageParent = basket.transform.Find("nimotuParent");
         baggageScript = baggageParent.GetComponent<SpringManagerArrange>();
         seScript = GetComponent<PlayerSE>();
@@ -429,9 +435,17 @@ public class ShoppingCount : MonoBehaviour
                 //Vector3 nimotuPos = mybags[i].position;
                 //nimotuPos.y = GetY();
                 //mybags[i].position = nimotuPos;
-                PlusY(mybags[i].GetComponent<RunOverObject>().GetHeight());
+                PlusY(mybags[i].GetComponent<RunOverObject>().GetHeight());                
             }
             GameObject newbag = Instantiate(bagPrefab);
+
+            for(int i = 0; i < bagprice / 10; i++)
+            {
+                GameObject coin = Instantiate(coinPrefab);
+                coin.transform.SetParent(score.transform);
+                //coin.transform.parent = score.transform;
+                coin.GetComponent<Coin>().SetTarget(transform, 1 + 0.1f * i);
+            }
 
             newbag.GetComponent<EnemyScore>().SetPrice(bagprice);
             newbag.GetComponent<EnemyScore>().SetNumber(bagnums);

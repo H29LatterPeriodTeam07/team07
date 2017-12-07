@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MainGameDate {
 
-    private static bool isStart = true;
+    private static bool isStart = false;
 
     public static bool IsStart()
     {

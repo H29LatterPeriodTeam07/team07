@@ -5,8 +5,8 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scene/Title.unity
+  - enabled: 0
+    path: 
     guid: 296e1778d897dc44ab82c8f88524337a
   - enabled: 1
     path: Assets/Scene/StageSelectTest.unity
@@ -14,10 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scene/Prototype.unity
     guid: 26d2137df8dd4f747acb75577071802a
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/OneWeekBeforeTheAlpha.unity
     guid: d8bb2e7dc481dc643bc02f0b50d42cc6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/Alpha.unity
     guid: e405952680f542143968ee2638381494
   - enabled: 1

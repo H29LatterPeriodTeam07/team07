@@ -48,12 +48,12 @@ public class Exit : MonoBehaviour
 
     public void Appear()
     {
-        //m_bullApper = true;
-        //if (m_Num < 1)
-        //{
-        //    Instantiate(m_prBull, m_EntrancePoint.transform.position, transform.rotation);
-        //    m_Num++;
-        //}
+        m_bullApper = true;
+        if (m_Num < 1)
+        {
+            Instantiate(m_prBull, m_EntrancePoint.transform.position, transform.rotation);
+            m_Num++;
+        }
     }
 
     public void OnTriggerEnter(Collider other)
