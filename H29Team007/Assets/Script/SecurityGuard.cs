@@ -118,15 +118,22 @@ public class SecurityGuard : MonoBehaviour
         {
             m_ViewingDistance = 1000;
             m_ViewingAngle = 360;
-            if (CanSeePlayer() && m_bool == false && dis <= 10 && m_scPlayer.GetState() == Player.PlayerState.Gliding)
+
+            if (CanSeePlayer() && m_bool == false && dis <= 5 && m_scPlayer.GetState() == Player.PlayerState.Gliding)
             {
-                float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
-                transform.eulerAngles = new Vector3(0, angle, 0);
                 m_Agent.enabled = false;
-                m_Horizntal = m_ho;
                 m_bool = true;
                 m_Animator.SetTrigger("Jump2");
+
+                iTween.MoveTo(gameObject, iTween.Hash(
+                    "x", transform.position.x - 2,
+                    "z", transform.position.z - 2,
+                    "easeType", iTween.EaseType.linear,
+                    "time", 2.5f,
+                    "oncomplete", "OnCompleteHandler",
+                    "oncompletetarget", this.gameObject));
             }
+
             // プレイヤーが見えている場合
             if (CanSeePlayer() && m_scPlayer.IsGetHuman())
             {
