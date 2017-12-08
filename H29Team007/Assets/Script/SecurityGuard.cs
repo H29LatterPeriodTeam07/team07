@@ -119,7 +119,7 @@ public class SecurityGuard : MonoBehaviour
             m_ViewingDistance = 1000;
             m_ViewingAngle = 360;
 
-            if (CanSeePlayer() && m_bool == false && dis <= 5 && m_scPlayer.GetState() == Player.PlayerState.Gliding)
+            if (CanSeePlayer() && m_bool == false && dis <= 5  && m_scPlayer.GetState() == Player.PlayerState.Gliding)
             {
                 m_Agent.enabled = false;
                 m_bool = true;

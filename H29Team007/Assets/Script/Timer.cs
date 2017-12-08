@@ -24,7 +24,7 @@ public class Timer : MonoBehaviour {
 
             return;
         }
-        timer += Time.deltaTime * 4;
+        timer += Time.deltaTime;
 
         //タイムアップ
         if (timer > m_slider.maxValue)
@@ -36,7 +36,7 @@ public class Timer : MonoBehaviour {
         }
 
         //終了カウントの表示
-        if (m_slider.maxValue - timer <= 4 * 4&& !iscdon)
+        if (m_slider.maxValue - timer <= 4 && !iscdon)
         {
             countdownUI.enabled = true;
             countdownUI.SetCount(3);// m_slider.maxValue - timer);
