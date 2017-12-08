@@ -98,6 +98,10 @@ public class CartBody : MonoBehaviour
         {
             cartStatus[0] -= minusCartHP;
         }
+        if(playerScript.MyCart() == gameObject)
+        {
+            scScript.SetBaggageLimitAngle(BaggageRotateLimit());
+        }
         //--
 
         if (isWilly)

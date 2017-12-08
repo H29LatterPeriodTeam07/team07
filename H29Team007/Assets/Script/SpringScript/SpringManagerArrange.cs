@@ -37,10 +37,10 @@ public class SpringManagerArrange : MonoBehaviour {
 
 
         //Debug.Log(springBones[springBones.Count - 1].transform.eulerAngles.x - 180);
-        //if (Mathf.Abs(springBones[springBones.Count - 1].transform.eulerAngles.x - 180) <= .BaggageRotateLimit())
-        //{
-        //    scScript.BaggegeFall(transform.root.position);
-        //}
+        if (Mathf.Abs(springBones[springBones.Count - 1].transform.eulerAngles.x - 180) <= scScript.GetBaggageLimitAngle())
+        {
+            scScript.BaggegeFall(transform.root.position);
+        }
     }
 
     public void SetChildren(Transform newChild,float height)

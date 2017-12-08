@@ -41,7 +41,8 @@ public class ShoppingCount : MonoBehaviour
 
     private List<Transform> myBaggage2;
     private SpringManagerArrange baggage2Script;
-    
+
+    private float baggageLimitAngle = 90.0f;
 
     private PlayerSE seScript;
 
@@ -499,6 +500,16 @@ public class ShoppingCount : MonoBehaviour
     public void MinusChild()
     {
         childCount--;
+    }
+
+    public void SetBaggageLimitAngle(float angle)
+    {
+        baggageLimitAngle = angle;
+    }
+
+    public float GetBaggageLimitAngle()
+    {
+        return baggageLimitAngle;
     }
 
     public void OnTriggerEnter(Collider other)
