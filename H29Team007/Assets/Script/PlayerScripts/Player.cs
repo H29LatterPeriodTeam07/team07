@@ -233,7 +233,8 @@ public class Player : MonoBehaviour
             case 5: myState = PlayerState.Entry; break;
             case 6: myState = PlayerState.Exit;
                 fade.FadeOut(1.0f);
-                myNav.enabled = false; break;
+                myNav.enabled = false;
+                seScript.SEPlay(6); break;
         }
         if (myCC.material != null && state != 2)
         {

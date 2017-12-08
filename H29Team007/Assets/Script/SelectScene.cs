@@ -39,7 +39,7 @@ public class SelectScene : MonoBehaviour
     }
     public void StageLoad()
     {
-        SceneManager.LoadScene("Alpha");
+        SceneManager.LoadScene("Beforeβ");
     }
     public void StageSelectLoad()
     {

@@ -15,7 +15,6 @@ public class PlayerSE : MonoBehaviour {
         audioSource = GetComponents<AudioSource>();
         audioSource[0].loop = true;
         
-        OnePlay(4);
     }
 	
 	// Update is called once per frame
