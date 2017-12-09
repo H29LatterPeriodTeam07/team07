@@ -7,7 +7,9 @@ using UnityEngine.SceneManagement;
 public class Timer : MonoBehaviour {
 
     Slider m_slider;
-    public float timer = 0.0f;
+    public float timer;
+
+    public float stageTime = 100.0f;
 
     public CountDown countdownUI;
     private bool iscdon = false;
@@ -15,7 +17,9 @@ public class Timer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         m_slider = GetComponent<Slider>();
-	}
+        timer = 0.0f;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -24,7 +28,7 @@ public class Timer : MonoBehaviour {
 
             return;
         }
-        timer += Time.deltaTime;
+        timer += Time.deltaTime * m_slider.maxValue / stageTime;
 
         //タイムアップ
         if (timer > m_slider.maxValue)
