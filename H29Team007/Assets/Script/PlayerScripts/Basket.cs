@@ -18,6 +18,8 @@ public class Basket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        return;//カートに近づいても持ち上げなくていいならここのupdateいらない
+
         if(nearCart == null)
         {
             nearCart = SerchTag("Cart");

@@ -121,6 +121,7 @@ public class Player : MonoBehaviour
                 BreakCart();
             }
             scScript.BaggegeFall(transform.position);
+            scScript.BasketActive(false);
             fade.FadeOut(5.0f);
             m_Animator.Play("BBAButtobi");
             ChangeState(4);
@@ -176,10 +177,11 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        m_Animator.SetBool("OnCart", IsCart());
+        m_Animator.SetBool("HavingBasket", scScript.IsCatchBasket());
         if (!MainGameDate.IsStart() || transform.parent != null)
         {
             m_Animator.SetFloat("Speed",  myNav.velocity.sqrMagnitude);
-            m_Animator.SetBool("OnCart", IsCart());
             if (myState == PlayerState.Outside) OutSide();
             if (myState == PlayerState.Entry) Entry();
             if (myState == PlayerState.Exit) Exit();
@@ -201,7 +203,7 @@ public class Player : MonoBehaviour
         if (myState != PlayerState.NoCart && myState != PlayerState.Gliding && inputVertical < 0) playerSpeed *= -1;
         if (myState >= PlayerState.Takeover) playerSpeed = myNav.velocity.sqrMagnitude;
         m_Animator.SetFloat("Speed", playerSpeed);
-        m_Animator.SetBool("OnCart", IsCart());
+        //m_Animator.SetBool("OnCart", IsCart());
 
         if (playerSpeed == 0 
             || myState != PlayerState.Gliding && myState != PlayerState.OnCart)
@@ -354,6 +356,7 @@ public class Player : MonoBehaviour
             //rb.velocity = Vector3.one;
             rb.isKinematic = false;
             transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+            scScript.BasketActive(true);
             ChangeState(0);
         }
     }
@@ -368,6 +371,7 @@ public class Player : MonoBehaviour
             myNav.enabled = false;
             transform.position = new Vector3(transform.position.x, 0, transform.position.z);
             cameraScript.Entry();
+            scScript.BasketActive(true);
             ChangeState(0);
         }
     }
@@ -605,6 +609,7 @@ public class Player : MonoBehaviour
         {
             if (!collision.gameObject.GetComponent<SecurityGuard>().StateChasing()) return;
             enemyHit = true;
+            scScript.BasketActive(false);
             //scScript.BaggegeFall(transform.position);
             //BreakCart2();
             //BreakCart();

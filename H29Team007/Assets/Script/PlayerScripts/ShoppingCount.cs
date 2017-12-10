@@ -68,6 +68,7 @@ public class ShoppingCount : MonoBehaviour
 
         BasketOut();
         SetScore();
+        BasketActive(false);
     }
 
     // Update is called once per frame

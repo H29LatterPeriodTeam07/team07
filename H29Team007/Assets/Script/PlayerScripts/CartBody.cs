@@ -6,8 +6,7 @@ public class CartBody : MonoBehaviour
 {
 
     public float wallDamage = 5.0f;
-
-    private CartStatusWithPlayer cs;
+    
     private GameObject rotatepoint;
     //private InclinationOfLuggage pointScr;
 
