@@ -55,11 +55,12 @@ public class TutorialBBA : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (tp.GetState() == TutorialPlayer.PlayerState.Takeover) {
+        m_Agent.speed = 1.0f;
+        m_Animator.SetFloat("Speed", m_Agent.speed);
+        if (tp.GetState() != TutorialPlayer.PlayerState.Takeover) {
             m_Agent.destination = transform.position;
             return;
         }
-        m_Agent.speed = 1.0f;
         //巡回中
         if (m_State == CustomerState.NormalMode)
         {
@@ -72,7 +73,6 @@ public class TutorialBBA : MonoBehaviour {
                 SetNewPatrolPointToDestination();
             }
         }
-        m_Animator.SetFloat("Speed", m_Agent.speed);
     }
 
     //次の巡回ポイントを目的地に設定する

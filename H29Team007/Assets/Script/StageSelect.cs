@@ -21,6 +21,8 @@ public class StageSelect : MonoBehaviour {
 
     public GameObject yajirushi;
 
+    public SoundManagerScript sm;
+
     // Use this for initialization
     void Start () {
         leftStage = stages[stageNum-1];
@@ -63,6 +65,7 @@ public class StageSelect : MonoBehaviour {
         }
         if(Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O))
         {
+            sm.PlaySE(0);
             switch (stageNum)
             {
                 case 0: SceneManager.LoadScene("Tutorial"); break;
@@ -73,6 +76,7 @@ public class StageSelect : MonoBehaviour {
         }
         if (Input.GetButton("XboxA") || Input.GetKeyDown(KeyCode.F))
         {
+            sm.PlaySE(1);
             SceneManager.LoadScene("Title");
         }
         //if(inputHorizontal != 0 && !isMove)

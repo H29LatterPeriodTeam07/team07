@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e9975e1950f7d4395422a636d98b99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_sm: {fileID: 0}
+  m_sm: {fileID: 245624241}
 --- !u!114 &53277616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,6 +409,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 90728121}
+--- !u!1 &245624241 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1898029208832294, guid: 96209d8e88afa5c43bacd345cbd1d3fa,
+    type: 2}
+  m_PrefabInternal: {fileID: 1837207247}
 --- !u!1 &355889456
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,17 +33,17 @@ public class TutorialRunOver : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (m_Anime != null)
-        {
-            if (transform.position.y > 0.3f)
-            {
-                m_Anime.SetTrigger("Kago");
-            }
-            else
-            {
-                m_Anime.SetTrigger("Trigger");
-            }
-        }
+        //if (m_Anime != null)
+        //{
+        //    if (transform.position.y > 0.3f)
+        //    {
+        //        m_Anime.SetTrigger("Kago");
+        //    }
+        //    else
+        //    {
+        //        m_Anime.SetTrigger("Trigger");
+        //    }
+        //}
     }
 
     public void NavReStart()
@@ -102,6 +102,10 @@ public class TutorialRunOver : MonoBehaviour {
             var sc = other.transform.root.GetComponent<TutorialShopping>();
             if (transform.tag == "Animal" && !sc.IsHumanMoreThanAnimal()) return;
             if (!sc.IsCatchBasket() || sc.IsBaggegeMax(other.transform.parent.gameObject)) return;
+            if (m_Anime != null)
+            {
+                m_Anime.SetTrigger("Kago");
+            }
             myNav.enabled = false;
             myCollider.enabled = false;
             //ここにアニメ停止や変更入れるかも
@@ -111,6 +115,7 @@ public class TutorialRunOver : MonoBehaviour {
             transform.position = nimotuPos;
 
             sc.AddBaggege(transform, other.transform.parent.gameObject);
+            
             sc.PlusY(runOverAfterHeight);
             if (m_model != null)
             {
@@ -129,6 +134,10 @@ public class TutorialRunOver : MonoBehaviour {
         {
             m_model.SetActive(true);
             m_gutemodel.SetActive(false);
+            if (m_Anime != null)
+            {
+                m_Anime.SetTrigger("Trigger");
+            }
         }
     }
 }

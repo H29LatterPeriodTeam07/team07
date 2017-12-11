@@ -5144,6 +5144,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 114479556406332354, guid: 96209d8e88afa5c43bacd345cbd1d3fa,
         type: 2}
+      propertyPath: SE.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114479556406332354, guid: 96209d8e88afa5c43bacd345cbd1d3fa,
+        type: 2}
       propertyPath: BGM.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -5184,6 +5189,16 @@ Prefab:
       propertyPath: BGM.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: a4050f1cd275974499b9676f338bad57, type: 3}
+    - target: {fileID: 114479556406332354, guid: 96209d8e88afa5c43bacd345cbd1d3fa,
+        type: 2}
+      propertyPath: SE.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 0efbb3a6396edf947a70ccb6dd23ddf0, type: 3}
+    - target: {fileID: 114479556406332354, guid: 96209d8e88afa5c43bacd345cbd1d3fa,
+        type: 2}
+      propertyPath: SE.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: af91915e0e14be342b60a62427ea668a, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 96209d8e88afa5c43bacd345cbd1d3fa, type: 2}
   m_IsPrefabParent: 0
@@ -5192,6 +5207,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1898029208832294, guid: 96209d8e88afa5c43bacd345cbd1d3fa,
     type: 2}
   m_PrefabInternal: {fileID: 908097630}
+--- !u!114 &908097632 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114479556406332354, guid: 96209d8e88afa5c43bacd345cbd1d3fa,
+    type: 2}
+  m_PrefabInternal: {fileID: 908097630}
+  m_Script: {fileID: 11500000, guid: e2fa77da4432cc9468e6e628a48baee4, type: 3}
 --- !u!1 &921372801
 GameObject:
   m_ObjectHideFlags: 0
@@ -9535,6 +9556,7 @@ MonoBehaviour:
   - {fileID: 561980611}
   speed: 1
   yajirushi: {fileID: 177025852}
+  sm: {fileID: 908097632}
 --- !u!1 &1741674447
 GameObject:
   m_ObjectHideFlags: 0
