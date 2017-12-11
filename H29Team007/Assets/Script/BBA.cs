@@ -17,6 +17,8 @@ public enum BBAState
 
 public class BBA : MonoBehaviour
 {
+    [SerializeField, Header("GameManagerのm_gdと同じ数字を入れてケロ")]
+    private int m_int;
     public GameObject m_plane;
     public GameObject m_BBAplehab;
     //見える距離
@@ -26,6 +28,8 @@ public class BBA : MonoBehaviour
     public BBACartCount m_scBBAcount;
     [System.NonSerialized]
     public NavMeshAgent m_Agent;
+
+    public GameObject m_BBABasket;
 
     private BBAState m_State = BBAState.NormalMode;
     private float m_Speed = 1.0f;
@@ -46,6 +50,7 @@ public class BBA : MonoBehaviour
     BBACartCount bcScript;
     private Animator m_Animator;
     bool m_bo = true;
+    Transform m_basuket;
 
     // Use this for initialization
     void Start()
@@ -100,7 +105,7 @@ public class BBA : MonoBehaviour
         {
             m_Agent.speed = 4.0f;
             m_Animator.SetFloat("Speed", m_Agent.speed);
-            SetNewSalePatrolPointToDestination();
+           // SetNewSalePatrolPointToDestination();
 
             m_ViewingDistance = 100;
             m_ViewingAngle = 180;
@@ -116,7 +121,8 @@ public class BBA : MonoBehaviour
 
             else if (BBAHasArrived())
             {
-                transform.LookAt(m_gmScript.m_SaleAnimalSpowns[0].transform.position);
+                //  transform.LookAt(m_gmScript.m_SaleAnimalSpowns[0].transform.position);
+                SetNewSalePatrolPointToDestination();
             }
 
             if (IsGetAnimal())
@@ -138,26 +144,86 @@ public class BBA : MonoBehaviour
     //次の巡回ポイントを目的地に設定する
     public void SetNewPatrolPointToDestination()
     {
-        m_gmScript.m_CurrentPatrolPointIndex
-            = (m_gmScript.m_CurrentPatrolPointIndex + 1) % m_gmScript.m_PatrolPoints.Length;
+        for (int i = 0; i < m_gmScript.m_gd.Length; i++)
+        {
+            if (i == 0 && m_int == i)
+            {
+                m_gmScript.m_gd[i].m_CurrentPatrolPointIndex
+                    = (m_gmScript.m_gd[i].m_CurrentPatrolPointIndex + 1) % m_gmScript.m_gd[i].m_PatrolPoints.Length;
 
-       m_Agent.destination = m_gmScript.m_PatrolPoints[m_gmScript.m_CurrentPatrolPointIndex].position;
+                m_Agent.destination = m_gmScript.m_gd[i].m_PatrolPoints[m_gmScript.m_gd[i].m_CurrentPatrolPointIndex].position;
+            }
+            else if (i == 1 && m_int == i)
+            {
+                m_gmScript.m_gd[i].m_CurrentPatrolPointIndex
+                    = (m_gmScript.m_gd[i].m_CurrentPatrolPointIndex + 1) % m_gmScript.m_gd[i].m_PatrolPoints.Length;
+
+                m_Agent.destination = m_gmScript.m_gd[i].m_PatrolPoints[m_gmScript.m_gd[i].m_CurrentPatrolPointIndex].position;
+            }
+            else if (i == 2 && m_int == i)
+            {
+                m_gmScript.m_gd[i].m_CurrentPatrolPointIndex
+                    = (m_gmScript.m_gd[i].m_CurrentPatrolPointIndex + 1) % m_gmScript.m_gd[i].m_PatrolPoints.Length;
+
+                m_Agent.destination = m_gmScript.m_gd[i].m_PatrolPoints[m_gmScript.m_gd[i].m_CurrentPatrolPointIndex].position;
+            }
+        }
     }
 
     public void SetNewSalePatrolPointToDestination()
     {
-        m_gmScript.m_CurrentPatrolPoint2Index
-            = (m_gmScript.m_CurrentPatrolPoint2Index + 1) % m_gmScript.m_Patrolpoints2.Length;
+        for (int i = 0; i < m_gmScript.m_gd.Length; i++)
+        {
+            if (i == 0 && m_int == i)
+            {
+                m_gmScript.m_gd[i].m_CurrentPatrolPoint2Index
+            = (m_gmScript.m_gd[i].m_CurrentPatrolPoint2Index + 1) % m_gmScript.m_gd[i].m_Patrolpoints2.Length;
 
-       m_Agent.destination = m_gmScript.m_Patrolpoints2[m_gmScript.m_CurrentPatrolPoint2Index].position;
+                m_Agent.destination = m_gmScript.m_gd[i].m_Patrolpoints2[m_gmScript.m_gd[i].m_CurrentPatrolPoint2Index].position;
+            }
+            else if (i == 1 && m_int == i)
+            {
+                m_gmScript.m_gd[i].m_CurrentPatrolPoint2Index
+            = (m_gmScript.m_gd[i].m_CurrentPatrolPoint2Index + 1) % m_gmScript.m_gd[i].m_Patrolpoints2.Length;
+
+                m_Agent.destination = m_gmScript.m_gd[i].m_Patrolpoints2[m_gmScript.m_gd[i].m_CurrentPatrolPoint2Index].position;
+            }
+            else if (i == 2 && m_int == i)
+            {
+                m_gmScript.m_gd[i].m_CurrentPatrolPoint2Index
+            = (m_gmScript.m_gd[i].m_CurrentPatrolPoint2Index + 1) % m_gmScript.m_gd[i].m_Patrolpoints2.Length;
+
+                m_Agent.destination = m_gmScript.m_gd[i].m_Patrolpoints2[m_gmScript.m_gd[i].m_CurrentPatrolPoint2Index].position;
+            }
+        }             
     }
 
     public void SetNewExitPointToDestination()
     {
-        m_gmScript.m_CurrentPatrolPoint3Index
-            = (m_gmScript.m_CurrentPatrolPoint2Index + 1) % m_gmScript.m_ReziExitpoints.Length;
+        for (int i = 0; i < m_gmScript.m_gd.Length; i++)
+        {
+            if (i == 0 && m_int == i)
+            {
+                m_gmScript.m_CurrentPatrolPoint3Index
+            = (m_gmScript.m_gd[i].m_CurrentPatrolPoint2Index + 1) % m_gmScript.m_ReziExitpoints.Length;
 
-        m_Agent.destination = m_gmScript.m_ReziExitpoints[m_gmScript.m_CurrentPatrolPoint3Index].position;
+                m_Agent.destination = m_gmScript.m_ReziExitpoints[m_gmScript.m_CurrentPatrolPoint3Index].position;
+            }
+            else if (i == 1 && m_int == i)
+            {
+                m_gmScript.m_CurrentPatrolPoint3Index
+            = (m_gmScript.m_gd[i].m_CurrentPatrolPoint2Index + 1) % m_gmScript.m_ReziExitpoints.Length;
+
+                m_Agent.destination = m_gmScript.m_ReziExitpoints[m_gmScript.m_CurrentPatrolPoint3Index].position;
+            }
+            else if (i == 2 && m_int == i)
+            {
+                m_gmScript.m_CurrentPatrolPoint3Index
+            = (m_gmScript.m_gd[i].m_CurrentPatrolPoint2Index + 1) % m_gmScript.m_ReziExitpoints.Length;
+
+                m_Agent.destination = m_gmScript.m_ReziExitpoints[m_gmScript.m_CurrentPatrolPoint3Index].position;
+            }
+        }
     }
 
     // 目的地に到着したか
@@ -179,5 +245,22 @@ public class BBA : MonoBehaviour
             m_bo = false;
         }
 
+        if (other.tag == "ExitPoint")
+        {
+            if (IsGetAnimal())
+            {
+                gameObject.SetActive(false);
+                bcScript.BaggegeFall(transform.position);
+            }
+            Invoke(("BBAReset"),3);
+        }
+
+    }
+
+    void BBAReset()
+    {
+        gameObject.SetActive(true);
+        m_State = BBAState.NormalMode;
+        SetNewPatrolPointToDestination();
     }
 }

@@ -257,4 +257,12 @@ public class GOODsFORSALE : MonoBehaviour
         // ここまで到達したら、それはプレイヤーが見えるということ
         return true;
     }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "Road")
+        {
+            Destroy(gameObject);
+        }
+    }
 }

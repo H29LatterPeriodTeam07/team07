@@ -7747,7 +7747,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1135743514729614}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -21.541637, y: 4.2180692e-17, z: -9.498247}
+  m_LocalPosition: {x: -19.97, y: 0, z: -10.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4951207183722958}
@@ -10365,6 +10365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70652e08cb155ef439736da2e002c003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_BBA: {fileID: 1135743514729614}
 --- !u!114 &114757958974146784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10376,10 +10377,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32bc47a5a6edf474dab6112a89363648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_int: 0
   m_plane: {fileID: 0}
-  m_BBAplehab: {fileID: 1135743514729614}
-  m_ViewingDistance: 100
-  m_ViewingAngle: 45
+  m_BBAplehab: {fileID: 0}
+  m_ViewingDistance: 0
+  m_ViewingAngle: 0
   m_scBBAcount: {fileID: 114324925029098016}
 --- !u!114 &114759703936254468
 MonoBehaviour:

@@ -58,12 +58,6 @@ public class Exit : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "BBA")
-        {
-            Destroy(other.gameObject);
-            Instantiate(m_PreBBA, m_EntrancePoint.transform.position, transform.rotation);
-        }
-
         if (other.tag == "Bull")
         {
             
@@ -77,4 +71,5 @@ public class Exit : MonoBehaviour
     {
         return m_bullApper;
     }
+
 }

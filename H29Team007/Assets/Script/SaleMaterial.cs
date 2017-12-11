@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SaleMaterial : MonoBehaviour {
+    [SerializeField, Header("aaaa")]
+    private GameObject[] m_sale;
+
     public AudioClip m_se;
     public GameObject m_SoundManager;
     private SoundManagerScript m_smScript;
@@ -52,6 +55,7 @@ public class SaleMaterial : MonoBehaviour {
         }
         else
         {
+            m_smScript.StopSE();
             m_fse = false;
             m_Cow.SetActive(false);
             m_CowCharacter.SetActive(false);
@@ -79,6 +83,7 @@ public class SaleMaterial : MonoBehaviour {
             m_AS.Play();
         }
         else {
+            m_smScript.StopSE();
             m_fse = false;
             m_fish.SetActive(false);
             m_FishCharacter.SetActive(false);
@@ -105,6 +110,7 @@ public class SaleMaterial : MonoBehaviour {
         }
         else
         {
+            m_smScript.StopSE();
             m_fse = false;
             m_Pig.SetActive(false);
             m_pigCharacter.SetActive(false);

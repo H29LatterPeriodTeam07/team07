@@ -2,14 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
 
-    //ＢＢＡの巡回ポイント
-    [SerializeField, Header("BBAのノーマル巡回ルート")]
-    public Transform[] m_PatrolPoints;
-    //ＢＢＡの巡回ポイント2
-    [SerializeField, Header("BBAの特売品モードの巡回ルート")]
-    public Transform[] m_Patrolpoints2;
+public class GameManager : MonoBehaviour {
+    [System.Serializable]
+    public class GameData
+    {
+        public GameObject m_BBA;
+        //ＢＢＡの巡回ポイント
+        [SerializeField, Header("BBAのノーマル巡回ルート")]
+        public Transform[] m_PatrolPoints;
+        //ＢＢＡの巡回ポイント2
+        [SerializeField, Header("BBAの特売品モードの巡回ルート")]
+        public Transform[] m_Patrolpoints2;
+        //ＢＢＡの現在の巡回ポイントのインデックス
+        [System.NonSerialized]
+        public int m_CurrentPatrolPointIndex = 0;
+        [System.NonSerialized]
+        public int m_CurrentPatrolPoint2Index = 0;
+        [System.NonSerialized]
+        public int m_CurrentPatrolPoint3Index = 1;
+    }
+    public GameData[] m_gd;
+
     [SerializeField, Header("闘牛の特売品モードの巡回ルート")]
     public Transform[] m_BullPatrolPoints;
 
@@ -20,16 +34,11 @@ public class GameManager : MonoBehaviour {
     public GameObject[] m_SaleAnimalSpowns;
     [System.NonSerialized]
     public SaleSpown m_scSaleSpown;
-    //ＢＢＡの現在の巡回ポイントのインデックス
     [System.NonSerialized]
-    public int m_CurrentPatrolPointIndex = 1;
-    [System.NonSerialized]
-    public int m_CurrentPatrolPoint2Index = 1;
-    [System.NonSerialized]
-    public int m_CurrentPatrolPoint3Index = 1;
+    public int m_CurrentPatrolPoint3Index = 0;
     //闘牛の現在の巡回ポイントのインデックス
     [System.NonSerialized]
-    public int m_CurentBullPatrolPointIndex = 1;
+    public int m_CurentBullPatrolPointIndex = 0;
 
     [SerializeField,Header("太陽")]
     private GameObject m_Sun;
@@ -65,4 +74,6 @@ public class GameManager : MonoBehaviour {
     {
         m_Sun.transform.eulerAngles = new Vector3(m_tmScript.timer, 0, 0);
     }
+
+
 }

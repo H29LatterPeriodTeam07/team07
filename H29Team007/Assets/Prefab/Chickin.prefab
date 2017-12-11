@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 65227255199292256}
   - component: {fileID: 114538180868365936}
   - component: {fileID: 95314860958642654}
+  - component: {fileID: 114658525647198366}
   m_Layer: 0
   m_Name: Chickin
   m_TagString: Untagged
@@ -1321,6 +1322,17 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa1f0000c04e8c84f9910bb30eaa1126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114658525647198366
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1104788499743126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed9a5f8230cdd947bb9d295d2468281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!137 &137109742416258744
