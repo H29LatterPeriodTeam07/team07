@@ -2766,6 +2766,7 @@ GameObject:
   - component: {fileID: 54328278194983192}
   - component: {fileID: 82600788051202510}
   - component: {fileID: 114353556983177658}
+  - component: {fileID: 114256570155347684}
   m_Layer: 0
   m_Name: TutorialSaleBBA
   m_TagString: BBA
@@ -10263,6 +10264,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70652e08cb155ef439736da2e002c003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114256570155347684
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1545037858443276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9799be0beecedd94fbaa3df60b5dca2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ViewingDistance: 0
+  m_ViewingAngle: 0
 --- !u!114 &114298591959521756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10300,7 +10314,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1545037858443276}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 548ae91181e8b8a4683913542c81c39a, type: 3}
   m_Name: 

@@ -305,6 +305,10 @@ public class TutorialManager : MonoBehaviour {
 
     private void Index7Start()
     {
+        shopping.BaggegeFall(p.transform.position);
+        Destroy(hage1);
+        Destroy(hage2);
+        Destroy(pig1);
         player.BreakCart();
         bba = Instantiate(bbaPrehab);
 
@@ -315,10 +319,6 @@ public class TutorialManager : MonoBehaviour {
 
     private void Index9Start()
     {
-        shopping.BaggegeFall(p.transform.position);
-        Destroy(hage1);
-        Destroy(hage2);
-        Destroy(pig1);
         Destroy(bba);
     }
 
