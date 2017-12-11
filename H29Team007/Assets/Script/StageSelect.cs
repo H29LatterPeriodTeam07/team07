@@ -19,6 +19,8 @@ public class StageSelect : MonoBehaviour {
 
     private float oktime = 0.3f;
 
+    public GameObject yajirushi;
+
     // Use this for initialization
     void Start () {
         leftStage = stages[stageNum-1];
@@ -30,6 +32,15 @@ public class StageSelect : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if ((int)Time.time % 2 == 0)
+        {
+            yajirushi.SetActive(true);
+        }
+        else
+        {
+            yajirushi.SetActive(false);
+        }
+
         float inputHorizontal = (Input.GetAxisRaw("XboxLeftHorizontal") != 0) ? Input.GetAxisRaw("XboxLeftHorizontal") : Input.GetAxisRaw("Horizontal");
         if(inputHorizontal != 0 && Time.time - startTime > oktime)
         {
