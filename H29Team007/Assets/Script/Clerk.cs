@@ -26,7 +26,7 @@ public class Clerk : MonoBehaviour
     private Animator m_Animator;
     private AudioSource m_AS;
     //現在の巡回ポイントのインデックス
-    int m_CurrentPatrolPointIndex = 1;
+    int m_CurrentPatrolPointIndex = 0;
     //プレイヤーへの参照
     GameObject m_Player;
     //プレイヤーへの注視点

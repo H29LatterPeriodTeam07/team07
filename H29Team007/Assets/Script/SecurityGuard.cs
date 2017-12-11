@@ -74,6 +74,8 @@ public class SecurityGuard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.parent != null) return;
+
         Vector3 PPos = m_Player.transform.position;
         Vector3 EPos = m_Enemy.transform.position;
         float dis = Vector3.Distance(PPos, EPos);

@@ -738,6 +738,7 @@ GameObject:
   - component: {fileID: 95654461794271050}
   - component: {fileID: 82866333210200840}
   - component: {fileID: 54391869206536458}
+  - component: {fileID: 114089645149996388}
   m_Layer: 0
   m_Name: SaleAnimalCow
   m_TagString: Animal
@@ -2010,6 +2011,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114089645149996388
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1735719309140114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed9a5f8230cdd947bb9d295d2468281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114532942429720082
 MonoBehaviour:
   m_ObjectHideFlags: 1

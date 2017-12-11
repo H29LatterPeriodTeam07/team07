@@ -33,17 +33,17 @@ public class RunOverObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_Anime != null)
-        {
-            if (transform.position.y > 0.3f)
-            {
-                m_Anime.SetTrigger("Kago");
-            }
-            else
-            {
-                m_Anime.SetTrigger("Trigger");
-            }
-        }
+        //if (m_Anime != null)
+        //{
+        //    if (transform.position.y > 0.3f)
+        //    {
+        //        m_Anime.SetTrigger("Kago");
+        //    }
+        //    else
+        //    {
+        //        m_Anime.SetTrigger("Trigger");
+        //    }
+        //}
     }
 
     public void NavReStart()
@@ -116,6 +116,7 @@ public class RunOverObject : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+
         if (transform.parent != null) return;
         if (other.name == "FrontHitArea")//プレイヤーババア用　敵ババアが特売品を轢く処理は頑張って
         {
@@ -129,6 +130,10 @@ public class RunOverObject : MonoBehaviour
             var sc = other.transform.root.GetComponent<ShoppingCount>();
             if (transform.tag == "Animal" && !sc.IsHumanMoreThanAnimal()) return;
             if (!sc.IsCatchBasket() || sc.IsBaggegeMax(other.transform.parent.gameObject)) return;
+            if (m_Anime != null)
+            {
+                m_Anime.SetTrigger("Kago");
+            }
             myNav.enabled = false;
             myCollider.enabled = false;
             //ここにアニメ停止や変更入れるかも
@@ -218,7 +223,14 @@ public class RunOverObject : MonoBehaviour
         {
             m_model.SetActive(true);
             m_gutemodel.SetActive(false);
+
+            if (m_Anime != null)
+            {
+                m_Anime.SetTrigger("Trigger");
+            }
         }
+
+
     }
 
 }
