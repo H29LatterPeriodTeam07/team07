@@ -63,6 +63,7 @@ GameObject:
   - component: {fileID: 114923251469549208}
   - component: {fileID: 114685983796529208}
   - component: {fileID: 114953030303559170}
+  - component: {fileID: 114440017095464176}
   m_Layer: 0
   m_Name: Lamborghini
   m_TagString: Bull
@@ -2395,6 +2396,17 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bcef6aa1415d3454fb65b8ae219f5f0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114440017095464176
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1013476734242064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed9a5f8230cdd947bb9d295d2468281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114685034938968568
