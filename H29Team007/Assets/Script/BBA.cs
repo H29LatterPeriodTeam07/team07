@@ -51,6 +51,9 @@ public class BBA : MonoBehaviour
     private Animator m_Animator;
     bool m_bo = true;
     Transform m_basuket;
+    Transform m_Animal;
+    float radius = 50f;
+    private LayerMask raycastLayer;
 
     // Use this for initialization
     void Start()
@@ -64,6 +67,7 @@ public class BBA : MonoBehaviour
         //目的地を設定する
         SetNewPatrolPointToDestination();
         m_EyePoint = transform.Find("BBAEye");
+        raycastLayer = 1 << LayerMask.NameToLayer("Animal");
     }
 
     // Update is called once per frame
@@ -109,14 +113,19 @@ public class BBA : MonoBehaviour
 
             m_ViewingDistance = 100;
             m_ViewingAngle = 180;
-            Ray ray = new Ray(m_EyePoint.position, m_EyePoint.forward);
-            RaycastHit hitInfo;
-            bool hit = Physics.Raycast(ray, out hitInfo);
-            rb.velocity = Vector3.zero;
-            rb.isKinematic = true;
-            if (hit && hitInfo.collider.tag == "Animal")
+
+            if (m_Animal == null)
             {
-                m_Agent.destination = m_SaleAnimals.transform.position;
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, raycastLayer);
+                if (hitColliders.Length > 0)
+                {
+                    int randomInt = Random.Range(0, hitColliders.Length);
+                    m_Animal = hitColliders[randomInt].transform;
+                }
+            }
+            else if(m_Animal != null)
+            {
+                m_Agent.destination = m_Animal.transform.position;
             }
 
             else if (BBAHasArrived())
@@ -259,6 +268,7 @@ public class BBA : MonoBehaviour
 
     void BBAReset()
     {
+        m_Animal = null;
         gameObject.SetActive(true);
         m_State = BBAState.NormalMode;
         SetNewPatrolPointToDestination();
