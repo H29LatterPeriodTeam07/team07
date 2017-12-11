@@ -176,7 +176,10 @@ public class RunOverObject : MonoBehaviour
                 transform.position = nimotuPos;
                 sc.AddBaggege(transform);
                 //transform.parent = other.transform.root;
-
+                if (m_Anime != null)
+                {
+                    m_Anime.SetTrigger("Kago");
+                }
                 sc.PlusY(runOverAfterHeight);
                 if (m_model != null)
                 {
@@ -201,6 +204,10 @@ public class RunOverObject : MonoBehaviour
             transform.position = nimotuPos;
             sc.AddBaggege(transform);
             //transform.parent = other.transform.root;
+            if (m_Anime != null)
+            {
+                m_Anime.SetTrigger("Kago");
+            }
             if (m_model != null)
             {
                 m_model.SetActive(false);
