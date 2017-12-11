@@ -1782,7 +1782,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1.0000019, z: 0.99999887}
   m_Children: []
   m_Father: {fileID: 364799034}
-  m_RootOrder: 42
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &134231094
 MeshRenderer:
@@ -23526,11 +23526,19 @@ MonoBehaviour:
   m_SaleAnimals:
   - {fileID: 1048577695447666, guid: efae46f19c7ff0c49a0d98bc5597103c, type: 2}
   - {fileID: 1735719309140114, guid: c985b91158b8ad84ba2f1f2bebb7a29e, type: 2}
+  - {fileID: 1619761630526540, guid: 4834bc5aee1cd9d4b99b61bd6ba4e8ba, type: 2}
+  - {fileID: 1048577695447666, guid: efae46f19c7ff0c49a0d98bc5597103c, type: 2}
+  - {fileID: 1735719309140114, guid: c985b91158b8ad84ba2f1f2bebb7a29e, type: 2}
+  - {fileID: 1619761630526540, guid: 4834bc5aee1cd9d4b99b61bd6ba4e8ba, type: 2}
   - {fileID: 1048577695447666, guid: efae46f19c7ff0c49a0d98bc5597103c, type: 2}
   m_ApperTime:
+  - 20
   - 30
+  - 40
+  - 50
   - 60
-  - 90
+  - 70
+  - 80
   m_ChikinApperTime: []
   m_preChikin: {fileID: 1104788499743126, guid: ab76f46a7d7725a46ae81e072b146b62,
     type: 2}
@@ -36085,7 +36093,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1.0000019, z: 0.99999887}
   m_Children: []
   m_Father: {fileID: 1416677180}
-  m_RootOrder: 42
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &2091147738
 MeshRenderer:
@@ -36681,8 +36689,8 @@ MonoBehaviour:
   m_prBull: {fileID: 1013476734242064, guid: b52f43beb7c071946ae3ef5e321dfbc0, type: 2}
   m_EntrancePoint: {fileID: 406901174}
   m_bullApperTime:
-  - 4
   - 30
+  - 50
 --- !u!65 &2141346702
 BoxCollider:
   m_ObjectHideFlags: 0
