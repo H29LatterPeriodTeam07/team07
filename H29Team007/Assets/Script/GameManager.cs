@@ -62,10 +62,9 @@ public class GameManager : MonoBehaviour {
         smScript = SM.transform.GetComponent<SoundManagerScript>();
         smScript.PlayBGM(2);
         m_tmScript = m_Timer.GetComponent<Timer>();
-        //スクリプトSaleSpownへの参照
-        for (int i = 0; i < m_SaleAnimalSpowns.Length; i++)
-        {
-            m_scSaleSpown = m_SaleAnimalSpowns[i].GetComponent<SaleSpown>();
+        m_SaleAnimalSpowns = GameObject.FindGameObjectsWithTag("SaleSpown");
+        foreach (GameObject sl in m_SaleAnimalSpowns) {
+            m_scSaleSpown = sl.GetComponent<SaleSpown>();
         }
     }
 
