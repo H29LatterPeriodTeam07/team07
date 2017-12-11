@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 518027572}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.45013833, g: 0.50018, b: 0.5754395, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -86,7 +86,8 @@ LightmapSettings:
     m_PVRFilteringAtrousColorSigma: 1
     m_PVRFilteringAtrousNormalSigma: 1
     m_PVRFilteringAtrousPositionSigma: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112004438, guid: 5c9e8e561d8e55b42aed4ee834a805d6,
+    type: 2}
   m_ShadowMaskMode: 2
 --- !u!196 &4
 NavMeshSettings:
@@ -25084,7 +25085,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4315567987513782, guid: 8e0e8a5722eee774ab64051476935e8f, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 9.63
+      value: 8.2
       objectReference: {fileID: 0}
     - target: {fileID: 4315567987513782, guid: 8e0e8a5722eee774ab64051476935e8f, type: 2}
       propertyPath: m_LocalPosition.z
