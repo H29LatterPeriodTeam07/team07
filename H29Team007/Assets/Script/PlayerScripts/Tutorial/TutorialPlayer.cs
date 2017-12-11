@@ -63,8 +63,8 @@ public class TutorialPlayer : MonoBehaviour {
     private PlayerSE seScript;  //プレイヤーSEのスクリプト
 
     private TutorialCamera cameraScript;  //playerカメラのスクリプト
-
-    public Fade fade;
+    
+    private TutorialManager tm;
 
     void Start()
     {
@@ -77,13 +77,14 @@ public class TutorialPlayer : MonoBehaviour {
         myNav.enabled = false;
         seScript = GetComponent<PlayerSE>();
         cameraScript = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.GetComponent<TutorialCamera>();
+        tm = GameObject.Find("tutorialmanager").GetComponent<TutorialManager>();
     }
 
     void Update()
     {
 
 
-        if (GetState() == PlayerState.Takeover || !fade.IsFadeEnd()) return;
+        if (GetState() == PlayerState.Takeover || !tm.FadeEnd()) return;
 
 
         inputHorizontal = (Input.GetAxisRaw("XboxLeftHorizontal") != 0) ? Input.GetAxisRaw("XboxLeftHorizontal") : Input.GetAxisRaw("Horizontal");
@@ -96,6 +97,12 @@ public class TutorialPlayer : MonoBehaviour {
 
             inputHorizontal = inputVec.x;
             inputVertical = inputVec.z;
+        }
+
+        if (!CanMove())
+        {
+            inputHorizontal = 0;
+            inputVertical = 0;
         }
         
 
@@ -120,7 +127,7 @@ public class TutorialPlayer : MonoBehaviour {
     {
         m_Animator.SetBool("OnCart", IsCart());
         m_Animator.SetBool("HavingBasket", scScript.IsCatchBasket());
-        if (!fade.IsFadeEnd()) {
+        if (!tm.FadeEnd()) {
 
             m_Animator.SetFloat("Speed", myNav.velocity.sqrMagnitude);
             return;
@@ -184,6 +191,8 @@ public class TutorialPlayer : MonoBehaviour {
 
         rb.velocity = moveForward * onCartMoveSpeed + new Vector3(0, rb.velocity.y, 0);
 
+        if (!CanGliding()) return;
+
         if (Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O))
         {
             rb.AddForce(transform.forward * kickSpeed, ForceMode.VelocityChange);
@@ -234,6 +243,7 @@ public class TutorialPlayer : MonoBehaviour {
     /// <summary>カートのジャック</summary>
     private void PlayerHacking()
     {
+        m_Animator.SetBool("HavingBasket", false);
         Vector3 dis = nextCart.transform.position + nextCart.transform.forward * (CartRelatedData.cartNavPoint);
         myNav.destination = new Vector3(dis.x, -0.8f, dis.z);
         if (Vector3.Distance(myNav.destination, transform.position) < 1.0f)
@@ -433,12 +443,39 @@ public class TutorialPlayer : MonoBehaviour {
         return (Mathf.Abs(angleToBull) <= 90);
     }
 
+    /// <summary>滑走できるか</summary>
+    public bool CanGliding()
+    {
+        bool result = false;
+        if (2 <= tm.TutorialIndex() && tm.TutorialIndex() < 7
+            || 12 <= tm.TutorialIndex()) result = true;
+        return result;
+        
+    }
+    
+    /// <summary>動けるか</summary
+    public bool CanMove()
+    {
+        bool result = true;
+        if (9 <= tm.TutorialIndex() && tm.TutorialIndex() < 12) result = false;
+        return result;
+    }
+
+    /// <summary>投げれるか</summary>
+    public bool CanThrow()
+    {
+        bool result = false;
+        if (tm.TutorialIndex() == 7) result = true;
+        return result;
+    }
+
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.tag == "Cart"
             && mySecondCart == null
             && GetState() < PlayerState.Takeover
-            && scScript.IsCatchBasket())
+            && scScript.IsCatchBasket()
+            && tm.TutorialIndex() != 7)
         {
             canGetCart = collision.gameObject;
             canGet = true;

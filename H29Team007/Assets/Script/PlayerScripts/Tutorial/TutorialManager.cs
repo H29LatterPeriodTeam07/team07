@@ -5,12 +5,32 @@ using UnityEngine.SceneManagement;
 
 public class TutorialManager : MonoBehaviour {
 
+    /*
+     0:カート持つまで
+     1:カート持っての移動
+     2:滑走
+     3:滑走終了
+     4:人轢く
+     5:豚轢く
+     6:傾き
+     7:カートジャック
+     8:カートジャック終了
+     9:スコア
+     10:タイマー
+     11:ミニマップ
+     12:ダブルカート
+     13:まとめ
+     14:シーン移動
+         */
+
+
     private int tutorialIndex = 0;
     private TutorialPlayer player;
     private TutorialShopping shopping;
     public GameObject pigPrefab;
     public GameObject hagePrefab;
     public GameObject cartRigit;
+    public GameObject bbaPrehab;
     public GameObject[] points;
     public GameObject reji;
     public Fade fade;
@@ -26,6 +46,13 @@ public class TutorialManager : MonoBehaviour {
     private GameObject hage1;
     private GameObject hage2;
     private GameObject pig1;
+    private GameObject bba;
+
+    public GameObject scoreG;
+    public GameObject timerG;
+    public GameObject mapG;
+
+    private float time;
 
     // Use this for initialization
     void Start () {
@@ -35,7 +62,10 @@ public class TutorialManager : MonoBehaviour {
         camera = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.GetComponent<TutorialCamera>();
         startPoint = p.transform.position;
         reji.SetActive(false);
-	}
+        scoreG.SetActive(false);
+        timerG.SetActive(false);
+        mapG.SetActive(false);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -45,12 +75,15 @@ public class TutorialManager : MonoBehaviour {
             {
                 switch (tutorialIndex)
                 {
-                    case 3: Index3Start(); break;
                     case 4: Index4Start(); break;
-                    case 6: Index6Start(); break;
-                    case 8: Index8Start(); break;
+                    case 5: Index5Start(); break;
+                    case 7: Index7Start(); break;
                     case 9: Index9Start(); break;
                     case 10: Index10Start(); break;
+                    case 11: Index11Start(); break;
+                    case 12: Index12Start(); break;
+                    case 13: Index13Start(); break;
+                    case 14: Index14Start(); break;
                 }
                 p.transform.position = startPoint;
                 p.transform.eulerAngles = Vector3.zero;
@@ -73,6 +106,10 @@ public class TutorialManager : MonoBehaviour {
                 case 7: Index7Update(); break;
                 case 8: Index8Update(); break;
                 case 9: Index9Update(); break;
+                case 10: Index10Update(); break;
+                case 11: Index11Update(); break;
+                case 12: Index12Update(); break;
+                case 13: Index13Update(); break;
             }
 
         }
@@ -80,6 +117,7 @@ public class TutorialManager : MonoBehaviour {
 
     private void Index0Update()
     {
+        //籠持つ
         if (player.IsCart())
         {
             IndexNext();
@@ -88,7 +126,8 @@ public class TutorialManager : MonoBehaviour {
 
     private void Index1Update()
     {
-        if(Vector3.Distance(p.transform.position,points[5].transform.position) < 0.5f)
+        //特定の場所まで移動
+        if(Vector3.Distance(p.transform.position,points[5].transform.position) < 2.0f)
         {
             IndexNext();
         }
@@ -96,6 +135,7 @@ public class TutorialManager : MonoBehaviour {
 
     private void Index2Update()
     {
+        //滑走
         if (player.GetState() == TutorialPlayer.PlayerState.Gliding)
         {
             IndexNext();
@@ -104,7 +144,8 @@ public class TutorialManager : MonoBehaviour {
 
     private void Index3Update()
     {
-        if (shopping.GetAllCount() == 2)
+        //滑走終了
+        if (player.GetState() == TutorialPlayer.PlayerState.OnCart)
         {
             IndexNext();
         }
@@ -112,8 +153,8 @@ public class TutorialManager : MonoBehaviour {
 
     private void Index4Update()
     {
-
-        if (shopping.GetAllCount() == 3)
+        //人二人引く
+        if (shopping.GetAllCount() == 2)
         {
             IndexNext();
         }
@@ -121,7 +162,8 @@ public class TutorialManager : MonoBehaviour {
 
     private void Index5Update()
     {
-        if (lpush && rpush)
+        //豚引く
+        if (shopping.GetAllCount() == 3)
         {
             IndexNext();
         }
@@ -130,7 +172,8 @@ public class TutorialManager : MonoBehaviour {
 
     private void Index6Update()
     {
-        if (player.GetState() == TutorialPlayer.PlayerState.Takeover)
+        //傾き
+        if (lpush && rpush)
         {
             IndexNext();
         }
@@ -139,7 +182,8 @@ public class TutorialManager : MonoBehaviour {
 
     private void Index7Update()
     {
-        if (player.IsCart())
+        //カートジャック
+        if (player.GetState() == TutorialPlayer.PlayerState.Takeover)
         {
             IndexNext();
         }
@@ -147,7 +191,8 @@ public class TutorialManager : MonoBehaviour {
 
     private void Index8Update()
     {
-        if (player.IsCart2())
+        //カートジャック終了
+        if (player.IsCart())
         {
             IndexNext();
         }
@@ -155,6 +200,70 @@ public class TutorialManager : MonoBehaviour {
 
     private void Index9Update()
     {
+        //スコア
+        time += Time.deltaTime;
+        if ((int)time % 2 == 0)
+        {
+            scoreG.SetActive(true);
+        }
+        else
+        {
+            scoreG.SetActive(false);
+        }
+        if (Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O))
+        {
+            IndexNext();
+        }
+    }
+
+    private void Index10Update()
+    {
+        //タイマー
+        time += Time.deltaTime;
+        if ((int)time % 2 == 0)
+        {
+            timerG.SetActive(true);
+        }
+        else
+        {
+            timerG.SetActive(false);
+        }
+        if (Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O))
+        {
+            IndexNext();
+        }
+    }
+
+    private void Index11Update()
+    {
+        //ミニマップ
+        time += Time.deltaTime;
+        if((int)time % 2 == 0)
+        {
+            mapG.SetActive(true);
+        }
+        else
+        {
+            mapG.SetActive(false);
+        }
+        if (Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O))
+        {
+            IndexNext();
+        }
+    }
+
+    private void Index12Update()
+    {
+        //ダブルカート
+        if (player.IsCart2())
+        {
+            IndexNext();
+        }
+    }
+
+    private void Index13Update()
+    {
+
         if (shopping.GetAllCount() >= 6)
         {
             reji.SetActive(true);
@@ -164,6 +273,7 @@ public class TutorialManager : MonoBehaviour {
             reji.SetActive(false);
         }
 
+        //全部捕まえて袋
         if (shopping.IsPlasticBag())
         {
             IndexNext();
@@ -173,12 +283,12 @@ public class TutorialManager : MonoBehaviour {
     private void IndexNext()
     {
         tutorialIndex++;
-        if (tutorialIndex == 7) return;
+        if (tutorialIndex == 3 || tutorialIndex == 8) return;
         fade.FadeOut(1.0f);
         isFadeNow = true;
     }
 
-    private void Index3Start()
+    private void Index4Start()
     {
         hage1 = Instantiate(hagePrefab);
         hage2 = Instantiate(hagePrefab);
@@ -186,33 +296,51 @@ public class TutorialManager : MonoBehaviour {
         hage2.transform.position = points[2].transform.position;
     }
 
-    private void Index4Start()
+    private void Index5Start()
     {
         pig1 = Instantiate(pigPrefab);
 
         pig1.transform.position = points[0].transform.position;
     }
 
-    private void Index6Start()
+    private void Index7Start()
     {
         player.BreakCart();
-        GameObject cart = Instantiate(cartRigit);
+        bba = Instantiate(bbaPrehab);
 
-        cart.transform.position = points[1].transform.position;
+        bba.transform.position = points[1].transform.position;
+
     }
 
-    private void Index8Start()
+
+    private void Index9Start()
     {
         shopping.BaggegeFall(p.transform.position);
         Destroy(hage1);
         Destroy(hage2);
         Destroy(pig1);
+        Destroy(bba);
+    }
+
+    private void Index10Start()
+    {
+        scoreG.SetActive(true);
+    }
+
+    private void Index11Start()
+    {
+        timerG.SetActive(true);
+    }
+
+    private void Index12Start()
+    {
+        mapG.SetActive(true);
         GameObject cart = Instantiate(cartRigit);
 
         cart.transform.position = points[1].transform.position;
     }
 
-    private void Index9Start()
+    private void Index13Start()
     {
         GameObject hage11 = Instantiate(hagePrefab);
         GameObject hage12 = Instantiate(hagePrefab);
@@ -229,7 +357,7 @@ public class TutorialManager : MonoBehaviour {
         pig12.transform.position = points[5].transform.position;
     }
 
-    private void Index10Start()
+    private void Index14Start()
     {
         SceneManager.LoadScene("Title");
     }
@@ -242,5 +370,15 @@ public class TutorialManager : MonoBehaviour {
     public void RPush()
     {
         rpush = true;
+    }
+
+    public int TutorialIndex()
+    {
+        return tutorialIndex;
+    }
+
+    public bool FadeEnd()
+    {
+        return fade.IsFadeEnd();
     }
 }

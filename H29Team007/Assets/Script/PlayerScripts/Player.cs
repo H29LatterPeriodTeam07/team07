@@ -308,6 +308,7 @@ public class Player : MonoBehaviour
     /// <summary>カートのジャック</summary>
     private void PlayerHacking()
     {
+        m_Animator.SetBool("HavingBasket", false);
         Vector3 dis = nextCart.transform.position + nextCart.transform.forward * (CartRelatedData.cartNavPoint);
         myNav.destination = new Vector3(dis.x, -0.8f, dis.z);
         if (Vector3.Distance(myNav.destination, transform.position) < 1.0f)

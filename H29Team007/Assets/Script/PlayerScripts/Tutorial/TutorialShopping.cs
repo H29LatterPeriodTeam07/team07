@@ -78,7 +78,7 @@ public class TutorialShopping : MonoBehaviour {
         if (basket.activeSelf && Input.GetButton("XboxA") ||
             basket.activeSelf && Input.GetKey(KeyCode.F))
         {
-            if (playerScript.IsCart2()) return;
+            if (playerScript.IsCart2() || !playerScript.CanThrow()) return;
             flyWaitTime += Time.deltaTime;
             if (flyWaitTime < 1.0f) return;
             flyWaitTime = 0.0f;
@@ -513,7 +513,7 @@ public class TutorialShopping : MonoBehaviour {
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.name == "FlyBasket(Clone)")
+        if (other.name == "TutorialFlyBasket(Clone)")
         {
             other.transform.position = basket.transform.position;
             other.transform.rotation = basket.transform.rotation;

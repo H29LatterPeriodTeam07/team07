@@ -58,7 +58,7 @@ public class TutorialBasketFly : MonoBehaviour {
             oneHit = true;
             GameObject enemyCart = collision.transform.Find("EnemyCart").gameObject;
             //Debug.Log(collision.gameObject.name);
-            collision.gameObject.GetComponent<BBACartCount>().BaggegeFall(collision.transform.position);
+            //collision.gameObject.GetComponent<BBACartCount>().BaggegeFall(collision.transform.position);
             EnemyCart ec = enemyCart.GetComponent<EnemyCart>();
             ec.Independence();
 
