@@ -1120,11 +1120,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114366103748478844, guid: 2afc10643aae08c449ed62d1b36f8e57,
-        type: 2}
-      propertyPath: m_PatrolPoints.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 4580644646282516, guid: 2afc10643aae08c449ed62d1b36f8e57, type: 2}
       propertyPath: m_LocalPosition.x
       value: 18.227753
@@ -1157,10 +1152,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 16
       objectReference: {fileID: 0}
-    - target: {fileID: 1394946662073088, guid: 2afc10643aae08c449ed62d1b36f8e57, type: 2}
-      propertyPath: m_Name
-      value: SecurityGuard (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 114366103748478844, guid: 2afc10643aae08c449ed62d1b36f8e57,
         type: 2}
       propertyPath: m_PatrolPoints.Array.data[0]
@@ -1186,6 +1177,10 @@ Prefab:
       propertyPath: m_SoundManager
       value: 
       objectReference: {fileID: 1153369192}
+    - target: {fileID: 1394946662073088, guid: 2afc10643aae08c449ed62d1b36f8e57, type: 2}
+      propertyPath: m_Name
+      value: SecurityGuard (1)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2afc10643aae08c449ed62d1b36f8e57, type: 2}
   m_IsPrefabParent: 0
@@ -11325,26 +11320,6 @@ Prefab:
     - target: {fileID: 4636304157354800, guid: 5a7b5a2a6fc32194fa3bfda4644038f7, type: 2}
       propertyPath: m_RootOrder
       value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 114157872137884442, guid: 5a7b5a2a6fc32194fa3bfda4644038f7,
-        type: 2}
-      propertyPath: runOverAfterHeight
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 95370878231782912, guid: 5a7b5a2a6fc32194fa3bfda4644038f7,
-        type: 2}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 54203820498019450, guid: 5a7b5a2a6fc32194fa3bfda4644038f7,
-        type: 2}
-      propertyPath: m_Constraints
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 54203820498019450, guid: 5a7b5a2a6fc32194fa3bfda4644038f7,
-        type: 2}
-      propertyPath: m_IsKinematic
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a7b5a2a6fc32194fa3bfda4644038f7, type: 2}

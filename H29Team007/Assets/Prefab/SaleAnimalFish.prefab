@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: 65408824855512390}
   - component: {fileID: 114900845381293842}
   - component: {fileID: 95409609198892450}
+  - component: {fileID: 114001427039375232}
   m_Layer: 14
   m_Name: SaleAnimalFish
   m_TagString: Animal
@@ -560,6 +561,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114001427039375232
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1619761630526540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed9a5f8230cdd947bb9d295d2468281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114209778799871568
 MonoBehaviour:
   m_ObjectHideFlags: 1
