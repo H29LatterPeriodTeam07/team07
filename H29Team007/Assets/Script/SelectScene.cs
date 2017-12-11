@@ -17,7 +17,7 @@ public class SelectScene : MonoBehaviour
         {
             m_scScript.PlayBGM(0);
         }
-        if (currentScene == "StageSelectTest")
+        if (currentScene == "StageSelect")
         {
             m_scScript.PlayBGM(0);
         }
@@ -43,7 +43,7 @@ public class SelectScene : MonoBehaviour
     }
     public void StageSelectLoad()
     {
-        SceneManager.LoadScene("StageSelectTest");
+        SceneManager.LoadScene("StageSelect");
     }
 
 }
