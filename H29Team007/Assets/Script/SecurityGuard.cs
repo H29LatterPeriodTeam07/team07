@@ -187,12 +187,9 @@ public class SecurityGuard : MonoBehaviour
 
     void OnCompleteHandler()
     {
-        if (gameObject.transform.parent == null)
-        {
             m_Animator.SetTrigger("Trigger");
             m_Agent.enabled = true;
             m_bool = false;
-        }
     }
 
     //次の巡回ポイントを目的地に設定する
@@ -264,5 +261,10 @@ public class SecurityGuard : MonoBehaviour
     public bool StateChasing()
     {
         return m_State == EnemyState.Chasing;
+    }
+
+    public bool Guard()
+    {
+        return m_bool;
     }
 }
