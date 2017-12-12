@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class StageSelect : MonoBehaviour {
 
-    private int stageNum = 1;
+    private int stageNum = 0;
     private bool isMove = false;
     public RectTransform[] stages;
     private RectTransform leftStage;
@@ -25,10 +25,11 @@ public class StageSelect : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        leftStage = stages[stageNum-1];
+        //leftStage = stages[stageNum-1];
         centerStage = stages[stageNum];
-        rightStage = stages[stageNum+1];
+        //rightStage = stages[stageNum+1];
         startTime = Time.time;
+        centerStage.localPosition = Vector3.zero;
 
     }
 	

@@ -85,6 +85,11 @@ public class RunOverObject : MonoBehaviour
     /// <summary>エネミーのプレイヤーが見えてるかのパクリのパクリ</summary>
     private bool CanGetEnemy(Transform cart)
     {
+        if(transform.tag == "Enemy")
+        {
+            SecurityGuard sg = gameObject.GetComponent<SecurityGuard>();
+            if (sg.Guard()) return false;
+        }
         //カートからエネミーへの方向ベクトル(ワールド座標系)
         Vector3 directionToEnemy = transform.position - cart.position;
         // エネミーの正面向きベクトルとエネミーへの方向ベクトルの差分角度

@@ -4384,7 +4384,7 @@ Prefab:
     - target: {fileID: 114009780992865446, guid: 29377a74793ed984ea725322c12c5ea3,
         type: 2}
       propertyPath: m_SaleAnimalSpowns.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114009780992865446, guid: 29377a74793ed984ea725322c12c5ea3,
         type: 2}
@@ -12192,6 +12192,49 @@ Transform:
   m_PrefabParentObject: {fileID: 4380684957602796, guid: 40eb9c2e0fd50e34ab5df0117a598d54,
     type: 2}
   m_PrefabInternal: {fileID: 616051509}
+--- !u!1 &618691478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 618691479}
+  - component: {fileID: 618691480}
+  m_Layer: 0
+  m_Name: EnemysSpown
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &618691479
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 618691478}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -19.4, y: 0, z: 42.88}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 654004056}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &618691480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 618691478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd9a7ff44075a7e448260a4650a76c46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Enemys:
+  - {fileID: 1651861089722626, guid: 974a711e254a202488e5b3be599c5f70, type: 2}
+  m_ApperTime: 30
 --- !u!1001 &624342528
 Prefab:
   m_ObjectHideFlags: 0
@@ -13187,6 +13230,8 @@ Transform:
   - {fileID: 2141346700}
   - {fileID: 1105978932}
   - {fileID: 1023947465}
+  - {fileID: 1416952626}
+  - {fileID: 618691479}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13231,7 +13276,7 @@ GameObject:
   - component: {fileID: 678438866}
   - component: {fileID: 678438865}
   m_Layer: 9
-  m_Name: Plane (2)
+  m_Name: Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13247,7 +13292,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 2.220446e-16, z: 10}
+  m_Size: {x: 10, y: 1, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &678438866
 MeshRenderer:
@@ -13262,7 +13307,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: cb0814b6cdf30624d91e51067a4e54b0, type: 2}
+  - {fileID: 2100000, guid: 0d401da097b60f44e98025cfddd4aaa5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19655,7 +19700,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 210
   m_WholeNumbers: 0
-  m_Value: 0.01
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -24844,6 +24889,49 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 2.6}
   m_Center: {x: 0.12, y: 1.02, z: -0.1}
+--- !u!1 &1416952625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1416952626}
+  - component: {fileID: 1416952627}
+  m_Layer: 0
+  m_Name: EnemysSpown (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1416952626
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1416952625}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -16.86, y: 0, z: -18.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 654004056}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1416952627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1416952625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd9a7ff44075a7e448260a4650a76c46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Enemys:
+  - {fileID: 1651861089722626, guid: 974a711e254a202488e5b3be599c5f70, type: 2}
+  m_ApperTime: 30
 --- !u!1001 &1422926489
 Prefab:
   m_ObjectHideFlags: 0
@@ -33264,7 +33352,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: c6054c1136e06b04dbe6a49ac0b94a6e, type: 3}
     m_FontSize: 52
     m_FontStyle: 0
     m_BestFit: 0
@@ -37151,8 +37239,7 @@ MonoBehaviour:
   m_prBull: {fileID: 1013476734242064, guid: b52f43beb7c071946ae3ef5e321dfbc0, type: 2}
   m_EntrancePoint: {fileID: 406901174}
   m_bullApperTime:
-  - 20
-  - 30
+  - 100
 --- !u!65 &2141346702
 BoxCollider:
   m_ObjectHideFlags: 0
