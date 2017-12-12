@@ -46,11 +46,12 @@ public class SecurityGuard : MonoBehaviour
     RunOverObject m_run;
     bool m_bool = false;
 
-	float minAngle = 0.0F;
+    float minAngle = 0.0F;
     float maxAngle = 90.0F;
     float m_Horizntal = 0;
     float m_ho = -2.0f;
     Rigidbody m_rb;
+    SecurityGuard m_scScrpt;
 
     // Use this for initialization
     void Start()
@@ -69,6 +70,7 @@ public class SecurityGuard : MonoBehaviour
         m_smScript = m_SoundManager.GetComponent<SoundManagerScript>();
         m_AS = GetComponent<AudioSource>();
         m_rb = GetComponent<Rigidbody>();
+        m_scScrpt = GetComponent<SecurityGuard>();
     }
 
     // Update is called once per frame
@@ -91,10 +93,10 @@ public class SecurityGuard : MonoBehaviour
                 m_Animator.SetTrigger("Jump2");
 
                 iTween.MoveTo(gameObject, iTween.Hash(
-                    "x",transform.position.x-2,
-                    "z",transform.position.z-2,
+                    "x", transform.position.x - 2,
+                    "z", transform.position.z - 2,
                     "easeType", iTween.EaseType.linear,
-                    "time",2.5f,
+                    "time", 2.5f,
                     "oncomplete", "OnCompleteHandler",
                     "oncompletetarget", this.gameObject));
             }
@@ -120,7 +122,7 @@ public class SecurityGuard : MonoBehaviour
             m_ViewingDistance = 1000;
             m_ViewingAngle = 360;
 
-            if (CanSeePlayer() && m_bool == false && dis <= 5  && m_scPlayer.GetState() == Player.PlayerState.Gliding)
+            if (CanSeePlayer() && m_bool == false && dis <= 5 && m_scPlayer.GetState() == Player.PlayerState.Gliding)
             {
                 m_Agent.enabled = false;
                 m_bool = true;
@@ -130,7 +132,7 @@ public class SecurityGuard : MonoBehaviour
                     "x", transform.position.x - 2,
                     "z", transform.position.z - 2,
                     "easeType", iTween.EaseType.linear,
-                    "time", 2.5f,
+                    "time", 2.0f,
                     "oncomplete", "OnCompleteHandler",
                     "oncompletetarget", this.gameObject));
             }
@@ -146,7 +148,7 @@ public class SecurityGuard : MonoBehaviour
                     m_Animator.SetTrigger("Jump");
                     m_bool = true;
                 }
-                else if (dis > 3)
+                else if (dis > 5 && m_bool == true)
                 {
                     m_bool = false;
                     m_Animator.SetTrigger("Trigger");
@@ -180,14 +182,17 @@ public class SecurityGuard : MonoBehaviour
         }
         //  Debug.Log(dis);
         m_Animator.SetFloat("Speed", m_Agent.speed);
-        
+
     }
 
     void OnCompleteHandler()
     {
-        m_Animator.SetTrigger("Trigger");
-        m_Agent.enabled = true;
-        m_bool = false;
+        if (gameObject.transform.parent == null)
+        {
+            m_Animator.SetTrigger("Trigger");
+            m_Agent.enabled = true;
+            m_bool = false;
+        }
     }
 
     //次の巡回ポイントを目的地に設定する
@@ -260,5 +265,4 @@ public class SecurityGuard : MonoBehaviour
     {
         return m_State == EnemyState.Chasing;
     }
-
 }

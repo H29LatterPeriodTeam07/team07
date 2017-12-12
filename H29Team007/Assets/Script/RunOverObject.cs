@@ -33,23 +33,16 @@ public class RunOverObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (m_Anime != null)
-        //{
-        //    if (transform.position.y > 0.3f)
-        //    {
-        //        m_Anime.SetTrigger("Kago");
-        //    }
-        //    else
-        //    {
-        //        m_Anime.SetTrigger("Trigger");
-        //    }
-        //}
     }
 
     public void NavReStart()
     {
         myNav.enabled = true;
         myCollider.enabled = true;
+        if (m_Anime != null)
+        {
+            m_Anime.SetTrigger("VO");
+        }
         //ここにアニメ再開入れるかも
         if (transform.tag == "Bull")
         {
@@ -146,17 +139,12 @@ public class RunOverObject : MonoBehaviour
             //transform.position = nimotuPos;
 
             sc.AddBaggege(transform,other.transform.parent.gameObject);
-            //transform.parent = other.transform.root;
             sc.PlusY(runOverAfterHeight);
             if (m_model != null)
             {
                 m_model.SetActive(false);
                 m_gutemodel.SetActive(true);
             }
-            //if (rb != null) {
-            //    rb.velocity = Vector3.zero;
-            //    rb.isKinematic = true;
-            //}
             m_AS.clip = m_se;
             m_AS.Play();
         }
@@ -225,16 +213,11 @@ public class RunOverObject : MonoBehaviour
     }
     public void OnTriggerStay(Collider other)
     {
-        if (m_model == null) return;
+       if (m_model == null) return;
         if (other.name == "Plane")
         {
             m_model.SetActive(true);
             m_gutemodel.SetActive(false);
-
-            if (m_Anime != null)
-            {
-                m_Anime.SetTrigger("Trigger");
-            }
         }
 
 
