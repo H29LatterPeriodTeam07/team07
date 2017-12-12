@@ -17891,7 +17891,7 @@ GameObject:
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1023947465
 Transform:
   m_ObjectHideFlags: 0
@@ -23935,16 +23935,16 @@ MonoBehaviour:
   - {fileID: 1048577695447666, guid: efae46f19c7ff0c49a0d98bc5597103c, type: 2}
   - {fileID: 1048577695447666, guid: efae46f19c7ff0c49a0d98bc5597103c, type: 2}
   m_ApperTime:
-  - 20
+  - 10
   - 30
-  - 40
-  - 45
   - 50
-  - 55
-  - 60
   - 70
-  - 80
   - 90
+  - 110
+  - 130
+  - 150
+  - 170
+  - 190
   m_ChikinApperTime: []
   m_preChikin: {fileID: 1104788499743126, guid: ab76f46a7d7725a46ae81e072b146b62,
     type: 2}
