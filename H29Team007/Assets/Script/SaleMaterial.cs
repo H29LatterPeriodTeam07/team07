@@ -50,8 +50,6 @@ public class SaleMaterial : MonoBehaviour {
             m_time += Time.deltaTime;
             m_Cow.SetActive(true);
             m_CowCharacter.SetActive(true);
-            m_AS.clip = m_se;
-            m_AS.Play();
         }
         else
         {
@@ -79,8 +77,6 @@ public class SaleMaterial : MonoBehaviour {
             m_time += Time.deltaTime;
             m_fish.SetActive(true);
             m_FishCharacter.SetActive(true);
-            m_AS.clip = m_se;
-            m_AS.Play();
         }
         else {
             m_smScript.StopSE();
