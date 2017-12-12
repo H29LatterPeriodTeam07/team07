@@ -18,7 +18,11 @@ public class EnemyScore : MonoBehaviour {
             case "Enemy": m_price = 100; break;
             case "BBA": m_price = 100; break;
             case "Parent": m_price = 100; break;
-            case "Animal":m_Number = 2; m_price = 100; break;
+            case "Animal":m_Number = 2;
+                if (transform.name.Contains("Pig")) { m_Number = 3; }
+                if (transform.name.Contains("Cow")) { m_Number = 4; }
+                if (transform.name.Contains("Fish")) { m_Number = 5; }
+                break;
             case "Bull": m_Number = 2; break;
             case "Plasticbag":break;
             default:  break;

@@ -69,9 +69,15 @@ public class StageSelect : MonoBehaviour {
             switch (stageNum)
             {
                 case 0: SceneManager.LoadScene("Tutorial"); break;
-                case 1: SceneManager.LoadScene("Stage1"); break;
-                case 2: SceneManager.LoadScene("Stage2.1"); break;
-                case 3: SceneManager.LoadScene("Stage3"); break;
+                case 1: SceneManager.LoadScene("Stage1");
+                        ScoreManager.StageChenge(1);
+                        break;
+                case 2: SceneManager.LoadScene("Stage2.1");
+                        ScoreManager.StageChenge(2);
+                        break;
+                case 3: SceneManager.LoadScene("Stage3");
+                        ScoreManager.StageChenge(3);
+                        break;
             }
         }
         if (Input.GetButton("XboxA") || Input.GetKeyDown(KeyCode.F))
