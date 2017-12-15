@@ -34,6 +34,8 @@ public class SaleSpown : MonoBehaviour {
     string m_Pigname, FishName, CowName;
     int m_CurrentPatrolPointIndex = 1;
 
+    private float myTime = 0.0f;
+
     // Use this for initialization
     void Start()
     {
@@ -48,7 +50,7 @@ public class SaleSpown : MonoBehaviour {
         if (m_ApperTime.Length > m_CurrentApperTimeIndex)
         {
             m_SaleMode = m_ApperTime[m_CurrentApperTimeIndex] - m_SaleModeTime;
-            if (m_timer.timer > m_ApperTime[m_CurrentApperTimeIndex])
+            if (myTime > m_ApperTime[m_CurrentApperTimeIndex])
             {
                 if (m_SaleAnimals[m_CurrentSaleAnimeIndex].gameObject.name == "SaleAnimalCow")
                 {
@@ -66,7 +68,7 @@ public class SaleSpown : MonoBehaviour {
         }
         if(m_ChikinApperTime.Length > m_CurrentChikinApperTimeIndex)
         {
-            if(m_timer.timer > m_ChikinApperTime[m_CurrentChikinApperTimeIndex])
+            if(myTime > m_ChikinApperTime[m_CurrentChikinApperTimeIndex])
             {
                 ChikinApper();
             }
@@ -103,5 +105,15 @@ public class SaleSpown : MonoBehaviour {
     public bool SaleMode()
     {
         return m_timer.timer > m_SaleMode;
+    }
+
+    public void SetTime(float time)
+    {
+        myTime = time;
+    }
+
+    public float[] GetAppearTime()
+    {
+        return m_ApperTime;
     }
 }
