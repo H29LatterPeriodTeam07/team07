@@ -24,14 +24,13 @@ public class Timer : MonoBehaviour {
         if (ss == null) return;
         for(int i = 0; i < ss.GetAppearTime().Length; i++)
         {
-            Debug.Log("yes");
             GameObject line = Instantiate(linePre);
-            line.transform.parent = transform.parent;
+            line.transform.SetParent(transform.parent);
             line.GetComponent<RectTransform>().localPosition = gameObject.GetComponent<RectTransform>().localPosition;
-            line.transform.parent = transform;
+            line.transform.SetParent(transform);
+            line.transform.SetSiblingIndex(1 + i);
             line.GetComponent<Slider>().value = ss.GetAppearTime()[i];
         }
-        Debug.Log("no");
     }
 	
 	// Update is called once per frame
