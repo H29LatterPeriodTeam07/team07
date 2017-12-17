@@ -156,6 +156,7 @@ public class ScoreManager
             case 2: result = 4; break;
             case 3: result = 5; break;
         }
+        result = 5; //もう全部でいいんじゃね
         return result;
     }
 }

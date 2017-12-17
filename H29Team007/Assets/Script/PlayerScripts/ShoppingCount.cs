@@ -98,6 +98,7 @@ public class ShoppingCount : MonoBehaviour
             Vector3 baspos = basket.transform.position;
             baspos.y = CartRelatedData.cartFlyStartPosY;
             flyBasket.transform.position = baspos;
+            playerScript.ChangeState(7);
 
             basket.SetActive(false);
         }

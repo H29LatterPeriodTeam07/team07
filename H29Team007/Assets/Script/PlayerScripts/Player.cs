@@ -14,7 +14,8 @@ public class Player : MonoBehaviour
         Takeover, // カートジャック
         Outside, //追い出される
         Entry,  //入店
-        Exit  //退店
+        Exit,  //退店
+        Throw //投げ
     }
 
     private float inputHorizontal;
@@ -63,7 +64,7 @@ public class Player : MonoBehaviour
     private GameObject canGetCart; //もてるカート
 
     private NavMeshAgent myNav;
-    private GameObject nextCart;
+    //private GameObject nextCart;
 
     private ShoppingCount scScript;
 
@@ -72,6 +73,8 @@ public class Player : MonoBehaviour
     private Transform playerExitPoint; //PlayerExitPoint
 
     private bool enemyHit = false; //敵につかまったか
+
+    private bool flyHit = false; //投げた籠が当たったか
 
     //private Transform cartRotatePoint; 
 
@@ -82,6 +85,8 @@ public class Player : MonoBehaviour
     private PlayerCamera cameraScript;  //playerカメラのスクリプト
 
     private Fade fade;  //フェードのスクリプト
+
+    private ResultBackCamera resultCamera; //リザルトの背景を映すカメラ
 
     void Start()
     {
@@ -102,6 +107,7 @@ public class Player : MonoBehaviour
         seScript = GetComponent<PlayerSE>();
         cameraScript = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.GetComponent<PlayerCamera>();
         fade = GameObject.Find("fade").GetComponent<Fade>();
+        if(GameObject.Find("TestCamera") != null) resultCamera = GameObject.Find("TestCamera").GetComponent<ResultBackCamera>();
     }
 
     void Update()
@@ -147,7 +153,8 @@ public class Player : MonoBehaviour
         //if (!scScript.IsCatchBasket()) return;
 
         if (GetState() != PlayerState.NoCart &&
-            GetState() != PlayerState.Takeover)
+            GetState() != PlayerState.Takeover &&
+            GetState() != PlayerState.Throw)
         {
 
             if (Input.GetButtonUp("XboxA") || Input.GetKeyDown(KeyCode.R)|| !scScript.IsCatchBasket())
@@ -197,6 +204,7 @@ public class Player : MonoBehaviour
             case PlayerState.Outside: OutSide();break;
             case PlayerState.Entry: Entry();break;
             case PlayerState.Exit: Exit(); break;
+            case PlayerState.Throw: Throw(); break;
         }
 
         float playerSpeed = rb.velocity.sqrMagnitude;
@@ -223,6 +231,7 @@ public class Player : MonoBehaviour
     /// <param name="state">0:カート無し 1:カートあり 2:滑走 3:カートチェンジ</param>
     public void ChangeState(int state)
     {
+        //Debug.Log(state);
         switch (state)
         {
             case 0: myState = PlayerState.NoCart; scScript.SetBasketColliderActive(true); break;
@@ -237,6 +246,8 @@ public class Player : MonoBehaviour
                 fade.FadeOut(1.0f);
                 myNav.enabled = false;
                 seScript.SEPlay(6); break;
+            case 7: myState = PlayerState.Throw;
+                m_Animator.Play("BBAThrow"); break;
         }
         if (myCC.material != null && state != 2)
         {
@@ -309,15 +320,15 @@ public class Player : MonoBehaviour
     private void PlayerHacking()
     {
         m_Animator.SetBool("HavingBasket", false);
-        Vector3 dis = nextCart.transform.position + nextCart.transform.forward * (CartRelatedData.cartNavPoint);
+        Vector3 dis = canGetCart.transform.position + canGetCart.transform.forward * (CartRelatedData.cartNavPoint);
         myNav.destination = new Vector3(dis.x, -0.8f, dis.z);
         if (Vector3.Distance(myNav.destination, transform.position) < 1.0f)
         {
             transform.position = myNav.destination;
-            transform.rotation = nextCart.transform.rotation;
+            transform.rotation = canGetCart.transform.rotation;
             myNav.enabled = false;
             transform.position = new Vector3(transform.position.x, 0, transform.position.z);
-            canGetCart = nextCart;
+            //canGetCart = nextCart;
             scScript.SetBasketParent(transform);
             CatchCart();
         }
@@ -394,16 +405,41 @@ public class Player : MonoBehaviour
             fade.FadeIn(1.0f);
             myNav.enabled = true;
             myNav.destination = playerExitPoint.position;
-
+            
         }
 
         if (Vector3.Distance(myNav.destination, transform.position) < 1.0f)
         {
+            if (!fade.IsFadeOutOrIn())
+            {
+                fade.FadeOut(1.0f);
+                if(resultCamera != null) resultCamera.ScreenCapture();
+
+            }
             if (fade.IsFadeEnd())
             {
+                if (resultCamera != null) resultCamera.Stop();
+
                 SceneManager.LoadScene("Result");
             }
-            fade.FadeOut(1.0f);
+        }
+    }
+
+    /// <summary>投げ</summary>
+    private void Throw()
+    {
+        m_Animator.SetBool("HavingBasket", false);
+        if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("NoCart"))
+        {
+            if (flyHit)
+            {
+                ChangeState(3);
+                flyHit = false;
+            }
+            else
+            {
+                ChangeState(0);
+            }
         }
     }
 
@@ -412,28 +448,30 @@ public class Player : MonoBehaviour
     public void ChangeCart(GameObject nextcart)
     {
         scScript.BasketActive(true);
-        ReleaseCart();
-        nextCart = nextcart;
+        ReleaseCart(false);
+        canGetCart = nextcart;
         myNav.enabled = true;
-        canGetCart = nextCart.transform.Find("BackHitArea").gameObject;
-        Vector3 basPos = nextCart.transform.position - nextCart.transform.forward * 0.1f;
+        //canGetCart = nextCart.transform.Find("BackHitArea").gameObject;
+        Vector3 basPos = canGetCart.transform.position - canGetCart.transform.forward * 0.1f;
         basPos.y = CartRelatedData.cartInBagLocalPosY;
         scScript.SetBasketGlobalPos(basPos);
-        scScript.SetBasketAngle(nextCart.transform.rotation);
+        scScript.SetBasketAngle(canGetCart.transform.rotation);
         scScript.SetBasketParent(null);
         //myNav.destination = nextCart.transform.position + nextCart.transform.forward * (-1.5f);
-        ChangeState(3);
+        //ChangeState(3);
+        flyHit = true;
     }
 
     /// <summary>カート壊れる</summary>
-    public void BreakCart()
+    public void BreakCart(bool change = true)
     {
         //cartRotatePoint.transform.localRotation = Quaternion.AngleAxis(0, new Vector3(1, 0, 0));
         scScript.SetBasketParent(transform);
         scScript.BasketOut();
         Destroy(myCart);
         myCart = null;
-        ChangeState(0);
+        if(change)ChangeState(0);
+        
     }
 
     /// <summary>カート壊れる</summary>
@@ -450,7 +488,7 @@ public class Player : MonoBehaviour
 
 
     /// <summary>カートを離す </summary>
-    public void ReleaseCart()
+    public void ReleaseCart(bool change = true)
     {
         if (myCart == null) return;
         
@@ -469,7 +507,7 @@ public class Player : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(relativePos);
             cart.transform.rotation = Quaternion.LookRotation(relativePos);
             //havedCart = cart;
-            BreakCart();
+            BreakCart(change);
         }
         else
         {
@@ -505,7 +543,6 @@ public class Player : MonoBehaviour
     {
         //持つカートの耐久値をもらう
         //myCartStatus.GetCart(canGetCart.transform.gameObject.GetComponent<CartStatusWithCart>());
-
         if (myCart == null)
         {
             ChangeState(1);

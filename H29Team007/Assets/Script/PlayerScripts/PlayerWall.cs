@@ -15,7 +15,7 @@ public class PlayerWall : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(player.GetState() > Player.PlayerState.Takeover)
+		if(player.GetState() > Player.PlayerState.Takeover && player.GetState() < Player.PlayerState.Throw)
         {
             myCollider.enabled = false;
         }

@@ -43,7 +43,7 @@ public class Fade : MonoBehaviour {
 
     public void FadeOut(float fadespeed = 2.0f)
     {
-        if (!fadeEnd) return;
+        if (!fadeEnd || m_Fade) return;
         m_Fade = true;
         fadeEnd = false;
         fadeSpeed = fadespeed;
@@ -51,7 +51,7 @@ public class Fade : MonoBehaviour {
 
     public void FadeIn(float fadespeed = 2.0f)
     {
-        if (!fadeEnd) return;
+        if (!fadeEnd || !m_Fade) return;
         m_Fade = false;
         fadeEnd = false;
         fadeSpeed = fadespeed;
@@ -60,5 +60,12 @@ public class Fade : MonoBehaviour {
     public bool IsFadeEnd()
     {
         return fadeEnd;
+    }
+
+    /// <summary>フェードイン、フェードアウトどっちしてますか</summary>
+    /// <returns>trueでフェードアウト中</returns>
+    public bool IsFadeOutOrIn()
+    {
+        return m_Fade;
     }
 }
