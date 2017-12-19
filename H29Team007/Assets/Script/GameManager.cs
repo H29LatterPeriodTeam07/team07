@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        m_Sun.transform.eulerAngles = new Vector3(m_tmScript.timer, 0, 0);
+        m_Sun.transform.eulerAngles = new Vector3(210/100 * m_tmScript.NowTime(), 0, 0);
     }
 
 
