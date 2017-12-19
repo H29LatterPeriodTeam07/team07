@@ -3,6 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+//　　　　　　　　　　　　　　　　 /
+//　　　　　　　　　　 　 　 　 　 |　オ さ
+//　　　　　　　　　　　　　　　　」　メ て
+//＿_ ＞ ´￣￣￣｀ ＜⌒Y＼      ｀}   | は
+//_／　　　　　　　ﾒ､　　＼　ヽ          ア
+//　　/{ '⌒､＿  / ＼} ヽ 　∨∧.　　    ン
+//　　{　ｒ云     芹云ﾐｉ   ｉ |         チ
+//　　|　んハ     ヒハ}　ｉ  |＿ﾄｊ}　   だ
+//　　|　ヒ ツ  , ゞ ツ　{ 　 }　∧　　  な
+//　　|　　 　ｰｰ'　　　　　ﾌ /　　∧
+//　　|　　　　　　＿＿ イ ∧　　　 ＼＿／
+//＼ 厂￣￣ﾏ У / }/　 ＼
+
+
 // 敵の状態種別
 public enum EnemyState
 {

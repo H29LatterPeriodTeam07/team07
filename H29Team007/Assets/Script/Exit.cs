@@ -6,7 +6,6 @@ public class Exit : MonoBehaviour
 {
     public GameObject m_SaleMaterial;
     public GameObject m_time;
-    public int m_int;
     [SerializeField, Header("BBAのプレハブ")]
     private GameObject m_PreBBA;
     [SerializeField, Header("闘牛のプレハブ")]
@@ -19,13 +18,13 @@ public class Exit : MonoBehaviour
     private GameObject m_GameBBA;
     Timer m_timer;
     int m_CurentApperTimeIndex = 0;
-    public int m_Num = 0;
+    int m_Num = 0;
     bool m_bullApper = false;
     Player pScript;
     GameObject m_player;
     BullCount m_bc;
 
-    public int m_CurrentApperTimeIndex = 0;
+     int m_CurrentApperTimeIndex = 0;
     float m_SaleMode = 0;
     SaleMaterial m_scSale;
 
@@ -48,9 +47,11 @@ public class Exit : MonoBehaviour
         {
             if (m_timer.timer > m_bullApperTime[m_CurentApperTimeIndex])
             {
-                m_scSale.ApperBull();
-                m_CurentApperTimeIndex++;
-                Appear();
+                if (m_prBull.gameObject.name == "Lamborghini")
+                {
+                    m_scSale.ApperBull();
+                }
+              
             }           
             
         }
@@ -59,9 +60,10 @@ public class Exit : MonoBehaviour
     public void Appear()
     {
         m_bullApper = true;
-        if (m_Num < m_int)
+        if (m_Num < 1)
         {
             Instantiate(m_prBull, m_EntrancePoint.transform.position, transform.rotation);
+            m_CurentApperTimeIndex++;
             m_Num++;
         }
     }
@@ -72,7 +74,6 @@ public class Exit : MonoBehaviour
         {
             
             m_bullApper = false;
-            //Destroy(other.gameObject);
             //m_Num--;
         }
     }

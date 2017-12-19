@@ -3,6 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+//　 　 　 ＼
+//　　　　　 ＼
+//　 　 　 　  |　　　　  ／￣ ＼
+//　 あ 生奇　 |　　　 と(９ (９"とつ　　　　　す
+//　 た 命跡   |　　 　 ﾉ⌒ノ     |　　　　　　っ
+//   え がだ    フ      `ｰi´　　　 |====ミ   く 
+//   ら    ：　l.         │　　　人::::; ﾉ＼
+//　 れ.   ：　| 　 　 _,ノト- 　_j l| ￣　 〉
+//　 た　　　　!　　　＼人＿_   ＼ノ.＿＿_／
+//.　 ：　　　／　　　| l　　|　| 　 ||  l |
+//.　 ：　 ／　　　　　-=ﾆ'ー'ﾆﾆ'ー'ﾆﾆﾆﾆ=---
+//＿＿＿／
+
 public enum BBAState
 {
     //ノーマルモード
@@ -12,11 +25,15 @@ public enum BBAState
     //攻撃モード
     attackMode,
     //レジへ向かうモード
-    CashMode
+    CashMode,
+    //ノーカートモード
+    NoCart
 }
 
 public class BBA : MonoBehaviour
 {
+    [SerializeField,Header("クソババアのカートを入れて")]
+    private GameObject myCart;
     [SerializeField, Header("GameManagerのm_gdと同じ数字を入れてケロ")]
     private int m_int;
     public GameObject m_plane;
@@ -54,6 +71,10 @@ public class BBA : MonoBehaviour
     Transform m_Animal;
     float radius = 5f;
     private LayerMask raycastLayer;
+    GameObject m_PatrolPoint;
+    GameObject[] m_PatrolPoints;
+    int m_rand;
+    Transform m_basket;
 
     // Use this for initialization
     void Start()
@@ -68,6 +89,15 @@ public class BBA : MonoBehaviour
         SetNewPatrolPointToDestination();
         m_EyePoint = transform.Find("BBAEye");
         raycastLayer = 1 << LayerMask.NameToLayer("Animal");
+        m_basket = transform.Find("EnemyBasket");
+        //タグでパトロールポイントの親を検索して保持
+        m_PatrolPoint = GameObject.FindGameObjectWithTag("PatrolPoint");
+        m_PatrolPoints = new GameObject[m_PatrolPoint.transform.childCount];
+        //パトロールポイントの子を取得
+        for (int i = 0; m_PatrolPoint.transform.childCount > i; i++)
+        {
+            m_PatrolPoints[i] = m_PatrolPoint.transform.GetChild(i).gameObject;
+        }
     }
 
     // Update is called once per frame
@@ -75,7 +105,12 @@ public class BBA : MonoBehaviour
     {
         if (transform.parent != null) return;
 
-    //    print(m_bo);
+        if (myCart == null)
+        {
+            m_State = BBAState.NoCart;
+        }
+
+        //    print(m_bo);
         //巡回中
         if (m_State == BBAState.NormalMode)
         {
@@ -83,6 +118,10 @@ public class BBA : MonoBehaviour
             m_Animator.SetFloat("Speed", m_Agent.speed);
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
+            if (myCart == null)
+            {
+                m_State = BBAState.NoCart;
+            }
             //特売品が出てくる時間になったら特売品モードに
             if (m_gmScript.m_scSaleSpown.SaleMode())
             {
@@ -113,6 +152,11 @@ public class BBA : MonoBehaviour
 
             m_ViewingDistance = 100;
             m_ViewingAngle = 180;
+
+            if (myCart == null)
+            {
+                m_State = BBAState.NoCart;
+            }
 
             if (m_Animal == null)
             {
@@ -147,7 +191,24 @@ public class BBA : MonoBehaviour
             m_Speed = 4.0f;
 
             if (!IsGetAnimal()) m_State = BBAState.NormalMode;
+
+            if (myCart == null)
+            {
+                m_State = BBAState.NoCart;
+            }
         }
+
+        else if (m_State == BBAState.NoCart)
+        {
+            Destroy(m_basket.gameObject);
+            SetNewRPatrolPointToDestination();
+        }
+    }
+
+    void SetNewRPatrolPointToDestination()
+    {
+        m_rand = Random.Range(0, m_PatrolPoints.Length);
+        m_Agent.destination = m_PatrolPoints[m_rand].transform.position;
     }
 
     //次の巡回ポイントを目的地に設定する
