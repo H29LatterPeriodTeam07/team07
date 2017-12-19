@@ -52,7 +52,7 @@ public class BBA : MonoBehaviour
     bool m_bo = true;
     Transform m_basuket;
     Transform m_Animal;
-    float radius = 50f;
+    float radius = 5f;
     private LayerMask raycastLayer;
 
     // Use this for initialization
