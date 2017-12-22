@@ -160,6 +160,15 @@ public class Player : MonoBehaviour
             if (Input.GetButtonUp("XboxA") || Input.GetKeyDown(KeyCode.R)|| !scScript.IsCatchBasket())
             {
                 ReleaseCart();
+                Debug.Log("b");
+            }
+        }
+        else if (GetState() == PlayerState.Throw)
+        {
+            if (!scScript.IsCatchBasket())
+            {
+                ReleaseCart(false);
+                Debug.Log("v");
             }
         }
         if (canGet && GetState() < PlayerState.Takeover && canGetCart != null)
@@ -231,6 +240,8 @@ public class Player : MonoBehaviour
     /// <param name="state">0:カート無し 1:カートあり 2:滑走 3:カートチェンジ</param>
     public void ChangeState(int state)
     {
+        if(myState == PlayerState.Gliding)cameraScript.GlidingRotation(0.0f,true);
+        
         //Debug.Log(state);
         switch (state)
         {
@@ -265,12 +276,21 @@ public class Player : MonoBehaviour
         Vector3 moveForward = transform.forward * inputVertical;
 
         rb.velocity = moveForward * onCartMoveSpeed + new Vector3(0, rb.velocity.y, 0);
-
+        
         if (Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O))
         {
             //rb.velocity = transform.forward * kickSpeed;
             rb.AddForce(transform.forward * kickSpeed, ForceMode.VelocityChange);
             ChangeState(2);
+        }
+
+        if (Input.GetButtonDown("XboxR") || Input.GetKeyDown(KeyCode.L))
+        {
+            m_Animator.Play("hippari");
+        }
+        else if (Input.GetButtonDown("XboxL") || Input.GetKeyDown(KeyCode.K))
+        {
+            m_Animator.Play("moti");
         }
     }
 
@@ -303,6 +323,7 @@ public class Player : MonoBehaviour
         a *= Quaternion.AngleAxis(inputHorizontal * -velocityRotateSpeed, Vector3.up);
         rb.velocity = new Vector3(a.x, 0, a.z);
         //Debug.Log(rb.velocity);
+        cameraScript.GlidingRotation(inputHorizontal);
         if (Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O))
         {
             rb.velocity = transform.forward * kickSpeed;

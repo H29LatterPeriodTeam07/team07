@@ -118,28 +118,13 @@ public class StageSelect : MonoBehaviour {
             sm.PlaySE(1);
             SceneManager.LoadScene("Title");
         }
-        //if(inputHorizontal != 0 && !isMove)
-        //{
-        //    startTime = Time.time;
-        //    journeyLength = Vector.Distance()
-        //}
+
 
     }
 
     private void LeftMove()
     {
-        //centerStage.localPosition = Vector3.Lerp(centerStage.localPosition, new Vector3(-1280, 0, 0), (Time.time - startTime) / oktime);
-        //rightStage.localPosition = Vector3.Lerp(rightStage.localPosition, Vector3.zero, (Time.time - startTime) / oktime);
-        //if((Time.time - startTime) > oktime)
-        //{
-        //    leftStage = centerStage;
-        //    centerStage = rightStage;
-        //    rightStage = stages[StageNumber(1)];
-        //    leftStage.localPosition = new Vector3(-1280, 0, 0);
-        //    centerStage.localPosition = Vector3.zero;
-        //    rightStage.localPosition = new Vector3(1280, 0, 0);
-        //    ChangeState(0);
-        //}
+
         centerStage.localPosition = Vector3.Lerp(centerStage.localPosition, new Vector3(1280, 0, 0), ((Time.time - startTime) * 0.5f) / oktime);
         leftStage.localPosition = Vector3.Lerp(leftStage.localPosition, Vector3.zero, ((Time.time - startTime) * 0.5f) / oktime);
         if (((Time.time - startTime) * 0.5f) > oktime)
@@ -156,18 +141,7 @@ public class StageSelect : MonoBehaviour {
 
     private void RightMove()
     {
-        //centerStage.localPosition = Vector3.Lerp(centerStage.localPosition, new Vector3(1280, 0, 0), (Time.time - startTime) / oktime);
-        //leftStage.localPosition = Vector3.Lerp(leftStage.localPosition, Vector3.zero, (Time.time - startTime) / oktime);
-        //if ((Time.time - startTime) > oktime)
-        //{
-        //    rightStage = centerStage;
-        //    centerStage = leftStage;
-        //    leftStage = stages[StageNumber(-1)];
-        //    leftStage.localPosition = new Vector3(-1280, 0, 0);
-        //    centerStage.localPosition = Vector3.zero;
-        //    rightStage.localPosition = new Vector3(1280, 0, 0);
-        //    ChangeState(0);
-        //}
+
         centerStage.localPosition = Vector3.Lerp(centerStage.localPosition, new Vector3(-1280, 0, 0), ((Time.time - startTime) * 0.5f) / oktime);
         rightStage.localPosition = Vector3.Lerp(rightStage.localPosition, Vector3.zero, ((Time.time - startTime) * 0.5f) / oktime);
         if (((Time.time - startTime) * 0.5f) > oktime)
@@ -188,15 +162,5 @@ public class StageSelect : MonoBehaviour {
         if (result < 0) result = stages.Length - 1;
         if (result >= stages.Length) result = 0;
         return result;
-    }
-
-    private void ScrollEnd()
-    {
-
-    }
-
-    private void Scroll()
-    {
-
     }
 }

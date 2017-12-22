@@ -280,6 +280,7 @@ ModelImporter:
     4300020: 379d2890.o
     4300022: 36850b30.o
     7400000: Take 001
+    7400002: moti
     9500000: //RootNode
     13700000: 3678f9c0.o
     13700002: 36a0cf38.o
@@ -310,7 +311,567 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: GP_BBA_Scale
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/CON_HIP
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/CON_HIP/CON_SPINE
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/CON_HIP/CON_SPINE/CON_SPINE1
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/CON_HIP/CON_SPINE/CON_SPINE1/CON_SPINE2
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/CON_HIP/CON_SPINE/CON_SPINE1/CON_SPINE2/CON_NECK
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/CON_HIP/CON_SPINE/CON_SPINE1/CON_SPINE2/L_CON_SHOLDER
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/CON_HIP/CON_SPINE/CON_SPINE1/CON_SPINE2/R_CON_SHOLDER
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_ARM
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_ARM/L_CON_ARM
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_ARM/L_CON_ARM/L_CON_ELBOW
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_ARM/L_wrist
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_ARM/L_wrist/L_CON_WRIST
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_REG
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_REG/L_CON_FOOT
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_REG/L_CON_FOOT/L_CON_KNEE
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_REG/L_CON_FOOT/L_CON_TIP
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_REG/L_CON_FOOT/L_CON_TIP/L_CON_HEEL
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_REG/L_CON_FOOT/L_CON_TIP/L_CON_HEEL/L_ankle
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_REG/L_CON_FOOT/L_CON_TIP/L_CON_TOE
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_ARM
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_ARM/R_CON_ARM
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_ARM/R_CON_ARM/R_CON_ELBOW
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_ARM/R_wrist
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_ARM/R_wrist/R_CON_WRIST
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_REG
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_REG/R_CON_FOOT
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_REG/R_CON_FOOT/R_CON_KNEE
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_REG/R_CON_FOOT/R_CON_TIP
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_REG/R_CON_FOOT/R_CON_TIP/R_CON_HEEL
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_REG/R_CON_FOOT/R_CON_TIP/R_CON_HEEL/R_ankle
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_REG/R_CON_FOOT/R_CON_TIP/R_CON_TOE
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/ik_head
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/L_ik_ankle
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/L_ik_arm
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/L_ik_ball
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/L_ik_clavicle
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/L_ik_toe
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/R_ik_ankle
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/R_ik_arm
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/R_ik_ball
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/R_ik_clavicle
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/R_ik_toe
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/LeftUpLeg
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/LeftUpLeg/LeftLeg
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/LeftUpLeg/LeftLeg/LeftFoot
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase/LeftFootMiddle2
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/RightUpLeg
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/RightUpLeg/RightLeg
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/RightUpLeg/RightLeg/RightFoot
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase/RightFootMiddle2
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2/LeftHandIndex3
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2/LeftHandIndex3/LeftHandIndex4
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2/LeftHandMiddle3
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2/LeftHandMiddle3/LeftHandMiddle4
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2/LeftHandPinky3
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2/LeftHandPinky3/LeftHandPinky4
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2/LeftHandRing3
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2/LeftHandRing3/LeftHandRing4
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2/LeftHandThumb3
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2/LeftHandThumb3/LeftHandThumb4
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/Neck
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/Neck/Neck1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/Neck/Neck1/Head
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/Neck/Neck1/Head/379b9318.o
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/Neck/Neck1/Head/379bae20.o
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/Neck/Neck1/Head/379d2890.o
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/Neck/Neck1/Head/379e51e8.o
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/Neck/Neck1/Head/36850b30.o
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandIndex5
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandIndex5/RightHandIndex6
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandIndex5/RightHandIndex6/Right_HandIndex7
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandIndex5/RightHandIndex6/Right_HandIndex7/RightHandIndex8
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandMiddle5
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandMiddle5/RightHandMiddle6
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandMiddle5/RightHandMiddle6/RightHandMiddle7
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandMiddle5/RightHandMiddle6/RightHandMiddle7/RightHandMiddle8
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandPinky5
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandPinky5/RightHandPinky6
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandPinky5/RightHandPinky6/RightHandPinky7
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandPinky5/RightHandPinky6/RightHandPinky7/RightHandPinky8
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandRing5
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandRing5/RightHandRing6
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandRing5/RightHandRing6/RightHandRing7
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandRing5/RightHandRing6/RightHandRing7/RightHandRing8
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandThumb5
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandThumb5/RightHandThumb6
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandThumb5/RightHandThumb6/RightHandThumb7
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandThumb5/RightHandThumb6/RightHandThumb7/RightHandThumb8
+        weight: 1
+      - path: GP_SKIN
+        weight: 1
+      - path: GP_SKIN/36a0cf38.o
+        weight: 1
+      - path: GP_SKIN/36a1c280.o
+        weight: 1
+      - path: GP_SKIN/36a17168.o
+        weight: 1
+      - path: GP_SKIN/36cf6808.o
+        weight: 1
+      - path: GP_SKIN/36d04048.o1
+        weight: 1
+      - path: GP_SKIN/3678f9c0.o
+        weight: 1
+      - path: GP_SKIN/375084c0.o1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: moti
+      takeName: Take 001
+      firstFrame: 20
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: GP_BBA_Scale
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/CON_HIP
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/CON_HIP/CON_SPINE
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/CON_HIP/CON_SPINE/CON_SPINE1
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/CON_HIP/CON_SPINE/CON_SPINE1/CON_SPINE2
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/CON_HIP/CON_SPINE/CON_SPINE1/CON_SPINE2/CON_NECK
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/CON_HIP/CON_SPINE/CON_SPINE1/CON_SPINE2/L_CON_SHOLDER
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/CON_HIP/CON_SPINE/CON_SPINE1/CON_SPINE2/R_CON_SHOLDER
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_ARM
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_ARM/L_CON_ARM
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_ARM/L_CON_ARM/L_CON_ELBOW
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_ARM/L_wrist
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_ARM/L_wrist/L_CON_WRIST
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_REG
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_REG/L_CON_FOOT
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_REG/L_CON_FOOT/L_CON_KNEE
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_REG/L_CON_FOOT/L_CON_TIP
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_REG/L_CON_FOOT/L_CON_TIP/L_CON_HEEL
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_REG/L_CON_FOOT/L_CON_TIP/L_CON_HEEL/L_ankle
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/L_REG/L_CON_FOOT/L_CON_TIP/L_CON_TOE
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_ARM
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_ARM/R_CON_ARM
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_ARM/R_CON_ARM/R_CON_ELBOW
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_ARM/R_wrist
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_ARM/R_wrist/R_CON_WRIST
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_REG
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_REG/R_CON_FOOT
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_REG/R_CON_FOOT/R_CON_KNEE
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_REG/R_CON_FOOT/R_CON_TIP
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_REG/R_CON_FOOT/R_CON_TIP/R_CON_HEEL
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_REG/R_CON_FOOT/R_CON_TIP/R_CON_HEEL/R_ankle
+        weight: 1
+      - path: GP_BBA_Scale/GP_CON/CON_BBA/R_REG/R_CON_FOOT/R_CON_TIP/R_CON_TOE
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/ik_head
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/L_ik_ankle
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/L_ik_arm
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/L_ik_ball
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/L_ik_clavicle
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/L_ik_toe
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/R_ik_ankle
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/R_ik_arm
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/R_ik_ball
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/R_ik_clavicle
+        weight: 1
+      - path: GP_BBA_Scale/GP_IK/R_ik_toe
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/LeftUpLeg
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/LeftUpLeg/LeftLeg
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/LeftUpLeg/LeftLeg/LeftFoot
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase/LeftFootMiddle2
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/RightUpLeg
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/RightUpLeg/RightLeg
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/RightUpLeg/RightLeg/RightFoot
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase/RightFootMiddle2
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2/LeftHandIndex3
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2/LeftHandIndex3/LeftHandIndex4
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2/LeftHandMiddle3
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2/LeftHandMiddle3/LeftHandMiddle4
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2/LeftHandPinky3
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2/LeftHandPinky3/LeftHandPinky4
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2/LeftHandRing3
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2/LeftHandRing3/LeftHandRing4
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2/LeftHandThumb3
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2/LeftHandThumb3/LeftHandThumb4
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/Neck
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/Neck/Neck1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/Neck/Neck1/Head
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/Neck/Neck1/Head/379b9318.o
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/Neck/Neck1/Head/379bae20.o
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/Neck/Neck1/Head/379d2890.o
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/Neck/Neck1/Head/379e51e8.o
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/Neck/Neck1/Head/36850b30.o
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandIndex5
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandIndex5/RightHandIndex6
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandIndex5/RightHandIndex6/Right_HandIndex7
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandIndex5/RightHandIndex6/Right_HandIndex7/RightHandIndex8
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandMiddle5
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandMiddle5/RightHandMiddle6
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandMiddle5/RightHandMiddle6/RightHandMiddle7
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandMiddle5/RightHandMiddle6/RightHandMiddle7/RightHandMiddle8
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandPinky5
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandPinky5/RightHandPinky6
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandPinky5/RightHandPinky6/RightHandPinky7
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandPinky5/RightHandPinky6/RightHandPinky7/RightHandPinky8
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandRing5
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandRing5/RightHandRing6
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandRing5/RightHandRing6/RightHandRing7
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandRing5/RightHandRing6/RightHandRing7/RightHandRing8
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandThumb5
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandThumb5/RightHandThumb6
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandThumb5/RightHandThumb6/RightHandThumb7
+        weight: 1
+      - path: GP_BBA_Scale/GP_JOINT/Hips/Spine/Spine1/Spine2/RightShoulder1/RightArm1/RightForeArm1/RightHand1/RightHandThumb5/RightHandThumb6/RightHandThumb7/RightHandThumb8
+        weight: 1
+      - path: GP_SKIN
+        weight: 1
+      - path: GP_SKIN/36a0cf38.o
+        weight: 1
+      - path: GP_SKIN/36a1c280.o
+        weight: 1
+      - path: GP_SKIN/36a17168.o
+        weight: 1
+      - path: GP_SKIN/36cf6808.o
+        weight: 1
+      - path: GP_SKIN/36d04048.o1
+        weight: 1
+      - path: GP_SKIN/3678f9c0.o
+        weight: 1
+      - path: GP_SKIN/375084c0.o1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []

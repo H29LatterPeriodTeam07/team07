@@ -11,6 +11,8 @@ public class PlayerCamera : MonoBehaviour {
         Exit      //出るとき
     }
 
+
+
     //[SerializeField, Header("追跡対象")]
     private Transform m_Target;
     [SerializeField, Header("ヨー速度(角度/秒)")]
@@ -50,6 +52,11 @@ public class PlayerCamera : MonoBehaviour {
     private float m_ResetTime =1.0f;
     // カメラリセットを開始した時刻
     private float m_ResetStartTime = float.MinValue;
+
+    //カメラ追従スピード
+    private float followSpeed = 0.0f;
+    [SerializeField, Header("追従ヨー速度(角度/秒)")]
+    private float m_followYawSpeed = 90f;
 
     private bool isCameraReset = false;
 
@@ -109,6 +116,8 @@ public class PlayerCamera : MonoBehaviour {
 
     private void NormalCamera()
     {
+        float inputHorizontal = (Input.GetAxisRaw("XboxRightHorizontal") != 0) ? Input.GetAxisRaw("XboxRightHorizontal") : Input.GetAxisRaw("Mouse X");
+        float inputVertical = (Input.GetAxisRaw("XboxRightVertical") != 0) ? Input.GetAxisRaw("XboxRightVertical") : Input.GetAxisRaw("Mouse Y");
 
         // カメラリセット処理
         if (isCameraReset)
@@ -118,7 +127,7 @@ public class PlayerCamera : MonoBehaviour {
             // 現在、プレイヤーから見てカメラがある方角
             Vector3 currentDirection = (transform.position - m_Target.position).normalized;
             // 希望する方向（プレイヤーの背後の方向）
-            Vector3 desiredDirection = -m_Target.forward;
+            Vector3 desiredDirection = -m_Target.forward;// + new Vector3(0, mainCamera.position.y, 0);
             // m_ResetTimeの時間かけて背後に行くようにLerpの強さを調整
             float strength = 4.5f / m_ResetTime;
 
@@ -126,11 +135,15 @@ public class PlayerCamera : MonoBehaviour {
             Vector3 lerpedDirection = Vector3.Slerp(currentDirection, cameraLeaveVec, strength * Time.deltaTime);
 
             // 場所を確定する
-            transform.position = m_Target.position + lerpedDirection * m_DefaultDistance;
-            if (Time.time > m_ResetStartTime + m_ResetTime) isCameraReset = false;
+            transform.position = m_Target.position + lerpedDirection * CameraToPlayerDistance();
+            if (Time.time > m_ResetStartTime + m_ResetTime
+                //|| inputHorizontal != 0 
+                //|| inputVertical != 0
+                ) isCameraReset = false;
             // ターゲットの方を向く
             transform.LookAt(new Vector3(m_Target.position.x, m_Target.position.y + (cameraLeaveVec.y * CameraToPlayerDistance()), m_Target.position.z));
             transform.Rotate(new Vector3(0, 180, 0)); //もともと180度のy軸回転
+            Debug.Log("(^o^)");
         }
         else
         {
@@ -167,9 +180,6 @@ public class PlayerCamera : MonoBehaviour {
             // 現在の場所から目標の場所まで少しずつ近づく
             mainCamera.position = Vector3.Lerp(mainCamera.position, targetPos, m_Strength * Time.deltaTime);
 
-            float inputHorizontal = (Input.GetAxisRaw("XboxRightHorizontal") != 0) ? Input.GetAxisRaw("XboxRightHorizontal") : Input.GetAxisRaw("Mouse X");
-            float inputVertical = (Input.GetAxisRaw("XboxRightVertical") != 0) ? Input.GetAxisRaw("XboxRightVertical") : Input.GetAxisRaw("Mouse Y");
-
             if (Input.GetKey("mouse 0"))//作業の邪魔だからクリックしてる間にしてる、いらないif
             {
                 // 横回転（ヨー）
@@ -202,7 +212,28 @@ public class PlayerCamera : MonoBehaviour {
                 // Quaternionに変換してtransform.rotationに設定し直す
                 transform.rotation = Quaternion.Euler(rotation);
             }
+            if(followSpeed != 0.0f && CanFollowTarget())
+            {
+                // 横回転（ヨー）
+                transform.Rotate(Vector3.up, followSpeed * m_followYawSpeed * Time.deltaTime, Space.World);
+
+                // 現在の角度をVector3で取得する
+                Vector3 rotation = transform.rotation.eulerAngles;
+                // 変更した値を仰角に設定する
+                rotation.x = m_PitchAngle;
+                // Quaternionに変換してtransform.rotationに設定し直す
+                transform.rotation = Quaternion.Euler(rotation);
+            }
         }
+    }
+
+
+    public bool CanFollowTarget()
+    {
+        Vector3 directionToTarget = mainCamera.position - m_Target.position;
+        float angleToTarget = Vector3.Angle(-m_Target.forward, directionToTarget);
+        
+        return (Mathf.Abs(angleToTarget) <= 45);
     }
 
     private void Wait()
@@ -212,11 +243,7 @@ public class PlayerCamera : MonoBehaviour {
 
     private void OidashiCamera()
     {
-        // Rボタンで視点リセット（背後へ回り込む）
-        //if (Input.GetKey(KeyCode.R))
-        //{
-        //    CameraReset();
-        //}
+        
     }
 
     private void EntryCamera()
@@ -231,9 +258,6 @@ public class PlayerCamera : MonoBehaviour {
             cameraLeaveVec = CameraLeaveVec();
             targetPos = transform.position + cameraLeaveVec * CameraToPlayerDistance();
             mainCamera.position = Vector3.Lerp(mainCamera.position, targetPos, m_Strength * Time.deltaTime);
-            //transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, m_Target.eulerAngles, m_Strength * Time.deltaTime);
-            //transform.eulerAngles = m_Target.eulerAngles;
-            //transform.Rotate(new Vector3(0, 180, 0)); //もともと180度のy軸回転
 
             if (Vector3.Distance(targetPos,mainCamera.position)< m_DefaultDistance + 1)
             {
@@ -275,8 +299,9 @@ public class PlayerCamera : MonoBehaviour {
         return m_DefaultDistance + addDistance * playerSC.GetBaggageCount();
     }
 
-    public void CameraReset()
+    public void CameraReset(float resetTime = 1.0f)
     {
+        m_ResetTime = resetTime;
         isCameraReset = true;
         m_ResetStartTime = Time.time;
         transform.position = mainCamera.transform.position;
@@ -300,5 +325,12 @@ public class PlayerCamera : MonoBehaviour {
     public void Entry()
     {
         isEntry = true;
+    }
+
+    public void GlidingRotation(float angle,bool reset = false)
+    {
+        followSpeed = angle;
+        followSpeed = Mathf.Clamp(followSpeed, -1, 1);
+        if (reset&& CanFollowTarget()) CameraReset(5.0f);
     }
 }
