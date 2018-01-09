@@ -1897,6 +1897,7 @@ GameObject:
   - component: {fileID: 114486449294721150}
   - component: {fileID: 82438975520255374}
   - component: {fileID: 54936814586157030}
+  - component: {fileID: 114937067077688982}
   m_Layer: 0
   m_Name: CustomerMen
   m_TagString: Cutomer
@@ -5526,7 +5527,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1651861089722626}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17.968954, y: 2.0021607e-17, z: -4.5084653}
+  m_LocalPosition: {x: -12.752988, y: 5.598063e-17, z: -12.605719}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4367413762072460}
@@ -6015,6 +6016,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ViewingDistance: 0
   m_ViewingAngle: 0
+--- !u!114 &114937067077688982
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1651861089722626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a7afb841311f640a5089130ed8a3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeObject: {fileID: 1257278026864360}
+  nikuPrefab: {fileID: 1360990445985830, guid: 3cc9caecca545b94684816ac009a9534, type: 2}
 --- !u!137 &137372545983421802
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

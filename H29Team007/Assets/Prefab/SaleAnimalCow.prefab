@@ -739,6 +739,7 @@ GameObject:
   - component: {fileID: 82866333210200840}
   - component: {fileID: 54391869206536458}
   - component: {fileID: 114089645149996388}
+  - component: {fileID: 114096470179953486}
   m_Layer: 14
   m_Name: SaleAnimalCow
   m_TagString: Animal
@@ -2022,6 +2023,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed9a5f8230cdd947bb9d295d2468281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114096470179953486
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1735719309140114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a7afb841311f640a5089130ed8a3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeObject: {fileID: 1758259217315540}
+  nikuPrefab: {fileID: 1360990445985830, guid: 3cc9caecca545b94684816ac009a9534, type: 2}
 --- !u!114 &114532942429720082
 MonoBehaviour:
   m_ObjectHideFlags: 1

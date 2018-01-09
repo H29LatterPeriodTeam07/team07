@@ -136,7 +136,7 @@ public class RunOverObject : MonoBehaviour
             myCollider.enabled = false;
             //ここにアニメ停止や変更入れるかも
             Vector3 v = other.transform.parent.position;
-            bool a = sc.IsHumanMoreThanAnimal();
+            //bool a = sc.IsHumanMoreThanAnimal();
             Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
             transform.position = nimotuPos;
             //Vector3 v = other.transform.parent.position;

@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 95163000584078218}
   - component: {fileID: 82696461296277940}
   - component: {fileID: 54399064370143552}
+  - component: {fileID: 114245587708132722}
   m_Layer: 14
   m_Name: SaleAnimalPig
   m_TagString: Animal
@@ -1783,7 +1784,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1048577695447666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.887142, y: 4.0351892e-17, z: -9.086438}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4676598217661380}
@@ -2345,6 +2346,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ViewingDistance: 10
   m_ViewingAngle: 180
+--- !u!114 &114245587708132722
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1048577695447666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a7afb841311f640a5089130ed8a3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeObject: {fileID: 1272326048936306}
+  nikuPrefab: {fileID: 1360990445985830, guid: 3cc9caecca545b94684816ac009a9534, type: 2}
 --- !u!114 &114358577896896856
 MonoBehaviour:
   m_ObjectHideFlags: 1

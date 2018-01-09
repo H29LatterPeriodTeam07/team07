@@ -11,6 +11,7 @@ public class BasketFly : MonoBehaviour
     public GameObject cartRigidPrefab;
 
     private bool oneHit = false;
+    private bool punch = false;
 
     // Use this for initialization
     void Start()
@@ -18,12 +19,18 @@ public class BasketFly : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         //enabled = false;
         m_rigid = GetComponent<Rigidbody>();
-        m_rigid.AddForce(player.transform.forward * 20.0f, ForceMode.VelocityChange);
+        m_rigid.AddForce(player.transform.up * 6.5f, ForceMode.VelocityChange);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(!punch && transform.position.y < CartRelatedData.cartFlyStartPosY)
+        {
+            m_rigid.velocity = player.transform.forward * 20.0f;
+            //m_rigid.AddForce(player.transform.forward * 20.0f, ForceMode.VelocityChange);
+            punch = true;
+        }
         if (m_rigid.velocity == Vector3.zero)
         {
 

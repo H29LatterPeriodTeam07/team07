@@ -25,6 +25,8 @@ public class ShoppingCount : MonoBehaviour
     [SerializeField, Header("カートに乗れる最大の値")]
     private int maxCountDefault = 10;
     private int maxCount;
+    private int humanCount = 1;
+    private int animalCount = 0;
 
     //[SerializeField, Header("スコアUI")]
     private Text score;
@@ -45,6 +47,12 @@ public class ShoppingCount : MonoBehaviour
     private float baggageLimitAngle = 90.0f;
 
     private PlayerSE seScript;
+
+    private bool rightpush = false;           //　最初に移動ボタンを押したかどうか
+    private bool leftpush = false;           //　最初に移動ボタンを押したかどうか
+    private float nextButtonDownTime = 0.5f;    //　次に移動ボタンが押されるまでの時間
+    private float rightnowTime = 0f;			//　最初に移動ボタンが押されてからの経過時間
+    private float leftnowTime = 0f;			//　最初に移動ボタンが押されてからの経過時間
 
     // Use this for initialization 
     void Start()
@@ -106,6 +114,8 @@ public class ShoppingCount : MonoBehaviour
         {
             flyWaitTime = 0.0f;
         }
+
+        TopFallInput();
     }
 
     public void BasketIn()
@@ -244,39 +254,8 @@ public class ShoppingCount : MonoBehaviour
 
     public bool IsHumanMoreThanAnimal()
     {
-        int humanCount = 1;
-        int animalCount = 0;
-        for (int i = 0; i < myBaggage.Count; i++)
-        {
-            if (myBaggage[i].tag == "Plasticbag")
-            {
-                //mybags.Add(myBaggege[i]);
-            }
-            else if (myBaggage[i].tag == "Animal")
-            {
-                animalCount++;
-            }
-            else
-            {
-                humanCount++;
-            }
-        }
-        for (int i = 0; i < myBaggage2.Count; i++)
-        {
-            if (myBaggage2[i].tag == "Plasticbag")
-            {
-                //mybags.Add(myBaggege[i]);
-            }
-            else if (myBaggage2[i].tag == "Animal")
-            {
-                animalCount++;
-            }
-            else
-            {
-                humanCount++;
-            }
-        }
-        return (humanCount + childCount > animalCount);
+        
+        return (GetHumanCount() > animalCount);
     }
 
     /// <summary>荷物の追加</summary>
@@ -284,6 +263,7 @@ public class ShoppingCount : MonoBehaviour
     public void AddBaggege(Transform baggege)
     {
         myBaggage.Add(baggege);
+        baggege.eulerAngles = playerScript.MyCart().transform.eulerAngles;
         baggageScript.SetChildren(baggege,baggege.GetComponent<RunOverObject>().GetHeight());
         SetScore();
     }
@@ -340,6 +320,75 @@ public class ShoppingCount : MonoBehaviour
         //GameObject newbag = Instantiate(bagPrefab);
 
         //newbag.GetComponent<RunOverObject>().SetPlasticBagPos(basket);
+
+    }
+
+    private void TopBaggegeFall(int n = 1)
+    {
+        List<Transform> mybags = new List<Transform>();
+        List<Transform> mybags2 = new List<Transform>();
+        if (n == 1)
+        {
+            if (myBaggage.Count < 1) return;
+            for (int i = 0; i < myBaggage.Count - 1; i++)
+            {
+                mybags.Add(myBaggage[i]);
+            }
+            for (int i = 0; i < myBaggage2.Count; i++)
+            {
+                mybags2.Add(myBaggage2[i]);
+            }
+
+            float x = Random.Range(1.0f, 3.0f);
+            float z = Random.Range(-3.0f, -1.0f);
+            float sp = Random.Range(5.0f, 10.0f);
+            
+            Vector3 pos = new Vector3(transform.position.x, 0, transform.position.z) + transform.right * x + transform.forward * z;
+
+            FallDown fall = myBaggage[myBaggage.Count - 1].GetComponent<FallDown>();
+            fall.enabled = true;
+            fall.SetPoint(pos, sp);
+
+            myBaggage[myBaggage.Count - 1].parent = null;
+        }
+        else
+        {
+            if (myBaggage2.Count < 1) return;
+            for (int i = 0; i < myBaggage.Count; i++)
+            {
+                mybags.Add(myBaggage[i]);
+            }
+            for (int i = 0; i < myBaggage2.Count - 1; i++)
+            {
+                mybags2.Add(myBaggage2[i]);
+            }
+
+            float x = Random.Range(-1.0f, -3.0f);
+            float z = Random.Range(-3.0f, -1.0f);
+            float sp = Random.Range(5.0f, 10.0f);
+
+            Vector3 pos = new Vector3(transform.position.x, 0, transform.position.z) + transform.right * x + transform.forward * z;
+
+            FallDown fall = myBaggage2[myBaggage2.Count - 1].GetComponent<FallDown>();
+            fall.enabled = true;
+            fall.SetPoint(pos, sp);
+
+            myBaggage2[myBaggage2.Count - 1].parent = null;
+        }
+
+        
+        
+
+        Reset();
+        for (int i = 0; i < mybags.Count; i++)
+        {
+            AddBaggege(mybags[i]);
+            PlusY(mybags[i].GetComponent<RunOverObject>().GetHeight());
+        }
+        for (int i = 0; i < mybags2.Count; i++)
+        {
+            AddBaggege(mybags2[i], playerScript.MySecondCart());
+        }
 
     }
 
@@ -457,8 +506,98 @@ public class ShoppingCount : MonoBehaviour
         }
     }
 
+    public void DeleteBaggege(Transform kesumono)
+    {
+        List<Transform> mybags = new List<Transform>();
+        List<Transform> mybags2 = new List<Transform>();
+
+        for (int i = 0; i < myBaggage.Count; i++)
+        {
+            if (myBaggage[i] != kesumono)
+            {
+                mybags.Add(myBaggage[i]);
+            }
+        }
+
+        for (int i = 0; i < myBaggage2.Count; i++)
+        {
+            if (myBaggage2[i] != kesumono)
+            {
+                mybags2.Add(myBaggage2[i]);
+            }
+        }
+
+        if(kesumono.tag == "Parent") childCount--;
+        Destroy(kesumono.gameObject);
+            
+        Reset();
+        for (int i = 0; i < mybags.Count; i++)
+        {
+            AddBaggege(mybags[i]);
+            PlusY(mybags[i].GetComponent<RunOverObject>().GetHeight());
+        }
+        for (int i = 0; i < mybags2.Count; i++)
+        {
+            AddBaggege(mybags2[i],playerScript.MySecondCart());
+        }
+
+    }
+
+    private void TopFallInput()
+    {
+        
+        if (Input.GetButtonDown("XboxR") || Input.GetKeyDown(KeyCode.L))
+        {
+            if (!rightpush)
+            {
+                rightpush = true;
+                rightnowTime = 0.0f;
+            }
+            else
+            {
+                rightpush = false;
+                TopBaggegeFall();
+            }
+        }
+        if (rightpush)
+        {
+            rightnowTime += Time.deltaTime;
+
+            if (rightnowTime > nextButtonDownTime)
+            {
+                rightpush = false;
+            }
+        }
+
+        if (Input.GetButtonDown("XboxL") || Input.GetKeyDown(KeyCode.K))
+        {
+            if (!leftpush)
+            {
+                leftpush = true;
+                leftnowTime = 0.0f;
+            }
+            else
+            {
+                leftpush = false;
+                TopBaggegeFall(2);
+            }
+        }
+        if (leftpush)
+        {
+            leftnowTime += Time.deltaTime;
+
+            if (leftnowTime > nextButtonDownTime)
+            {
+                leftpush = false;
+            }
+        }
+    }
+
+    /// <summary>スコアの決定</summary>
     private void SetScore()
     {
+        InCount();
+
         int goukei = 0;
         ScoreManager.Reset();
         //ここでエネミーからの値段をもらう
@@ -494,6 +633,43 @@ public class ShoppingCount : MonoBehaviour
         score.text = "￥" + printscore;
     }
 
+    /// <summary>籠に入っているもののカウント</summary>
+    private void InCount()
+    {
+        humanCount = 1;
+        animalCount = 0;
+        for (int i = 0; i < myBaggage.Count; i++)
+        {
+            if (myBaggage[i].tag == "Plasticbag")
+            {
+                //mybags.Add(myBaggege[i]);
+            }
+            else if (myBaggage[i].tag == "Animal")
+            {
+                animalCount++;
+            }
+            else
+            {
+                humanCount++;
+            }
+        }
+        for (int i = 0; i < myBaggage2.Count; i++)
+        {
+            if (myBaggage2[i].tag == "Plasticbag")
+            {
+                //mybags.Add(myBaggege[i]);
+            }
+            else if (myBaggage2[i].tag == "Animal" || myBaggage2[i].tag == "Bull")
+            {
+                animalCount++;
+            }
+            else
+            {
+                humanCount++;
+            }
+        }
+    }
+
     public void PlusChild()
     {
         childCount++;
@@ -502,6 +678,11 @@ public class ShoppingCount : MonoBehaviour
     public void MinusChild()
     {
         childCount--;
+    }
+
+    public int GetHumanCount()
+    {
+        return (humanCount + childCount);
     }
 
     public void SetBaggageLimitAngle(float angle)

@@ -143,7 +143,7 @@ public class PlayerCamera : MonoBehaviour {
             // ターゲットの方を向く
             transform.LookAt(new Vector3(m_Target.position.x, m_Target.position.y + (cameraLeaveVec.y * CameraToPlayerDistance()), m_Target.position.z));
             transform.Rotate(new Vector3(0, 180, 0)); //もともと180度のy軸回転
-            Debug.Log("(^o^)");
+            //Debug.Log("(^o^)");
         }
         else
         {
@@ -212,18 +212,18 @@ public class PlayerCamera : MonoBehaviour {
                 // Quaternionに変換してtransform.rotationに設定し直す
                 transform.rotation = Quaternion.Euler(rotation);
             }
-            if(followSpeed != 0.0f && CanFollowTarget())
-            {
-                // 横回転（ヨー）
-                transform.Rotate(Vector3.up, followSpeed * m_followYawSpeed * Time.deltaTime, Space.World);
+            //if(followSpeed != 0.0f && CanFollowTarget())
+            //{
+            //    // 横回転（ヨー）
+            //    transform.Rotate(Vector3.up, followSpeed * m_followYawSpeed * Time.deltaTime, Space.World);
 
-                // 現在の角度をVector3で取得する
-                Vector3 rotation = transform.rotation.eulerAngles;
-                // 変更した値を仰角に設定する
-                rotation.x = m_PitchAngle;
-                // Quaternionに変換してtransform.rotationに設定し直す
-                transform.rotation = Quaternion.Euler(rotation);
-            }
+            //    // 現在の角度をVector3で取得する
+            //    Vector3 rotation = transform.rotation.eulerAngles;
+            //    // 変更した値を仰角に設定する
+            //    rotation.x = m_PitchAngle;
+            //    // Quaternionに変換してtransform.rotationに設定し直す
+            //    transform.rotation = Quaternion.Euler(rotation);
+            //}
         }
     }
 
@@ -329,8 +329,8 @@ public class PlayerCamera : MonoBehaviour {
 
     public void GlidingRotation(float angle,bool reset = false)
     {
-        followSpeed = angle;
-        followSpeed = Mathf.Clamp(followSpeed, -1, 1);
-        if (reset&& CanFollowTarget()) CameraReset(5.0f);
+        //followSpeed = angle;
+        //followSpeed = Mathf.Clamp(followSpeed, -1, 1);
+        //if (reset&& CanFollowTarget()) CameraReset(5.0f);
     }
 }

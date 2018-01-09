@@ -40,6 +40,7 @@ public class SpringManagerArrange : MonoBehaviour {
         if (Mathf.Abs(springBones[springBones.Count - 1].transform.eulerAngles.x - 180) <= scScript.GetBaggageLimitAngle())
         {
             scScript.BaggegeFall(transform.root.position);
+            Debug.Log("角度オーバー");
         }
     }
 

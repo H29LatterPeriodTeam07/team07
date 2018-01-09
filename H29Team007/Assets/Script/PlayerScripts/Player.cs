@@ -66,6 +66,20 @@ public class Player : MonoBehaviour
     private NavMeshAgent myNav;
     //private GameObject nextCart;
 
+    //2回押し
+    private bool push = false;           //　最初に移動ボタンを押したかどうか
+    private bool stickBack = false;
+    private float nextButtonDownTime = 0.5f;    //　次に移動ボタンが押されるまでの時間
+    private float nowTime = 0f;         //　最初に移動ボタンが押されてからの経過時間
+
+    private float limitAngle = 30.0f;            //　最初に押した方向との違いの限度角度
+    private Vector2 direction = Vector2.zero;			//　移動キーの押した方向
+    //
+
+    private float nikuspeed = 1;
+    private float nikuTimeLimit = 10.0f;
+    private float nikuTime = 0.0f;
+
     private ShoppingCount scScript;
 
     private Transform exitPoint;  //ExitPoint
@@ -112,6 +126,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        inputVertical = 0;
         if (!MainGameDate.IsStart())
         {
             //m_Animator.SetFloat("Speed", 0);
@@ -134,7 +149,8 @@ public class Player : MonoBehaviour
             return;
         }
         if (GetState() == PlayerState.Takeover) return;
-        
+
+        NikuManager();
 
         inputHorizontal = (Input.GetAxisRaw("XboxLeftHorizontal") != 0) ? Input.GetAxisRaw("XboxLeftHorizontal") : Input.GetAxisRaw("Horizontal");
         inputVertical = (Input.GetAxisRaw("XboxLeftVertical") != 0) ? Input.GetAxisRaw("XboxLeftVertical") : Input.GetAxisRaw("Vertical");
@@ -275,15 +291,9 @@ public class Player : MonoBehaviour
 
         Vector3 moveForward = transform.forward * inputVertical;
 
-        rb.velocity = moveForward * onCartMoveSpeed + new Vector3(0, rb.velocity.y, 0);
+        rb.velocity = moveForward * onCartMoveSpeed * nikuspeed + new Vector3(0, rb.velocity.y, 0);
         
-        if (Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O))
-        {
-            //rb.velocity = transform.forward * kickSpeed;
-            rb.AddForce(transform.forward * kickSpeed, ForceMode.VelocityChange);
-            ChangeState(2);
-        }
-
+        
         if (Input.GetButtonDown("XboxR") || Input.GetKeyDown(KeyCode.L))
         {
             m_Animator.Play("hippari");
@@ -292,6 +302,16 @@ public class Player : MonoBehaviour
         {
             m_Animator.Play("moti");
         }
+
+        if (//Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O)
+            IsKick())
+        {
+            //rb.velocity = transform.forward * kickSpeed;
+            rb.AddForce(transform.forward * kickSpeed * nikuspeed, ForceMode.VelocityChange);
+            ChangeState(2);
+        }
+
+
     }
 
     /// <summary>カートを持っていないときの動き </summary>
@@ -304,7 +324,7 @@ public class Player : MonoBehaviour
         Vector3 moveForward = cameraForward * inputVertical + Camera.main.transform.right * inputHorizontal;
 
         // 移動方向にスピードを掛ける。ジャンプや落下がある場合は、別途Y軸方向の速度ベクトルを足す。
-        rb.velocity = moveForward * offCartMoveSpeed + new Vector3(0, rb.velocity.y, 0);
+        rb.velocity = moveForward * offCartMoveSpeed * nikuspeed + new Vector3(0, rb.velocity.y, 0);
 
         // キャラクターの向きを進行方向に
         if (moveForward != Vector3.zero)
@@ -324,9 +344,10 @@ public class Player : MonoBehaviour
         rb.velocity = new Vector3(a.x, 0, a.z);
         //Debug.Log(rb.velocity);
         cameraScript.GlidingRotation(inputHorizontal);
-        if (Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O))
+        if (//Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O)
+            IsKick())
         {
-            rb.velocity = transform.forward * kickSpeed;
+            rb.velocity = transform.forward * kickSpeed * nikuspeed;
             //var info = m_Animator.GetCurrentAnimatorStateInfo(0);
             m_Animator.Play("Kick", 0, 0.0f);
         }
@@ -462,6 +483,87 @@ public class Player : MonoBehaviour
                 ChangeState(0);
             }
         }
+    }
+
+    /// <summary>上方向に2回連続で押されたか</summary>
+    private bool IsKick()
+    {//　移動キーを押した
+        if (Input.GetButtonDown("Vertical") && Input.GetAxisRaw("Vertical") > 0)
+        {
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
+
+            //　最初に1回押していない時は押した事にする
+            if (!push)
+            {
+                push = true;
+                //　最初に移動キーを押した時にその方向ベクトルを取得
+                direction = new Vector2(horizontal, vertical);
+                nowTime = 0f;
+            }
+            else
+            {
+                //　2回目に移動キーを押した時の方向ベクトルを取得
+                var nowDirection = new Vector2(horizontal, vertical);
+
+                //　押した方向がリミットの角度を越えていない　かつ　制限時間内に移動キーが押されていれば走る
+                if (Vector2.Angle(nowDirection, direction) < limitAngle
+                && nowTime <= nextButtonDownTime)
+                {
+                    nowTime = 0f;
+                    push = false;
+                    return true;
+                }
+            }
+        }
+
+        if (Input.GetAxisRaw("XboxLeftVertical") > 0)
+        {
+            float horizontal = Input.GetAxisRaw("XboxLeftHorizontal") ;
+            float vertical = Input.GetAxisRaw("XboxLeftVertical");
+
+            //　最初に1回押していない時は押した事にする
+            if (!push)
+            {
+                push = true;
+                //　最初に移動キーを押した時にその方向ベクトルを取得
+                direction = new Vector2(horizontal, vertical);
+                nowTime = 0f;
+            }
+            else if(stickBack)
+            {
+                //　2回目に移動キーを押した時の方向ベクトルを取得
+                var nowDirection = new Vector2(horizontal, vertical);
+
+                //　押した方向がリミットの角度を越えていない　かつ　制限時間内に移動キーが押されていれば走る
+                if (Vector2.Angle(nowDirection, direction) < limitAngle
+                && nowTime <= nextButtonDownTime)
+                {
+                    nowTime = 0f;
+                    push = false;
+                    stickBack = false;
+                    return true;
+                }
+            }
+
+        }
+
+        //　最初の移動キーを押していれば時間計測
+        if (push)
+        {
+            if (Input.GetAxisRaw("XboxLeftVertical") <= 0) stickBack = true;
+
+            //　時間計測
+            nowTime += Time.deltaTime;
+
+            if (nowTime > nextButtonDownTime)
+            {
+                push = false;
+                stickBack = false;
+            }
+
+        }
+        return false;
     }
 
     /// <summary>カゴを投げ当てたカートに乗り移る </summary>
@@ -609,6 +711,12 @@ public class Player : MonoBehaviour
         return myState;
     }
 
+    public float GetFowardSpeed()
+    {
+        //Debug.Log(rb.velocity.sqrMagnitude);
+        return inputVertical;//rb.velocity.z;
+    }
+
     /// <summary>プレイヤーがカートを持っているかどうか</summary>
     /// <returns>持っていたらtrue</returns>
     public bool IsCart()
@@ -662,6 +770,18 @@ public class Player : MonoBehaviour
         return (Mathf.Abs(angleToBull) <= 90);
     }
 
+    private void NikuManager()
+    {
+        if(nikuspeed == 2)
+        {
+            nikuTime += Time.deltaTime;
+            if(nikuTime > nikuTimeLimit)
+            {
+                nikuspeed = 1;
+            }
+        }
+    }
+
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.tag == "Enemy" )
@@ -709,39 +829,12 @@ public class Player : MonoBehaviour
         //        scScript.AddBaggege(collision.transform, mySecondCart, 1);
         //    }
         //}
+        if (collision.transform.name.Contains("Yakiniku"))
+        {
+            nikuspeed = 2;
+            nikuTime = 0.0f;
+            Destroy(collision.gameObject);
+        }
     }
-
-    public void OnCollisionExit(Collision collision)
-    {
-        //if (collision.transform.tag == "Cart" && havedCart != null)
-        //{
-        //    havedCart = null;
-        //}
-    }
-
-
-    //public void OnTriggerStay(Collider other)
-    //{
-    //    if (other.name == "BackHitArea")
-    //    {
-    //        canGetCart = other.gameObject;
-    //        if (CanGetCart())
-    //        {
-    //            canGet = true;
-    //        }
-    //        else
-    //        {
-    //            canGet = false;
-    //        }
-    //    }
-    //}
-
-    //public void OnTriggerExit(Collider other)
-    //{
-    //    if (other.name == "BackHitArea")
-    //    {
-    //        canGet = false;
-    //        canGetCart = null;
-    //    }
-    //}
+    
 }

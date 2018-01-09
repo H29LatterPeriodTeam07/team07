@@ -639,6 +639,7 @@ GameObject:
   - component: {fileID: 54203820498019450}
   - component: {fileID: 114318163639898992}
   - component: {fileID: 82587450129257614}
+  - component: {fileID: 114226511926722562}
   m_Layer: 0
   m_Name: SaleBBA
   m_TagString: BBA
@@ -10296,6 +10297,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cartRigidPrefab: {fileID: 1196292320950856, guid: 03854730aa3ab5b4fb1652e1f91a084f,
     type: 2}
+--- !u!114 &114226511926722562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1135743514729614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a7afb841311f640a5089130ed8a3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeObject: {fileID: 1861106808784062}
+  nikuPrefab: {fileID: 1360990445985830, guid: 3cc9caecca545b94684816ac009a9534, type: 2}
 --- !u!114 &114318163639898992
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10376,6 +10390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32bc47a5a6edf474dab6112a89363648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myCart: {fileID: 1591560611567440}
   m_int: 0
   m_plane: {fileID: 0}
   m_BBAplehab: {fileID: 0}
