@@ -17,7 +17,9 @@ public enum EnemyState
     //　避ける
     Avoid,
     // 子供
-    ChildPatrol
+    ChildPatrol,
+    //正義
+    JusticeMode
 }
 
 public class SecurityGuard : MonoBehaviour
@@ -50,12 +52,13 @@ public class SecurityGuard : MonoBehaviour
     SoundManagerScript m_smScript;
     RunOverObject m_run;
     bool m_bool = false;
-    float radius = 900f;
+    float radius = 100f;
     private LayerMask raycastLayer;
     float minAngle = 0.0F;
     float maxAngle = 90.0F;
     float m_Horizntal = 0;
     float m_ho = -2.0f;
+    float m_Hearingtime = 0.0f;
     Rigidbody m_rb;
     SecurityGuard m_scScrpt;
     Child m_cScript;
@@ -94,6 +97,25 @@ public class SecurityGuard : MonoBehaviour
             m_Agent.speed = 1f;
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
+            if (m_Child == null)
+            {
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, raycastLayer);
+                if (hitColliders.Length > 0)
+                {
+                    int randomInt = Random.Range(0, hitColliders.Length);
+                    m_Child = hitColliders[randomInt].transform;
+                }
+            }
+            else if (m_Child != null)
+            {
+                m_cScript = m_Child.GetComponent<Child>();
+                 if (m_cScript.Roaring())
+                 {
+                    m_Agent.speed = 3.0f;
+                    m_Agent.destination = m_Child.transform.position;
+                    m_State = EnemyState.ChildPatrol;
+                 }
+            }
             if (CanSeePlayer() && m_bool == false && dis <= 5 && m_scPlayer.GetState() == Player.PlayerState.Gliding)
             {
                 m_Agent.enabled = false;
@@ -108,7 +130,7 @@ public class SecurityGuard : MonoBehaviour
                     "oncomplete", "OnCompleteHandler",
                     "oncompletetarget", this.gameObject));
             }
-            //プレイヤーが見えた場合
+            //カゴに人を乗せているプレイヤーが見えた場合
             if (CanSeePlayer() && m_scPlayer.IsGetHuman())
             {
                 //  m_smScript.PlaySE(1);
@@ -118,27 +140,10 @@ public class SecurityGuard : MonoBehaviour
                 m_Agent.destination = m_Player.transform.position;
             }
             //プレイヤーが見えなくて、目的地に到着した場合
-            else if (HasArrived())
+            if (HasArrived())
             {
                 //目的地を次の巡回ポイントに切り替える
-                if (m_Child == null)
-                {
-                    Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, raycastLayer);
-                    if (hitColliders.Length > 0)
-                    {
-                        int randomInt = Random.Range(0, hitColliders.Length);
-                        m_Child = hitColliders[randomInt].transform;
-                    }
-                    SetNewPatrolPointToDestination();
-                }
-                else if (m_Child != null)
-                {
-                    m_cScript = m_Child.GetComponent<Child>();
-                    // if (m_cScript.Roaring())
-                    //  {
-                    m_State = EnemyState.ChildPatrol;
-                    // }
-                }
+                SetNewPatrolPointToDestination();
             }
         }
         // プレイヤーを追跡中
@@ -184,6 +189,7 @@ public class SecurityGuard : MonoBehaviour
             {
                 // 追跡中（見失い中）に状態変更
                 m_State = EnemyState.ChasingButLosed;
+                m_Agent.speed = 1f;
             }
         }
         // 追跡中（見失い中）の場合
@@ -207,10 +213,67 @@ public class SecurityGuard : MonoBehaviour
         }
         else if(m_State == EnemyState.ChildPatrol)
         {
-            m_Agent.destination = m_Child.transform.position;
             if (HasArrived())
             {
-                m_Agent.destination = m_Child.transform.position;
+                m_Agent.speed=0;
+
+                m_Hearingtime += Time.deltaTime;
+                if(m_Hearingtime > 3)
+                {
+                    m_Agent.destination = m_Player.transform.position;
+                    m_State = EnemyState.JusticeMode;
+                }
+            }
+        }
+        else if (m_State == EnemyState.JusticeMode)
+        {
+            m_ViewingDistance = 1000;
+            m_ViewingAngle = 360;
+
+            if (m_scPlayer.GetState() == Player.PlayerState.Outside)
+            {
+                m_State = EnemyState.Patrolling;
+                m_Agent.speed = 1f;
+            }
+
+            if (CanSeePlayer() && m_bool == false && dis <= 5 && m_scPlayer.GetState() == Player.PlayerState.Gliding)
+            {
+                m_Agent.enabled = false;
+                m_bool = true;
+                m_Animator.SetTrigger("Jump2");
+
+                iTween.MoveTo(gameObject, iTween.Hash(
+                    "x", transform.position.x - 2,
+                    "z", transform.position.z - 2,
+                    "easeType", iTween.EaseType.linear,
+                    "time", 2.0f,
+                    "oncomplete", "OnCompleteHandler",
+                    "oncompletetarget", this.gameObject));
+            }
+
+            // プレイヤーが見えている場合
+            else if (CanSeePlayer())
+            {
+                m_Agent.speed = 3.0f;
+                // プレイヤーの場所へ向かう
+                m_Agent.destination = m_Player.transform.position;
+                if (dis <= 3 && m_bool == false)
+                {
+                    m_Animator.SetTrigger("Jump");
+                    m_bool = true;
+                }
+                if (dis > 5 && m_bool == true)
+                {
+                    m_bool = false;
+                    m_Animator.SetTrigger("Trigger");
+                }
+            }
+            // 見失った場合
+            else
+            {
+                // 追跡中（見失い中）に状態変更
+                m_State = EnemyState.ChasingButLosed;
+                m_Agent.speed = 1f;
             }
         }
         //  Debug.Log(dis);
@@ -293,7 +356,7 @@ public class SecurityGuard : MonoBehaviour
     //プレイヤーを追いかける   
     public bool StateChasing()
     {
-        return m_State == EnemyState.Chasing;
+        return (m_State == EnemyState.Chasing ||m_State == EnemyState.JusticeMode );
     }
 
     public bool Guard()
