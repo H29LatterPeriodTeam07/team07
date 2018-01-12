@@ -111,6 +111,6 @@ public class Basket : MonoBehaviour
 
     public void SetBasketLocalRotation(float angle)
     {
-        transform.localRotation = Quaternion.AngleAxis(angle, new Vector3(0, 1, 0));
+        transform.localRotation = Quaternion.AngleAxis(angle, Vector3.up);
     }
 }
