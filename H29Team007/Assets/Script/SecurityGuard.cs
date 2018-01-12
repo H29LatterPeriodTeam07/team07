@@ -4,19 +4,6 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-//　　　　　　　　　　　　　　　　 /
-//　　　　　　　　　　 　 　 　 　 |　オ さ
-//　　　　　　　　　　　　　　　　」　メ て
-//＿_ ＞ ´￣￣￣｀ ＜⌒Y＼      ｀}   | は
-//_／　　　　　　　ﾒ､　　＼　ヽ          ア
-//　　/{ '⌒､＿  / ＼} ヽ 　∨∧.　　    ン
-//　　{　ｒ云     芹云ﾐｉ   ｉ |         チ
-//　　|　んハ     ヒハ}　ｉ  |＿ﾄｊ}　   だ
-//　　|　ヒ ツ  , ゞ ツ　{ 　 }　∧　　  な
-//　　|　　 　ｰｰ'　　　　　ﾌ /　　∧
-//　　|　　　　　　＿＿ イ ∧　　　 ＼＿／
-//＼ 厂￣￣ﾏ У / }/　 ＼
-
 
 // 敵の状態種別
 public enum EnemyState
@@ -28,7 +15,9 @@ public enum EnemyState
     // 追跡中（見失っている）
     ChasingButLosed,
     //　避ける
-    Avoid
+    Avoid,
+    // 子供
+    ChildPatrol
 }
 
 public class SecurityGuard : MonoBehaviour
@@ -56,17 +45,20 @@ public class SecurityGuard : MonoBehaviour
     Transform m_PlayerLookpoint;
     //自身の目の位置
     Transform m_EyePoint;
+    public Transform m_Child;
     public GameObject m_SoundManager;
     SoundManagerScript m_smScript;
     RunOverObject m_run;
     bool m_bool = false;
-
+    float radius = 900f;
+    private LayerMask raycastLayer;
     float minAngle = 0.0F;
     float maxAngle = 90.0F;
     float m_Horizntal = 0;
     float m_ho = -2.0f;
     Rigidbody m_rb;
     SecurityGuard m_scScrpt;
+    Child m_cScript;
 
     // Use this for initialization
     void Start()
@@ -86,6 +78,7 @@ public class SecurityGuard : MonoBehaviour
         m_AS = GetComponent<AudioSource>();
         m_rb = GetComponent<Rigidbody>();
         m_scScrpt = GetComponent<SecurityGuard>();
+        raycastLayer = 1 << LayerMask.NameToLayer("Child");
     }
 
     // Update is called once per frame
@@ -128,7 +121,24 @@ public class SecurityGuard : MonoBehaviour
             else if (HasArrived())
             {
                 //目的地を次の巡回ポイントに切り替える
-                SetNewPatrolPointToDestination();
+                if (m_Child == null)
+                {
+                    Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, raycastLayer);
+                    if (hitColliders.Length > 0)
+                    {
+                        int randomInt = Random.Range(0, hitColliders.Length);
+                        m_Child = hitColliders[randomInt].transform;
+                    }
+                    SetNewPatrolPointToDestination();
+                }
+                else if (m_Child != null)
+                {
+                    m_cScript = m_Child.GetComponent<Child>();
+                    // if (m_cScript.Roaring())
+                    //  {
+                    m_State = EnemyState.ChildPatrol;
+                    // }
+                }
             }
         }
         // プレイヤーを追跡中
@@ -193,6 +203,14 @@ public class SecurityGuard : MonoBehaviour
             {
                 // 巡回中に状態遷移
                 m_State = EnemyState.Patrolling;
+            }
+        }
+        else if(m_State == EnemyState.ChildPatrol)
+        {
+            m_Agent.destination = m_Child.transform.position;
+            if (HasArrived())
+            {
+                m_Agent.destination = m_Child.transform.position;
             }
         }
         //  Debug.Log(dis);
