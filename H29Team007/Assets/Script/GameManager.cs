@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour {
         [System.NonSerialized]
         public int m_CurrentPatrolPoint2Index = 0;
         [System.NonSerialized]
-        public int m_CurrentPatrolPoint3Index = 1;
+        public int m_CurrentPatrolPoint3Index = 0;
     }
     public GameData[] m_gd;
 

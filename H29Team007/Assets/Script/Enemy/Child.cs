@@ -105,7 +105,7 @@ public class Child : MonoBehaviour {
                     m_ViewingAngle = 180;
                     if (CanSeeParent2())
                     {
-                        print("見える、見えるぞ");
+                 
                         m_Agent.speed = 2.0f;
                         m_Agent.destination = PPos;
                     }
@@ -122,7 +122,7 @@ public class Child : MonoBehaviour {
                 m_ViewingAngle = 180;
                 if (CanSeeParent2())
                 {
-                    print("いたぞおおおおおお");
+                 
                     m_Agent.speed = 2.0f;
                     m_Agent.destination = PPos;
                 }
@@ -135,6 +135,7 @@ public class Child : MonoBehaviour {
             {
                 m_Agent.speed = 0;
                 print("おーいおいおいおいおい、おいおい");
+
                 m_GaurdCoal = true;
                 if (CanSeeParent2())
                 {
@@ -257,5 +258,10 @@ public class Child : MonoBehaviour {
             return false;
         // ここまで到達したら、それは親が見えるということ
         return true;
+    }
+
+    public bool Roaring()
+    {
+        return m_State == ChildState.CryMode;
     }
 }

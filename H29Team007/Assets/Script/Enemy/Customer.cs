@@ -6,7 +6,8 @@ using UnityEngine.AI;
 public enum CustomerState
 {
     //ノーマルモード
-    NormalMode
+    NormalMode,
+    RoaringMode
 }
 
 public class Customer : MonoBehaviour {
@@ -21,6 +22,7 @@ public class Customer : MonoBehaviour {
     private CustomerState m_State = CustomerState.NormalMode;
     private Animator m_Animator;
     NavMeshAgent m_Agent;
+    Player m_pScript;
     //プレイヤーへの参照
     GameObject m_Player;
     //プレイヤーへの注視点
@@ -53,6 +55,7 @@ public class Customer : MonoBehaviour {
         m_PlayerLookpoint = m_Player.transform.Find("LookPoint");
         m_EyePoint = transform.Find("LookEye");
         m_Animator = GetComponent<Animator>();
+        m_pScript = m_Player.GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -66,11 +69,15 @@ public class Customer : MonoBehaviour {
            // m_Agent.speed = 1.0f;
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
-            if (HasArrived())
+            if (HasArrived() && m_pScript.IsGetHuman())
             {
-                //     m_Agent.speed = 1.0f;
-                SetNewPatrolPointToDestination();
+                m_State = CustomerState.RoaringMode;
             }
+            
+        }
+        else if(m_State == CustomerState.RoaringMode)
+        {
+
         }
         m_Animator.SetFloat("Speed", m_Agent.speed);
     }

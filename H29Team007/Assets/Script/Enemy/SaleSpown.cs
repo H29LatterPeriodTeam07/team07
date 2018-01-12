@@ -104,7 +104,7 @@ public class SaleSpown : MonoBehaviour {
 
     public bool SaleMode()
     {
-        return m_timer.timer > m_SaleMode;
+        return myTime > m_SaleMode;
     }
 
     public void SetTime(float time)

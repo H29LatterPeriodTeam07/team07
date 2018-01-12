@@ -3,18 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-//　 　 　 ＼
-//　　　　　 ＼
-//　 　 　 　  |　　　　  ／￣ ＼
-//　 あ 生奇　 |　　　 と(９ (９"とつ　　　　　す
-//　 た 命跡   |　　 　 ﾉ⌒ノ     |　　　　　　っ
-//   え がだ    フ      `ｰi´　　　 |====ミ   く 
-//   ら    ：　l.         │　　　人::::; ﾉ＼
-//　 れ.   ：　| 　 　 _,ノト- 　_j l| ￣　 〉
-//　 た　　　　!　　　＼人＿_   ＼ノ.＿＿_／
-//.　 ：　　　／　　　| l　　|　| 　 ||  l |
-//.　 ：　 ／　　　　　-=ﾆ'ー'ﾆﾆ'ー'ﾆﾆﾆﾆ=---
-//＿＿＿／
 
 public enum BBAState
 {
@@ -36,8 +24,6 @@ public class BBA : MonoBehaviour
     private GameObject myCart;
     [SerializeField, Header("GameManagerのm_gdと同じ数字を入れてケロ")]
     private int m_int;
-    public GameObject m_plane;
-    public GameObject m_BBAplehab;
     //見える距離
     public float m_ViewingDistance;
     //視野角
@@ -125,9 +111,9 @@ public class BBA : MonoBehaviour
             //特売品が出てくる時間になったら特売品モードに
             if (m_gmScript.m_scSaleSpown.SaleMode())
             {
+                SetNewSalePatrolPointToDestination();
                 //特売品モードに状態変更
                 m_State = BBAState.SaleMode;
-                //   m_Agent.destination = m_Player.transform.position;
             }
             else
             {
@@ -148,14 +134,13 @@ public class BBA : MonoBehaviour
         {
             m_Agent.speed = 4.0f;
             m_Animator.SetFloat("Speed", m_Agent.speed);
-           // SetNewSalePatrolPointToDestination();
-
+            // SetNewSalePatrolPointToDestination();
             m_ViewingDistance = 100;
             m_ViewingAngle = 180;
 
-            if (myCart == null)
+            if (BBAHasArrived())
             {
-                m_State = BBAState.NoCart;
+                SetNewSalePatrolPointToDestination();
             }
 
             if (m_Animal == null)
@@ -167,28 +152,33 @@ public class BBA : MonoBehaviour
                     m_Animal = hitColliders[randomInt].transform;
                 }
             }
-            else if(m_Animal != null)
+
+            else if (m_Animal != null)
             {
                 m_Agent.destination = m_Animal.transform.position;
             }
 
-            else if (BBAHasArrived())
-            {
-                //  transform.LookAt(m_gmScript.m_SaleAnimalSpowns[0].transform.position);
-                SetNewSalePatrolPointToDestination();
-            }
-
             if (IsGetAnimal())
             {
+                SetNewExitPointToDestination();
                 m_State = BBAState.CashMode;
+            }
+
+            if (myCart == null)
+            {
+                m_State = BBAState.NoCart;
             }
         }
 
         //レジ～出入り口へGOモード
         else if (m_State == BBAState.CashMode)
         {
-            SetNewExitPointToDestination();
+        
             m_Speed = 4.0f;
+            if (BBAHasArrived())
+            {
+                SetNewExitPointToDestination();
+            }
 
             if (!IsGetAnimal()) m_State = BBAState.NormalMode;
 
@@ -203,6 +193,8 @@ public class BBA : MonoBehaviour
             Destroy(m_basket.gameObject);
             SetNewRPatrolPointToDestination();
         }
+
+        print(m_State);
     }
 
     void SetNewRPatrolPointToDestination()
@@ -275,21 +267,21 @@ public class BBA : MonoBehaviour
             if (i == 0 && m_int == i)
             {
                 m_gmScript.m_CurrentPatrolPoint3Index
-            = (m_gmScript.m_gd[i].m_CurrentPatrolPoint2Index + 1) % m_gmScript.m_ReziExitpoints.Length;
+            = (m_gmScript.m_gd[i].m_CurrentPatrolPoint3Index + 1) % m_gmScript.m_ReziExitpoints.Length;
 
                 m_Agent.destination = m_gmScript.m_ReziExitpoints[m_gmScript.m_CurrentPatrolPoint3Index].position;
             }
             else if (i == 1 && m_int == i)
             {
                 m_gmScript.m_CurrentPatrolPoint3Index
-            = (m_gmScript.m_gd[i].m_CurrentPatrolPoint2Index + 1) % m_gmScript.m_ReziExitpoints.Length;
+            = (m_gmScript.m_gd[i].m_CurrentPatrolPoint3Index + 1) % m_gmScript.m_ReziExitpoints.Length;
 
                 m_Agent.destination = m_gmScript.m_ReziExitpoints[m_gmScript.m_CurrentPatrolPoint3Index].position;
             }
             else if (i == 2 && m_int == i)
             {
                 m_gmScript.m_CurrentPatrolPoint3Index
-            = (m_gmScript.m_gd[i].m_CurrentPatrolPoint2Index + 1) % m_gmScript.m_ReziExitpoints.Length;
+            = (m_gmScript.m_gd[i].m_CurrentPatrolPoint3Index + 1) % m_gmScript.m_ReziExitpoints.Length;
 
                 m_Agent.destination = m_gmScript.m_ReziExitpoints[m_gmScript.m_CurrentPatrolPoint3Index].position;
             }

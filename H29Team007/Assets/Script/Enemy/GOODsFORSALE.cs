@@ -50,7 +50,7 @@ public class GOODsFORSALE : MonoBehaviour
         m_Agent = GetComponent<NavMeshAgent>();
         //目的地を設定する
         // SetNewPatrolPointToDestination();
-        // DoPatrol();
+         DoPatrol();
         //タグでプレイヤーオブジェクトを検索して保持
         m_Player = GameObject.FindGameObjectWithTag("Player");
         //タグでババアオブジェクトを検索して保持
@@ -68,8 +68,8 @@ public class GOODsFORSALE : MonoBehaviour
         {
             m_PatrolPoints[i] = m_PatrolPoint.transform.GetChild(i).gameObject;
         }
-        m_exitPont = GameObject.FindGameObjectWithTag("ExitPoint");
-        m_eScript = m_exitPont.GetComponent<Exit>();
+        //m_exitPont = GameObject.FindGameObjectWithTag("ExitPoint");
+        //m_eScript = m_exitPont.GetComponent<Exit>();
 
 
     }
@@ -84,17 +84,17 @@ public class GOODsFORSALE : MonoBehaviour
                 //退避に状態変更
                 m_State = SaleAnimalState.WarningMode;
             }
-            else
-            {
-                if (m_eScript.BullApper())
-                {
-                    BullPatrol();
-                }
-                else
-                {
-                    DoPatrol();
-                }
-            }
+            //else
+            //{
+            //    if (m_eScript.BullApper())
+            //    {
+            //        BullPatrol();
+            //    }
+            //    else
+            //    {
+                  DoPatrol();
+            //    }
+            //}
 
         }
         else if (m_State == SaleAnimalState.WarningMode)
