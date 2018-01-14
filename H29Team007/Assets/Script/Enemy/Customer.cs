@@ -69,15 +69,11 @@ public class Customer : MonoBehaviour {
            // m_Agent.speed = 1.0f;
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
-            if (HasArrived() && m_pScript.IsGetHuman())
+            if (HasArrived())
             {
-                m_State = CustomerState.RoaringMode;
+                SetNewPatrolPointToDestination();
             }
             
-        }
-        else if(m_State == CustomerState.RoaringMode)
-        {
-
         }
         m_Animator.SetFloat("Speed", m_Agent.speed);
     }
@@ -93,55 +89,5 @@ public class Customer : MonoBehaviour {
     bool HasArrived()
     {
         return (Vector3.Distance(m_Agent.destination, transform.position) < 0.5f);
-    }
-
-    //プレイヤーが見える距離内にいるか？
-    bool IsPlayerInViewingDistance()
-    {
-        //自身からプレイヤーまでの距離
-        float distanceToPlayer = Vector3.Distance(m_PlayerLookpoint.position, m_EyePoint.position);
-        //プレイヤーが見える距離内にいるかどうかを返却する
-        return (distanceToPlayer <= m_ViewingDistance);
-    }
-
-    //プレイヤーが見える視野角内にいるか？
-    bool IsPlayerInViewingAngle()
-    {
-        //自分からプレイヤーへの方向ベクトル(ワールド座標系)
-        Vector3 directionToPlayer = m_PlayerLookpoint.position - m_EyePoint.position;
-        // 自分の正面向きベクトルとプレイヤーへの方向ベクトルの差分角度
-        float angleToPlayer = Vector3.Angle(m_EyePoint.forward, directionToPlayer);
-
-        // 見える視野角の範囲内にプレイヤーがいるかどうかを返却する
-        return (Mathf.Abs(angleToPlayer) <= m_ViewingAngle);
-    }
-
-    // プレイヤーにRayを飛ばしたら当たるか？
-    bool CanHitRayToPlayer()
-    {
-        // 自分からプレイヤーへの方向ベクトル（ワールド座標系）
-        Vector3 directionToPlayer = m_PlayerLookpoint.position - m_EyePoint.position;
-        // 壁の向こう側などにいる場合は見えない
-        RaycastHit hitInfo;
-        bool hit
-            = Physics.Raycast(m_EyePoint.position, directionToPlayer, out hitInfo);
-        // プレイヤーにRayが当たったかどうかを返却する
-        return (hit && hitInfo.collider.tag == "Player");
-    }
-
-    // プレイヤーが見えるか？
-    bool CanSeePlayer()
-    {
-        // 見える距離の範囲内にプレイヤーがいない場合→見えない
-        if (!IsPlayerInViewingDistance())
-            return false;
-        // 見える視野角の範囲内にプレイヤーがいない場合→見えない
-        if (!IsPlayerInViewingAngle())
-            return false;
-        // Rayを飛ばして、それがプレイヤーに当たらない場合→見えない
-        if (!CanHitRayToPlayer())
-            return false;
-        // ここまで到達したら、それはプレイヤーが見えるということ
-        return true;
     }
 }

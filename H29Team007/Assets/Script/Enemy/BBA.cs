@@ -193,8 +193,6 @@ public class BBA : MonoBehaviour
             Destroy(m_basket.gameObject);
             SetNewRPatrolPointToDestination();
         }
-
-        print(m_State);
     }
 
     void SetNewRPatrolPointToDestination()

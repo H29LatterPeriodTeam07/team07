@@ -60,16 +60,6 @@ public class GOODsFORSALE : MonoBehaviour
         //BBAの注視点を名前で検索して保持
         if (m_BBA != null) m_BBALookpoint = m_BBA.transform.Find("BBAEye");
         m_EyePoint = transform.Find("AnimalLookEye");
-        //タグでパトロールポイントの親を検索して保持
-        m_PatrolPoint = GameObject.FindGameObjectWithTag("PatrolPoint");
-        m_PatrolPoints = new GameObject[m_PatrolPoint.transform.childCount];
-        //パトロールポイントの子を取得
-        for (int i = 0; m_PatrolPoint.transform.childCount > i; i++)
-        {
-            m_PatrolPoints[i] = m_PatrolPoint.transform.GetChild(i).gameObject;
-        }
-        //m_exitPont = GameObject.FindGameObjectWithTag("ExitPoint");
-        //m_eScript = m_exitPont.GetComponent<Exit>();
 
 
     }
