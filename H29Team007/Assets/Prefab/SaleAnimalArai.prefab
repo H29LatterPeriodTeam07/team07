@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 95618260232685068}
   - component: {fileID: 82675864930155394}
   - component: {fileID: 54071665166172542}
+  - component: {fileID: 114838904082405636}
   m_Layer: 14
   m_Name: SaleAnimalArai
   m_TagString: Animal
@@ -1931,6 +1932,19 @@ MonoBehaviour:
   stiffnessForce: 1
   dragForce: 1
   springForce: {x: 0, y: -0.05, z: 0}
+--- !u!114 &114838904082405636
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1510316423192804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a7afb841311f640a5089130ed8a3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeObject: {fileID: 1337788646952440}
+  nikuPrefab: {fileID: 1360990445985830, guid: 3cc9caecca545b94684816ac009a9534, type: 2}
 --- !u!114 &114863953556535520
 MonoBehaviour:
   m_ObjectHideFlags: 1

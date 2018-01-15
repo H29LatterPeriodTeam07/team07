@@ -383,6 +383,7 @@ GameObject:
   - component: {fileID: 114006628418397640}
   - component: {fileID: 114828146259113904}
   - component: {fileID: 114849129740255882}
+  - component: {fileID: 114459640663701866}
   m_Layer: 0
   m_Name: Herazika
   m_TagString: Bull
@@ -2303,6 +2304,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa1f0000c04e8c84f9910bb30eaa1126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114459640663701866
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1378899015375550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a7afb841311f640a5089130ed8a3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeObject: {fileID: 1058354181634850}
+  nikuPrefab: {fileID: 1360990445985830, guid: 3cc9caecca545b94684816ac009a9534, type: 2}
 --- !u!114 &114777995581979472
 MonoBehaviour:
   m_ObjectHideFlags: 1

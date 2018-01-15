@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 95058592410966402}
   - component: {fileID: 82675128389757906}
   - component: {fileID: 54012002892454846}
+  - component: {fileID: 114014169004261816}
   m_Layer: 14
   m_Name: SaleAnimalSheep
   m_TagString: Animal
@@ -2216,6 +2217,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114014169004261816
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1049580333028202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a7afb841311f640a5089130ed8a3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeObject: {fileID: 1708529960591116}
+  nikuPrefab: {fileID: 1360990445985830, guid: 3cc9caecca545b94684816ac009a9534, type: 2}
 --- !u!114 &114040589261821740
 MonoBehaviour:
   m_ObjectHideFlags: 1

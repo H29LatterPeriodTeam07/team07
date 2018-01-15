@@ -246,6 +246,7 @@ GameObject:
   - component: {fileID: 114027973059947704}
   - component: {fileID: 114836958785704710}
   - component: {fileID: 114534440470970160}
+  - component: {fileID: 114454545076324472}
   m_Layer: 0
   m_Name: Shark
   m_TagString: Bull
@@ -1082,6 +1083,19 @@ MonoBehaviour:
   m_Entrance: {fileID: 0}
   basket: {fileID: 1661177889670670}
   maxCountDefault: 11
+--- !u!114 &114454545076324472
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1501958742095240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a7afb841311f640a5089130ed8a3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeObject: {fileID: 1397833299618462}
+  nikuPrefab: {fileID: 1360990445985830, guid: 3cc9caecca545b94684816ac009a9534, type: 2}
 --- !u!114 &114499368547236116
 MonoBehaviour:
   m_ObjectHideFlags: 1
