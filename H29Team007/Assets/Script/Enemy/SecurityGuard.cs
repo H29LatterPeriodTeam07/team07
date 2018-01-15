@@ -19,7 +19,9 @@ public enum EnemyState
     // 子供
     ChildPatrol,
     //正義
-    JusticeMode
+    JusticeMode,
+    //店員
+    clerkPatrol
 }
 
 public class SecurityGuard : MonoBehaviour
@@ -47,13 +49,15 @@ public class SecurityGuard : MonoBehaviour
     Transform m_PlayerLookpoint;
     //自身の目の位置
     Transform m_EyePoint;
-    public Transform m_Child;
+    Transform m_Child;
+    Transform m_clerk;
     public GameObject m_SoundManager;
     SoundManagerScript m_smScript;
     RunOverObject m_run;
     bool m_bool = false;
     float radius = 100f;
     private LayerMask raycastLayer;
+    private LayerMask raycastLayer2;
     float minAngle = 0.0F;
     float maxAngle = 90.0F;
     float m_Horizntal = 0;
@@ -62,6 +66,7 @@ public class SecurityGuard : MonoBehaviour
     Rigidbody m_rb;
     SecurityGuard m_scScrpt;
     Child m_cScript;
+    Clerk m_clScript;
 
     // Use this for initialization
     void Start()
@@ -82,6 +87,7 @@ public class SecurityGuard : MonoBehaviour
         m_rb = GetComponent<Rigidbody>();
         m_scScrpt = GetComponent<SecurityGuard>();
         raycastLayer = 1 << LayerMask.NameToLayer("Child");
+        raycastLayer2 = 1 << LayerMask.NameToLayer("Clerk"); 
     }
 
     // Update is called once per frame
@@ -125,6 +131,31 @@ public class SecurityGuard : MonoBehaviour
                 {
                     m_Child.gameObject.SetActive(false);
                     m_Child = null;
+                    m_Hearingtime = 0;
+                }
+            }
+            if (m_clerk == null)
+            {
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, raycastLayer2);
+                if (hitColliders.Length > 0)
+                {
+                    int randomInt = Random.Range(0, hitColliders.Length);
+                    m_clerk= hitColliders[randomInt].transform;
+                }
+            }
+            else if (m_clerk != null)
+            {
+                m_clScript = m_clerk.GetComponent<Clerk>();
+                if (m_clScript.warning())
+                {
+                    m_Agent.speed = 3.0f;
+                    m_Agent.destination = m_clerk.transform.position;
+                    m_State = EnemyState.clerkPatrol;
+                }
+                if (m_scPlayer.GetState() == Player.PlayerState.Outside)
+                {
+                    m_clerk.gameObject.SetActive(false);
+                    m_clerk = null;
                     m_Hearingtime = 0;
                 }
             }
@@ -240,6 +271,28 @@ public class SecurityGuard : MonoBehaviour
                 {
                     m_Child.gameObject.SetActive(false);
                     m_Child = null;
+                    m_Hearingtime = 0;
+                    m_Agent.speed = 1f;
+                    m_State = EnemyState.Patrolling;
+                }
+            }
+        }
+        else if (m_State == EnemyState.clerkPatrol)
+        {
+            if (HasArrived())
+            {
+                m_Agent.speed = 0;
+                print(m_Hearingtime);
+                m_Hearingtime += Time.deltaTime;
+                if (m_Hearingtime > 3)
+                {
+                    m_Agent.speed = 3;
+                    m_Agent.destination = m_Player.transform.position;
+                    m_State = EnemyState.JusticeMode;
+                }
+                if (m_scPlayer.GetState() == Player.PlayerState.Outside)
+                {
+                    m_clerk= null;
                     m_Hearingtime = 0;
                     m_Agent.speed = 1f;
                     m_State = EnemyState.Patrolling;

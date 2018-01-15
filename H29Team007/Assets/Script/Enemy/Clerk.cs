@@ -36,7 +36,7 @@ public class Clerk : MonoBehaviour
     int m_rand;
     GameObject m_PatrolPoint;
     GameObject[] m_PatrolPoints;
-
+    Player m_pScript;
 
     // Use this for initialization
     void Start()
@@ -60,11 +60,13 @@ public class Clerk : MonoBehaviour
         m_Animator = GetComponent<Animator>();
         m_rand = Random.Range(0, m_PatrolPoints.Length);
         m_AS = GetComponent<AudioSource>();
+        m_pScript = m_Player.GetComponent<Player>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        print(m_State);
         //巡回中
         if (m_State == ClerkState.NormalMode)
         {
@@ -72,7 +74,7 @@ public class Clerk : MonoBehaviour
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
             //プレイイヤーが見えた場合
-            if (CanSeePlayer())
+            if (CanSeePlayer() && m_pScript.IsGetHuman())
             {
                 m_Agent.speed = 1.0f;
                 //追跡中に状態変更
@@ -86,19 +88,12 @@ public class Clerk : MonoBehaviour
                 SetNewPatrolPointToDestination();
             }
         }
-        // プレイヤーを追跡中
+        // 警備員を呼ぶ
         else if (m_State == ClerkState.WarningMode)
         {
-            // プレイヤーが見えている場合
-            if (CanSeePlayer())
+            m_Agent.speed = 0.0f;
+            if (m_pScript.GetState() == Player.PlayerState.Outside)
             {
-                m_ViewingDistance = 1000;
-                m_ViewingAngle = 360;
-            }
-            // 見失った場合
-            else
-            {
-                // 追跡中（見失い中）に状態変更
                 m_State = ClerkState.NormalMode;
             }
         }
@@ -166,5 +161,10 @@ public class Clerk : MonoBehaviour
             return false;
         // ここまで到達したら、それはプレイヤーが見えるということ
         return true;
+    }
+
+    public bool warning()
+    {
+        return m_State == ClerkState.WarningMode;
     }
 }
