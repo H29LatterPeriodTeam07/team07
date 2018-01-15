@@ -29,7 +29,7 @@ public class TutorialShopping : MonoBehaviour {
     private Text score;
     private GameObject scoreUI;
     [SerializeField, Header("コインプレハブ")]
-    private GameObject coinPrefab;
+    private GameObject coinManagerPrefab;
 
     private int childCount = 0;
 
@@ -440,12 +440,10 @@ public class TutorialShopping : MonoBehaviour {
             }
             GameObject newbag = Instantiate(bagPrefab);
 
-            for(int i = 0; i < bagprice / 10; i++)
-            {
-                GameObject coin = Instantiate(coinPrefab);
-                coin.transform.SetParent(score.transform);
-                coin.GetComponent<Coin>().SetTarget(transform, 1 + 0.1f * i);
-            }
+            Vector3 l_initPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.localPosition);
+            coinManagerPrefab.GetComponent<CoinManager>().SetInitPosition(new Vector2(l_initPosition.x, l_initPosition.y));
+            coinManagerPrefab.GetComponent<CoinManager>().SetCreateCoinCount(bagprice / 10);
+            coinManagerPrefab.GetComponent<CoinManager>().CreateCoin();
 
             newbag.GetComponent<EnemyScore>().SetPrice(bagprice);
             newbag.GetComponent<EnemyScore>().SetNumber(bagnums);
