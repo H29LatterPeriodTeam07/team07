@@ -21,7 +21,8 @@ public class PatternScore {
         switch (number)
         {
             case 1: result = "三匹の子豚"; break;
-            case 2: result = "最初の三匹"; break;
+            case 2: result = "三種の肉詰め"; break;
+            case 3: result = "海の幸詰め"; break;
         }
         return result;
     }

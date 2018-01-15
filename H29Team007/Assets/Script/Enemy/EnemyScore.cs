@@ -7,7 +7,7 @@ public class EnemyScore : MonoBehaviour {
     private int m_price;
     private int m_Number = 1;
 
-    private int[] plasticbagNumbers;
+    private string[] plasticbagNames;
 
 	// Use this for initialization
 	void Start () {
@@ -43,7 +43,7 @@ public class EnemyScore : MonoBehaviour {
     {
         if (transform.tag != "Plasticbag")
         {
-            return ScoreManager.EnemyPrice(m_Number);
+            return ScoreManager.EnemyPrice(transform.name);
         }
         else
         {
@@ -51,14 +51,14 @@ public class EnemyScore : MonoBehaviour {
         }
     }
 
-    public void SetNumber(List<int> nums)
+    public void SetNames(List<string> names)
     {
-        int[] a = new int[nums.Count];
-        for(int i = 0; i < nums.Count; i++)
+        string[] a = new string[names.Count];
+        for(int i = 0; i < names.Count; i++)
         {
-            a[i] = nums[i];
+            a[i] = names[i];
         }
-        plasticbagNumbers = a;
+        plasticbagNames = a;
     }
 
     public int GetNumber()
@@ -66,9 +66,9 @@ public class EnemyScore : MonoBehaviour {
         return m_Number;
     }
 
-    public int[] GetNumbers()
+    public string[] GetNames()
     {
-        return plasticbagNumbers;
+        return plasticbagNames;
     }
 
     //public int GetPlasticbagCount()

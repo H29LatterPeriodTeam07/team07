@@ -18,7 +18,7 @@ public class ResultTotalText : MonoBehaviour {
         for(int i = 1; i <= ScoreManager.EnemyTypeCount(); i++)
         {
             int count = ScoreManager.GetCount(i);
-            int price = ScoreManager.EnemyPrice(i) * count;
+            int price = ScoreManager.EnemyPrice(ScoreManager.enemysname[i]) * count;
 
             totalcount += count;
             totalprice += price;

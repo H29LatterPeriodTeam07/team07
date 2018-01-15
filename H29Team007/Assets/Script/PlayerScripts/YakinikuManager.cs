@@ -5,39 +5,67 @@ using UnityEngine;
 public class YakinikuManager : MonoBehaviour
 {
     private ParticleSystem myParticle;
+    private Player ps;
 
     // Use this for initialization
     void Start()
     {
         myParticle = GetComponent<ParticleSystem>();
         myParticle.Stop();
+        ps = transform.root.GetComponent<Player>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    public void OnTriggerStay(Collider other)
-    {
-        Player ps = transform.root.GetComponent<Player>();
-        if (ps == null) return;
-        if (ps.GetFowardSpeed() > 0)
+        if (transform.root.tag != "Player")
         {
-            Yakiniku yaki = transform.parent.GetComponent<Yakiniku>();
-            if (yaki == null) return;
-            myParticle.Play();
-            yaki.Fire();
+            myParticle.Stop();
+            return;
         }
-        else
+        if (transform.position.y > 5.0f)
+        {
+            //if (ps.GetFowardSpeed() > 0)
+            //{
+                Yakiniku yaki = transform.parent.GetComponent<Yakiniku>();
+                if (yaki == null) return;
+                myParticle.Play();
+                yaki.Fire();
+            //}
+        }
+        else {
+            myParticle.Stop();
+        }
+        if (ps.GetState() > Player.PlayerState.Takeover)
         {
             myParticle.Stop();
         }
     }
 
-    public void OnTriggerExit(Collider other)
-    {
-        myParticle.Stop();
-    }
+    //public void OnTriggerStay(Collider other)
+    //{
+    //    if (transform.root.tag != "Player") return;
+    //    //Player ps = transform.root.GetComponent<Player>();
+    //    //if (ps == null) {
+    //    //    myParticle.Stop();
+    //    //    return;
+    //    //}
+    //    if (ps.GetFowardSpeed() > 0)
+    //    {
+    //        Yakiniku yaki = transform.parent.GetComponent<Yakiniku>();
+    //        if (yaki == null) return;
+    //        myParticle.Play();
+    //        yaki.Fire();
+    //        Debug.Log(other.name);
+    //    }
+    //    else
+    //    {
+    //        myParticle.Stop();
+    //    }
+    //}
+
+    //public void OnTriggerExit(Collider other)
+    //{
+    //    myParticle.Stop();
+    //}
 }

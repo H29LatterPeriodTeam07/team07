@@ -392,101 +392,101 @@ public class TutorialShopping : MonoBehaviour {
     /// <summary>レジを通した時の処理</summary>
     public void PassTheRegister()
     {
-        List<Transform> mybags = new List<Transform>();
-        List<Transform> kesumono = new List<Transform>();
-        int bagprice = 0;
-        List<int> bagnums = new List<int>();
+        //List<Transform> mybags = new List<Transform>();
+        //List<Transform> kesumono = new List<Transform>();
+        //int bagprice = 0;
+        //List<int> bagnums = new List<int>();
 
-        for (int i = 0; i < myBaggage.Count; i++)
-        {
-            if (myBaggage[i].tag == "Plasticbag")
-            {
-                mybags.Add(myBaggage[i]);
-            }
-            else
-            {
-                kesumono.Add(myBaggage[i]);
-                bagprice += myBaggage[i].GetComponent<EnemyScore>().GetPrice();
-                bagnums.Add(myBaggage[i].GetComponent<EnemyScore>().GetNumber());
-            }
-        }
+        //for (int i = 0; i < myBaggage.Count; i++)
+        //{
+        //    if (myBaggage[i].tag == "Plasticbag")
+        //    {
+        //        mybags.Add(myBaggage[i]);
+        //    }
+        //    else
+        //    {
+        //        kesumono.Add(myBaggage[i]);
+        //        bagprice += myBaggage[i].GetComponent<EnemyScore>().GetPrice();
+        //        bagnums.Add(myBaggage[i].GetComponent<EnemyScore>().GetNumber());
+        //    }
+        //}
 
-        for (int i = 0; i < myBaggage2.Count; i++)
-        {
-            if (myBaggage2[i].tag == "Plasticbag")
-            {
-                mybags.Add(myBaggage2[i]);
-            }
-            else
-            {
-                kesumono.Add(myBaggage2[i]);
-                bagprice += myBaggage2[i].GetComponent<EnemyScore>().GetPrice();
-                bagnums.Add(myBaggage2[i].GetComponent<EnemyScore>().GetNumber());
-            }
-        }
-        if (kesumono.Count != 0)
-        {
+        //for (int i = 0; i < myBaggage2.Count; i++)
+        //{
+        //    if (myBaggage2[i].tag == "Plasticbag")
+        //    {
+        //        mybags.Add(myBaggage2[i]);
+        //    }
+        //    else
+        //    {
+        //        kesumono.Add(myBaggage2[i]);
+        //        bagprice += myBaggage2[i].GetComponent<EnemyScore>().GetPrice();
+        //        bagnums.Add(myBaggage2[i].GetComponent<EnemyScore>().GetNumber());
+        //    }
+        //}
+        //if (kesumono.Count != 0)
+        //{
             
-            seScript.OnePlay(5);
-            for (int i = 0; i < kesumono.Count; i++)
-            {
-                Destroy(kesumono[i].gameObject);
-            }
-            Reset();
-            for (int i = 0; i < mybags.Count; i++)
-            {
-                AddBaggege(mybags[i]);
-                PlusY(mybags[i].GetComponent<TutorialRunOver>().GetHeight());                
-            }
-            GameObject newbag = Instantiate(bagPrefab);
+        //    seScript.OnePlay(5);
+        //    for (int i = 0; i < kesumono.Count; i++)
+        //    {
+        //        Destroy(kesumono[i].gameObject);
+        //    }
+        //    Reset();
+        //    for (int i = 0; i < mybags.Count; i++)
+        //    {
+        //        AddBaggege(mybags[i]);
+        //        PlusY(mybags[i].GetComponent<TutorialRunOver>().GetHeight());                
+        //    }
+        //    GameObject newbag = Instantiate(bagPrefab);
 
-            Vector3 l_initPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.localPosition);
-            coinManagerPrefab.GetComponent<CoinManager>().SetInitPosition(new Vector2(l_initPosition.x, l_initPosition.y));
-            coinManagerPrefab.GetComponent<CoinManager>().SetCreateCoinCount(bagprice / 10);
-            coinManagerPrefab.GetComponent<CoinManager>().CreateCoin();
+        //    Vector3 l_initPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.localPosition);
+        //    coinManagerPrefab.GetComponent<CoinManager>().SetInitPosition(new Vector2(l_initPosition.x, l_initPosition.y));
+        //    coinManagerPrefab.GetComponent<CoinManager>().SetCreateCoinCount(bagprice / 10);
+        //    coinManagerPrefab.GetComponent<CoinManager>().CreateCoin();
 
-            newbag.GetComponent<EnemyScore>().SetPrice(bagprice);
-            newbag.GetComponent<EnemyScore>().SetNumber(bagnums);
-            newbag.GetComponent<TutorialRunOver>().SetPlasticBagPos(basket);
-            childCount = 0;
-        }
+        //    newbag.GetComponent<EnemyScore>().SetPrice(bagprice);
+        //    newbag.GetComponent<EnemyScore>().SetNumber(bagnums);
+        //    newbag.GetComponent<TutorialRunOver>().SetPlasticBagPos(basket);
+        //    childCount = 0;
+        //}
     }
 
     private void SetScore()
     {
-        int goukei = 0;
-        ScoreManager.Reset();
-        //ここでエネミーからの値段をもらう
-        for (int i = 0; i < myBaggage.Count; i++)
-        {
-            EnemyScore es = myBaggage[i].GetComponent<EnemyScore>();
-            if (myBaggage[i].tag == "Plasticbag")
-            {
-                ScoreManager.AddCount(es.GetNumbers());
-            }
-            else
-            {
-                ScoreManager.AddCount(es.GetNumber());
-            }
+        //int goukei = 0;
+        //ScoreManager.Reset();
+        ////ここでエネミーからの値段をもらう
+        //for (int i = 0; i < myBaggage.Count; i++)
+        //{
+        //    EnemyScore es = myBaggage[i].GetComponent<EnemyScore>();
+        //    if (myBaggage[i].tag == "Plasticbag")
+        //    {
+        //        ScoreManager.AddCount(es.GetNumbers());
+        //    }
+        //    else
+        //    {
+        //        ScoreManager.AddCount(es.GetNumber());
+        //    }
 
-            goukei += es.GetPrice();
-        }
-        for (int i = 0; i < myBaggage2.Count; i++)
-        {
-            EnemyScore es = myBaggage2[i].GetComponent<EnemyScore>();
-            if (myBaggage2[i].tag == "Plasticbag")
-            {
-                ScoreManager.AddCount(es.GetNumbers());
-            }
-            else
-            {
-                ScoreManager.AddCount(es.GetNumber());
-            }
+        //    goukei += es.GetPrice();
+        //}
+        //for (int i = 0; i < myBaggage2.Count; i++)
+        //{
+        //    EnemyScore es = myBaggage2[i].GetComponent<EnemyScore>();
+        //    if (myBaggage2[i].tag == "Plasticbag")
+        //    {
+        //        ScoreManager.AddCount(es.GetNumbers());
+        //    }
+        //    else
+        //    {
+        //        ScoreManager.AddCount(es.GetNumber());
+        //    }
 
-            goukei += es.GetPrice();
-        }
-        string printscore = goukei.ToString();
-        score.text = "￥" + printscore;
+        //    goukei += es.GetPrice();
+        //}
+        //string printscore = goukei.ToString();
+        //score.text = "￥" + printscore;
     }
 
     public void PlusChild()

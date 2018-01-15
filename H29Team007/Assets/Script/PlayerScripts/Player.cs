@@ -176,7 +176,7 @@ public class Player : MonoBehaviour
             if (Input.GetButtonUp("XboxA") || Input.GetKeyDown(KeyCode.R)|| !scScript.IsCatchBasket())
             {
                 ReleaseCart();
-                Debug.Log("b");
+                //Debug.Log("b");
             }
         }
         else if (GetState() == PlayerState.Throw)
@@ -184,7 +184,7 @@ public class Player : MonoBehaviour
             if (!scScript.IsCatchBasket())
             {
                 ReleaseCart(false);
-                Debug.Log("v");
+                //Debug.Log("v");
             }
         }
         if (canGet && GetState() < PlayerState.Takeover && canGetCart != null)
