@@ -128,18 +128,25 @@ public class Child : MonoBehaviour {
                 }
                 else if (HasArrived())
                 {
-                    m_State = ChildState.CryMode;
+                    if (CanSeeParent2())
+                    {
+                        m_State = ChildState.ChasingWarningMode;
+                    }
+                    else {
+                        m_State = ChildState.CryMode;
+                        m_Animator.SetTrigger("Cry");
+                    }
                 }
             }
             else if (m_State == ChildState.CryMode)
             {
                 m_Agent.speed = 0;
                 print("おーいおいおいおいおい、おいおい");
-
                 m_GaurdCoal = true;
                 if (CanSeeParent2())
                 {
                     m_State = ChildState.NormalMode;
+                    m_Animator.SetTrigger("Trigger");
                 }
             }
         }

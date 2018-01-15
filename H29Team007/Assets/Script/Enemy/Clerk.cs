@@ -66,7 +66,6 @@ public class Clerk : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(m_State);
         //巡回中
         if (m_State == ClerkState.NormalMode)
         {
@@ -76,7 +75,8 @@ public class Clerk : MonoBehaviour
             //プレイイヤーが見えた場合
             if (CanSeePlayer() && m_pScript.IsGetHuman())
             {
-                m_Agent.speed = 1.0f;
+                m_Agent.speed = 0.0f;
+                m_Animator.SetTrigger("Call");
                 //追跡中に状態変更
                 m_State = ClerkState.WarningMode;
             }
@@ -91,9 +91,10 @@ public class Clerk : MonoBehaviour
         // 警備員を呼ぶ
         else if (m_State == ClerkState.WarningMode)
         {
-            m_Agent.speed = 0.0f;
             if (m_pScript.GetState() == Player.PlayerState.Outside)
             {
+                m_Agent.speed = 1.0f;
+                m_Animator.SetTrigger("VO");
                 m_State = ClerkState.NormalMode;
             }
         }
