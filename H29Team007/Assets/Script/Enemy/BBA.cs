@@ -22,7 +22,7 @@ public class BBA : MonoBehaviour
 {
     [SerializeField,Header("クソババアのカートを入れて")]
     private GameObject myCart;
-    [SerializeField, Header("GameManagerのm_gdと同じ数字を入れてケロ")]
+    [SerializeField, Header("GameManagerのm_gdのElementと同じ数字を入れてケロ")]
     private int m_int;
     //見える距離
     public float m_ViewingDistance;

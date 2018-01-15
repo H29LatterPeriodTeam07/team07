@@ -27,9 +27,9 @@ public class SecurityGuard : MonoBehaviour
     //巡回ポイント
     public Transform[] m_PatrolPoints;
     //見える距離
-    public float m_ViewingDistance;
+    float m_ViewingDistance;
     //視野角
-    public float m_ViewingAngle;
+    float m_ViewingAngle;
     public GameObject m_Enemy;
     public AudioClip m_se;
 
@@ -91,6 +91,12 @@ public class SecurityGuard : MonoBehaviour
         Vector3 PPos = m_Player.transform.position;
         Vector3 EPos = m_Enemy.transform.position;
         float dis = Vector3.Distance(PPos, EPos);
+        if (m_scPlayer.GetState() == Player.PlayerState.Outside)
+        {
+            m_Agent.speed = 1f;
+            m_Animator.SetTrigger("Trigger"); 
+            m_State = EnemyState.Patrolling;
+        }
         //巡回中
         if (m_State == EnemyState.Patrolling)
         {
@@ -109,12 +115,18 @@ public class SecurityGuard : MonoBehaviour
             else if (m_Child != null)
             {
                 m_cScript = m_Child.GetComponent<Child>();
-                 if (m_cScript.Roaring())
-                 {
+                if (m_cScript.Roaring())
+                {
                     m_Agent.speed = 3.0f;
                     m_Agent.destination = m_Child.transform.position;
                     m_State = EnemyState.ChildPatrol;
-                 }
+                }
+                if (m_scPlayer.GetState() == Player.PlayerState.Outside)
+                {
+                    m_Child.gameObject.SetActive(false);
+                    m_Child = null;
+                    m_Hearingtime = 0;
+                }
             }
             if (CanSeePlayer() && m_bool == false && dis <= 5 && m_scPlayer.GetState() == Player.PlayerState.Gliding)
             {
@@ -216,12 +228,21 @@ public class SecurityGuard : MonoBehaviour
             if (HasArrived())
             {
                 m_Agent.speed=0;
-
+                print(m_Hearingtime);
                 m_Hearingtime += Time.deltaTime;
                 if(m_Hearingtime > 3)
                 {
+                    m_Agent.speed = 3;
                     m_Agent.destination = m_Player.transform.position;
                     m_State = EnemyState.JusticeMode;
+                }
+                if (m_scPlayer.GetState() == Player.PlayerState.Outside)
+                {
+                    m_Child.gameObject.SetActive(false);
+                    m_Child = null;
+                    m_Hearingtime = 0;
+                    m_Agent.speed = 1f;
+                    m_State = EnemyState.Patrolling;
                 }
             }
         }
@@ -229,12 +250,6 @@ public class SecurityGuard : MonoBehaviour
         {
             m_ViewingDistance = 1000;
             m_ViewingAngle = 360;
-
-            if (m_scPlayer.GetState() == Player.PlayerState.Outside)
-            {
-                m_State = EnemyState.Patrolling;
-                m_Agent.speed = 1f;
-            }
 
             if (CanSeePlayer() && m_bool == false && dis <= 5 && m_scPlayer.GetState() == Player.PlayerState.Gliding)
             {
@@ -250,30 +265,18 @@ public class SecurityGuard : MonoBehaviour
                     "oncomplete", "OnCompleteHandler",
                     "oncompletetarget", this.gameObject));
             }
-
-            // プレイヤーが見えている場合
-            else if (CanSeePlayer())
-            {
                 m_Agent.speed = 3.0f;
                 // プレイヤーの場所へ向かう
                 m_Agent.destination = m_Player.transform.position;
-                if (dis <= 3 && m_bool == false)
-                {
-                    m_Animator.SetTrigger("Jump");
-                    m_bool = true;
-                }
-                if (dis > 5 && m_bool == true)
-                {
-                    m_bool = false;
-                    m_Animator.SetTrigger("Trigger");
-                }
-            }
-            // 見失った場合
-            else
+            if (dis <= 3 && m_bool == false)
             {
-                // 追跡中（見失い中）に状態変更
-                m_State = EnemyState.ChasingButLosed;
-                m_Agent.speed = 1f;
+                m_Animator.SetTrigger("Jump");
+                m_bool = true;
+            }
+            else if (dis > 5 && m_bool == true)
+            {
+                m_bool = false;
+                m_Animator.SetTrigger("Trigger");
             }
         }
         //  Debug.Log(dis);

@@ -14,9 +14,9 @@ public class Parent : MonoBehaviour
     //巡回ポイント
     public Transform[] m_PatrolPoints;
     //見える距離
-    public float m_ViewingDistance;
+    float m_ViewingDistance;
     //視野角
-    public float m_ViewingAngle;
+    float m_ViewingAngle;
 
     private ParentState m_State = ParentState.NormalMode;
     private Animator m_Animator;

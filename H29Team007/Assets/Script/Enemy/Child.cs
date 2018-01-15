@@ -102,7 +102,7 @@ public class Child : MonoBehaviour {
                 if (dis > 5.0f)
                 {
                     m_ViewingDistance = 100;
-                    m_ViewingAngle = 180;
+                    m_ViewingAngle = 200;
                     if (CanSeeParent2())
                     {
                  
@@ -118,8 +118,8 @@ public class Child : MonoBehaviour {
 
             else if (m_State == ChildState.ChasingWarningMode)
             {
-                m_ViewingDistance = 100;
-                m_ViewingAngle = 180;
+                m_ViewingDistance = 300;
+                m_ViewingAngle = 280;
                 if (CanSeeParent2())
                 {
                  
