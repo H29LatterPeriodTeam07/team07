@@ -61,6 +61,9 @@ public class CartBody : MonoBehaviour
 
     private PlayerSE seScript;
 
+    [SerializeField, Header("爆発のプレハブ")]
+    private GameObject explosionPrefub;
+
     // Use this for initialization
     void Start()
     {
@@ -253,7 +256,10 @@ public class CartBody : MonoBehaviour
             }
         }
         if (cartStatus[0] <= 0)
-        {            
+        {
+            GameObject explosion = Instantiate(explosionPrefub);
+            explosion.transform.position = transform.position;
+            seScript.OnePlay(3);
             if (playerScript.MyCart() == gameObject)
             {
                 if (playerScript.IsCart2())
@@ -270,7 +276,6 @@ public class CartBody : MonoBehaviour
                 scScript.BaggegeFall2(transform.position);
                 playerScript.SetMinusRotateSpeed2(0);
             }
-            seScript.OnePlay(3);
         }
         else
         {
