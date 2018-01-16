@@ -31,6 +31,8 @@ public class StageSelect : MonoBehaviour {
     public SoundManagerScript sm;
 
     private SelectState myState;
+    public GameObject m_NowLoad;
+    AsyncOperation async;
 
     // Use this for initialization
     void Start () {
@@ -42,6 +44,7 @@ public class StageSelect : MonoBehaviour {
         centerStage.localPosition = Vector3.zero;
         rightStage.localPosition = new Vector3(1280, 0, 0);
         myState = SelectState.Wait;
+        m_NowLoad.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -98,20 +101,30 @@ public class StageSelect : MonoBehaviour {
             sm.PlaySE(0);
             switch (stageNum)
             {
-                case 0: SceneManager.LoadScene("Tutorial"); break;
+                case 0: //SceneManager.LoadScene("Tutorial"); 
+                    async = SceneManager.LoadSceneAsync("Tutorial");
+                    StartCoroutine("LoadScene");
+                    break;
                 case 1:
-                    SceneManager.LoadScene("Stage1");
+                    // SceneManager.LoadScene("Stage1");
+                    async = SceneManager.LoadSceneAsync("Stage1");
+                    StartCoroutine("LoadScene");
                     ScoreManager.StageChenge(1);
                     break;
                 case 2:
-                    SceneManager.LoadScene("Stage2.1");
+                    //SceneManager.LoadScene("Stage2.1");
+                    async = SceneManager.LoadSceneAsync("Stage2.1");
+                    StartCoroutine("LoadScene");
                     ScoreManager.StageChenge(2);
                     break;
                 case 3:
-                    SceneManager.LoadScene("Stage3");
+                    //SceneManager.LoadScene("Stage3");
+                    async = SceneManager.LoadSceneAsync("Stage3");
+                    StartCoroutine("LoadScene");
                     ScoreManager.StageChenge(3);
                     break;
             }
+            m_NowLoad.SetActive(true);
         }
         if (Input.GetButton("XboxA") || Input.GetKeyDown(KeyCode.F))
         {
@@ -162,5 +175,23 @@ public class StageSelect : MonoBehaviour {
         if (result < 0) result = stages.Length - 1;
         if (result >= stages.Length) result = 0;
         return result;
+    }
+    IEnumerator LoadScene()
+    {
+        async.allowSceneActivation = false;    // シーン遷移をしない
+
+        while (async.progress < 0.9f)
+        {
+            Debug.Log(async.progress);
+            yield return new WaitForEndOfFrame();
+        }
+
+        Debug.Log("Scene Loaded");
+
+
+        yield return new WaitForSeconds(1);
+
+        async.allowSceneActivation = true;    // シーン遷移許可
+
     }
 }

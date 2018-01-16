@@ -31,6 +31,7 @@ public class Child : MonoBehaviour {
     private Vector3 pos;
     private Animator m_Animator;
     NavMeshAgent m_Agent;
+    Collider m_collider;
 
     private GameObject m_Player;
     private Transform m_PlayerEyePoint;
@@ -46,8 +47,8 @@ public class Child : MonoBehaviour {
         m_ParentEyePoint = m_Parent.transform.Find("ParentEye");
         m_LookEye = transform.Find("LookEye");
         m_Animator = GetComponent<Animator>();
-
-
+        m_collider = GetComponent<Collider>();
+        m_collider.enabled = false;
         //タグでプレイヤーオブジェクトを検索して保持
         m_Player = GameObject.FindGameObjectWithTag("Player");
         //プレイヤーの注視点を名前で検索して保持
@@ -58,7 +59,6 @@ public class Child : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        
         if (m_Parent == null)
         {
             m_Agent.speed = 3;
@@ -130,9 +130,10 @@ public class Child : MonoBehaviour {
                 {
                     if (CanSeeParent2())
                     {
-                        m_State = ChildState.ChasingWarningMode;
+                        m_State = ChildState.NormalMode;
                     }
                     else {
+                        m_collider.enabled = true;
                         m_State = ChildState.CryMode;
                         m_Animator.SetTrigger("Cry");
                     }
@@ -145,6 +146,7 @@ public class Child : MonoBehaviour {
                 m_GaurdCoal = true;
                 if (CanSeeParent2())
                 {
+                    m_collider.enabled = false;
                     m_State = ChildState.NormalMode;
                     m_Animator.SetTrigger("Trigger");
                 }

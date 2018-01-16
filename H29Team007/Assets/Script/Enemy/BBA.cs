@@ -49,18 +49,17 @@ public class BBA : MonoBehaviour
     GameObject m_SaleAnimals;
     //特売品への注視点
     Transform m_SaleAnimalsLookPoint;
+    Transform m_Animal;
+    Transform m_basket;
     int m_SaleSpownIndex = 0;
     BBACartCount bcScript;
     private Animator m_Animator;
     bool m_bo = true;
-    Transform m_basuket;
-    Transform m_Animal;
     float radius = 5f;
     private LayerMask raycastLayer;
     GameObject m_PatrolPoint;
     GameObject[] m_PatrolPoints;
     int m_rand;
-    Transform m_basket;
 
     // Use this for initialization
     void Start()
@@ -93,10 +92,9 @@ public class BBA : MonoBehaviour
 
         if (myCart == null)
         {
+            SetNewRPatrolPointToDestination();
             m_State = BBAState.NoCart;
         }
-
-        //    print(m_bo);
         //巡回中
         if (m_State == BBAState.NormalMode)
         {
@@ -104,10 +102,6 @@ public class BBA : MonoBehaviour
             m_Animator.SetFloat("Speed", m_Agent.speed);
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
-            if (myCart == null)
-            {
-                m_State = BBAState.NoCart;
-            }
             //特売品が出てくる時間になったら特売品モードに
             if (m_gmScript.m_scSaleSpown.SaleMode())
             {
@@ -166,6 +160,7 @@ public class BBA : MonoBehaviour
 
             if (myCart == null)
             {
+                SetNewRPatrolPointToDestination();
                 m_State = BBAState.NoCart;
             }
         }
@@ -184,14 +179,18 @@ public class BBA : MonoBehaviour
 
             if (myCart == null)
             {
+                SetNewRPatrolPointToDestination();
                 m_State = BBAState.NoCart;
             }
         }
 
         else if (m_State == BBAState.NoCart)
         {
-            Destroy(m_basket.gameObject);
-            SetNewRPatrolPointToDestination();
+            m_Agent.speed = 1.0f;
+            if (BBAHasArrived())
+            {
+                SetNewRPatrolPointToDestination();
+            }
         }
     }
 
@@ -301,6 +300,8 @@ public class BBA : MonoBehaviour
     {
         if (other.name == "FrontHitArea")
         {
+            Destroy(myCart.gameObject);
+            Destroy(m_basket.gameObject);
             bcScript.BaggegeFall(transform.position);
             m_bo = false;
         }
