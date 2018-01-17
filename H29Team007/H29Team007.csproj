@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{18F5E677-A924-79CE-6056-333A300A69A6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
+    <CompilerResponseFile></CompilerResponseFile>
+    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
+    <UnityVersion>5.6.2f1</UnityVersion>
+    <RootNamespace></RootNamespace>
+    <LangVersion>4</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Debug\</OutputPath>
+    <IntermediateOutputPath>Temp\UnityVS_obj\Debug\</IntermediateOutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_2;UNITY_5_6;UNITY_5;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;CROSS_PLATFORM_INPUT</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Release\</OutputPath>
+    <IntermediateOutputPath>Temp\UnityVS_obj\Release\</IntermediateOutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_2;UNITY_5_6;UNITY_5;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;CROSS_PLATFORM_INPUT</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Core" />
+    <Reference Include="Boo.Lang" />
+    <Reference Include="UnityScript.Lang" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UnityEngine">
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TestRunner">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Analytics">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HoloLens">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VR">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMeshPro-5.6-1.0.56-Editor">
+      <HintPath>Assets/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-5.6-1.0.56-Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMeshPro-5.6-1.0.56-Runtime">
+      <HintPath>Assets/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-5.6-1.0.56-Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="H29Team007.Plugins.csproj">
+      <Project>{200A5C30-2CC3-C27F-E488-573FCC1902B2}</Project>
+      <Name>H29Team007.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\JMO Assets\WarFX\Demo\Assets\CFX_AutoStopLoopedEffect.cs" />
+    <Compile Include="Assets\JMO Assets\WarFX\Demo\Assets\CFX_Demo_RandomDir.cs" />
+    <Compile Include="Assets\JMO Assets\WarFX\Demo\Assets\CFX_Demo_RotateCamera.cs" />
+    <Compile Include="Assets\JMO Assets\WarFX\Demo\Assets\CFX_Demo_Translate.cs" />
+    <Compile Include="Assets\JMO Assets\WarFX\Demo\Assets\WFX_Demo.cs" />
+    <Compile Include="Assets\JMO Assets\WarFX\Demo\Assets\WFX_Demo_DeleteAfterDelay.cs" />
+    <Compile Include="Assets\JMO Assets\WarFX\Demo\Assets\WFX_Demo_New.cs" />
+    <Compile Include="Assets\JMO Assets\WarFX\Demo\Assets\WFX_Demo_RandomDir.cs" />
+    <Compile Include="Assets\JMO Assets\WarFX\Demo\Assets\WFX_Demo_Wall.cs" />
+    <Compile Include="Assets\JMO Assets\WarFX\Scripts\CFX_AutoDestructShuriken.cs" />
+    <Compile Include="Assets\JMO Assets\WarFX\Scripts\CFX_LightIntensityFade.cs" />
+    <Compile Include="Assets\JMO Assets\WarFX\Scripts\WFX_BulletHoleDecal.cs" />
+    <Compile Include="Assets\JMO Assets\WarFX\Scripts\WFX_LightFlicker.cs" />
+    <Compile Include="Assets\JMO Assets\WarFX\Spawn System\CFX_SpawnSystem.cs" />
+    <Compile Include="Assets\Script\AnimStop.cs" />
+    <Compile Include="Assets\Script\Announce.cs" />
+    <Compile Include="Assets\Script\Chikin.cs" />
+    <Compile Include="Assets\Script\Coin.cs" />
+    <Compile Include="Assets\Script\CollisionEffect.cs" />
+    <Compile Include="Assets\Script\CountDown.cs" />
+    <Compile Include="Assets\Script\Cursor.cs" />
+    <Compile Include="Assets\Script\Enemy\BBA.cs" />
+    <Compile Include="Assets\Script\Enemy\BBACartCount.cs" />
+    <Compile Include="Assets\Script\Enemy\Billboard.cs" />
+    <Compile Include="Assets\Script\Enemy\BullBasket.cs" />
+    <Compile Include="Assets\Script\Enemy\BullCount.cs" />
+    <Compile Include="Assets\Script\Enemy\BullHitArea.cs" />
+    <Compile Include="Assets\Script\Enemy\Child.cs" />
+    <Compile Include="Assets\Script\Enemy\Clerk.cs" />
+    <Compile Include="Assets\Script\Enemy\Customer.cs" />
+    <Compile Include="Assets\Script\Enemy\EnemyBasket.cs" />
+    <Compile Include="Assets\Script\Enemy\EnemyCart.cs" />
+    <Compile Include="Assets\Script\Enemy\EnemyScore.cs" />
+    <Compile Include="Assets\Script\Enemy\EnemySopwn.cs" />
+    <Compile Include="Assets\Script\Enemy\EnemySpown.cs" />
+    <Compile Include="Assets\Script\Enemy\FallDown.cs" />
+    <Compile Include="Assets\Script\Enemy\GOODsFORSALE.cs" />
+    <Compile Include="Assets\Script\Enemy\GetSaleAnimal.cs" />
+    <Compile Include="Assets\Script\Enemy\Parent.cs" />
+    <Compile Include="Assets\Script\Enemy\RunOverObject.cs" />
+    <Compile Include="Assets\Script\Enemy\SaleMaterial.cs" />
+    <Compile Include="Assets\Script\Enemy\SaleSpown.cs" />
+    <Compile Include="Assets\Script\Enemy\SecurityGuard.cs" />
+    <Compile Include="Assets\Script\Enemy\fightingBull.cs" />
+    <Compile Include="Assets\Script\Event.cs" />
+    <Compile Include="Assets\Script\Exit.cs" />
+    <Compile Include="Assets\Script\Fade.cs" />
+    <Compile Include="Assets\Script\Flash.cs" />
+    <Compile Include="Assets\Script\GameManager.cs" />
+    <Compile Include="Assets\Script\MainGameDate.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Basket.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\BasketFly.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\CartBody.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\CartRelatedData.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\CartSparks.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\CartStatusWithCart.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\CartStatusWithPlayer.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\CookNiiku.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\ExplosionDie.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\GetCart.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\InclinationOfLuggage.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Patterns\ButaPattern.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Patterns\Pattern.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Patterns\PatternScore.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Player.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\PlayerCamera.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\PlayerSE.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\PlayerWall.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\PopupScore.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\PopupScore2D.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\SenakaNumber.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\ShoppingCount.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\TargetPlayer.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Tutorial\TutorialAngleManager.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Tutorial\TutorialAnimal.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Tutorial\TutorialAnnounce.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Tutorial\TutorialBBA.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Tutorial\TutorialBasket.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Tutorial\TutorialBasketFly.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Tutorial\TutorialCamera.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Tutorial\TutorialCart.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Tutorial\TutorialCartSparks.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Tutorial\TutorialKanban.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Tutorial\TutorialManager.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Tutorial\TutorialPlayer.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Tutorial\TutorialRunOver.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Tutorial\TutorialShopping.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Tutorial\TutrialFallDown.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\Yakiniku.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\YakinikuManager.cs" />
+    <Compile Include="Assets\Script\PlayerScripts\colortest.cs" />
+    <Compile Include="Assets\Script\Result\CharaFall.cs" />
+    <Compile Include="Assets\Script\Result\FallManager.cs" />
+    <Compile Include="Assets\Script\Result\Receipt.cs" />
+    <Compile Include="Assets\Script\Result\ReciptLogo.cs" />
+    <Compile Include="Assets\Script\Result\ResultBackCamera.cs" />
+    <Compile Include="Assets\Script\Result\ResultScene.cs" />
+    <Compile Include="Assets\Script\Result\ResultText.cs" />
+    <Compile Include="Assets\Script\Result\ResultTextManager.cs" />
+    <Compile Include="Assets\Script\Result\ResultTotalText.cs" />
+    <Compile Include="Assets\Script\ScoreManager.cs" />
+    <Compile Include="Assets\Script\SelectScene.cs" />
+    <Compile Include="Assets\Script\SoundManagerScript.cs" />
+    <Compile Include="Assets\Script\SpringScript\SpringBone.cs" />
+    <Compile Include="Assets\Script\SpringScript\SpringBoneArrange.cs" />
+    <Compile Include="Assets\Script\SpringScript\SpringCollider.cs" />
+    <Compile Include="Assets\Script\SpringScript\SpringManager.cs" />
+    <Compile Include="Assets\Script\SpringScript\SpringManagerArrange.cs" />
+    <Compile Include="Assets\Script\StageSelect.cs" />
+    <Compile Include="Assets\Script\StageSelect\Flyer.cs" />
+    <Compile Include="Assets\Script\StageSelect\Flyers.cs" />
+    <Compile Include="Assets\Script\StageSelect\StageSelectManager.cs" />
+    <Compile Include="Assets\Script\StringWidthConverter.cs" />
+    <Compile Include="Assets\Script\Timer.cs" />
+    <Compile Include="Assets\Script\TitleBGM.cs" />
+    <Compile Include="Assets\Script\Title_tenmetu.cs" />
+    <Compile Include="Assets\Script\UIDead.cs" />
+    <Compile Include="Assets\Script\UIScript\CoinManager.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Data\Resources\PriceData.txt" />
+    <None Include="Assets\JMO Assets\!JMO Assets Readme.txt" />
+    <None Include="Assets\JMO Assets\Cartoon FX Easy Editor\CartoonFX Easy Editor Readme.txt" />
+    <None Include="Assets\JMO Assets\WarFX\!WarFX Readme.txt" />
+    <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Add Scroll.shader" />
+    <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Alpha-Diffuse TintColor.shader" />
+    <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Alpha-Specular TintColor.shader" />
+    <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S AlphaBlend NoSoftParticles.shader" />
+    <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S AlphaBlend Scroll.shader" />
+    <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Multiply Soft Scroll.shader" />
+    <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Multiply Soft.shader" />
+    <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Particle Add A8.shader" />
+    <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Particle AddSoft A8.shader" />
+    <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Particle Multiply A8.shader" />
+    <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Smoke Scroll.shader" />
+    <None Include="Assets\JMO Assets\WarFX\_Effects (Mobile)\MuzzleFlashes\!MuzzleFlash Differences.txt" />
+    <None Include="Assets\JMO Assets\WarFX\_Effects\MuzzleFlashes\!MuzzleFlash Differences.txt" />
+    <None Include="Assets\Material\NewSurfaceShader.shader" />
+    <None Include="Assets\Models\BodyGuards\ReadMe.txt.txt" />
+    <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
+    <None Include="Assets\Shader\BackGround.shader" />
+    <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
+    <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+    <None Include="Assets\StreamingAssets\enemyname01.txt" />
+    <None Include="Assets\StreamingAssets\enemyname02.txt" />
+    <None Include="Assets\StreamingAssets\enemyname03.txt" />
+    <None Include="Assets\StreamingAssets\enemyname04.txt" />
+    <None Include="Assets\StreamingAssets\enemyname05.txt" />
+    <None Include="Assets\StreamingAssets\enemyname06.txt" />
+    <None Include="Assets\StreamingAssets\enemyname07.txt" />
+    <None Include="Assets\StreamingAssets\enemyname08.txt" />
+    <None Include="Assets\StreamingAssets\enemyscore01.txt" />
+    <None Include="Assets\StreamingAssets\enemyscore02.txt" />
+    <None Include="Assets\StreamingAssets\enemyscore03.txt" />
+    <None Include="Assets\StreamingAssets\enemyscore04.txt" />
+    <None Include="Assets\StreamingAssets\enemyscore05.txt" />
+    <None Include="Assets\StreamingAssets\enemyscore06.txt" />
+    <None Include="Assets\StreamingAssets\enemyscore07.txt" />
+    <None Include="Assets\StreamingAssets\enemyscore08.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\Urban_Props\readme.txt" />
+    <None Include="Assets\VertexColorFarmAnimals\Shaders\VertexColorUnlit.shader" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="GenerateTargetFrameworkMonikerAttribute" />
+</Project>

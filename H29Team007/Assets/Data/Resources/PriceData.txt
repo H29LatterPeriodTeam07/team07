@@ -1,0 +1,29 @@
+// ステージごとの価格設定
+// StageNum;動物名_価格/...;〇付ける動物名
+// 要素
+// arai
+// buta
+// gyo
+// hera
+// hitsu
+// inosh
+// kaji
+// niwa
+// tougyu
+// ushi
+// same
+//
+//
+//
+//
+// ※順番は変えないでください
+
+00;buta_460;buta
+01;buta_460;buta
+02;buta_480/ushi_980;ushi
+03;buta_460/ushi_560/gyo_180;gyo
+04;niwa_180/kaji_980/gyo_180/same_1500;kaji
+05;buta_300/kaji_980/hitsu_560/inoshi_1800/arai_500;hitsu
+06;buta_460/ushi_500/gyo_200/niwa_100/tougyu_2000/arai_300;niwa
+07;hitsu_500/gyo_200/kaji_1800/hera_2000/niwa_200/inoshi_3000;hitsu
+08;buta_200/ushi_460/gyo_180/hitsu_300/tougyu_1800/niwa_100/arai_300/hera_5000;ushi
