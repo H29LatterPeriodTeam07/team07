@@ -6,9 +6,9 @@ public class SaleSpown : MonoBehaviour {
     public AudioClip m_se;
     private AudioSource m_AS;
 
-    //上から順番に出現させる特売品のプレハブ
-    [SerializeField, Header("上から順に出現する特売品のプレハブを入れる(ApperTimeと要素数は同じにするように)")]
-    private GameObject[] m_SaleAnimals;
+    private GameObject m_SaleAnimal;
+    [SerializeField, Tooltip("上から順に数字を入れる(0:豚,1:牛,2:鯉,\n3:カジキ,4:アライグマ,5:ヤギ,6:羊,7:猪)")]
+    private int[] m_SaleAnimals;
     //出現時間
     [SerializeField, Header("指定した特売品が出現する時間の指定(float型)")]
     private float[] m_ApperTime;
@@ -16,8 +16,6 @@ public class SaleSpown : MonoBehaviour {
     private float[] m_ChikinApperTime;
     [SerializeField, Header("ニワトリのプレハブ")]
     private GameObject m_preChikin;
-    //巡回ポイント
-    public Transform[] m_PatrolPoints;
     public float m_SaleModeTime;
     public GameObject m_Time;
     public GameObject m_SaleMaterial;
@@ -35,6 +33,7 @@ public class SaleSpown : MonoBehaviour {
     int m_CurrentPatrolPointIndex = 1;
 
     private float myTime = 0.0f;
+    int _SaleNum;
 
     // Use this for initialization
     void Start()
@@ -52,17 +51,61 @@ public class SaleSpown : MonoBehaviour {
             m_SaleMode = m_ApperTime[m_CurrentApperTimeIndex] - m_SaleModeTime;
             if (myTime > m_ApperTime[m_CurrentApperTimeIndex])
             {
-                if (m_SaleAnimals[m_CurrentSaleAnimeIndex].gameObject.name == "SaleAnimalCow")
+                //豚
+                if (m_SaleAnimals[m_CurrentSaleAnimeIndex] == 0)
                 {
-                    m_scSale.ApperCow();
+                    m_SaleAnimal = (GameObject)Resources.Load("Prefab/SaleAnimalPig");
+                    _SaleNum = 0;
+                    m_scSale.SaleAnimalApper();
                 }
-                else if (m_SaleAnimals[m_CurrentSaleAnimeIndex].gameObject.name == "SaleAnimalFish")
+                //牛
+                else if(m_SaleAnimals[m_CurrentSaleAnimeIndex] == 1)
                 {
-                    m_scSale.ApperFish();
+                    m_SaleAnimal = (GameObject)Resources.Load("Prefab/SaleAnimalCow");
+                    _SaleNum = 1;
+                    m_scSale.SaleAnimalApper();
                 }
-                else if (m_SaleAnimals[m_CurrentSaleAnimeIndex].gameObject.name == "SaleAnimalPig")
+                //鯉
+                else if (m_SaleAnimals[m_CurrentSaleAnimeIndex] == 2)
                 {
-                    m_scSale.ApperPig();
+                    m_SaleAnimal = (GameObject)Resources.Load("Prefab/SaleAnimalFish");
+                    _SaleNum = 2;
+                    m_scSale.SaleAnimalApper();
+                }
+                //カジキ
+                else if (m_SaleAnimals[m_CurrentSaleAnimeIndex] == 3)
+                {
+                    m_SaleAnimal = (GameObject)Resources.Load("Prefab/SaleAnimalKaziki");
+                    _SaleNum = 3;
+                    m_scSale.SaleAnimalApper();
+                }
+                //アライグマ
+                else if (m_SaleAnimals[m_CurrentSaleAnimeIndex] == 4)
+                {
+                    m_SaleAnimal = (GameObject)Resources.Load("Prefab/SaleAnimalArai");
+                    _SaleNum = 4;
+                    m_scSale.SaleAnimalApper();
+                }
+                //ヤギ
+                else if (m_SaleAnimals[m_CurrentSaleAnimeIndex] == 5)
+                {
+                    m_SaleAnimal = (GameObject)Resources.Load("Prefab/SaleAnimalGoat");
+                    _SaleNum = 5;
+                    m_scSale.SaleAnimalApper();
+                }
+                //羊
+                else if (m_SaleAnimals[m_CurrentSaleAnimeIndex] == 6)
+                {
+                    m_SaleAnimal = (GameObject)Resources.Load("Prefab/SaleAnimalSheep");
+                    _SaleNum = 6;
+                    m_scSale.SaleAnimalApper();
+                }
+                //猪
+                else 
+                {
+                    m_SaleAnimal = (GameObject)Resources.Load("Prefab/SaleAnimalBoar");
+                    _SaleNum = 7;
+                    m_scSale.SaleAnimalApper();
                 }
             }
         }
@@ -79,7 +122,8 @@ public class SaleSpown : MonoBehaviour {
     {
         if (m_Num < m_SaleAnimals.Length)
         {
-                Instantiate(m_SaleAnimals[m_CurrentSaleAnimeIndex], transform.position, transform.rotation);
+                Instantiate(m_SaleAnimal, transform.position, transform.rotation);
+            m_SaleAnimal = null;
                 m_CurrentSaleAnimeIndex++;
             
         }
@@ -92,14 +136,6 @@ public class SaleSpown : MonoBehaviour {
             Instantiate(m_preChikin, transform.position, m_preChikin.transform.rotation);
         }
         m_CurrentChikinApperTimeIndex++;
-    }
-
-    void SetNewPatrolPointToDestination()
-    {
-        m_CurrentPatrolPointIndex
-            = (m_CurrentPatrolPointIndex + 1) % m_PatrolPoints.Length;
-
-      //  m_Agent.destination = m_PatrolPoints[m_CurrentPatrolPointIndex].position;
     }
 
     public bool SaleMode()
@@ -115,5 +151,10 @@ public class SaleSpown : MonoBehaviour {
     public float[] GetAppearTime()
     {
         return m_ApperTime;
+    }
+
+    public int SaleNumber()
+    {
+        return _SaleNum;
     }
 }

@@ -45,7 +45,7 @@ public class Exit : MonoBehaviour
     {
         if (m_bullApperTime.Length > m_CurentApperTimeIndex)
         {
-            if (m_timer.timer > m_bullApperTime[m_CurentApperTimeIndex])
+            if (m_timer.NowTime() > m_bullApperTime[m_CurentApperTimeIndex])
             {
                 if (m_prBull.gameObject.name == "Lamborghini")
                 {
