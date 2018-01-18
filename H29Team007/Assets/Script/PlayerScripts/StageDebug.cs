@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class StageDebug : MonoBehaviour {
 
+    public int stagenum = 0;
+
 	// Use this for initialization
 	void Start () {
-        ScoreManager.StageChenge(0);
+        ScoreManager.StageChenge(stagenum);
 	}
 	
 	// Update is called once per frame

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class YakinikuManager : MonoBehaviour
 {
-    private ParticleSystem myParticle;
+    //private ParticleSystem myParticle;
     private Player ps;
 
     // Use this for initialization
     void Start()
     {
-        myParticle = GetComponent<ParticleSystem>();
-        myParticle.Stop();
+        //myParticle = GetComponent<ParticleSystem>();
+        //myParticle.Stop();
         ps = transform.root.GetComponent<Player>();
     }
 
@@ -20,7 +20,7 @@ public class YakinikuManager : MonoBehaviour
     {
         if (transform.root.tag != "Player")
         {
-            myParticle.Stop();
+            //myParticle.Stop();
             return;
         }
         if (transform.position.y > 5.0f)
@@ -29,16 +29,17 @@ public class YakinikuManager : MonoBehaviour
             //{
                 Yakiniku yaki = transform.parent.GetComponent<Yakiniku>();
                 if (yaki == null) return;
-                myParticle.Play();
+                //myParticle.Play();
+            Debug.Log("天井に着いた");
                 yaki.Fire();
             //}
         }
         else {
-            myParticle.Stop();
+            //myParticle.Stop();
         }
         if (ps.GetState() > Player.PlayerState.Takeover)
         {
-            myParticle.Stop();
+            //myParticle.Stop();
         }
     }
 
