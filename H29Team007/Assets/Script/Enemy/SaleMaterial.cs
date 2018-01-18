@@ -78,6 +78,57 @@ public class SaleMaterial : MonoBehaviour {
             m_exScript.Appear();
         }
     }
+    public void ApperHera()
+    {
+        if (m_timebul <= 3.5f)
+        {
+            if (!m_fsee)
+            {
+                m_smScript.PlaySE(2);
+                m_smScript.PlaySE(3);
+                m_fsee = true;
+            }
+            m_timebul += Time.deltaTime;
+            m_time += Time.deltaTime;
+            m_Herazika.SetActive(true);
+            m_HerazikaCharacter.GetComponent<RectTransform>().localPosition -= Vector3.right * m_speed;
+        }
+        else
+        {
+            m_smScript.StopSE();
+            m_fsee = false;
+            m_Herazika.SetActive(false);
+            m_HerazikaCharacter.GetComponent<RectTransform>().localPosition = m_position.GetComponent<RectTransform>().localPosition;
+            m_timebul = 0;
+            m_exScript.Appear();
+        }
+    }
+
+    public void ApperShark()
+    {
+        if (m_timebul <= 3.5f)
+        {
+            if (!m_fsee)
+            {
+                m_smScript.PlaySE(2);
+                m_smScript.PlaySE(3);
+                m_fsee = true;
+            }
+            m_timebul += Time.deltaTime;
+            m_time += Time.deltaTime;
+            m_Shark.SetActive(true);
+            m_SharkCharacter.GetComponent<RectTransform>().localPosition -= Vector3.right * m_speed;
+        }
+        else
+        {
+            m_smScript.StopSE();
+            m_fsee = false;
+            m_Shark.SetActive(false);
+            m_SharkCharacter.GetComponent<RectTransform>().localPosition = m_position.GetComponent<RectTransform>().localPosition;
+            m_timebul = 0;
+            m_exScript.Appear();
+        }
+    }
 
     public void SaleAnimalApper()
     {

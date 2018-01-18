@@ -8,8 +8,9 @@ public class Exit : MonoBehaviour
     public GameObject m_time;
     [SerializeField, Header("BBAのプレハブ")]
     private GameObject m_PreBBA;
-    [SerializeField, Header("闘牛のプレハブ")]
     private GameObject m_prBull;
+    [SerializeField, Tooltip("危険生物の数字(0:闘牛,1:ヘラジカ,2:鮫)")]
+    private int m_DangerNum;
     [SerializeField, Header("入口ポイント")]
     private Transform m_EntrancePoint;
     [SerializeField, Header("闘牛の出現時間")]
@@ -22,7 +23,7 @@ public class Exit : MonoBehaviour
     bool m_bullApper = false;
     Player pScript;
     GameObject m_player;
-    BullCount m_bc;
+   // BullCount m_bc;
 
      int m_CurrentApperTimeIndex = 0;
     float m_SaleMode = 0;
@@ -36,7 +37,7 @@ public class Exit : MonoBehaviour
         m_timer = m_time.GetComponent<Timer>();
         m_player = GameObject.FindGameObjectWithTag("Player");
         pScript = m_player.GetComponent<Player>();
-        m_bc = m_prBull.transform.root.GetComponent<BullCount>();
+       // m_bc = m_prBull.transform.root.GetComponent<BullCount>();
         m_scSale = m_SaleMaterial.GetComponent<SaleMaterial>();
     }
 
@@ -47,11 +48,22 @@ public class Exit : MonoBehaviour
         {
             if (m_timer.NowTime() > m_bullApperTime[m_CurentApperTimeIndex])
             {
-                if (m_prBull.gameObject.name == "Lamborghini")
+                //if (m_prBull.gameObject.name == "Lamborghini")
+                //{
+                //    m_scSale.ApperBull();
+                //}
+                if (m_DangerNum == 0)
                 {
                     m_scSale.ApperBull();
                 }
-              
+                else if (m_DangerNum == 1)
+                {
+                    m_scSale.ApperHera();
+                }
+                else
+                {
+                    m_scSale.ApperShark();
+                }
             }           
             
         }
@@ -62,7 +74,21 @@ public class Exit : MonoBehaviour
         m_bullApper = true;
         if (m_Num < 1)
         {
-            Instantiate(m_prBull, m_EntrancePoint.transform.position, transform.rotation);
+            if (m_DangerNum == 0)
+            {
+                m_prBull = (GameObject)Resources.Load("Prefab/Lamborghini");
+                Instantiate(m_prBull, m_EntrancePoint.transform.position, transform.rotation);
+            }
+            else if (m_DangerNum == 1)
+            {
+                m_prBull = (GameObject)Resources.Load("Prefab/Herazika");
+                Instantiate(m_prBull, m_EntrancePoint.transform.position, transform.rotation);
+            }
+            else
+            {
+                m_prBull = (GameObject)Resources.Load("Prefab/Shark");
+                Instantiate(m_prBull, m_EntrancePoint.transform.position, transform.rotation);
+            }
             m_CurentApperTimeIndex++;
             m_Num++;
         }
@@ -72,7 +98,7 @@ public class Exit : MonoBehaviour
     {
         if (other.tag == "Bull")
         {
-            
+            m_prBull = null;
             m_bullApper = false;
             //m_Num--;
         }
