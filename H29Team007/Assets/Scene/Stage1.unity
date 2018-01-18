@@ -7166,6 +7166,7 @@ GameObject:
   - component: {fileID: 697825238}
   - component: {fileID: 697825240}
   - component: {fileID: 697825239}
+  - component: {fileID: 697825241}
   m_Layer: 0
   m_Name: SaleSpawnPosition
   m_TagString: SaleSpown
@@ -7278,6 +7279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_se: {fileID: 8300000, guid: 4b14f2be55fcf1e4fa2dea6f7f923465, type: 3}
+  m_SM: {fileID: 0}
   m_SaleAnimals: 00000000000000000000000000000000000000000000000000000000
   m_ApperTime:
   - 10
@@ -7297,6 +7299,25 @@ MonoBehaviour:
   m_Chikintortal: 6
   m_CurrentApperTimeIndex: 0
   m_CurrentChikinApperTimeIndex: 0
+--- !u!114 &697825241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 697825237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2fa77da4432cc9468e6e628a48baee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _BGMVolume: 0
+  _SEVolume: 0
+  BGM: []
+  SE:
+  - {fileID: 8300000, guid: 96a385460f2df2f49a610fe90cabe87b, type: 3}
+  - {fileID: 8300000, guid: a54288a77748f12409903643d47e27f6, type: 3}
+  Voice: []
+  BGMFadeFlag: 0
 --- !u!1 &712154671
 GameObject:
   m_ObjectHideFlags: 0
@@ -13234,6 +13255,16 @@ Prefab:
       propertyPath: SE.Array.data[3]
       value: 
       objectReference: {fileID: 8300000, guid: 1bed4d04ff875534e81bfae7bb1067e4, type: 3}
+    - target: {fileID: 114479556406332354, guid: 96209d8e88afa5c43bacd345cbd1d3fa,
+        type: 2}
+      propertyPath: SE.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 96a385460f2df2f49a610fe90cabe87b, type: 3}
+    - target: {fileID: 114479556406332354, guid: 96209d8e88afa5c43bacd345cbd1d3fa,
+        type: 2}
+      propertyPath: SE.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: a54288a77748f12409903643d47e27f6, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 96209d8e88afa5c43bacd345cbd1d3fa, type: 2}
   m_IsPrefabParent: 0

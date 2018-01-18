@@ -13,6 +13,7 @@ public class SaleMaterial : MonoBehaviour {
     public AudioClip m_se;
     public GameObject m_SoundManager;
     private SoundManagerScript m_smScript;
+    private SoundManagerScript m_smSc2;
 
     public GameObject m_Cow, m_fish, m_Pig,m_Bull,m_CowCharacter, m_FishCharacter, m_pigCharacter,m_BullCharacter,
         m_Aray,m_ArayCharacter,m_Kaziki,m_KazikiCharacter,m_Chikin,m_ChikinCharacter,m_Goat,m_GoatCharacter,
@@ -45,6 +46,7 @@ public class SaleMaterial : MonoBehaviour {
         m_scSaleSpwn = m_SaleSpown.GetComponent<SaleSpown>();
         m_exScript = m_ExitPoint.GetComponent<Exit>();
         m_smScript = m_SoundManager.GetComponent<SoundManagerScript>();
+        m_smSc2 = GetComponent<SoundManagerScript>();
         m_AS = GetComponent<AudioSource>();
 	}
 	
@@ -61,6 +63,7 @@ public class SaleMaterial : MonoBehaviour {
             {
                 m_smScript.PlaySE(2);
                 m_smScript.PlaySE(3);
+                m_smSc2.PlaySE(1);
                 m_fsee = true;
             }
             m_timebul += Time.deltaTime;
@@ -86,6 +89,7 @@ public class SaleMaterial : MonoBehaviour {
             {
                 m_smScript.PlaySE(2);
                 m_smScript.PlaySE(3);
+                m_smSc2.PlaySE(1);
                 m_fsee = true;
             }
             m_timebul += Time.deltaTime;
@@ -112,6 +116,7 @@ public class SaleMaterial : MonoBehaviour {
             {
                 m_smScript.PlaySE(2);
                 m_smScript.PlaySE(3);
+                m_smSc2.PlaySE(1);
                 m_fsee = true;
             }
             m_timebul += Time.deltaTime;
@@ -140,7 +145,8 @@ public class SaleMaterial : MonoBehaviour {
                     {
                         m_smScript.PlaySE(2);
                         m_smScript.PlaySE(3);
-                        m_fse = true;
+                    m_smSc2.PlaySE(0);
+                    m_fse = true;
                     }
                
                     m_time += Time.deltaTime;
@@ -167,7 +173,8 @@ public class SaleMaterial : MonoBehaviour {
                     {
                         m_smScript.PlaySE(2);
                         m_smScript.PlaySE(3);
-                        m_fse = true;
+                    m_smSc2.PlaySE(0);
+                    m_fse = true;
                     }
                     m_time += Time.deltaTime;
                     m_CowCharacter.GetComponent<RectTransform>().localPosition -= Vector3.right * m_speed;
@@ -195,6 +202,7 @@ public class SaleMaterial : MonoBehaviour {
                 {
                     m_smScript.PlaySE(2);
                     m_smScript.PlaySE(3);
+                    m_smSc2.PlaySE(0);
                     m_fse = true;
                 }
                 m_time += Time.deltaTime;
@@ -223,6 +231,7 @@ public class SaleMaterial : MonoBehaviour {
                 {
                     m_smScript.PlaySE(2);
                     m_smScript.PlaySE(3);
+                    m_smSc2.PlaySE(0);
                     m_fse = true;
                 }
                 m_time += Time.deltaTime;
@@ -251,6 +260,7 @@ public class SaleMaterial : MonoBehaviour {
                 {
                     m_smScript.PlaySE(2);
                     m_smScript.PlaySE(3);
+                    m_smSc2.PlaySE(0);
                     m_fse = true;
                 }
                 m_time += Time.deltaTime;
@@ -279,6 +289,7 @@ public class SaleMaterial : MonoBehaviour {
                 {
                     m_smScript.PlaySE(2);
                     m_smScript.PlaySE(3);
+                    m_smSc2.PlaySE(0);
                     m_fse = true;
                 }
                 m_time += Time.deltaTime;
@@ -307,6 +318,7 @@ public class SaleMaterial : MonoBehaviour {
                 {
                     m_smScript.PlaySE(2);
                     m_smScript.PlaySE(3);
+                    m_smSc2.PlaySE(0);
                     m_fse = true;
                 }
                 m_time += Time.deltaTime;
@@ -335,6 +347,7 @@ public class SaleMaterial : MonoBehaviour {
                 {
                     m_smScript.PlaySE(2);
                     m_smScript.PlaySE(3);
+                    m_smSc2.PlaySE(0);
                     m_fse = true;
                 }
                 m_time += Time.deltaTime;
