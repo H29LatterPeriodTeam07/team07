@@ -121,7 +121,7 @@ public class Player : MonoBehaviour
         seScript = GetComponent<PlayerSE>();
         cameraScript = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.GetComponent<PlayerCamera>();
         fade = GameObject.Find("fade").GetComponent<Fade>();
-        if(GameObject.Find("TestCamera") != null) resultCamera = GameObject.Find("TestCamera").GetComponent<ResultBackCamera>();
+        if(GameObject.Find("ResultBackCamera") != null) resultCamera = GameObject.Find("ResultBackCamera").GetComponent<ResultBackCamera>();
     }
 
     void Update()
