@@ -118,6 +118,7 @@ public class RunOverObject : MonoBehaviour
         if (transform.parent != null) return;
         if (other.name == "FrontHitArea")//プレイヤーババア用　敵ババアが特売品を轢く処理は頑張って
         {
+            if (other.transform.root.GetComponent<Player>().GetFowardSpeed() <= 0.1f * 0.1f) return;
             if (transform.tag == "Bull")
             {
                 BullOver(other.transform.root);

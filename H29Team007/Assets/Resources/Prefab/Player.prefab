@@ -2989,6 +2989,7 @@ GameObject:
   - component: {fileID: 82392130144138980}
   - component: {fileID: 82230103871920952}
   - component: {fileID: 114298644907255324}
+  - component: {fileID: 82885512552467096}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -6790,6 +6791,86 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!82 &82885512552467096
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899221567807338}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95517880504486158
 Animator:
   serializedVersion: 3
@@ -6852,7 +6933,7 @@ MonoBehaviour:
   flyBasketPrefab: {fileID: 1643120543486778, guid: 2d5a5a7f77cf02942aa001304b7821eb,
     type: 2}
   maxCountDefault: 10
-  coinPrefab: {fileID: 1451065956282974, guid: 16c93022b3c02994193c15b02eaa14ca, type: 2}
+  coinManagerPrefab: {fileID: 0}
   popscorePrefab: {fileID: 1981598496221300, guid: 0efb8574a86df2348888c6790ce50701,
     type: 2}
 --- !u!114 &114298644907255324
@@ -6874,6 +6955,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0efbb3a6396edf947a70ccb6dd23ddf0, type: 3}
   - {fileID: 8300000, guid: d63a9a87eeabf614fab09943094463e8, type: 3}
   - {fileID: 0}
+  - {fileID: 8300000, guid: 5957e1f5c84d01947b7f2c290a041f18, type: 3}
+  - {fileID: 8300000, guid: 682bee0ccfd8a044d9d91e3a2e1e3bd1, type: 3}
+  - {fileID: 8300000, guid: 98bdbfb519a928a4cbec14b5fdcb6ac3, type: 3}
+  - {fileID: 8300000, guid: 88854b6946f7d7643883b82d73b2254d, type: 3}
+  - {fileID: 8300000, guid: 8560c95869ae99e4ab7ba4f993e2fd45, type: 3}
+  - {fileID: 8300000, guid: 7a4156404e36a3446b7b98c052281dc2, type: 3}
+  - {fileID: 8300000, guid: fc0c9bbecf6c7d64a87eb36e8d10da18, type: 3}
 --- !u!114 &114570305927051202
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -257,7 +257,7 @@ public class Player : MonoBehaviour
     public void ChangeState(int state)
     {
         if(myState == PlayerState.Gliding)cameraScript.GlidingRotation(0.0f,true);
-        
+        if(state == 6 && myState == PlayerState.Outside)m_Animator.Play("NoCart");
         //Debug.Log(state);
         switch (state)
         {
@@ -404,6 +404,9 @@ public class Player : MonoBehaviour
         if (Vector3.Distance(myNav.destination, transform.position) < 1.0f)
         {
             seScript.OnePlay(4);
+            //int rand = Random.Range(10,12);
+            //seScript.OnePlay2(rand);
+
             transform.position = myNav.destination;
             myNav.enabled = false;
             myCC.enabled = true;
@@ -421,6 +424,8 @@ public class Player : MonoBehaviour
         if (Vector3.Distance(myNav.destination, transform.position) < 1.0f)
         {
             seScript.OnePlay(4);
+            int rand = Random.Range(10, 13);
+            seScript.OnePlay2(rand);
             transform.position = myNav.destination;
             myNav.enabled = false;
             transform.position = new Vector3(transform.position.x, 0, transform.position.z);
@@ -447,7 +452,9 @@ public class Player : MonoBehaviour
             fade.FadeIn(1.0f);
             myNav.enabled = true;
             myNav.destination = playerExitPoint.position;
-            
+            int rand = Random.Range(7, 9);
+            seScript.OnePlay2(rand);
+
         }
 
         if (Vector3.Distance(myNav.destination, transform.position) < 1.0f)
@@ -713,8 +720,9 @@ public class Player : MonoBehaviour
 
     public float GetFowardSpeed()
     {
+        Vector3 result = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         //Debug.Log(rb.velocity.sqrMagnitude);
-        return inputVertical;//rb.velocity.z;
+        return result.sqrMagnitude;//inputVertical;//rb.velocity.z;
     }
 
     /// <summary>プレイヤーがカートを持っているかどうか</summary>
@@ -814,7 +822,7 @@ public class Player : MonoBehaviour
             && GetState() < PlayerState.Takeover
             && scScript.IsCatchBasket())
         {
-            if(GameObject.FindGameObjectsWithTag("Cart").Length < 2)
+            if(collision.gameObject.GetComponent<CartSpown>().IsCartGet())
             {
                 canGetCart = Instantiate(cartRigidPrefab);
                 canGet = true;

@@ -28,8 +28,8 @@ public class PopupScore2D : MonoBehaviour {
         float time = (Time.time - startTime);
         if (!isWaiting)
         {
-            rectTransform.position = Vector3.Lerp(rectTransform.position, score.position, time / speed);
-            if (Vector3.Distance(rectTransform.position, score.position) < rectTransform.sizeDelta.y / 2)
+            rectTransform.position = Vector3.Lerp(rectTransform.position, score.position + Vector3.right * score.sizeDelta.x / 2, time / speed);
+            if (Vector3.Distance(rectTransform.position, score.position + Vector3.right * score.sizeDelta.x / 2) < rectTransform.sizeDelta.y / 2)
             {
                 Destroy(gameObject);
             }
@@ -46,7 +46,7 @@ public class PopupScore2D : MonoBehaviour {
     public void SetTarget(int n)
     {
         score = transform.parent.GetComponent<RectTransform>();
-        rectTransform.position = score.position - Vector3.up * rectTransform.sizeDelta.y * n;
+        rectTransform.position = score.position - Vector3.up * (rectTransform.sizeDelta.y/2) * (n + 4) + Vector3.right * score.sizeDelta.x / 2;
         startTime = Time.time;
     }
 

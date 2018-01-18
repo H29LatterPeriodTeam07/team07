@@ -552,6 +552,7 @@ public class ShoppingCount : MonoBehaviour
 
 
             seScript.OnePlay(5);
+            seScript.OnePlay2(9);
             for (int i = 0; i < kesumono.Count; i++)
             {
                 Destroy(kesumono[i].gameObject);

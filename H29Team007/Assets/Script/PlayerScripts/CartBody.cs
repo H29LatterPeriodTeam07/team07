@@ -260,6 +260,7 @@ public class CartBody : MonoBehaviour
             GameObject explosion = Instantiate(explosionPrefub);
             explosion.transform.position = transform.position;
             seScript.OnePlay(3);
+            seScript.OnePlay2(13);
             if (playerScript.MyCart() == gameObject)
             {
                 if (playerScript.IsCart2())

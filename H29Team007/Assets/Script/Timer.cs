@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class Timer : MonoBehaviour {
 
     Slider m_slider;
-    public float timer;
+    private float timer;
 
     public float stageTime = 100.0f;
 
@@ -65,5 +65,10 @@ public class Timer : MonoBehaviour {
     public float NowTime()
     {
         return timer;
+    }
+
+    public float StageTime()
+    {
+        return stageTime;
     }
 }

@@ -8,7 +8,7 @@ public class PlayerSE : MonoBehaviour {
 
     private AudioSource[] audioSource;
     
-    private int nowNumber = 5;
+    private int nowNumber = 6;
 
 	// Use this for initialization
 	void Start () {
@@ -27,6 +27,11 @@ public class PlayerSE : MonoBehaviour {
     public void OnePlay(int number)
     {
         audioSource[1].PlayOneShot(playerSEs[number]);
+    }
+
+    public void OnePlay2(int number)
+    {
+        audioSource[2].PlayOneShot(playerSEs[number]);
     }
 
     public void SEPlay(int number)
