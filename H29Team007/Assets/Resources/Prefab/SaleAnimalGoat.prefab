@@ -2004,8 +2004,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 2.7}
-  m_Center: {x: 0, y: 1, z: 0.4}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!82 &82581607219258188
 AudioSource:
   m_ObjectHideFlags: 1
@@ -2319,7 +2319,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 9e6ffa11b10c6ff40b3522e8dca63977, type: 2}
+  - {fileID: 2100000, guid: 90d30adfe0e4a1d42a6095bd7ec1006e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2386,7 +2386,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 9e6ffa11b10c6ff40b3522e8dca63977, type: 2}
+  - {fileID: 2100000, guid: 90d30adfe0e4a1d42a6095bd7ec1006e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

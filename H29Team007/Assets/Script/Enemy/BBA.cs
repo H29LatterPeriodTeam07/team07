@@ -301,7 +301,7 @@ public class BBA : MonoBehaviour
         if (other.name == "FrontHitArea")
         {
             Destroy(myCart.gameObject);
-            Destroy(m_basket.gameObject);
+        //    Destroy(m_basket.gameObject);
             bcScript.BaggegeFall(transform.position);
             m_bo = false;
         }

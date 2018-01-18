@@ -58,7 +58,6 @@ public class Clerk : MonoBehaviour
         m_PlayerLookpoint = m_Player.transform.Find("LookPoint");
         m_EyePoint = transform.Find("LookEye");
         m_Animator = GetComponent<Animator>();
-        m_rand = Random.Range(0, m_PatrolPoints.Length);
         m_AS = GetComponent<AudioSource>();
         m_pScript = m_Player.GetComponent<Player>();
     }
@@ -104,7 +103,7 @@ public class Clerk : MonoBehaviour
     //次の巡回ポイントを目的地に設定する
     void SetNewPatrolPointToDestination()
     {
-
+        m_rand = Random.Range(0, m_PatrolPoints.Length);
         m_Agent.destination = m_PatrolPoints[m_rand].transform.position;
     }
 

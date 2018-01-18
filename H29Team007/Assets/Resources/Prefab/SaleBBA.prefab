@@ -10368,6 +10368,7 @@ MonoBehaviour:
   minusRotateSpeedDefault: 60
   baggageRotateLimit: 60
   baggageRotateLimitDefault: 90
+  explosionPrefub: {fileID: 0}
 --- !u!114 &114712492353143548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10392,8 +10393,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCart: {fileID: 1591560611567440}
   m_int: 0
-  m_plane: {fileID: 0}
-  m_BBAplehab: {fileID: 0}
   m_ViewingDistance: 0
   m_ViewingAngle: 0
   m_scBBAcount: {fileID: 114324925029098016}
@@ -10427,6 +10426,7 @@ MonoBehaviour:
   minusRotateSpeedDefault: 60
   baggageRotateLimit: 60
   baggageRotateLimitDefault: 90
+  explosionPrefub: {fileID: 0}
 --- !u!136 &136229183455007790
 CapsuleCollider:
   m_ObjectHideFlags: 1
