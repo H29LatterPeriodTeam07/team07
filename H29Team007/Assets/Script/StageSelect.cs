@@ -109,19 +109,19 @@ public class StageSelect : MonoBehaviour {
                     // SceneManager.LoadScene("Stage1");
                     async = SceneManager.LoadSceneAsync("Stage1");
                     StartCoroutine("LoadScene");
-                    ScoreManager.StageChenge(1);
+                    //ScoreManager.StageChenge(1);
                     break;
                 case 2:
                     //SceneManager.LoadScene("Stage2.1");
                     async = SceneManager.LoadSceneAsync("Stage2.1");
                     StartCoroutine("LoadScene");
-                    ScoreManager.StageChenge(2);
+                    //ScoreManager.StageChenge(2);
                     break;
                 case 3:
                     //SceneManager.LoadScene("Stage3");
                     async = SceneManager.LoadSceneAsync("Stage3");
                     StartCoroutine("LoadScene");
-                    ScoreManager.StageChenge(3);
+                    //ScoreManager.StageChenge(3);
                     break;
             }
             m_NowLoad.SetActive(true);

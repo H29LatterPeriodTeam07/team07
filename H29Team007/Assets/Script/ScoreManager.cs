@@ -13,37 +13,63 @@ public class ScoreManager
     //private static int cowCount = 0;
     //private static int fishCount = 0;
 
-    private static string readtxt = "";
+    //private static string readtxt = "";
     private static List<int> scores = new List<int>();  //ステージごとのスコア(txtからの読み込み)
     public static List<string> enemysname = new List<string>(); //ステージごとの敵の名前(txtからの読み込み)
     private static List<int> scorescount = new List<int>(); //何番目のやつを何体取ったかを数える
 
-    public static void StageChenge(int stageNum)
+    public static void StageChenge(int stageNum, StageSelectManager.PriceData priceData)
     {
+        // 名前を変換する
+        Dictionary<string, string> PriceDataNameToPrefabName = new Dictionary<string, string>();
+        PriceDataNameToPrefabName["arai"] = "Arai";
+        PriceDataNameToPrefabName["buta"] = "Pig";
+        PriceDataNameToPrefabName["gyo"] = "Fish";
+        PriceDataNameToPrefabName["hera"] = "Herazika";
+        PriceDataNameToPrefabName["hitsu"] = "Sheep";
+        PriceDataNameToPrefabName["inosh"] = "Boar";
+        PriceDataNameToPrefabName["kaji"] = "Kaziki";
+        PriceDataNameToPrefabName["niwa"] = "Chickin";
+        PriceDataNameToPrefabName["tougyu"] = "Lamborghini";
+        PriceDataNameToPrefabName["ushi"] = "Cow";
+        PriceDataNameToPrefabName["same"] = "Shark";
+
         stageNumber = stageNum;
         if (stageNumber == 0) stageNumber = 1;
-        ReadEnemyScoreFile();
-        string[] txt = readtxt.Split(',');//,で区切る
+        // ReadEnemyScoreFile();
+        // string[] txt = readtxt.Split(',');//,で区切る
         scores.Clear();
         scores.Add(100); //人間のスコア
-        for (int i = 0; i < txt.Length; i++)
-        {
-            scores.Add(int.Parse(txt[i]));//リストの中に入れる
-            //Debug.Log(test[i]);
-        }
-        ReadEnemyNameFile();
-        txt = readtxt.Split(',');//,で区切る
         enemysname.Clear();
         enemysname.Add("human"); //人間 リストの場所をあわせるため
-        for (int i = 0; i < txt.Length; i++)
+        // チラシに表示されているもの
+        foreach (var i in priceData.prices)
         {
-            enemysname.Add(txt[i]);//リストの中に入れる
-            //Debug.Log(txt[i]);
+            enemysname.Add(PriceDataNameToPrefabName[i.Key]);
+            scores.Add(i.Value);
         }
+        // チラシに表示されていないもの
+        foreach (var i in priceData.secretPrices)
+        {
+            enemysname.Add(PriceDataNameToPrefabName[i.Key]);
+            scores.Add(i.Value);
+        }
+        // for (int i = 0; i < txt.Length; i++)
+        // {
+        //     scores.Add(int.Parse(txt[i]));//リストの中に入れる
+        //     //Debug.Log(test[i]);
+        // }
+        // ReadEnemyNameFile();
+        // txt = readtxt.Split(',');//,で区切る
+        // for (int i = 0; i < txt.Length; i++)
+        // {
+        //     enemysname.Add(txt[i]);//リストの中に入れる
+        //     //Debug.Log(txt[i]);
+        // }
 
         switch (stageNum)
         {
-            case 1:Stage1Pattern();break;
+            case 1: Stage1Pattern(); break;
         }
 
         Reset();
@@ -130,7 +156,7 @@ public class ScoreManager
     private static int EnemyNumber(string name)
     {
         int result = 0;
-        for(int i = 0; i < enemysname.Count; i++)
+        for (int i = 0; i < enemysname.Count; i++)
         {
             if (name.Contains(enemysname[i]))
             {
@@ -234,25 +260,26 @@ public class ScoreManager
         return stageNumber;
     }
 
-    private static void ReadEnemyScoreFile()
-    {
-        StreamReader reder;
-        reder = new StreamReader(
-           Application.streamingAssetsPath + "//enemyscore0" + stageNumber.ToString() + ".txt",
-            System.Text.Encoding.GetEncoding("utf-8"));
+    // private static void ReadEnemyScoreFile()
+    // {
+    //     StreamReader reder;
+    //     reder = new StreamReader(
+    //        Application.streamingAssetsPath + "//enemyscore0" + stageNumber.ToString() + ".txt",
+    //         System.Text.Encoding.GetEncoding("utf-8"));
+    // 
+    //     readtxt = reder.ReadLine();
+    //     reder.Close();
+    // }
 
-        readtxt = reder.ReadLine();
-        reder.Close();
-    }
-
-    private static void ReadEnemyNameFile()
-    {
-        StreamReader reder;
-        reder = new StreamReader(
-           Application.streamingAssetsPath + "//enemyname0" + stageNumber.ToString() + ".txt",
-            System.Text.Encoding.GetEncoding("utf-8"));
-
-        readtxt = reder.ReadLine();
-        reder.Close();
-    }
+    // private static void ReadEnemyNameFile()
+    // {
+    //     StreamReader reder;
+    //     reder = new StreamReader(
+    //        Application.streamingAssetsPath + "//enemyname0" + stageNumber.ToString() + ".txt",
+    //         System.Text.Encoding.GetEncoding("utf-8"));
+    // 
+    //     readtxt = reder.ReadLine();
+    //     reder.Close();
+    // }
 }
+

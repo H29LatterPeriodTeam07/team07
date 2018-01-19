@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class StageSelectManager : MonoBehaviour {
     public GameObject m_CheckUI;
     GameObject Flayers;
+    GameObject Arrows;
     public int m_FlyerCount;
     bool m_IsChange;
     // データ
-    struct PriceData{
+    public struct PriceData{
         public int StageIndex;
         public Dictionary<string, int> prices;
+        public Dictionary<string, int> secretPrices;
         public bool IsCheck;
         public string checkAnimalName;
     }
@@ -30,8 +33,15 @@ public class StageSelectManager : MonoBehaviour {
     void Start () {
         m_Datas = new List<PriceData>();
         currentSelectStageIndex = 0;
-        Flayers = transform.Find("Screen").Find("Flayers").gameObject;
-        m_FlyerCount = Flayers.transform.childCount;
+        Flayers = transform.Find("Screen").Find("Flyers").gameObject;
+        Arrows = Flayers.transform.Find("Arrows").gameObject;
+        m_FlyerCount = 0;
+        for (int i = 0; i <Flayers.transform.childCount; ++i){
+            if(Flayers.transform.GetChild(i).name.Split('_')[0] == "Flyer")
+            {
+                ++m_FlyerCount;
+            }
+        }
         CreateData();
         SetFlyerGoodsPrice();
 
@@ -61,7 +71,7 @@ public class StageSelectManager : MonoBehaviour {
             sm.PlaySE(0);
             async = SceneManager.LoadSceneAsync(m_SceneNames[currentSelectStageIndex]);
             StartCoroutine("LoadScene");
-            ScoreManager.StageChenge(currentSelectStageIndex);
+            ScoreManager.StageChenge(currentSelectStageIndex, m_Datas[currentSelectStageIndex]);
             m_NowLoad.SetActive(true);
         }
 
@@ -87,8 +97,9 @@ public class StageSelectManager : MonoBehaviour {
                 currentSelectStageIndex += (m_FlyerCount - 1);
             }
             currentSelectStageIndex = currentSelectStageIndex % m_FlyerCount;
-           
-            Flayers.GetComponent<Flyers>().MoveTargetPositionX(currentSelectStageIndex * -1280);
+            float l_positionX = currentSelectStageIndex * 1280;
+            Arrows.GetComponent<Arrows>().SetTargetLocalPositionX(l_positionX);
+            Flayers.GetComponent<Flyers>().MoveTargetPositionX(-l_positionX);
             m_IsChange = true;
         }
         else if(Mathf.Abs(inputHorizontal) <= Margin)
@@ -104,6 +115,24 @@ public class StageSelectManager : MonoBehaviour {
                 GameObject l_checkUI = Instantiate(m_CheckUI);
                 GameObject l_flyer = Flayers.transform.GetChild(currentSelectStageIndex).gameObject;
                 l_flyer.GetComponent<Flyer>().SetImageGoodslocalPosition(l_checkUI, l_data.checkAnimalName);
+                bool isFirst = Random.Range(0, 2) == 0;
+                l_checkUI.GetComponent<Animator>().SetBool("IsFirst", !isFirst);
+                l_checkUI.GetComponent<Animator>().enabled = true;
+                l_checkUI.GetComponent<Image>().color = Color.white;
+                Vector3 l_scale;
+                if(currentSelectStageIndex < 2)
+                {
+                    l_scale = Vector3.one * 1.25f;
+                }
+                else if(currentSelectStageIndex < 5)
+                {
+                    l_scale = Vector3.one;
+                }
+                else
+                {
+                    l_scale = Vector3.one * 0.5f;
+                }
+                l_checkUI.GetComponent<RectTransform>().localScale = l_scale;
                 l_data.IsCheck = true;
                 m_Datas[currentSelectStageIndex] = l_data;
             }
@@ -124,6 +153,7 @@ public class StageSelectManager : MonoBehaviour {
         {
             PriceData l_data;
             l_data.prices = new Dictionary<string, int>();
+            l_data.secretPrices = new Dictionary<string, int>();
 
             string l_line = row[i].Replace("\r", "");
             if (l_line == "") continue;
@@ -133,15 +163,26 @@ public class StageSelectManager : MonoBehaviour {
             data = l_line.Split(';');
             // 1列目はステージ番号
             l_data.StageIndex = int.Parse(data[0]);
-            animal = data[1].Split('/');
-            // 2列目以降は名前と価格
-            for (int j = 0; j < animal.Length; ++j)
+
+            // 2,3列目は名前と価格
+            for(int j = 1; j <= 2; ++j)
             {
-                price = animal[j].Split('_');
-                // 保存する
-                l_data.prices[price[0]] = int.Parse(price[1]);
+                // 空の場合スキップ
+                if (data[j] == "") continue;
+                animal = data[j].Split('/');
+                for (int k = 0; k < animal.Length; ++k)
+                {
+                    price = animal[k].Split('_');
+                    // 保存する
+                    if(j == 1)
+                    l_data.prices[price[0]] = int.Parse(price[1]);
+                    else
+                    l_data.secretPrices[price[0]] = int.Parse(price[1]);
+                }
             }
-            l_data.checkAnimalName = data[2];
+            
+            // 丸付け
+            l_data.checkAnimalName = data[3];
             // 情報初期化
             l_data.IsCheck = false;
             m_Datas.Add(l_data);

@@ -48,8 +48,8 @@ public class Flyer : MonoBehaviour {
 
             if (goodsName == l_name)
             {
-                image.transform.parent = l_GoodsImage.transform.parent;
-                image.GetComponent<RectTransform>().localPosition = l_GoodsImage.GetComponent<RectTransform>().localPosition;
+                image.transform.parent = transform.parent;
+                image.GetComponent<RectTransform>().position = l_GoodsImage.GetComponent<RectTransform>().position;
             }
         }
     }
