@@ -219,13 +219,15 @@ public class RunOverObject : MonoBehaviour
     }
     public void OnTriggerStay(Collider other)
     {
-       if (m_model == null) return;
+      // if (m_model == null) return;
         if (other.name == "Plane")
         {
-            m_model.SetActive(true);
-            m_gutemodel.SetActive(false);
+            if (m_model != null && m_gutemodel !=null)
+            {
+                m_model.SetActive(true);
+                m_gutemodel.SetActive(false);
+            }
         }
-
 
     }
 
