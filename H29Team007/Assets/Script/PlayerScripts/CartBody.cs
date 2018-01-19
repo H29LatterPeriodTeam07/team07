@@ -89,6 +89,18 @@ public class CartBody : MonoBehaviour
         {
             secondCartBaggageParent = transform.root.Find("SecondBaggage");
         }
+        if (cartStatus[3] <= 0)
+        {
+            if (playerScript.MyCart() != gameObject)
+            {
+                playerScript.SetMinusRotateSpeed2(minusRotateSpeedDefault);
+            }
+            else
+            {
+                playerScript.SetMinusRotateSpeed(minusRotateSpeedDefault);
+            }
+            
+        }
 
     }
 
@@ -210,10 +222,6 @@ public class CartBody : MonoBehaviour
     public void GetCart(CartStatusWithCart cart)
     { 
         cartStatus = cart.PassStatus();
-        if (cartStatus[3] <= 0)
-        {
-            playerScript.SetMinusRotateSpeed(minusRotateSpeedDefault);
-        }
     }
 
     /// <summary>
