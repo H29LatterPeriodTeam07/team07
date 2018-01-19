@@ -1141,7 +1141,7 @@ Transform:
   m_GameObject: {fileID: 1487593109081992}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 4619838683389324}
   - {fileID: 4518331468305174}
@@ -1363,7 +1363,7 @@ Transform:
   m_GameObject: {fileID: 1981457340447790}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 4073052600497340}
   - {fileID: 4837559342982892}
@@ -1656,7 +1656,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Size: {x: 0.5, y: 1, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!82 &82675864930155394
 AudioSource:
@@ -1894,7 +1894,7 @@ MonoBehaviour:
   m_se: {fileID: 0}
   m_model: {fileID: 1487593109081992}
   m_gutemodel: {fileID: 1981457340447790}
-  runOverAfterHeight: 0.5
+  runOverAfterHeight: 0.2
 --- !u!114 &114570412247777420
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2103,7 +2103,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1.5
+  m_Height: 1
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
