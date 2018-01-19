@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 04fdde1dd69d1e541a03503111b2fda8
-timeCreated: 1515986414
+guid: b49cb9e63901d474ebb2d0433eb4d328
+timeCreated: 1516327108
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -33,7 +33,7 @@ ModelImporter:
     100050: Bone.023
     100052: Bone.023_end
     100054: Camera
-    100056: default
+    100056: Goat
     100058: //RootNode
     100060: Lamp
     100062: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2"
@@ -65,15 +65,17 @@ ModelImporter:
     400050: Bone.023
     400052: Bone.023_end
     400054: Camera
-    400056: default
+    400056: Goat
     400058: //RootNode
     400060: Lamp
     400062: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2"
-    4300000: default
-    7400000: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|walk"
-    7400002: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2Action"
+    4300000: Goat
+    7400000: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|GoatAction"
+    7400002: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|walk"
+    7400004: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2Action"
+    7400006: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2Action.001"
     9500000: //RootNode
-    13700000: default
+    13700000: Goat
   materials:
     importMaterials: 1
     materialName: 0

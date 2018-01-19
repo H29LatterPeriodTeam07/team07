@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 2945f1604ebe7a14c9e1d4f7ee8eb4e0
-timeCreated: 1515986418
+guid: 67073b29a2f55a547a3fcf77f5f06a8f
+timeCreated: 1516327108
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -33,7 +33,7 @@ ModelImporter:
     100050: Bone.023
     100052: Bone.023_end
     100054: Camera
-    100056: default
+    100056: Goat
     100058: //RootNode
     100060: Lamp
     100062: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2"
@@ -65,15 +65,16 @@ ModelImporter:
     400050: Bone.023
     400052: Bone.023_end
     400054: Camera
-    400056: default
+    400056: Goat
     400058: //RootNode
     400060: Lamp
     400062: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2"
-    4300000: default
-    7400000: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|walk"
-    7400002: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2Action"
+    4300000: Goat
+    7400000: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|GoatAction"
+    7400002: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|walk"
+    7400004: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2Action"
     9500000: //RootNode
-    13700000: default
+    13700000: Goat
   materials:
     importMaterials: 1
     materialName: 0
@@ -97,6 +98,98 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations:
+    - serializedVersion: 16
+      name: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|GoatAction"
+      takeName: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|GoatAction"
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Goat
+        weight: 1
+      - path: Lamp
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.002"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.002/Bone.003"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.002/Bone.003/Bone.007"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.002/Bone.003/Bone.007/Bone.008"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.002/Bone.003/Bone.007/Bone.008/Bone.010"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.002/Bone.003/Bone.007/Bone.008/Bone.010/Bone.010_end"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.002/Bone.004"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.002/Bone.004/Bone.005"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.002/Bone.004/Bone.005/Bone.006"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.002/Bone.004/Bone.005/Bone.006/Bone.009"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.002/Bone.004/Bone.005/Bone.006/Bone.009/Bone.009_end"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.011"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.011/Bone.012"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.011/Bone.012/Bone.013"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.011/Bone.012/Bone.013/Bone.014"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.011/Bone.012/Bone.013/Bone.014/Bone.016"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.011/Bone.012/Bone.013/Bone.014/Bone.016/Bone.018"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.011/Bone.012/Bone.013/Bone.014/Bone.016/Bone.018/Bone.019"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.011/Bone.012/Bone.013/Bone.014/Bone.016/Bone.018/Bone.019/Bone.020"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.011/Bone.012/Bone.013/Bone.014/Bone.016/Bone.018/Bone.019/Bone.020/Bone.020_end"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.011/Bone.012/Bone.013/Bone.015"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.011/Bone.012/Bone.013/Bone.015/Bone.017"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.011/Bone.012/Bone.013/Bone.015/Bone.017/Bone.021"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.011/Bone.012/Bone.013/Bone.015/Bone.017/Bone.021/Bone.022"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.011/Bone.012/Bone.013/Bone.015/Bone.017/Bone.021/Bone.022/Bone.023"
+        weight: 1
+      - path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Bone.001/Bone.011/Bone.012/Bone.013/Bone.015/Bone.017/Bone.021/Bone.022/Bone.023/Bone.023_end"
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|walk"
       takeName: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|walk"
@@ -126,7 +219,7 @@ ModelImporter:
         weight: 1
       - path: Camera
         weight: 1
-      - path: default
+      - path: Goat
         weight: 1
       - path: Lamp
         weight: 1
@@ -218,7 +311,7 @@ ModelImporter:
         weight: 1
       - path: Camera
         weight: 1
-      - path: default
+      - path: Goat
         weight: 1
       - path: Lamp
         weight: 1
