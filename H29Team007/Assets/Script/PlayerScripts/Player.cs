@@ -303,8 +303,9 @@ public class Player : MonoBehaviour
             m_Animator.Play("moti");
         }
 
-        if (//Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O)
-            IsKick())
+        if (Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O)
+            //IsKick()
+            )
         {
             //rb.velocity = transform.forward * kickSpeed;
             rb.AddForce(transform.forward * kickSpeed * nikuspeed, ForceMode.VelocityChange);
@@ -344,8 +345,9 @@ public class Player : MonoBehaviour
         rb.velocity = new Vector3(a.x, 0, a.z);
         //Debug.Log(rb.velocity);
         cameraScript.GlidingRotation(inputHorizontal);
-        if (//Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O)
-            IsKick())
+        if (Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O)
+            //IsKick()
+            )
         {
             rb.velocity = transform.forward * kickSpeed * nikuspeed;
             //var info = m_Animator.GetCurrentAnimatorStateInfo(0);

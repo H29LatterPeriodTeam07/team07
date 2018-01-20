@@ -53,14 +53,14 @@ public class GameManager : MonoBehaviour {
     //サウンドマネージャーオブジェクト
     public GameObject SM;
     //サウンドマネージャースクリプト
-    SoundManagerScript smScript;
+    //SoundManagerScript smScript;
 
     // Use this for initialization
     void Start () {
         m_BBA = GameObject.FindGameObjectWithTag("BBA");
         m_BBAScript = m_BBA.GetComponent<BBA>();
-        smScript = SM.transform.GetComponent<SoundManagerScript>();
-        smScript.PlayBGM(2);
+        //smScript = SM.transform.GetComponent<SoundManagerScript>();
+        //smScript.PlayBGM(2);
         m_tmScript = m_Timer.GetComponent<Timer>();
         m_SaleAnimalSpowns = GameObject.FindGameObjectsWithTag("SaleSpown");
         foreach (GameObject sl in m_SaleAnimalSpowns) {

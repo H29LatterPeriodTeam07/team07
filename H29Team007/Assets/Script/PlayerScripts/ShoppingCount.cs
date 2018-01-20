@@ -512,7 +512,7 @@ public class ShoppingCount : MonoBehaviour
                     GameObject popscore = Instantiate(popscorePrefab);
                     PopupScore2D popscoreScript = popscore.GetComponent<PopupScore2D>();
                     //popscoreScript.SetPositionAndRotation(myBaggage[i + 1].position + transform.right * 2, Camera.main.transform.eulerAngles.y);
-                    //popscoreScript.SetOutColorOrange();
+                    popscoreScript.SetOutColorOrange();
                     popscoreScript.SetText(patternname + "＋" + StringWidthConverter.ConvertToFullWidth(patternscore.ToString()));
                     popscoreScript.transform.SetParent(score.transform);
                     popscoreScript.SetTarget(scorecount);
@@ -537,7 +537,7 @@ public class ShoppingCount : MonoBehaviour
                     GameObject popscore = Instantiate(popscorePrefab);
                     PopupScore2D popscoreScript = popscore.GetComponent<PopupScore2D>();
                     //popscoreScript.SetPositionAndRotation(myBaggage[i + 1].position + transform.right * 2, Camera.main.transform.eulerAngles.y);
-                    //popscoreScript.SetOutColorOrange();
+                    popscoreScript.SetOutColorOrange();
                     popscoreScript.SetText(patternname + "＋" + StringWidthConverter.ConvertToFullWidth(patternscore.ToString()));
                     popscoreScript.transform.SetParent(score.transform);
                     popscoreScript.SetTarget(scorecount);
@@ -712,7 +712,7 @@ public class ShoppingCount : MonoBehaviour
             goukei += es.GetPrice();
         }
         string printscore = goukei.ToString();
-        score.text = "￥" + printscore;
+        score.text = printscore;
     }
 
     /// <summary>籠に入っているもののカウント</summary>
