@@ -40,16 +40,17 @@ public class Flyer : MonoBehaviour {
         // 広告の品の名前と一致するものがあれば価格を設定する
         for (int i = 0; i < m_Goods.transform.childCount; ++i)
         {
-            // 商品表示管理者の子のImagePrefabが商品名を持っている
+            // 商品表示管理者の子のPricePrefabのTextが商品名を持っている
             Transform l_GoodsHolder = m_Goods.transform.GetChild(i);
             if (l_GoodsHolder.name == "Frame") continue;
             GameObject l_GoodsImage = l_GoodsHolder.Find("Image").gameObject;
+            GameObject l_Price = l_GoodsHolder.Find("Price").Find("Text").gameObject;
             string l_name = l_GoodsImage.GetComponent<Image>().sprite.name;
 
             if (goodsName == l_name)
             {
                 image.transform.parent = transform.parent;
-                image.GetComponent<RectTransform>().position = l_GoodsImage.GetComponent<RectTransform>().position;
+                image.GetComponent<RectTransform>().position = l_Price.GetComponent<RectTransform>().position;
             }
         }
     }
