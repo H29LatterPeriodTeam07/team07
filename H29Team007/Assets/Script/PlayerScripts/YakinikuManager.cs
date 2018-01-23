@@ -4,69 +4,54 @@ using UnityEngine;
 
 public class YakinikuManager : MonoBehaviour
 {
-    //private ParticleSystem myParticle;
+    private const float ROOFSHEIGHT = 5.0f;
+    
     private Player ps;
+    public GameObject sparkPrefub;
+    private GameObject spark;
+    private bool isAboveRoof = false;
+    private Yakiniku yaki;
 
     // Use this for initialization
     void Start()
     {
-        //myParticle = GetComponent<ParticleSystem>();
-        //myParticle.Stop();
+
         ps = transform.root.GetComponent<Player>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (transform.root.tag != "Player")
+        if (transform.root.tag != "Player" || ps.GetState() > Player.PlayerState.Takeover || transform.position.y <= ROOFSHEIGHT)
         {
-            //myParticle.Stop();
+            if (isAboveRoof)
+            {
+                Destroy(spark);
+                isAboveRoof = false;
+                yaki = null;
+            }
             return;
         }
-        if (transform.position.y > 5.0f)
+        if (transform.position.y > ROOFSHEIGHT)
         {
-            //if (ps.GetFowardSpeed() > 0)
-            //{
-                Yakiniku yaki = transform.parent.GetComponent<Yakiniku>();
+            if (isAboveRoof)
+            {
+                yaki = transform.parent.GetComponent<Yakiniku>();
                 if (yaki == null) return;
-                //myParticle.Play();
-            Debug.Log("天井に着いた");
-                yaki.Fire();
-            //}
-        }
-        else {
-            //myParticle.Stop();
-        }
-        if (ps.GetState() > Player.PlayerState.Takeover)
-        {
-            //myParticle.Stop();
+                Debug.Log("熱いぜ");
+                spark.transform.position = new Vector3(transform.position.x, ROOFSHEIGHT, transform.position.z);
+                if (ps.GetFowardSpeed() > 0.1f * 0.1f)yaki.Fire();
+            }
+            else
+            {
+                yaki = transform.parent.GetComponent<Yakiniku>();
+                if (yaki == null) return;
+                Debug.Log("天井に着いた");
+                isAboveRoof = true;
+                spark = Instantiate(sparkPrefub,new Vector3(transform.position.x, ROOFSHEIGHT, transform.position.z), Quaternion.identity, transform.root);
+                spark.transform.eulerAngles = new Vector3(90, 0, 0);
+            }
         }
     }
-
-    //public void OnTriggerStay(Collider other)
-    //{
-    //    if (transform.root.tag != "Player") return;
-    //    //Player ps = transform.root.GetComponent<Player>();
-    //    //if (ps == null) {
-    //    //    myParticle.Stop();
-    //    //    return;
-    //    //}
-    //    if (ps.GetFowardSpeed() > 0)
-    //    {
-    //        Yakiniku yaki = transform.parent.GetComponent<Yakiniku>();
-    //        if (yaki == null) return;
-    //        myParticle.Play();
-    //        yaki.Fire();
-    //        Debug.Log(other.name);
-    //    }
-    //    else
-    //    {
-    //        myParticle.Stop();
-    //    }
-    //}
-
-    //public void OnTriggerExit(Collider other)
-    //{
-    //    myParticle.Stop();
-    //}
+    
 }

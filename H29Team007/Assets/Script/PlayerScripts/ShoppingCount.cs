@@ -608,9 +608,9 @@ public class ShoppingCount : MonoBehaviour
         }
 
         if (kesumono.tag == "Parent") childCount--;
-        Destroy(kesumono.gameObject);
 
         Reset();
+        Destroy(kesumono.gameObject);
         for (int i = 0; i < mybags.Count; i++)
         {
             AddBaggege(mybags[i]);

@@ -7,29 +7,33 @@ public class Yakiniku : MonoBehaviour {
     private float[] r, g, b;
     private float[] rd, gd, bd;
     public GameObject changeObject;
-    private Renderer chengeMat;
+    private Renderer changeMat;
+    [Header("ぺちゃモデルがあるやつは、ここに元のモデル(歩く方)を入れる")]
+    public GameObject changeObject2;
+    private Renderer changeMat2;
 
     public GameObject nikuPrefab;
 
 	// Use this for initialization
 	void Start () {
-        chengeMat = changeObject.GetComponent<Renderer>();
+        changeMat = changeObject.GetComponent<Renderer>();
         //Debug.Log(chengeMat.materials[0]);
-        r = new float[chengeMat.materials.Length];
-        g = new float[chengeMat.materials.Length];
-        b = new float[chengeMat.materials.Length];
-        rd = new float[chengeMat.materials.Length];
-        gd = new float[chengeMat.materials.Length];
-        bd = new float[chengeMat.materials.Length];
-        for (int i = 0; i < chengeMat.materials.Length; i++)
+        r = new float[changeMat.materials.Length];
+        g = new float[changeMat.materials.Length];
+        b = new float[changeMat.materials.Length];
+        rd = new float[changeMat.materials.Length];
+        gd = new float[changeMat.materials.Length];
+        bd = new float[changeMat.materials.Length];
+        for (int i = 0; i < changeMat.materials.Length; i++)
         {
-            r[i] = chengeMat.materials[i].color.r;
-            g[i] = chengeMat.materials[i].color.g;
-            b[i] = chengeMat.materials[i].color.b;
-            rd[i] = chengeMat.materials[i].color.r;
-            gd[i] = chengeMat.materials[i].color.g;
-            bd[i] = chengeMat.materials[i].color.b;
+            r[i] = changeMat.materials[i].color.r;
+            g[i] = changeMat.materials[i].color.g;
+            b[i] = changeMat.materials[i].color.b;
+            rd[i] = changeMat.materials[i].color.r;
+            gd[i] = changeMat.materials[i].color.g;
+            bd[i] = changeMat.materials[i].color.b;
         }
+        if(changeObject2 != null) changeMat2 = changeObject2.GetComponent<Renderer>();
 
     }
 	
@@ -42,12 +46,13 @@ public class Yakiniku : MonoBehaviour {
     public void Fire()
     {
 
-        for (int i = 0; i < chengeMat.materials.Length; i++)
+        for (int i = 0; i < changeMat.materials.Length; i++)
         {
-            chengeMat.materials[i].color = new Color(r[i], g[i], b[i], chengeMat.material.color.a);
+            changeMat.materials[i].color = new Color(r[i], g[i], b[i], changeMat.material.color.a);
             r[i] -= (rd[i] / 10.0f) * Time.deltaTime;
             g[i] -= (gd[i] / 10.0f) * Time.deltaTime;
             b[i] -= (bd[i] / 10.0f) * Time.deltaTime;
+            if (changeObject2 != null) changeMat2.materials[i].color = changeMat.materials[i].color;
         }
         if(r[0] < 0)
         {
