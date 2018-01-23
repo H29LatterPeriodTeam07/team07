@@ -1,5 +1,5 @@
 // ステージごとの価格設定
-// StageNum;動物名_価格/...;表示しないがいる動物名_価格/...;〇付ける動物名
+// StageNum_ポイント取得割合（％）;動物名_価格/...;表示しないがいる動物名_価格/...;〇付ける動物名_ポイント取得割合（％）
 // 要素
 // arai
 // buta
@@ -18,12 +18,12 @@
 //
 // ※順番は変えないでください
 
-00;buta_460;;buta
-01;buta_460;;buta
-02;buta_480/ushi_980;;ushi
-03;buta_460/ushi_560/gyo_180;;gyo
-04;niwa_180/kaji_980/gyo_180/same_1500;;kaji
-05;buta_300/kaji_980/hitsu_560/inoshi_1800/arai_500;;hitsu
-06;buta_460/ushi_500/gyo_200/niwa_100/tougyu_2000/arai_300;;niwa
-07;hitsu_500/gyo_200/kaji_1800/hera_2000/niwa_200/inoshi_3000;;hitsu
-08;buta_200/ushi_460/gyo_180/hitsu_300/tougyu_1800/niwa_100/arai_300/hera_5000;;ushi
+00_1;buta_460;;buta_5
+01_1;buta_460;;buta_5
+02_1;buta_480/ushi_980;;ushi_25
+03_1;buta_460/ushi_560/gyo_180;;gyo_25
+04_1;niwa_180/kaji_980/gyo_180/same_1500;;kaji_25
+05_1;buta_300/kaji_980/hitsu_560/inoshi_1800/arai_500;;hitsu_25
+06_1;buta_460/ushi_500/gyo_200/niwa_100/tougyu_2000/arai_300;;niwa_25
+07_1;hitsu_500/gyo_200/kaji_1800/hera_2000/niwa_200/inoshi_3000;;hitsu_25
+08_1;buta_200/ushi_460/gyo_180/hitsu_300/tougyu_1800/niwa_100/arai_300/hera_5000;;ushi_25

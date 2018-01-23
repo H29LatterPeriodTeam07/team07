@@ -14,7 +14,8 @@ public class ScoreManager
     //private static int fishCount = 0;
 
     //private static string readtxt = "";
-    private static List<int> scores = new List<int>();  //ステージごとのスコア(txtからの読み込み)
+    private static List<int> prices = new List<int>();  //ステージごとのスコア(txtからの読み込み)
+    private static List<int> pointPercents = new List<int>();  //ステージごとのポイント取得(txtからの読み込み)
     public static List<string> enemysname = new List<string>(); //ステージごとの敵の名前(txtからの読み込み)
     private static List<int> scorescount = new List<int>(); //何番目のやつを何体取ったかを数える
 
@@ -38,21 +39,28 @@ public class ScoreManager
         if (stageNumber == 0) stageNumber = 1;
         // ReadEnemyScoreFile();
         // string[] txt = readtxt.Split(',');//,で区切る
-        scores.Clear();
-        scores.Add(100); //人間のスコア
+        prices.Clear();
+        prices.Add(100); //人間のスコア
         enemysname.Clear();
         enemysname.Add("human"); //人間 リストの場所をあわせるため
+        pointPercents.Clear();
+        pointPercents.Add(0);
         // チラシに表示されているもの
         foreach (var i in priceData.prices)
         {
             enemysname.Add(PriceDataNameToPrefabName[i.Key]);
-            scores.Add(i.Value);
+            prices.Add(i.Value);
         }
         // チラシに表示されていないもの
         foreach (var i in priceData.secretPrices)
         {
             enemysname.Add(PriceDataNameToPrefabName[i.Key]);
-            scores.Add(i.Value);
+            prices.Add(i.Value);
+        }
+
+        foreach (var i in priceData.pointPercents)
+        {
+            pointPercents.Add(i.Value);
         }
         // for (int i = 0; i < txt.Length; i++)
         // {
@@ -78,7 +86,7 @@ public class ScoreManager
     public static void Reset()
     {
         scorescount.Clear();
-        for (int i = 0; i < scores.Count; i++)
+        for (int i = 0; i < prices.Count; i++)
         {
             scorescount.Add(0);
             //Debug.Log(scorescount[i]);
@@ -150,7 +158,12 @@ public class ScoreManager
         //    case 3: result = Stage3Score(num); break;
         //}
         //return result;
-        return scores[EnemyNumber(name)];
+        return prices[EnemyNumber(name)];
+    }
+
+    public static int EnemyPoint(string name)
+    {
+        return (prices[EnemyNumber(name)] / 100) * pointPercents[EnemyNumber(name)];
     }
 
     private static int EnemyNumber(string name)
@@ -235,7 +248,7 @@ public class ScoreManager
 
     private static void Stage1Pattern() //txtからの漢字の読み込みがわからんからScriptに直打ち
     {
-        scores.Add(1500);  //下のスコア
+        prices.Add(1500);  //下のスコア
         enemysname.Add("三匹の子豚"); //Patternの名前
     }
 
@@ -252,7 +265,7 @@ public class ScoreManager
         //}
         //result = 5; //もう全部でいいんじゃね
         //return result;
-        return scores.Count;
+        return prices.Count;
     }
 
     public static int GetStageNumber()

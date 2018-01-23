@@ -34,7 +34,7 @@ public class StageDebug : MonoBehaviour {
             StageSelectManager.PriceData l_data;
             l_data.prices = new Dictionary<string, int>();
             l_data.secretPrices = new Dictionary<string, int>();
-
+            l_data.pointPercents = new Dictionary<string, int>();
             string l_line = row[i].Replace("\r", "");
             if (l_line == "") continue;
             // [//]がある場合無視
@@ -42,7 +42,9 @@ public class StageDebug : MonoBehaviour {
             // [_]で分割
             data = l_line.Split(';');
             // 1列目はステージ番号
-            l_data.StageIndex = int.Parse(data[0]);
+            string[] stagedata = data[0].Split('_');
+            l_data.StageIndex = int.Parse(stagedata[0]);
+
 
             // 2,3列目は名前と価格
             for (int j = 1; j <= 2; ++j)
@@ -58,11 +60,14 @@ public class StageDebug : MonoBehaviour {
                         l_data.prices[price[0]] = int.Parse(price[1]);
                     else
                         l_data.secretPrices[price[0]] = int.Parse(price[1]);
+                    l_data.pointPercents[price[0]] = int.Parse(stagedata[1]);
                 }
             }
 
             // 丸付け
-            l_data.checkAnimalName = data[3];
+            string[] checkAnimalData = data[3].Split('_');
+            l_data.checkAnimalName = checkAnimalData[0];
+            l_data.pointPercents[l_data.checkAnimalName] = int.Parse(checkAnimalData[1]);
             // 情報初期化
             l_data.IsCheck = false;
             m_Datas.Add(l_data);

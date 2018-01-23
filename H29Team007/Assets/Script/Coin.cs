@@ -22,8 +22,7 @@ public class Coin : MonoBehaviour
     private void Start()
     {
         m_IsScattered = false;
-        Vector3 l_scorePosition = GameObject.Find("Score").GetComponent<RectTransform>().position;
-        m_ScorePosition = new Vector2(l_scorePosition.x, l_scorePosition.y);
+        m_ScorePosition = new Vector2(-580.0f, 300.0f);
         t = 0.0f;
     }
 
@@ -31,7 +30,7 @@ public class Coin : MonoBehaviour
     {
         if (!m_IsScattered && t < 1.0f)
         {
-            rectTransform.position = QuadriaticBezierCurves(m_InitPosition, m_MiddlePosition, m_TargetPosition, t);
+            rectTransform.localPosition = QuadriaticBezierCurves(m_InitPosition, m_MiddlePosition, m_TargetPosition, t);
             t += Time.deltaTime;
             if (t >= 1.0f)
             {
@@ -45,13 +44,12 @@ public class Coin : MonoBehaviour
             if (t >= 1.0f)
             {
                 t = 1.0f;
-                rectTransform.position = QuadriaticBezierCurves(m_TargetPosition, m_MiddlePosition, m_ScorePosition, t);
+                rectTransform.localPosition = QuadriaticBezierCurves(m_TargetPosition, m_MiddlePosition, m_ScorePosition, t);
                 Destroy(gameObject);
             }
             else
             {
-
-                rectTransform.position = QuadriaticBezierCurves(m_TargetPosition, m_MiddlePosition, m_ScorePosition, t);
+                rectTransform.localPosition = QuadriaticBezierCurves(m_TargetPosition, m_MiddlePosition, m_ScorePosition, t);
             }
 
 
@@ -81,11 +79,8 @@ public class Coin : MonoBehaviour
         }
         else
         {
-            // 画面スコア位置から画面中央位置のベクトルをもとに中継点を決定
-            Vector2 borderLine = m_InitPosition - m_ScorePosition;
-            Vector2 targetVector = m_TargetPosition - m_ScorePosition;
-            float l_dot = Vector2.Dot(borderLine.normalized, targetVector);
-            MiddlePosition = borderLine.normalized * l_dot * (1.0f - (l_dot / targetVector.magnitude));
+            // 画面左端を通る
+            MiddlePosition = new Vector2(-640.0f , -360.0f);
         }
         m_MiddlePosition = MiddlePosition;
     }

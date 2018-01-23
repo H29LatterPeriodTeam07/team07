@@ -446,6 +446,7 @@ public class ShoppingCount : MonoBehaviour
         List<Transform> mybags = new List<Transform>();
         List<Transform> kesumono = new List<Transform>();
         int bagprice = 0;
+        int bagPoint = 0;
         List<string> bagnames = new List<string>();
 
         int scorecount = 1;
@@ -462,6 +463,8 @@ public class ShoppingCount : MonoBehaviour
                 kesumono.Add(myBaggage[i]);
                 int enemyscore = myBaggage[i].GetComponent<EnemyScore>().GetPrice();
                 bagprice += enemyscore;
+                int enemyPoint = myBaggage[i].GetComponent<EnemyScore>().GetPoint();
+                bagPoint += enemyPoint;
                 bagnames.Add(myBaggage[i].name);
 
                 GameObject popscore = Instantiate(popscorePrefab);
@@ -485,6 +488,8 @@ public class ShoppingCount : MonoBehaviour
                 kesumono.Add(myBaggage2[i]);
                 int enemyscore = myBaggage2[i].GetComponent<EnemyScore>().GetPrice();
                 bagprice += enemyscore;
+                int enemyPoint = myBaggage[i].GetComponent<EnemyScore>().GetPoint();
+                bagPoint += enemyPoint;
                 bagnames.Add(myBaggage2[i].name);
 
                 GameObject popscore = Instantiate(popscorePrefab);
@@ -568,12 +573,13 @@ public class ShoppingCount : MonoBehaviour
             }
             GameObject newbag = Instantiate(bagPrefab);
 
-            Vector3 l_initPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.localPosition);
-            coinManagerPrefab.GetComponent<CoinManager>().SetInitPosition(new Vector2(l_initPosition.x, l_initPosition.y));
-            coinManagerPrefab.GetComponent<CoinManager>().SetCreateCoinCount(bagprice / 10);
+            Vector2 l_initPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.position);
+            coinManagerPrefab.GetComponent<CoinManager>().SetInitPosition(l_initPosition);
+            coinManagerPrefab.GetComponent<CoinManager>().SetCreateCoinCount(bagPoint);
             coinManagerPrefab.GetComponent<CoinManager>().CreateCoin();
 
             newbag.GetComponent<EnemyScore>().SetPrice(bagprice);
+            newbag.GetComponent<EnemyScore>().SetPoint(bagPoint);
             newbag.GetComponent<EnemyScore>().SetNames(bagnames);
             newbag.GetComponent<RunOverObject>().SetPlasticBagPos(basket);
             childCount = 0;
