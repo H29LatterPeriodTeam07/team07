@@ -30,4 +30,14 @@ public class Flash : MonoBehaviour {
         }
     }
 
+    public void FadeStop()
+    {
+        _fadingSpeed = 0;
+    }
+
+    public void FadeStart()
+    {
+        _fadingSpeed = 0.05f;
+    }
+
 }
