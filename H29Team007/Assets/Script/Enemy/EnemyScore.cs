@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyScore : MonoBehaviour {
 
     private int m_price;
+    private int m_Point;
     private int m_Number = 1;
 
     private string[] plasticbagNames;
@@ -39,6 +40,11 @@ public class EnemyScore : MonoBehaviour {
         m_price = price;
     }
 
+    public void SetPoint(int point)
+    {
+        m_Point = point;
+    }
+
     public int GetPrice()
     {
         if (transform.tag != "Plasticbag")
@@ -48,6 +54,18 @@ public class EnemyScore : MonoBehaviour {
         else
         {
             return m_price;
+        }
+    }
+
+    public int GetPoint()
+    {
+        if (transform.tag != "Plasticbag")
+        {
+            return ScoreManager.EnemyPoint(transform.name);
+        }
+        else
+        {
+            return m_Point;
         }
     }
 
