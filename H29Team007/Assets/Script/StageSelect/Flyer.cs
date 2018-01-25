@@ -34,6 +34,23 @@ public class Flyer : MonoBehaviour {
             }
         }
     }
+    public void SetPoint(string goodsName, int point)
+    {
+        // 広告の品の名前と一致するものがあれば価格を設定する
+        for (int i = 0; i < m_Goods.transform.childCount; ++i)
+        {
+            // 商品表示管理者の子のImagePrefabが商品名を持っている
+            Transform l_GoodsHolder = m_Goods.transform.GetChild(i);
+            if (l_GoodsHolder.name == "Frame") continue;
+            string l_name = l_GoodsHolder.Find("Image").GetComponent<Image>().sprite.name;
+
+            if (goodsName == l_name)
+            {
+                // ポイント設定
+                l_GoodsHolder.Find("Point").Find("Text").GetComponent<TMPro.TextMeshProUGUI>().text = point.ToString() + "%Pt";
+            }
+        }
+    }
 
     public void SetImageGoodslocalPosition(GameObject image, string goodsName)
     {

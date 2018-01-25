@@ -206,6 +206,11 @@ public class StageSelectManager : MonoBehaviour {
             foreach (var j in m_Datas[i].prices) {
                 l_flyer.GetComponent<Flyer>().SetPrice(j.Key, j.Value);
             }
+            // ポイント設定
+            foreach (var j in m_Datas[i].pointPercents)
+            {
+                l_flyer.GetComponent<Flyer>().SetPoint(j.Key, j.Value);
+            }
             // 回転
             float angle;
             if (i < StartBigFlyerCount)
