@@ -12,6 +12,8 @@ public class SaleSpown : MonoBehaviour {
     //出現時間
     [SerializeField, Header("指定した特売品が出現する時間の指定(float型)")]
     private float[] m_ApperTime;
+    [SerializeField, Header("指定した特売品が出現する場所")]
+    Transform[] m_AnimalApeers;
     public float m_SaleModeTime;
     public GameObject m_Time;
     public GameObject m_SaleMaterial;
@@ -27,6 +29,7 @@ public class SaleSpown : MonoBehaviour {
     SaleMaterial m_scSale;
     string m_Pigname, FishName, CowName;
     int m_CurrentPatrolPointIndex = 1;
+    int m_CurrentApperindex = 0;
 
     private float myTime = 0.0f;
     int _SaleNum;
@@ -115,12 +118,12 @@ public class SaleSpown : MonoBehaviour {
 
    public void Appear()
     {
-        if (m_Num < m_SaleAnimals.Length)
+        if (m_Num < m_SaleAnimals.Length || m_Num<m_AnimalApeers.Length)
         {
-                Instantiate(m_SaleAnimal, transform.position, transform.rotation);
+                Instantiate(m_SaleAnimal, m_AnimalApeers[m_CurrentApperindex].position, transform.rotation);
             m_SaleAnimal = null;
                 m_CurrentSaleAnimeIndex++;
-            
+            m_CurrentApperindex++;
         }
     }
 
