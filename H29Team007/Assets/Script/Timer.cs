@@ -43,16 +43,16 @@ public class Timer : MonoBehaviour {
         timer += Time.deltaTime;// * m_slider.maxValue / stageTime;
         ss.SetTime(timer);
         //タイムアップ
-        if (timer > m_slider.maxValue)
+        if (timer > stageTime)
         {
-            timer = m_slider.maxValue;
+            timer = stageTime;
             //リザルト画面表示
             //SceneManager.LoadScene("Result");
 
         }
 
         //終了カウントの表示
-        if (m_slider.maxValue - timer <= 4 && !iscdon)
+        if (stageTime - timer <= 4 && !iscdon)
         {
             countdownUI.enabled = true;
             countdownUI.SetCount(3);// m_slider.maxValue - timer);

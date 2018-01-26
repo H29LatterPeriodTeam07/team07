@@ -488,7 +488,7 @@ public class ShoppingCount : MonoBehaviour
                 kesumono.Add(myBaggage2[i]);
                 int enemyscore = myBaggage2[i].GetComponent<EnemyScore>().GetPrice();
                 bagprice += enemyscore;
-                int enemyPoint = myBaggage[i].GetComponent<EnemyScore>().GetPoint();
+                int enemyPoint = myBaggage2[i].GetComponent<EnemyScore>().GetPoint();
                 bagPoint += enemyPoint;
                 bagnames.Add(myBaggage2[i].name);
 
