@@ -8,7 +8,7 @@ public class Flyer : MonoBehaviour {
     private GameObject m_Goods;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         m_Goods = transform.Find("Goods").gameObject;
     }
 	
