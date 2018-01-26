@@ -7,15 +7,11 @@ public class SaleSpown : MonoBehaviour {
     private AudioSource m_AS;
 
     private GameObject m_SaleAnimal;
-    [SerializeField, Tooltip("上から順に数字を入れる(0:豚,1:牛,2:鯉,\n3:カジキ,4:アライグマ,5:ヤギ,6:羊,7:猪)")]
+    [SerializeField, Tooltip("上から順に数字を入れる(0:豚,1:牛,2:鯉,\n3:カジキ,4:アライグマ,5:ヤギ,6:羊,7:猪,8:チキン)")]
     private int[] m_SaleAnimals;
     //出現時間
     [SerializeField, Header("指定した特売品が出現する時間の指定(float型)")]
     private float[] m_ApperTime;
-    [SerializeField, Header("ニワトリを出す時間の指定")]
-    private float[] m_ChikinApperTime;
-    [SerializeField, Header("ニワトリのプレハブ")]
-    private GameObject m_preChikin;
     public float m_SaleModeTime;
     public GameObject m_Time;
     public GameObject m_SaleMaterial;
@@ -101,19 +97,18 @@ public class SaleSpown : MonoBehaviour {
                     m_scSale.SaleAnimalApper();
                 }
                 //猪
-                else 
+                else if (m_SaleAnimals[m_CurrentSaleAnimeIndex] == 7)
                 {
                     m_SaleAnimal = (GameObject)Resources.Load("Prefab/SaleAnimalBoar");
                     _SaleNum = 7;
                     m_scSale.SaleAnimalApper();
                 }
-            }
-        }
-        if(m_ChikinApperTime.Length > m_CurrentChikinApperTimeIndex)
-        {
-            if(myTime > m_ChikinApperTime[m_CurrentChikinApperTimeIndex])
-            {
-                ChikinApper();
+                else
+                {
+                    m_SaleAnimal = (GameObject)Resources.Load("Prefab/Chickin");
+                    _SaleNum = 8;
+                    m_scSale.SaleAnimalApper();
+                }
             }
         }
     }
@@ -127,15 +122,6 @@ public class SaleSpown : MonoBehaviour {
                 m_CurrentSaleAnimeIndex++;
             
         }
-    }
-
-    private void ChikinApper()
-    {
-        for (int i = 0; i < m_Chikintortal; i++)
-        {
-            Instantiate(m_preChikin, transform.position, m_preChikin.transform.rotation);
-        }
-        m_CurrentChikinApperTimeIndex++;
     }
 
     public bool SaleMode()
