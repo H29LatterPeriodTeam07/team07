@@ -28,7 +28,7 @@ public class ScoreManager
         PriceDataNameToPrefabName["gyo"] = "Fish";
         PriceDataNameToPrefabName["hera"] = "Herazika";
         PriceDataNameToPrefabName["hitsu"] = "Sheep";
-        PriceDataNameToPrefabName["inosh"] = "Boar";
+        PriceDataNameToPrefabName["inoshi"] = "Boar";
         PriceDataNameToPrefabName["kaji"] = "Kaziki";
         PriceDataNameToPrefabName["niwa"] = "Chickin";
         PriceDataNameToPrefabName["tougyu"] = "Lamborghini";
