@@ -2205,6 +2205,34 @@ RectTransform:
   m_AnchoredPosition: {x: 1312, y: -256.00003}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &97031398
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 97031399}
+  m_Layer: 0
+  m_Name: PatrolPoint (25)
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &97031399
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 97031398}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 24.32, y: 0, z: 0.46}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 735870299}
+  m_RootOrder: 25
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &101785389
 Prefab:
   m_ObjectHideFlags: 0
@@ -12718,6 +12746,34 @@ Transform:
   m_PrefabParentObject: {fileID: 4380684957602796, guid: 40eb9c2e0fd50e34ab5df0117a598d54,
     type: 2}
   m_PrefabInternal: {fileID: 602193508}
+--- !u!1 &602436441
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 602436442}
+  m_Layer: 0
+  m_Name: PatrolPoint (26)
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &602436442
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 602436441}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 24.32, y: 0, z: 28.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 735870299}
+  m_RootOrder: 26
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &617358405
 Prefab:
   m_ObjectHideFlags: 0
@@ -13701,8 +13757,8 @@ Transform:
   - {fileID: 43853402}
   - {fileID: 406901174}
   - {fileID: 439072049}
-  - {fileID: 1313667899}
   - {fileID: 735870299}
+  - {fileID: 1313667899}
   - {fileID: 485991653}
   - {fileID: 2141346700}
   - {fileID: 1105978932}
@@ -14812,8 +14868,11 @@ Transform:
   - {fileID: 127394103}
   - {fileID: 1787068911}
   - {fileID: 1958751036}
+  - {fileID: 97031399}
+  - {fileID: 602436442}
+  - {fileID: 1546020365}
   m_Father: {fileID: 654004056}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &738556283
 Prefab:
@@ -26521,7 +26580,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 654004056}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1313667900
 AudioSource:
@@ -26626,9 +26685,16 @@ MonoBehaviour:
   - 73
   - 82
   - 91
-  m_ChikinApperTime: []
-  m_preChikin: {fileID: 1104788499743126, guid: ab76f46a7d7725a46ae81e072b146b62,
-    type: 2}
+  m_AnimalApeers:
+  - {fileID: 97031399}
+  - {fileID: 602436442}
+  - {fileID: 1546020365}
+  - {fileID: 97031399}
+  - {fileID: 1546020365}
+  - {fileID: 602436442}
+  - {fileID: 602436442}
+  - {fileID: 1546020365}
+  - {fileID: 97031399}
   m_SaleModeTime: 5
   m_Time: {fileID: 598000852}
   m_SaleMaterial: {fileID: 366904318}
@@ -30844,6 +30910,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 735870299}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1546020364
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1546020365}
+  m_Layer: 0
+  m_Name: PatrolPoint (27)
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1546020365
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1546020364}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -11.39, y: 0, z: 44.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 735870299}
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1546102768
 GameObject:
@@ -42628,10 +42722,13 @@ MonoBehaviour:
   m_SaleMaterial: {fileID: 366904318}
   m_time: {fileID: 598000852}
   m_PreBBA: {fileID: 1135743514729614, guid: 5a7b5a2a6fc32194fa3bfda4644038f7, type: 2}
-  m_DangerNum: 1
+  m_DangerAnimals: 0100000001000000
   m_EntrancePoint: {fileID: 406901174}
   m_bullApperTime:
   - 37
+  - 59
+  m_CurentApperTimeIndex: 0
+  m_Num: 0
 --- !u!65 &2141346702
 BoxCollider:
   m_ObjectHideFlags: 0
