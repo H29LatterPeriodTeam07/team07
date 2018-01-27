@@ -43,6 +43,7 @@ public class SelectScene : MonoBehaviour
     }
     public void StageSelectLoad()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene("StageSelect");
     }
 
