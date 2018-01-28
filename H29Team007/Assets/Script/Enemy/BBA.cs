@@ -60,10 +60,12 @@ public class BBA : MonoBehaviour
     GameObject m_PatrolPoint;
     GameObject[] m_PatrolPoints;
     int m_rand;
+    private GameObject m_Cart;
 
     // Use this for initialization
     void Start()
     {
+        m_Cart = GameObject.FindGameObjectWithTag("EnemyCart");
         m_GameManager = GameObject.FindGameObjectWithTag("GameManager");
         m_gmScript = m_GameManager.GetComponent<GameManager>();
         rb = GetComponent<Rigidbody>();
@@ -94,6 +96,7 @@ public class BBA : MonoBehaviour
         {
             SetNewRPatrolPointToDestination();
             m_State = BBAState.NoCart;
+            m_Cart.transform.DetachChildren();
         }
         //巡回中
         if (m_State == BBAState.NormalMode)
@@ -162,6 +165,7 @@ public class BBA : MonoBehaviour
             {
                 SetNewRPatrolPointToDestination();
                 m_State = BBAState.NoCart;
+                m_Cart.transform.DetachChildren();
             }
         }
 
@@ -181,6 +185,7 @@ public class BBA : MonoBehaviour
             {
                 SetNewRPatrolPointToDestination();
                 m_State = BBAState.NoCart;
+                m_Cart.transform.DetachChildren();
             }
         }
 
