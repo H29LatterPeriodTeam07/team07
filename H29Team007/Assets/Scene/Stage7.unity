@@ -14467,6 +14467,11 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224705547048382234, guid: 01a9850f57079b240bff63887ac4108b,
     type: 2}
   m_PrefabInternal: {fileID: 415073390}
+--- !u!1 &415073392 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1465968401039238, guid: 01a9850f57079b240bff63887ac4108b,
+    type: 2}
+  m_PrefabInternal: {fileID: 415073390}
 --- !u!1001 &417811686
 Prefab:
   m_ObjectHideFlags: 0
@@ -53688,8 +53693,7 @@ Prefab:
         type: 2}
       propertyPath: coinManagerPrefab
       value: 
-      objectReference: {fileID: 1465968401039238, guid: 01a9850f57079b240bff63887ac4108b,
-        type: 2}
+      objectReference: {fileID: 415073392}
     - target: {fileID: 4706026609122236, guid: 3879be98e357daa4fb80e0222850e9de, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90

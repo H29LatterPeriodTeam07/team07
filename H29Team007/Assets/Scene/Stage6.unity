@@ -1284,6 +1284,11 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224705547048382234, guid: 01a9850f57079b240bff63887ac4108b,
     type: 2}
   m_PrefabInternal: {fileID: 47166975}
+--- !u!1 &47166977 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1465968401039238, guid: 01a9850f57079b240bff63887ac4108b,
+    type: 2}
+  m_PrefabInternal: {fileID: 47166975}
 --- !u!1 &49599694
 GameObject:
   m_ObjectHideFlags: 0
@@ -46456,8 +46461,7 @@ Prefab:
         type: 2}
       propertyPath: coinManagerPrefab
       value: 
-      objectReference: {fileID: 1465968401039238, guid: 01a9850f57079b240bff63887ac4108b,
-        type: 2}
+      objectReference: {fileID: 47166977}
     - target: {fileID: 114144468848037314, guid: 3879be98e357daa4fb80e0222850e9de,
         type: 2}
       propertyPath: popscorePrefab
