@@ -91,13 +91,6 @@ public class BBA : MonoBehaviour
     void Update()
     {
         if (transform.parent != null) return;
-
-        if (myCart == null)
-        {
-            SetNewRPatrolPointToDestination();
-            m_State = BBAState.NoCart;
-            m_Cart.transform.DetachChildren();
-        }
         //巡回中
         if (m_State == BBAState.NormalMode)
         {
@@ -124,6 +117,12 @@ public class BBA : MonoBehaviour
                 m_Agent.speed = 0.0f;
                 // m_Animator.SetTrigger("Kago");
                 //  m_bo = true;
+            }
+            if (myCart == null)
+            {
+                SetNewRPatrolPointToDestination();
+                m_State = BBAState.NoCart;
+                m_Cart.transform.DetachChildren();
             }
         }
         //特売品モード
