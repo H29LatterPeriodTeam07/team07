@@ -7060,8 +7060,8 @@ MonoBehaviour:
   _SEVolume: 0
   BGM: []
   SE:
-  - {fileID: 8300000, guid: 96a385460f2df2f49a610fe90cabe87b, type: 3}
-  - {fileID: 8300000, guid: a54288a77748f12409903643d47e27f6, type: 3}
+  - {fileID: 8300000, guid: 3048604d349a18548acf420aeff1d8f1, type: 3}
+  - {fileID: 8300000, guid: 196ccd08b0b9cdb49b126df89c5c438f, type: 3}
   Voice: []
   BGMFadeFlag: 0
 --- !u!82 &386959610
@@ -15156,6 +15156,16 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114339284410419228, guid: 6cd31f2d626787b43b0c37cfa66c882f,
+        type: 2}
+      propertyPath: SE.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3048604d349a18548acf420aeff1d8f1, type: 3}
+    - target: {fileID: 114339284410419228, guid: 6cd31f2d626787b43b0c37cfa66c882f,
+        type: 2}
+      propertyPath: SE.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 196ccd08b0b9cdb49b126df89c5c438f, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6cd31f2d626787b43b0c37cfa66c882f, type: 2}
   m_IsPrefabParent: 0

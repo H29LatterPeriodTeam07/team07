@@ -34441,7 +34441,6 @@ GameObject:
   - component: {fileID: 967496640}
   - component: {fileID: 967496644}
   - component: {fileID: 967496643}
-  - component: {fileID: 967496642}
   - component: {fileID: 967496641}
   m_Layer: 5
   m_Name: SaleMaterials
@@ -34498,28 +34497,8 @@ MonoBehaviour:
   _SEVolume: 0
   BGM: []
   SE:
-  - {fileID: 8300000, guid: 96a385460f2df2f49a610fe90cabe87b, type: 3}
-  - {fileID: 8300000, guid: a54288a77748f12409903643d47e27f6, type: 3}
-  Voice: []
-  BGMFadeFlag: 0
---- !u!114 &967496642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114795561893832458, guid: 49ce29109e9452f4b964846d17033891,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 967496639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2fa77da4432cc9468e6e628a48baee4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _BGMVolume: 0
-  _SEVolume: 0
-  BGM: []
-  SE:
-  - {fileID: 8300000, guid: 96a385460f2df2f49a610fe90cabe87b, type: 3}
-  - {fileID: 8300000, guid: a54288a77748f12409903643d47e27f6, type: 3}
+  - {fileID: 8300000, guid: 3048604d349a18548acf420aeff1d8f1, type: 3}
+  - {fileID: 8300000, guid: 196ccd08b0b9cdb49b126df89c5c438f, type: 3}
   Voice: []
   BGMFadeFlag: 0
 --- !u!82 &967496643
