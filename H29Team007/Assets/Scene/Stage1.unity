@@ -5309,7 +5309,7 @@ GameObject:
   - component: {fileID: 269743587}
   m_Layer: 9
   m_Name: kanoke (3)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6681,7 +6681,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1498705860122288, guid: f401897de57bf624a9a2b46939752117, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f401897de57bf624a9a2b46939752117, type: 2}
@@ -18007,7 +18007,7 @@ GameObject:
   - component: {fileID: 1021310190}
   m_Layer: 9
   m_Name: Table
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -29228,7 +29228,6 @@ GameObject:
   - component: {fileID: 1547594028}
   - component: {fileID: 1547594027}
   - component: {fileID: 1547594026}
-  - component: {fileID: 1547594025}
   m_Layer: 5
   m_Name: SaleMaterials
   m_TagString: Untagged
@@ -29269,25 +29268,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1547594025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1547594023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2fa77da4432cc9468e6e628a48baee4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _BGMVolume: 0
-  _SEVolume: 0
-  BGM: []
-  SE:
-  - {fileID: 8300000, guid: 96a385460f2df2f49a610fe90cabe87b, type: 3}
-  - {fileID: 8300000, guid: a54288a77748f12409903643d47e27f6, type: 3}
-  Voice: []
-  BGMFadeFlag: 0
 --- !u!114 &1547594026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29304,8 +29284,8 @@ MonoBehaviour:
   _SEVolume: 0
   BGM: []
   SE:
-  - {fileID: 8300000, guid: 96a385460f2df2f49a610fe90cabe87b, type: 3}
-  - {fileID: 8300000, guid: a54288a77748f12409903643d47e27f6, type: 3}
+  - {fileID: 8300000, guid: 3048604d349a18548acf420aeff1d8f1, type: 3}
+  - {fileID: 8300000, guid: 196ccd08b0b9cdb49b126df89c5c438f, type: 3}
   Voice: []
   BGMFadeFlag: 0
 --- !u!82 &1547594027
@@ -34657,7 +34637,7 @@ GameObject:
   - component: {fileID: 1908455324}
   m_Layer: 9
   m_Name: kanoke (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

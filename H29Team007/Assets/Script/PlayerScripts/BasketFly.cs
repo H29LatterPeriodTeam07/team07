@@ -12,6 +12,12 @@ public class BasketFly : MonoBehaviour
 
     private bool oneHit = false;
     private bool punch = false;
+    private bool onthewall = true;
+
+
+    [SerializeField, Header("爆発のプレハブ")]
+    private GameObject explosionPrefub;
+    public LayerMask mask;
 
     // Use this for initialization
     void Start()
@@ -33,9 +39,40 @@ public class BasketFly : MonoBehaviour
         }
         if (m_rigid.velocity == Vector3.zero)
         {
+            if (onthewall) //壁（障害物の上にいるかどうか）
+            {
+                //mapstageレイヤーに当たるレイを飛ばす
+                RaycastHit[] hitInfo
+                    = Physics.RaycastAll(transform.position + transform.up * 0.5f, -Vector3.up, 1.0f, mask);
 
-            m_rigid.constraints = RigidbodyConstraints.FreezePositionY;
-            GetComponent<BoxCollider>().isTrigger = true;
+                onthewall = false;
+                //当たったオブジェクトの中にwallタグのやつがいるか探す
+                if (hitInfo.Length != 0)
+                {
+                    for(int i = 0; i < hitInfo.Length; i++)
+                    {
+                        if (onthewall) continue;
+                        onthewall = (hitInfo[i].collider.tag == "Wall");
+                        //Debug.Log(hitInfo[i].collider.name);
+                    }
+                }
+
+                if (onthewall) //障害物の上にいるなら籠を動かす
+                {
+                    GameObject explosion = Instantiate(explosionPrefub);
+                    explosion.transform.position = transform.position;
+                    m_rigid.velocity = Vector3.up * 5.0f + Vector3.forward * 3.0f;
+                }
+
+
+            }
+            else
+            {
+                //Debug.DrawRay(transform.position + transform.up * 0.5f, -Vector3.up, Color.red, 1.0f);
+                m_rigid.constraints = RigidbodyConstraints.FreezePositionY;
+                GetComponent<BoxCollider>().isTrigger = true;
+            }
+            
         }
         if(transform.position.y < -1) //デバッグ中に下に落ちた('ω')
         {

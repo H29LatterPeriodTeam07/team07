@@ -9,6 +9,7 @@ public class ExplosionDie : MonoBehaviour {
 	void Start () {
         ParticleSystem myParticle = GetComponent<ParticleSystem>();
         var main = myParticle.main;
+        GetComponent<AudioSource>().Play();
         Destroy(gameObject, main.duration);
 	}
 

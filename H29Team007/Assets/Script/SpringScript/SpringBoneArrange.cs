@@ -40,7 +40,7 @@ public class SpringBoneArrange : MonoBehaviour {
 
     public void UpdateSpring()
     {
-        if (child == null) return;
+        if (child == null || !MainGameDate.IsStart()) return;
         //回転をリセット
         trs.localRotation = Quaternion.identity * localRotation;
 
