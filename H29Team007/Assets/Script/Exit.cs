@@ -10,7 +10,8 @@ public class Exit : MonoBehaviour
     private GameObject m_PreBBA;
     private GameObject m_prBull;
     [SerializeField, Tooltip("危険生物の数字(0:闘牛,1:ヘラジカ,2:鮫)")]
-    private int m_DangerNum;
+    private int[] m_DangerAnimals;
+     int m_DangerIndex = 0;
     [SerializeField, Header("入口ポイント")]
     private Transform m_EntrancePoint;
     [SerializeField, Header("闘牛の出現時間")]
@@ -18,8 +19,8 @@ public class Exit : MonoBehaviour
     //BBAオブジェクトを検索して保持
     private GameObject m_GameBBA;
     Timer m_timer;
-    int m_CurentApperTimeIndex = 0;
-    int m_Num = 0;
+    public int m_CurentApperTimeIndex = 0;
+    public int m_Num = 0;
     bool m_bullApper = false;
     Player pScript;
     GameObject m_player;
@@ -52,16 +53,19 @@ public class Exit : MonoBehaviour
                 //{
                 //    m_scSale.ApperBull();
                 //}
-                if (m_DangerNum == 0)
+                if (m_DangerAnimals[m_DangerIndex] == 0)
                 {
+                    m_prBull = (GameObject)Resources.Load("Prefab/Lamborghini");
                     m_scSale.ApperBull();
                 }
-                else if (m_DangerNum == 1)
+                else if (m_DangerAnimals[m_DangerIndex] == 1)
                 {
+                    m_prBull = (GameObject)Resources.Load("Prefab/Herazika");
                     m_scSale.ApperHera();
                 }
                 else
                 {
+                    m_prBull = (GameObject)Resources.Load("Prefab/Shark");
                     m_scSale.ApperShark();
                 }
             }           
@@ -72,25 +76,11 @@ public class Exit : MonoBehaviour
     public void Appear()
     {
         m_bullApper = true;
-        if (m_Num < 1)
+        if (m_Num < m_DangerAnimals.Length)
         {
-            if (m_DangerNum == 0)
-            {
-                m_prBull = (GameObject)Resources.Load("Prefab/Lamborghini");
                 Instantiate(m_prBull, m_EntrancePoint.transform.position, transform.rotation);
-            }
-            else if (m_DangerNum == 1)
-            {
-                m_prBull = (GameObject)Resources.Load("Prefab/Herazika");
-                Instantiate(m_prBull, m_EntrancePoint.transform.position, transform.rotation);
-            }
-            else
-            {
-                m_prBull = (GameObject)Resources.Load("Prefab/Shark");
-                Instantiate(m_prBull, m_EntrancePoint.transform.position, transform.rotation);
-            }
-            m_CurentApperTimeIndex++;
-            m_Num++;
+            m_prBull = null;
+            m_DangerIndex++;
         }
     }
 

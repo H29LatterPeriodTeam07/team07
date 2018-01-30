@@ -7,7 +7,7 @@ public class SaleMaterial : MonoBehaviour {
    
     [SerializeField, Header("ポジション")]
     private GameObject m_position;
-    [SerializeField, Tooltip("出す動物の数字を入れる(0:豚,1:牛,2:鯉,\n3:カジキ,4:アライグマ,5:ヤギ,6:羊,7:猪)")]
+    [SerializeField, Tooltip("出す動物の数字を入れる(0:豚,1:牛,2:鯉,\n3:カジキ,4:アライグマ,5:ヤギ,6:羊,7:猪,8:チキン)")]
     private int[] m_SaleAnimals;
     public float m_speed = 3.0f;
     public AudioClip m_se;
@@ -77,8 +77,10 @@ public class SaleMaterial : MonoBehaviour {
             m_fsee = false;
             m_Bull.SetActive(false);
             m_BullCharacter.GetComponent<RectTransform>().localPosition = m_position.GetComponent<RectTransform>().localPosition;
-            m_timebul = 0;
             m_exScript.Appear();
+            m_exScript.m_Num++;
+            m_exScript.m_CurentApperTimeIndex++;
+            m_timebul = 0;
         }
     }
     public void ApperHera()
@@ -103,8 +105,10 @@ public class SaleMaterial : MonoBehaviour {
             m_fsee = false;
             m_Herazika.SetActive(false);
             m_HerazikaCharacter.GetComponent<RectTransform>().localPosition = m_position.GetComponent<RectTransform>().localPosition;
-            m_timebul = 0;
             m_exScript.Appear();
+            m_exScript.m_Num++;
+            m_exScript.m_CurentApperTimeIndex++;
+            m_timebul = 0;
         }
     }
 
@@ -130,8 +134,10 @@ public class SaleMaterial : MonoBehaviour {
             m_fsee = false;
             m_Shark.SetActive(false);
             m_SharkCharacter.GetComponent<RectTransform>().localPosition = m_position.GetComponent<RectTransform>().localPosition;
-            m_timebul = 0;
             m_exScript.Appear();
+            m_exScript.m_Num++;
+            m_exScript.m_CurentApperTimeIndex++;
+            m_timebul = 0;
         }
     }
 
@@ -339,7 +345,7 @@ public class SaleMaterial : MonoBehaviour {
                 m_scSaleSpwn.m_CurrentApperTimeIndex++;
             }
         }
-        else 
+        else if (m_scSaleSpwn.SaleNumber() == 7)
         {
             if (m_time <= 3.0f)
             {
@@ -361,6 +367,36 @@ public class SaleMaterial : MonoBehaviour {
                 m_fse = false;
                 m_Boar.SetActive(false);
                 m_BoarCharacter.GetComponent<RectTransform>().localPosition = m_position.GetComponent<RectTransform>().localPosition;
+                //m_CowCharacter.SetActive(false);
+                m_scSaleSpwn.Appear();
+                m_scSaleSpwn.m_Num++;
+                m_time = 0;
+                m_scSaleSpwn.m_CurrentApperTimeIndex++;
+            }
+        }
+
+        else
+        {
+            if (m_time <= 3.0f)
+            {
+                if (!m_fse)
+                {
+                    m_smScript.PlaySE(2);
+                    m_smScript.PlaySE(3);
+                    m_smSc2.PlaySE(0);
+                    m_fse = true;
+                }
+                m_time += Time.deltaTime;
+                m_ChikinCharacter.GetComponent<RectTransform>().localPosition -= Vector3.right * m_speed;
+                m_Chikin.SetActive(true);
+                //m_CowCharacter.SetActive(true);
+            }
+            else
+            {
+                m_smScript.StopSE();
+                m_fse = false;
+                m_Chikin.SetActive(false);
+                m_ChikinCharacter.GetComponent<RectTransform>().localPosition = m_position.GetComponent<RectTransform>().localPosition;
                 //m_CowCharacter.SetActive(false);
                 m_scSaleSpwn.Appear();
                 m_scSaleSpwn.m_Num++;

@@ -60,10 +60,12 @@ public class BBA : MonoBehaviour
     GameObject m_PatrolPoint;
     GameObject[] m_PatrolPoints;
     int m_rand;
+    private GameObject m_Cart;
 
     // Use this for initialization
     void Start()
     {
+        m_Cart = GameObject.FindGameObjectWithTag("EnemyCart");
         m_GameManager = GameObject.FindGameObjectWithTag("GameManager");
         m_gmScript = m_GameManager.GetComponent<GameManager>();
         rb = GetComponent<Rigidbody>();
@@ -89,12 +91,6 @@ public class BBA : MonoBehaviour
     void Update()
     {
         if (transform.parent != null) return;
-
-        if (myCart == null)
-        {
-            SetNewRPatrolPointToDestination();
-            m_State = BBAState.NoCart;
-        }
         //巡回中
         if (m_State == BBAState.NormalMode)
         {
@@ -121,6 +117,12 @@ public class BBA : MonoBehaviour
                 m_Agent.speed = 0.0f;
                 // m_Animator.SetTrigger("Kago");
                 //  m_bo = true;
+            }
+            if (myCart == null)
+            {
+                SetNewRPatrolPointToDestination();
+                m_State = BBAState.NoCart;
+                m_Cart.transform.DetachChildren();
             }
         }
         //特売品モード
@@ -150,6 +152,11 @@ public class BBA : MonoBehaviour
             else if (m_Animal != null)
             {
                 m_Agent.destination = m_Animal.transform.position;
+
+                if(m_Animal.parent != null)
+                {
+                    m_State = BBAState.NormalMode;
+                }
             }
 
             if (IsGetAnimal())
@@ -162,6 +169,7 @@ public class BBA : MonoBehaviour
             {
                 SetNewRPatrolPointToDestination();
                 m_State = BBAState.NoCart;
+                m_Cart.transform.DetachChildren();
             }
         }
 
@@ -181,6 +189,7 @@ public class BBA : MonoBehaviour
             {
                 SetNewRPatrolPointToDestination();
                 m_State = BBAState.NoCart;
+                m_Cart.transform.DetachChildren();
             }
         }
 
@@ -300,8 +309,7 @@ public class BBA : MonoBehaviour
     {
         if (other.name == "FrontHitArea")
         {
-            Destroy(myCart.gameObject);
-        //    Destroy(m_basket.gameObject);
+         //   Destroy(myCart.gameObject);
             bcScript.BaggegeFall(transform.position);
             m_bo = false;
         }

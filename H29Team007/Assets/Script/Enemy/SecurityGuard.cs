@@ -93,7 +93,6 @@ public class SecurityGuard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         Vector3 PPos = m_Player.transform.position;
         Vector3 EPos = m_Enemy.transform.position;
         float dis = Vector3.Distance(PPos, EPos);
@@ -109,6 +108,7 @@ public class SecurityGuard : MonoBehaviour
             m_Agent.speed = 1f;
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
+            m_bool = false;
             if (m_Child == null)
             {
                 Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, raycastLayer);
@@ -124,7 +124,6 @@ public class SecurityGuard : MonoBehaviour
                 if (m_cScript.Roaring())
                 {
                     m_Agent.speed = 3.0f;
-                    m_Agent.destination = m_Child.transform.position;
                     m_State = EnemyState.ChildPatrol;
                 }
                 if (m_scPlayer.GetState() == Player.PlayerState.Outside)
@@ -221,9 +220,10 @@ public class SecurityGuard : MonoBehaviour
                     m_Animator.SetTrigger("Jump");
                     m_bool = true;
                 }
-                else if (dis > 5 && m_bool == true)
+                else if (dis > 3 && m_bool == true)
                 {
                     m_bool = false;
+                    m_State = EnemyState.Patrolling;
                     m_Animator.SetTrigger("Trigger");
                 }
             }
@@ -259,7 +259,6 @@ public class SecurityGuard : MonoBehaviour
             if (HasArrived())
             {
                 m_Agent.speed=0;
-                print(m_Hearingtime);
                 m_Hearingtime += Time.deltaTime;
                 if(m_Hearingtime > 3)
                 {
@@ -282,7 +281,6 @@ public class SecurityGuard : MonoBehaviour
             if (HasArrived())
             {
                 m_Agent.speed = 0;
-                print(m_Hearingtime);
                 m_Hearingtime += Time.deltaTime;
                 if (m_Hearingtime > 3)
                 {
@@ -326,9 +324,10 @@ public class SecurityGuard : MonoBehaviour
                 m_Animator.SetTrigger("Jump");
                 m_bool = true;
             }
-            else if (dis > 5 && m_bool == true)
+            else if (dis > 3 && m_bool == true)
             {
                 m_bool = false;
+                m_State = EnemyState.Patrolling;
                 m_Animator.SetTrigger("Trigger");
             }
         }
@@ -341,6 +340,7 @@ public class SecurityGuard : MonoBehaviour
     {
             m_Animator.SetTrigger("Trigger");
             m_Agent.enabled = true;
+            m_Agent.speed = 0;
             m_bool = false;
     }
 
