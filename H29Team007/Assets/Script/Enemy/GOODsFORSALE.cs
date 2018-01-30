@@ -69,29 +69,26 @@ public class GOODsFORSALE : MonoBehaviour
     {
         if (m_State == SaleAnimalState.NormalMode)
         {
+            if (HasArrived())
+            {
+                DoPatrol();
+            }
             if (CanSeePlayer() || CanSeeBBA())
             {
                 //退避に状態変更
                 m_State = SaleAnimalState.WarningMode;
             }
-            //else
-            //{
-            //    if (m_eScript.BullApper())
-            //    {
-            //        BullPatrol();
-            //    }
-            //    else
-            //    {
-                  DoPatrol();
-            //    }
-            //}
+            if (m_eScript.BullApper())
+            {
+                BullPatrol();
+            }
 
         }
         else if (m_State == SaleAnimalState.WarningMode)
         {
             m_Agent.speed = 3.0f;
             // プレイヤーが見えている場合
-            if (CanSeePlayer())
+            if (CanSeePlayer()|| CanSeeBBA())
             {
                 if (!m_Agent.enabled) return;
                 m_ViewingDistance = 10;
@@ -102,16 +99,6 @@ public class GOODsFORSALE : MonoBehaviour
                 Vector3 pos = this.transform.position + dir * 0.5f;
                 m_Agent.destination = pos;
 
-            }
-            if (CanSeeBBA())
-            {
-                m_ViewingDistance = 10;
-                m_ViewingAngle = 360;
-                m_Agent.destination = -m_BBA.transform.position;
-                Vector3 dir = this.transform.position - m_BBA.transform.position;
-                Vector3 pos = this.transform.position + dir * 0.5f;
-                m_Agent.destination = pos;
-                m_Agent.speed = 3;
             }
             // 見失った場合
             else
