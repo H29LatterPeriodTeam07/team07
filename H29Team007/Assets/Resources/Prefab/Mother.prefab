@@ -935,7 +935,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4542504241185160}
-  - component: {fileID: 114400730234054132}
   - component: {fileID: 95782932239205296}
   - component: {fileID: 195868269341998618}
   - component: {fileID: 114583730546798694}
@@ -946,6 +945,7 @@ GameObject:
   - component: {fileID: 114838565082787508}
   - component: {fileID: 82422350463194940}
   - component: {fileID: 54979041256809114}
+  - component: {fileID: 114934473181730418}
   m_Layer: 0
   m_Name: Mother
   m_TagString: Parent
@@ -3960,7 +3960,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1290070085493614}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.205873, y: 5.174938e-17, z: -11.652924}
+  m_LocalPosition: {x: 26.78, y: 5.174938e-17, z: -10.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4277339746933528}
@@ -5362,24 +5362,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed9a5f8230cdd947bb9d295d2468281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114400730234054132
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1290070085493614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af589df65c01fc9499067dc08d685b25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PatrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  m_ViewingDistance: 0
-  m_ViewingAngle: 0
 --- !u!114 &114435975310535004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5432,6 +5414,19 @@ MonoBehaviour:
   stiffnessForce: 1
   dragForce: 1
   springForce: {x: 0, y: -0.05, z: 0}
+--- !u!114 &114934473181730418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1290070085493614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 548ae91181e8b8a4683913542c81c39a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ViewingDistance: 0
+  m_ViewingAngle: 0
 --- !u!137 &137818247441747982
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

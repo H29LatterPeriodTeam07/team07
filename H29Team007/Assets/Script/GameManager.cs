@@ -30,8 +30,6 @@ public class GameManager : MonoBehaviour {
     //レジから出口のポイント
     [SerializeField, Header("レジポイントと出口を入れる")]
     public Transform[] m_ReziExitpoints;
-    [SerializeField, Header("特売品出現場所をすべて入れる")]
-    public GameObject[] m_SaleAnimalSpowns;
     [System.NonSerialized]
     public SaleSpown m_scSaleSpown;
     [System.NonSerialized]
@@ -52,8 +50,8 @@ public class GameManager : MonoBehaviour {
     BBA m_BBAScript;
     //サウンドマネージャーオブジェクト
     public GameObject SM;
-    //サウンドマネージャースクリプト
-    //SoundManagerScript smScript;
+
+    GameObject[] m_enemys;
 
     // Use this for initialization
     void Start () {
@@ -62,16 +60,22 @@ public class GameManager : MonoBehaviour {
         //smScript = SM.transform.GetComponent<SoundManagerScript>();
         //smScript.PlayBGM(2);
         m_tmScript = m_Timer.GetComponent<Timer>();
-        m_SaleAnimalSpowns = GameObject.FindGameObjectsWithTag("SaleSpown");
-        foreach (GameObject sl in m_SaleAnimalSpowns) {
-            m_scSaleSpown = sl.GetComponent<SaleSpown>();
-        }
+        m_enemys = GameObject.FindGameObjectsWithTag("Enemy");
     }
 
     // Update is called once per frame
     void Update()
     {
-        m_Sun.transform.eulerAngles = new Vector3(210/100 * m_tmScript.NowTime(), 0, 0);
+        m_Sun.transform.eulerAngles = new Vector3(210 / m_tmScript.StageTime() * m_tmScript.NowTime(), 0, 0);
+    }
+
+    public void EnemyDelete() {
+        foreach (GameObject enemy in m_enemys)
+        {
+
+                Destroy(enemy);
+            
+        }
     }
 
 
