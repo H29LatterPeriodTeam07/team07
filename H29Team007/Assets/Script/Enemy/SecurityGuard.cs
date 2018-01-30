@@ -87,7 +87,7 @@ public class SecurityGuard : MonoBehaviour
         m_rb = GetComponent<Rigidbody>();
         m_scScrpt = GetComponent<SecurityGuard>();
         raycastLayer = 1 << LayerMask.NameToLayer("Child");
-        raycastLayer2 = 1 << LayerMask.NameToLayer("Clerk"); 
+        raycastLayer2 = 1 << LayerMask.NameToLayer("Clerk");
     }
 
     // Update is called once per frame
@@ -99,7 +99,7 @@ public class SecurityGuard : MonoBehaviour
         if (m_scPlayer.GetState() == Player.PlayerState.Outside)
         {
             m_Agent.speed = 1f;
-            m_Animator.SetTrigger("Trigger"); 
+            m_Animator.SetTrigger("Trigger");
             m_State = EnemyState.Patrolling;
         }
         //巡回中
@@ -139,7 +139,7 @@ public class SecurityGuard : MonoBehaviour
                 if (hitColliders.Length > 0)
                 {
                     int randomInt = Random.Range(0, hitColliders.Length);
-                    m_clerk= hitColliders[randomInt].transform;
+                    m_clerk = hitColliders[randomInt].transform;
                 }
             }
             else if (m_clerk != null)
@@ -254,13 +254,13 @@ public class SecurityGuard : MonoBehaviour
                 m_State = EnemyState.Patrolling;
             }
         }
-        else if(m_State == EnemyState.ChildPatrol)
+        else if (m_State == EnemyState.ChildPatrol)
         {
             if (HasArrived())
             {
-                m_Agent.speed=0;
+                m_Agent.speed = 0;
                 m_Hearingtime += Time.deltaTime;
-                if(m_Hearingtime > 3)
+                if (m_Hearingtime > 3)
                 {
                     m_Agent.speed = 3;
                     m_Agent.destination = m_Player.transform.position;
@@ -290,7 +290,7 @@ public class SecurityGuard : MonoBehaviour
                 }
                 if (m_scPlayer.GetState() == Player.PlayerState.Outside)
                 {
-                    m_clerk= null;
+                    m_clerk = null;
                     m_Hearingtime = 0;
                     m_Agent.speed = 1f;
                     m_State = EnemyState.Patrolling;
@@ -316,9 +316,9 @@ public class SecurityGuard : MonoBehaviour
                     "oncomplete", "OnCompleteHandler",
                     "oncompletetarget", this.gameObject));
             }
-                m_Agent.speed = 3.0f;
-                // プレイヤーの場所へ向かう
-                m_Agent.destination = m_Player.transform.position;
+            m_Agent.speed = 3.0f;
+            // プレイヤーの場所へ向かう
+            m_Agent.destination = m_Player.transform.position;
             if (dis <= 3 && m_bool == false)
             {
                 m_Animator.SetTrigger("Jump");
@@ -338,10 +338,10 @@ public class SecurityGuard : MonoBehaviour
 
     void OnCompleteHandler()
     {
-            m_Animator.SetTrigger("Trigger");
-            m_Agent.enabled = true;
-            m_Agent.speed = 0;
-            m_bool = false;
+        m_Animator.SetTrigger("Trigger");
+        m_Agent.enabled = true;
+        m_Agent.speed = 0;
+        m_bool = false;
     }
 
     //次の巡回ポイントを目的地に設定する
@@ -412,11 +412,39 @@ public class SecurityGuard : MonoBehaviour
     //プレイヤーを追いかける   
     public bool StateChasing()
     {
-        return (m_State == EnemyState.Chasing ||m_State == EnemyState.JusticeMode );
+        return (m_State == EnemyState.Chasing || m_State == EnemyState.JusticeMode);
     }
 
     public bool Guard()
     {
         return m_bool;
+    }
+    /// <summary>エネミーのプレイヤーが見えてるかのパクリのパクリ</summary>
+    private bool CanGetEnemy(Transform cart)
+    {
+        if (transform.tag == "Enemy")
+        {
+            SecurityGuard sg = gameObject.GetComponent<SecurityGuard>();
+            if (sg.Guard()) return false;
+        }
+        //カートからエネミーへの方向ベクトル(ワールド座標系)
+        Vector3 directionToEnemy = transform.position - cart.position;
+        // エネミーの正面向きベクトルとエネミーへの方向ベクトルの差分角度
+        float angleToEnemy = Vector3.Angle(transform.forward, directionToEnemy);
+
+        // 引ける角度の範囲内にエネミーがいるかどうかを返却する
+        return (Mathf.Abs(angleToEnemy) <= 90);
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "FrontHitArea")//プレイヤーババア用　敵ババアが特売品を轢く処理は頑張って
+        {
+            if (transform.tag == "Enemy" && !CanGetEnemy(other.transform))
+            {
+                return;
+            }
+        }
+        m_ViewingAngle = 0.0f;
+        m_ViewingDistance = 0.0f;
     }
 }

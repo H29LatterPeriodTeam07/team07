@@ -11129,11 +11129,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 114757958974146784, guid: 5a7b5a2a6fc32194fa3bfda4644038f7,
-        type: 2}
-      propertyPath: m_int
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a7b5a2a6fc32194fa3bfda4644038f7, type: 2}
   m_IsPrefabParent: 0
@@ -12159,6 +12154,11 @@ Prefab:
       propertyPath: m_gd.Array.data[0].m_Patrolpoints2.Array.data[3]
       value: 
       objectReference: {fileID: 1529872635}
+    - target: {fileID: 114009780992865446, guid: 29377a74793ed984ea725322c12c5ea3,
+        type: 2}
+      propertyPath: m_Spawn
+      value: 
+      objectReference: {fileID: 613768509}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 29377a74793ed984ea725322c12c5ea3, type: 2}
   m_IsPrefabParent: 0

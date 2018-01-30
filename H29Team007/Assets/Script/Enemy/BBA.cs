@@ -122,7 +122,6 @@ public class BBA : MonoBehaviour
             {
                 SetNewRPatrolPointToDestination();
                 m_State = BBAState.NoCart;
-                m_Cart.transform.DetachChildren();
             }
         }
         //特売品モード
@@ -176,7 +175,6 @@ public class BBA : MonoBehaviour
             {
                 SetNewRPatrolPointToDestination();
                 m_State = BBAState.NoCart;
-                m_Cart.transform.DetachChildren();
             }
         }
 
@@ -196,7 +194,6 @@ public class BBA : MonoBehaviour
             {
                 SetNewRPatrolPointToDestination();
                 m_State = BBAState.NoCart;
-                m_Cart.transform.DetachChildren();
             }
         }
 
@@ -311,12 +308,29 @@ public class BBA : MonoBehaviour
     {
         return m_scBBAcount.IsBaggegeinHuman();
     }
+    /// <summary>エネミーのプレイヤーが見えてるかのパクリのパクリ</summary>
+    private bool CanGetEnemy(Transform cart)
+    {
+        if (transform.tag == "Enemy")
+        {
+            SecurityGuard sg = gameObject.GetComponent<SecurityGuard>();
+            if (sg.Guard()) return false;
+        }
+        //カートからエネミーへの方向ベクトル(ワールド座標系)
+        Vector3 directionToEnemy = transform.position - cart.position;
+        // エネミーの正面向きベクトルとエネミーへの方向ベクトルの差分角度
+        float angleToEnemy = Vector3.Angle(transform.forward, directionToEnemy);
+
+        // 引ける角度の範囲内にエネミーがいるかどうかを返却する
+        return (Mathf.Abs(angleToEnemy) <= 90);
+    }
 
     public void OnTriggerEnter(Collider other)
     {
         if (other.name == "FrontHitArea")
         {
-         //   Destroy(myCart.gameObject);
+            if (transform.tag == "BBA" && !CanGetEnemy(other.transform)) { return; }
+            Destroy(myCart.gameObject);
             bcScript.BaggegeFall(transform.position);
             m_bo = false;
         }

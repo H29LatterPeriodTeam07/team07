@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
     //レジから出口のポイント
     [SerializeField, Header("レジポイントと出口を入れる")]
     public Transform[] m_ReziExitpoints;
+    public GameObject m_Spawn;
     [System.NonSerialized]
     public SaleSpown m_scSaleSpown;
     [System.NonSerialized]
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour {
         //smScript.PlayBGM(2);
         m_tmScript = m_Timer.GetComponent<Timer>();
         m_enemys = GameObject.FindGameObjectsWithTag("Enemy");
+        m_scSaleSpown = m_Spawn.GetComponent<SaleSpown>();
     }
 
     // Update is called once per frame
