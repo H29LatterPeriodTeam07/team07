@@ -128,7 +128,7 @@ public class RunOverObject : MonoBehaviour
                 || transform.tag == "BBA" && !CanGetEnemy(other.transform)) { print("帰れ"); return; }
             var sc = other.transform.root.GetComponent<ShoppingCount>();
             if (transform.tag == "Animal" && !sc.IsHumanMoreThanAnimal()) return;
-            if (!sc.IsCatchBasket() || sc.IsBaggegeMax(other.transform.parent.gameObject)) return;
+            //if (!sc.IsCatchBasket() || sc.IsBaggegeMax(other.transform.parent.gameObject)) return;
             if (m_Anime != null)
             {
                 m_Anime.SetTrigger("Kago");
