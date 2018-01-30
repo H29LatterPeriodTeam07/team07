@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class ShoppingCount : MonoBehaviour
 {
-
     private Player playerScript;
     private float onPosition;//いらない可能性大（12/03）
 
@@ -507,18 +506,21 @@ public class ShoppingCount : MonoBehaviour
         {
             for (int i = 0; i < myBaggage.Count - 2; i++)
             {
-                int num = Pattern.PatternNumber(myBaggage[i], myBaggage[i + 1], myBaggage[i + 2]);
-                if (num != 0)
+                //int num = Pattern.PatternNumber(myBaggage[i], myBaggage[i + 1], myBaggage[i + 2]);
+                string[] patternNames = { myBaggage[i].name, myBaggage[i + 1].name, myBaggage[i + 2].name };
+                ScoreManager.PatternData l_data = ScoreManager.GetEnemyPatternData(patternNames);
+                if (l_data.PatternName != "None")
                 {
-                    string patternname = PatternScore.PatternText(num);
-                    int patternscore = ScoreManager.EnemyPrice(patternname);
-                    bagprice += patternscore;
+
+                    string patternname = l_data.PatternName;
+                    int patternpoint = ScoreManager.GetPatternPoint(l_data);
+                    bagPoint += patternpoint;
                     bagnames.Add(patternname);
                     GameObject popscore = Instantiate(popscorePrefab);
                     PopupScore2D popscoreScript = popscore.GetComponent<PopupScore2D>();
                     //popscoreScript.SetPositionAndRotation(myBaggage[i + 1].position + transform.right * 2, Camera.main.transform.eulerAngles.y);
                     popscoreScript.SetOutColorOrange();
-                    popscoreScript.SetText(patternname + "＋" + StringWidthConverter.ConvertToFullWidth(patternscore.ToString()));
+                    popscoreScript.SetText(patternname + "＋" + StringWidthConverter.ConvertToFullWidth(patternpoint.ToString() + "Pt"));
                     popscoreScript.transform.SetParent(score.transform);
                     popscoreScript.SetTarget(scorecount);
                     scorecount++;
@@ -532,24 +534,45 @@ public class ShoppingCount : MonoBehaviour
         {
             for (int i = 0; i < myBaggage2.Count - 2; i++)
             {
+                //int num = Pattern.PatternNumber(myBaggage2[i], myBaggage2[i + 1], myBaggage2[i + 2]);
                 int num = Pattern.PatternNumber(myBaggage2[i], myBaggage2[i + 1], myBaggage2[i + 2]);
-                if (num != 0)
+                string[] patternNames = { myBaggage[i].name, myBaggage[i + 1].name, myBaggage[i + 2].name };
+                ScoreManager.PatternData l_data = ScoreManager.GetEnemyPatternData(patternNames);
+                if (l_data.PatternName != "None")
                 {
-                    string patternname = PatternScore.PatternText(num);
-                    int patternscore = ScoreManager.EnemyPrice(patternname);
-                    bagprice += patternscore;
+
+                    string patternname = l_data.PatternName;
+                    int patternpoint = ScoreManager.GetPatternPoint(l_data);
+                    bagPoint += patternpoint;
                     bagnames.Add(patternname);
                     GameObject popscore = Instantiate(popscorePrefab);
                     PopupScore2D popscoreScript = popscore.GetComponent<PopupScore2D>();
                     //popscoreScript.SetPositionAndRotation(myBaggage[i + 1].position + transform.right * 2, Camera.main.transform.eulerAngles.y);
                     popscoreScript.SetOutColorOrange();
-                    popscoreScript.SetText(patternname + "＋" + StringWidthConverter.ConvertToFullWidth(patternscore.ToString()));
+                    popscoreScript.SetText(patternname + "＋" + StringWidthConverter.ConvertToFullWidth(patternpoint.ToString() + "Pt"));
                     popscoreScript.transform.SetParent(score.transform);
                     popscoreScript.SetTarget(scorecount);
                     scorecount++;
                     i += 2;
                 }
             }
+            //if (num != 0)
+            //    {
+            //        string patternname = PatternScore.PatternText(num);
+            //        int patternpoint = ScoreManager.EnemyPrice(patternname);
+            //        bagPoint += patternpoint;
+            //        bagnames.Add(patternname);
+            //        GameObject popscore = Instantiate(popscorePrefab);
+            //        PopupScore2D popscoreScript = popscore.GetComponent<PopupScore2D>();
+            //        //popscoreScript.SetPositionAndRotation(myBaggage[i + 1].position + transform.right * 2, Camera.main.transform.eulerAngles.y);
+            //        popscoreScript.SetOutColorOrange();
+            //        popscoreScript.SetText(patternname + "＋" + StringWidthConverter.ConvertToFullWidth(patternpoint.ToString() + "Pt"));
+            //        popscoreScript.transform.SetParent(score.transform);
+            //        popscoreScript.SetTarget(scorecount);
+            //        scorecount++;
+            //        i += 2;
+            //    }
+            //}
         }
 
         if (kesumono.Count != 0)
