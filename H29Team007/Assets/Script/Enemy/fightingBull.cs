@@ -18,13 +18,16 @@ public class fightingBull : MonoBehaviour {
     BoxCollider m_Box;
     BullCount bcScript;
 
+    int m_curent;
+
     // Use this for initialization
     void Start() {
         m_ExitPoint = GameObject.FindGameObjectWithTag("ExitPoint");
         m_Agent = GetComponent<NavMeshAgent>();
         m_GameManager = GameObject.FindGameObjectWithTag("GameManager");
         m_gmScript = m_GameManager.GetComponent<GameManager>();
-        BullSetNewPatrolPoint();
+        m_curent = m_gmScript.m_CurentBullPatrolPointIndex;
+        m_Agent.destination = m_gmScript.m_BullPatrolPoints[m_curent].position;
         bcScript = transform.GetComponent<BullCount>();
     }
 
@@ -38,10 +41,10 @@ public class fightingBull : MonoBehaviour {
     }
     void BullSetNewPatrolPoint()
     {
-        m_gmScript.m_CurentBullPatrolPointIndex
-             = (m_gmScript.m_CurentBullPatrolPointIndex + 1) % m_gmScript.m_BullPatrolPoints.Length;
+        m_curent
+             = (m_curent + 1) % m_gmScript.m_BullPatrolPoints.Length;
 
-        m_Agent.destination = m_gmScript.m_BullPatrolPoints[m_gmScript.m_CurentBullPatrolPointIndex].position;
+        m_Agent.destination = m_gmScript.m_BullPatrolPoints[m_curent].position;
     }
 
     bool BUllHasArrived()
