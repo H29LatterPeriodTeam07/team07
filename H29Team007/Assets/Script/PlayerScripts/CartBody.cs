@@ -148,6 +148,7 @@ public class CartBody : MonoBehaviour
     /// <summary>通常時</summary>
     private void Normal()
     {
+        if (!MainGameDate.IsStart()) return;
         if (Input.GetButtonDown("XboxR") || Input.GetKeyDown(KeyCode.L))
         {
             rotatepoint.transform.localPosition = willyPoint;

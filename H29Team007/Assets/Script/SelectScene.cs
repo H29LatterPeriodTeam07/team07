@@ -44,7 +44,12 @@ public class SelectScene : MonoBehaviour
     public void StageSelectLoad()
     {
         Time.timeScale = 1.0f;
+        if (MainGameDate.IsStart()) MainGameDate.ChangeStartFlag();
         SceneManager.LoadScene("StageSelect");
+    }
+    public void Exit()
+    {
+        Application.Quit();
     }
 
 }

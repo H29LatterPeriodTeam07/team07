@@ -61,7 +61,11 @@ public class BasketFly : MonoBehaviour
                 {
                     GameObject explosion = Instantiate(explosionPrefub);
                     explosion.transform.position = transform.position;
-                    m_rigid.velocity = Vector3.up * 5.0f + Vector3.forward * 3.0f;
+                    float x = Random.Range(-5.0f, 5.0f);
+                    float z = Random.Range(-5.0f, 5.0f);
+
+                    Vector3 moveVec = new Vector3(x, 5.0f, z);
+                    m_rigid.velocity = moveVec;
                 }
 
 
