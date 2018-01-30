@@ -78,10 +78,10 @@ public class GOODsFORSALE : MonoBehaviour
                 //退避に状態変更
                 m_State = SaleAnimalState.WarningMode;
             }
-            if (m_eScript.BullApper())
-            {
-                BullPatrol();
-            }
+            //if (m_eScript.BullApper())
+            //{
+            //    BullPatrol();
+            //}
 
         }
         else if (m_State == SaleAnimalState.WarningMode)

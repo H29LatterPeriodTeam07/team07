@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour {
     [System.Serializable]
     public class GameData
     {
-        public GameObject m_BBA;
         //ＢＢＡの巡回ポイント
         [SerializeField, Header("BBAのノーマル巡回ルート")]
         public Transform[] m_PatrolPoints;
