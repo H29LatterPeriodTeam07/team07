@@ -142,10 +142,16 @@ public class BBA : MonoBehaviour
             if (m_Animal == null)
             {
                 Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, raycastLayer);
-                if (hitColliders.Length > 0)
+                //if (hitColliders.Length > 0)
+                //{
+                //    int randomInt = Random.Range(0, hitColliders.Length);
+                //    m_Animal = hitColliders[randomInt].transform;
+                //}
+                foreach(Collider hit in hitColliders)
                 {
-                    int randomInt = Random.Range(0, hitColliders.Length);
-                    m_Animal = hitColliders[randomInt].transform;
+                    if (m_Animal != null || hit.transform.parent != null) continue;
+                    //int randomInt = Random.Range(0, hitColliders.Length);
+                    m_Animal = hit.transform;
                 }
             }
 
@@ -155,7 +161,8 @@ public class BBA : MonoBehaviour
 
                 if(m_Animal.parent != null)
                 {
-                    m_State = BBAState.NormalMode;
+                    m_Animal = null;
+                    //m_State = BBAState.NormalMode;
                 }
             }
 
