@@ -152,6 +152,11 @@ public class BBA : MonoBehaviour
             else if (m_Animal != null)
             {
                 m_Agent.destination = m_Animal.transform.position;
+
+                if(m_Animal.parent != null)
+                {
+                    m_State = BBAState.NormalMode;
+                }
             }
 
             if (IsGetAnimal())

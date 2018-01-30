@@ -5,11 +5,6 @@ using UnityEngine.AI;
 
 public class fightingBull : MonoBehaviour {
 
-    [SerializeField, Header("元のモデル")]
-    public GameObject m_model;
-    [SerializeField, Header("ぐてモデル")]
-    public GameObject m_gutemodel;
-
 
     GameObject m_ExitPoint;
     GameObject m_GameManager;
@@ -54,32 +49,12 @@ public class fightingBull : MonoBehaviour {
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.name == "FrontHitArea")//プレイヤーババア用　敵ババアが特売品を轢く処理は頑張って
-        {
-            if (m_model != null)
-            {
-                m_model.SetActive(false);
-                m_gutemodel.SetActive(true);
-            }
-        }
 
             if (other.tag == "ExitPoint")
         {
             bcScript.BaggegeFall(transform.position);
             Destroy(gameObject);
 
-        }
-    }
-
-    public void OnTriggerStay(Collider other)
-    {
-        if (other.name == "Plane")
-        {
-            if (m_model != null && m_gutemodel != null)
-            {
-                m_model.SetActive(true);
-                m_gutemodel.SetActive(false);
-            }
         }
     }
 }

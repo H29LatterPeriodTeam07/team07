@@ -1056,7 +1056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f009c4f612118fb46a02197e3d75baff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_model: {fileID: 1539722071961572}
+  m_model: {fileID: 0}
   m_gutemodel: {fileID: 0}
 --- !u!114 &114338265237260756
 MonoBehaviour:
@@ -1095,6 +1095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changeObject: {fileID: 1397833299618462}
+  changeObject2: {fileID: 0}
   nikuPrefab: {fileID: 1360990445985830, guid: 3cc9caecca545b94684816ac009a9534, type: 2}
 --- !u!114 &114499368547236116
 MonoBehaviour:
