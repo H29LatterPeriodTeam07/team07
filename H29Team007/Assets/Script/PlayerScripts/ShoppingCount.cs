@@ -85,6 +85,7 @@ public class ShoppingCount : MonoBehaviour
     {
         if (playerScript.GetState() == Player.PlayerState.Takeover
             || transform.parent != null
+            || !MainGameDate.IsStart()
             ) return;
         if (basket.activeSelf && Input.GetButton("XboxA") ||
             basket.activeSelf && Input.GetKey(KeyCode.F))
