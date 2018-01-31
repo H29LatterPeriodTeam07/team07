@@ -443,8 +443,13 @@ public class SecurityGuard : MonoBehaviour
             {
                 return;
             }
+            m_ViewingAngle = 0.0f;
+            m_ViewingDistance = 0.0f;
         }
-        m_ViewingAngle = 0.0f;
-        m_ViewingDistance = 0.0f;
+        if (other.name == "BullHitArea")//闘牛用
+        {
+            m_ViewingAngle = 0.0f;
+            m_ViewingDistance = 0.0f;
+        }
     }
 }
