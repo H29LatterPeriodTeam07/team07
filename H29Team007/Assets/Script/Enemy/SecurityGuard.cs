@@ -33,7 +33,6 @@ public class SecurityGuard : MonoBehaviour
     //視野角
     float m_ViewingAngle;
     public GameObject m_Enemy;
-    public AudioClip m_se;
 
     private Player m_scPlayer;
     private EnemyState m_State = EnemyState.Patrolling;
@@ -51,8 +50,6 @@ public class SecurityGuard : MonoBehaviour
     Transform m_EyePoint;
     Transform m_Child;
     Transform m_clerk;
-    public GameObject m_SoundManager;
-    SoundManagerScript m_smScript;
     RunOverObject m_run;
     bool m_bool = false;
     float radius = 100f;
@@ -82,7 +79,6 @@ public class SecurityGuard : MonoBehaviour
         m_EyePoint = transform.Find("LookEye");
         m_Animator = GetComponent<Animator>();
         m_scPlayer = m_Player.GetComponent<Player>();
-        m_smScript = m_SoundManager.GetComponent<SoundManagerScript>();
         m_AS = GetComponent<AudioSource>();
         m_rb = GetComponent<Rigidbody>();
         m_scScrpt = GetComponent<SecurityGuard>();
@@ -443,8 +439,13 @@ public class SecurityGuard : MonoBehaviour
             {
                 return;
             }
+            m_ViewingAngle = 0.0f;
+            m_ViewingDistance = 0.0f;
         }
-        m_ViewingAngle = 0.0f;
-        m_ViewingDistance = 0.0f;
+        if (other.name == "BullHitArea")//闘牛用
+        {
+            m_ViewingAngle = 0.0f;
+            m_ViewingDistance = 0.0f;
+        }
     }
 }
