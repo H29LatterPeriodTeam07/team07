@@ -512,7 +512,6 @@ public class ShoppingCount : MonoBehaviour
                 ScoreManager.PatternData l_data = ScoreManager.GetEnemyPatternData(patternNames);
                 if (l_data.PatternName != "None")
                 {
-
                     string patternname = l_data.PatternName;
                     int patternpoint = ScoreManager.GetPatternPoint(l_data);
                     bagPoint += patternpoint;
@@ -524,6 +523,13 @@ public class ShoppingCount : MonoBehaviour
                     popscoreScript.SetText(patternname + "＋" + StringWidthConverter.ConvertToFullWidth(patternpoint.ToString() + "Pt"));
                     popscoreScript.transform.SetParent(score.transform);
                     popscoreScript.SetTarget(scorecount);
+
+                    // resultで使うデータ追加
+                    ScoreManager.PatternResultData l_resultData;
+                    l_resultData.PatternName = l_data.PatternName;
+                    l_resultData.nameList = l_data.PatternList;
+                    l_resultData.point = patternpoint;
+                    ScoreManager.AddResultPatternData(l_resultData);
                     scorecount++;
                     i += 2;
                 }
