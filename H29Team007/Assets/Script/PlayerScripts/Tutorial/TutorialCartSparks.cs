@@ -5,13 +5,13 @@ using UnityEngine;
 public class TutorialCartSparks : MonoBehaviour {
 
     ParticleSystem myParticle;
-    TutorialPlayer playerScript;
+    MTPlayer playerScript;
 
     // Use this for initialization
     void Start()
     {
         myParticle = GetComponent<ParticleSystem>();
-        playerScript = transform.root.GetComponent<TutorialPlayer>();
+        playerScript = transform.root.GetComponent<MTPlayer>();
 
         myParticle.Stop();
     }
@@ -21,7 +21,7 @@ public class TutorialCartSparks : MonoBehaviour {
     {
         float inputHorizontal = (Input.GetAxisRaw("XboxLeftHorizontal") != 0) ? Input.GetAxisRaw("XboxLeftHorizontal") : Input.GetAxisRaw("Horizontal");
 
-        if (playerScript.GetState() == TutorialPlayer.PlayerState.Gliding && inputHorizontal != 0)
+        if (playerScript.GetState() == MTPlayer.PlayerState.Gliding && inputHorizontal != 0)
         {
             myParticle.Play();
         }

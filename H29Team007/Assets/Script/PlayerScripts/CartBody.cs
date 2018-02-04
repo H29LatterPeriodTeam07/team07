@@ -13,8 +13,6 @@ public class CartBody : MonoBehaviour
     private Vector3 willyPoint = CartRelatedData.cartRotatePointBack;
     private Vector3 motiagePoint = CartRelatedData.cartRotatePointFront;
 
-    private bool isR = false;
-
     private bool isWilly = false;
 
     //[SerializeField, Header("カート持っていない時の速さ")]
@@ -153,13 +151,11 @@ public class CartBody : MonoBehaviour
         {
             rotatepoint.transform.localPosition = willyPoint;
             SlopeCart(-13);
-            isR = true;
         }
         else if (Input.GetButtonDown("XboxL") || Input.GetKeyDown(KeyCode.K))
         {
             rotatepoint.transform.localPosition = motiagePoint;
             SlopeCart(13);
-            isR = false; 
         }
     }
 

@@ -23,7 +23,7 @@ public class TutorialBBA : MonoBehaviour {
     GameObject m_PatrolPoint;
     GameObject[] m_PatrolPoints;
 
-    private TutorialPlayer tp;
+    private MTPlayer tp;
 
 
 
@@ -46,7 +46,7 @@ public class TutorialBBA : MonoBehaviour {
         //プレイヤーの注視点を名前で検索して保持
         m_PlayerLookpoint = m_Player.transform.Find("LookPoint");
 
-        tp = m_Player.GetComponent<TutorialPlayer>();
+        tp = m_Player.GetComponent<MTPlayer>();
 
         m_EyePoint = transform.Find("LookEye");
         m_Animator = GetComponent<Animator>();
@@ -57,7 +57,7 @@ public class TutorialBBA : MonoBehaviour {
     {
         m_Agent.speed = 1.0f;
         m_Animator.SetFloat("Speed", m_Agent.speed);
-        if (tp.GetState() != TutorialPlayer.PlayerState.Takeover) {
+        if (tp.GetState() != MTPlayer.PlayerState.Takeover) {
             m_Agent.destination = transform.position;
             return;
         }

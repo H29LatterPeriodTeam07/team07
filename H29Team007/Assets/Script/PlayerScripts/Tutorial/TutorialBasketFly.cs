@@ -10,6 +10,13 @@ public class TutorialBasketFly : MonoBehaviour {
     public GameObject cartRigidPrefab;
 
     private bool oneHit = false;
+    private bool punch = false;
+    private bool onthewall = true;
+
+
+    [SerializeField, Header("爆発のプレハブ")]
+    private GameObject explosionPrefub;
+    public LayerMask mask;
 
     // Use this for initialization
     void Start()
@@ -17,17 +24,58 @@ public class TutorialBasketFly : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
         //enabled = false;
         m_rigid = GetComponent<Rigidbody>();
-        m_rigid.AddForce(player.transform.forward * 20.0f, ForceMode.VelocityChange);
+        m_rigid.AddForce(player.transform.up * 6.5f, ForceMode.VelocityChange);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!punch && transform.position.y < CartRelatedData.cartFlyStartPosY)
+        {
+            m_rigid.velocity = player.transform.forward * 20.0f;
+            //m_rigid.AddForce(player.transform.forward * 20.0f, ForceMode.VelocityChange);
+            punch = true;
+        }
         if (m_rigid.velocity == Vector3.zero)
         {
+            if (onthewall) //壁（障害物の上にいるかどうか）
+            {
+                //mapstageレイヤーに当たるレイを飛ばす
+                RaycastHit[] hitInfo
+                    = Physics.RaycastAll(transform.position + transform.up * 0.5f, -Vector3.up, 1.0f, mask);
 
-            m_rigid.constraints = RigidbodyConstraints.FreezePositionY;
-            GetComponent<BoxCollider>().isTrigger = true;
+                onthewall = false;
+                //当たったオブジェクトの中にwallタグのやつがいるか探す
+                if (hitInfo.Length != 0)
+                {
+                    for (int i = 0; i < hitInfo.Length; i++)
+                    {
+                        if (onthewall) continue;
+                        onthewall = (hitInfo[i].collider.tag == "Wall");
+                        //Debug.Log(hitInfo[i].collider.name);
+                    }
+                }
+
+                if (onthewall) //障害物の上にいるなら籠を動かす
+                {
+                    GameObject explosion = Instantiate(explosionPrefub);
+                    explosion.transform.position = transform.position;
+                    float x = Random.Range(-5.0f, 5.0f);
+                    float z = Random.Range(-5.0f, 5.0f);
+
+                    Vector3 moveVec = new Vector3(x, 5.0f, z);
+                    m_rigid.velocity = moveVec;
+                }
+
+
+            }
+            else
+            {
+                //Debug.DrawRay(transform.position + transform.up * 0.5f, -Vector3.up, Color.red, 1.0f);
+                m_rigid.constraints = RigidbodyConstraints.FreezePositionY;
+                GetComponent<BoxCollider>().isTrigger = true;
+            }
+
         }
         if (transform.position.y < -1) //デバッグ中に下に落ちた('ω')
         {
@@ -49,7 +97,7 @@ public class TutorialBasketFly : MonoBehaviour {
             //Debug.Log(gameObject.name);
             collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             //transform.position = collision.transform.position + collision.transform.
-            player.GetComponent<TutorialPlayer>().ChangeCart(collision.gameObject);
+            player.GetComponent<MTPlayer>().ChangeCart(collision.gameObject);
             player.GetComponent<TutorialShopping>().BaggegeParentPlayer();
             Destroy(gameObject);
         }
@@ -65,7 +113,7 @@ public class TutorialBasketFly : MonoBehaviour {
             GameObject newcart = ec.NewCart();
 
             newcart.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-            player.GetComponent<TutorialPlayer>().ChangeCart(newcart.gameObject);
+            player.GetComponent<MTPlayer>().ChangeCart(newcart.gameObject);
             player.GetComponent<TutorialShopping>().BaggegeParentPlayer();
             collision.transform.tag = "Cutomer";
             Destroy(enemyCart.gameObject);

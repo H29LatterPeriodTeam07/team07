@@ -23,6 +23,26 @@ public class TutorialManager : MonoBehaviour {
      14:シーン移動
          */
 
+    /*
+  0:スコア
+     1:タイマー
+     2:ミニマップ
+     3:カート持つまで
+     4:カート持っての移動(滑走の説明)
+     5:人轢く
+     6:豚轢く
+     7:傾き
+     8:レジ行き
+     9:袋説明
+     10:警備員
+     11:敵説明
+     12:カートジャック
+     13:ダブルカート
+     14:闘牛説明
+     15:まとめ
+     16:シーン移動
+     */
+
 
     private int tutorialIndex = 0;
     private TutorialPlayer player;
@@ -38,7 +58,7 @@ public class TutorialManager : MonoBehaviour {
 
     private Vector3 startPoint;
     private GameObject p;
-    private TutorialCamera camera;
+    private TutorialCamera tcamera;
 
     private bool rpush = false;
     private bool lpush = false;
@@ -59,7 +79,7 @@ public class TutorialManager : MonoBehaviour {
         p = GameObject.FindGameObjectWithTag("Player");
         player = p.GetComponent<TutorialPlayer>();
         shopping = p.GetComponent<TutorialShopping>();
-        camera = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.GetComponent<TutorialCamera>();
+        tcamera = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.GetComponent<TutorialCamera>();
         startPoint = p.transform.position;
         reji.SetActive(false);
         scoreG.SetActive(false);
@@ -87,7 +107,7 @@ public class TutorialManager : MonoBehaviour {
                 }
                 p.transform.position = startPoint;
                 p.transform.eulerAngles = Vector3.zero;
-                camera.CameraReset();
+                tcamera.CameraReset();
                 fade.FadeIn(1.0f);
                 isFadeNow = false;
             }
@@ -183,7 +203,8 @@ public class TutorialManager : MonoBehaviour {
     private void Index7Update()
     {
         //カートジャック
-        if (player.GetState() == TutorialPlayer.PlayerState.Takeover)
+        if (player.GetState() == TutorialPlayer.PlayerState.Takeover
+            ||Input.anyKeyDown)
         {
             IndexNext();
         }
@@ -192,7 +213,8 @@ public class TutorialManager : MonoBehaviour {
     private void Index8Update()
     {
         //カートジャック終了
-        if (player.IsCart())
+        if (player.IsCart()
+            || Input.anyKeyDown)
         {
             IndexNext();
         }

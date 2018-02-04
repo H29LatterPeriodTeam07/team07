@@ -529,7 +529,7 @@ GameObject:
   - component: {fileID: 82380917652042756}
   - component: {fileID: 114904242325962002}
   - component: {fileID: 114249747483723512}
-  - component: {fileID: 114668384246273842}
+  - component: {fileID: 114540811727218786}
   m_Layer: 0
   m_Name: TutorialSaleAnimalPig
   m_TagString: Animal
@@ -1476,7 +1476,7 @@ Transform:
   m_GameObject: {fileID: 1104003771119822}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 4692389478796086}
   - {fileID: 4790132410274756}
@@ -1835,7 +1835,7 @@ Transform:
   m_GameObject: {fileID: 1721061447153332}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 4958993504640202}
   - {fileID: 4378079353195004}
@@ -2342,6 +2342,21 @@ MonoBehaviour:
   stiffnessForce: 1
   dragForce: 1
   springForce: {x: 0, y: -0.05, z: 0}
+--- !u!114 &114540811727218786
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1472418776609436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21bf98416bf8d9440a20f1e7cba9d923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_se: {fileID: 0}
+  m_model: {fileID: 1104003771119822}
+  m_gutemodel: {fileID: 1721061447153332}
+  runOverAfterHeight: 0.8
 --- !u!114 &114618783754817300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2353,21 +2368,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcef6aa1415d3454fb65b8ae219f5f0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114668384246273842
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1472418776609436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c7913e0e0e0fbf4d899ed4b0e479acd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_se: {fileID: 0}
-  m_model: {fileID: 1104003771119822}
-  m_gutemodel: {fileID: 1721061447153332}
-  runOverAfterHeight: 1
 --- !u!114 &114904242325962002
 MonoBehaviour:
   m_ObjectHideFlags: 1

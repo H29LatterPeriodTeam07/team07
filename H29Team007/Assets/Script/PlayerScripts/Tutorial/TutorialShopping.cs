@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TutorialShopping : MonoBehaviour {
 
 	
-    private TutorialPlayer playerScript;
+    private MTPlayer playerScript;
     private float onPosition;//いらない可能性大（12/03）
 
     private List<Transform> myBaggage;
@@ -30,6 +30,8 @@ public class TutorialShopping : MonoBehaviour {
     private GameObject scoreUI;
     [SerializeField, Header("コインプレハブ")]
     private GameObject coinManagerPrefab;
+    [SerializeField, Header("ポプアップスコアプレハブ")]
+    private GameObject popscorePrefab;
 
     private int childCount = 0;
 
@@ -50,13 +52,14 @@ public class TutorialShopping : MonoBehaviour {
     {
         basket = Instantiate(basketPrefab);
         basket.transform.parent = transform;
-        playerScript = GetComponent<TutorialPlayer>();
+        playerScript = GetComponent<MTPlayer>();
         myBaggage = new List<Transform>();
         onPosition = 0.0f;
         maxCount = maxCountDefault;
         basketScript = basket.GetComponent<TutorialBasket>();
         scoreUI = GameObject.Find("Score");
         score = scoreUI.GetComponent<Text>();
+        scoreUI.transform.parent.gameObject.SetActive(false);
         baggageParent = basket.transform.Find("nimotuParent");
         baggageScript = baggageParent.GetComponent<TutorialAngleManager>();
         seScript = GetComponent<PlayerSE>();
@@ -72,7 +75,7 @@ public class TutorialShopping : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (playerScript.GetState() == TutorialPlayer.PlayerState.Takeover
+        if (playerScript.GetState() == MTPlayer.PlayerState.Takeover
             || transform.parent != null
             ) return;
         if (basket.activeSelf && Input.GetButton("XboxA") ||
@@ -96,6 +99,7 @@ public class TutorialShopping : MonoBehaviour {
             Vector3 baspos = basket.transform.position;
             baspos.y = CartRelatedData.cartFlyStartPosY;
             flyBasket.transform.position = baspos;
+            playerScript.ChangeState(7);
 
             basket.SetActive(false);
         }
@@ -293,7 +297,7 @@ public class TutorialShopping : MonoBehaviour {
     public void AddBaggege(Transform baggege)
     {
         myBaggage.Add(baggege);
-        baggageScript.SetChildren(baggege,baggege.GetComponent<TutorialRunOver>().GetHeight());
+        baggageScript.SetChildren(baggege,baggege.GetComponent<MTRunOver>().GetHeight());
         SetScore();
     }
 
@@ -302,12 +306,12 @@ public class TutorialShopping : MonoBehaviour {
         if (playerScript.MyCart() == cart)
         {
             myBaggage.Add(baggege);
-            baggageScript.SetChildren(baggege, baggege.GetComponent<TutorialRunOver>().GetHeight());
+            baggageScript.SetChildren(baggege, baggege.GetComponent<MTRunOver>().GetHeight());
         }
         else
         {
             myBaggage2.Add(baggege);
-            baggage2Script.SetChildren(baggege, baggege.GetComponent<TutorialRunOver>().GetHeight());
+            baggage2Script.SetChildren(baggege, baggege.GetComponent<MTRunOver>().GetHeight());
         }
         SetScore();
     }
@@ -341,7 +345,7 @@ public class TutorialShopping : MonoBehaviour {
         for (int i = 0; i < mybags.Count; i++)
         {
             AddBaggege(mybags[i]);
-            PlusY(mybags[i].GetComponent<TutorialRunOver>().GetHeight());
+            PlusY(mybags[i].GetComponent<MTRunOver>().GetHeight());
         }
 
     }
@@ -392,101 +396,241 @@ public class TutorialShopping : MonoBehaviour {
     /// <summary>レジを通した時の処理</summary>
     public void PassTheRegister()
     {
-        //List<Transform> mybags = new List<Transform>();
-        //List<Transform> kesumono = new List<Transform>();
-        //int bagprice = 0;
-        //List<int> bagnums = new List<int>();
+        List<Transform> mybags = new List<Transform>();
+        List<Transform> kesumono = new List<Transform>();
+        int bagprice = 0;
+        int bagPoint = 0;
+        List<string> bagnames = new List<string>();
 
-        //for (int i = 0; i < myBaggage.Count; i++)
-        //{
-        //    if (myBaggage[i].tag == "Plasticbag")
-        //    {
-        //        mybags.Add(myBaggage[i]);
-        //    }
-        //    else
-        //    {
-        //        kesumono.Add(myBaggage[i]);
-        //        bagprice += myBaggage[i].GetComponent<EnemyScore>().GetPrice();
-        //        bagnums.Add(myBaggage[i].GetComponent<EnemyScore>().GetNumber());
-        //    }
-        //}
+        int scorecount = 1;
 
-        //for (int i = 0; i < myBaggage2.Count; i++)
-        //{
-        //    if (myBaggage2[i].tag == "Plasticbag")
-        //    {
-        //        mybags.Add(myBaggage2[i]);
-        //    }
-        //    else
-        //    {
-        //        kesumono.Add(myBaggage2[i]);
-        //        bagprice += myBaggage2[i].GetComponent<EnemyScore>().GetPrice();
-        //        bagnums.Add(myBaggage2[i].GetComponent<EnemyScore>().GetNumber());
-        //    }
-        //}
-        //if (kesumono.Count != 0)
-        //{
-            
-        //    seScript.OnePlay(5);
-        //    for (int i = 0; i < kesumono.Count; i++)
-        //    {
-        //        Destroy(kesumono[i].gameObject);
-        //    }
-        //    Reset();
-        //    for (int i = 0; i < mybags.Count; i++)
-        //    {
-        //        AddBaggege(mybags[i]);
-        //        PlusY(mybags[i].GetComponent<TutorialRunOver>().GetHeight());                
-        //    }
-        //    GameObject newbag = Instantiate(bagPrefab);
+        //一個目のカートのスコア計算
+        for (int i = 0; i < myBaggage.Count; i++)
+        {
+            if (myBaggage[i].tag == "Plasticbag")
+            {
+                mybags.Add(myBaggage[i]);
+            }
+            else
+            {
+                kesumono.Add(myBaggage[i]);
+                int enemyscore = myBaggage[i].GetComponent<EnemyScore>().GetPrice();
+                bagprice += enemyscore;
+                int enemyPoint = myBaggage[i].GetComponent<EnemyScore>().GetPoint();
+                bagPoint += enemyPoint;
+                bagnames.Add(myBaggage[i].name);
 
-        //    Vector3 l_initPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.localPosition);
-        //    coinManagerPrefab.GetComponent<CoinManager>().SetInitPosition(new Vector2(l_initPosition.x, l_initPosition.y));
-        //    coinManagerPrefab.GetComponent<CoinManager>().SetCreateCoinCount(bagprice / 10);
-        //    coinManagerPrefab.GetComponent<CoinManager>().CreateCoin();
+                GameObject popscore = Instantiate(popscorePrefab);
+                PopupScore2D popscoreScript = popscore.GetComponent<PopupScore2D>();
+                //popscoreScript.SetPositionAndRotation(myBaggage[i].position + transform.right * 2, Camera.main.transform.eulerAngles.y);
+                popscoreScript.SetText("＋" + StringWidthConverter.ConvertToFullWidth(enemyscore.ToString()));
+                popscoreScript.transform.SetParent(score.transform);
+                popscoreScript.SetTarget(scorecount);
+                scorecount++;
+            }
+        }
+        //2個目のカートのスコア計算
+        for (int i = 0; i < myBaggage2.Count; i++)
+        {
+            if (myBaggage2[i].tag == "Plasticbag")
+            {
+                mybags.Add(myBaggage2[i]);
+            }
+            else
+            {
+                kesumono.Add(myBaggage2[i]);
+                int enemyscore = myBaggage2[i].GetComponent<EnemyScore>().GetPrice();
+                bagprice += enemyscore;
+                int enemyPoint = myBaggage2[i].GetComponent<EnemyScore>().GetPoint();
+                bagPoint += enemyPoint;
+                bagnames.Add(myBaggage2[i].name);
 
-        //    newbag.GetComponent<EnemyScore>().SetPrice(bagprice);
-        //    newbag.GetComponent<EnemyScore>().SetNumber(bagnums);
-        //    newbag.GetComponent<TutorialRunOver>().SetPlasticBagPos(basket);
-        //    childCount = 0;
-        //}
+                GameObject popscore = Instantiate(popscorePrefab);
+                PopupScore2D popscoreScript = popscore.GetComponent<PopupScore2D>();
+                //popscoreScript.SetPositionAndRotation(myBaggage2[i].position + transform.right * 2, Camera.main.transform.eulerAngles.y);
+                popscoreScript.SetText("＋" + StringWidthConverter.ConvertToFullWidth(enemyscore.ToString()));
+                popscoreScript.transform.SetParent(score.transform);
+                popscoreScript.SetTarget(scorecount);
+                scorecount++;
+            }
+        }
+
+        //1個目のカートのパターン
+        if (myBaggage.Count >= 3)
+        {
+            for (int i = 0; i < myBaggage.Count - 2; i++)
+            {
+                //int num = Pattern.PatternNumber(myBaggage[i], myBaggage[i + 1], myBaggage[i + 2]);
+                string[] patternNames = { myBaggage[i].name, myBaggage[i + 1].name, myBaggage[i + 2].name };
+                ScoreManager.PatternData l_data = ScoreManager.GetEnemyPatternData(patternNames);
+                if (l_data.PatternName != "None")
+                {
+                    string patternname = l_data.PatternName;
+                    int patternpoint = ScoreManager.GetPatternPoint(l_data);
+                    bagPoint += patternpoint;
+                    bagnames.Add(patternname);
+                    GameObject popscore = Instantiate(popscorePrefab);
+                    PopupScore2D popscoreScript = popscore.GetComponent<PopupScore2D>();
+                    //popscoreScript.SetPositionAndRotation(myBaggage[i + 1].position + transform.right * 2, Camera.main.transform.eulerAngles.y);
+                    popscoreScript.SetOutColorOrange();
+                    popscoreScript.SetText(patternname + "＋" + StringWidthConverter.ConvertToFullWidth(patternpoint.ToString() + "Pt"));
+                    popscoreScript.transform.SetParent(score.transform);
+                    popscoreScript.SetTarget(scorecount);
+
+                    // resultで使うデータ追加
+                    ScoreManager.PatternResultData l_resultData;
+                    l_resultData.PatternName = l_data.PatternName;
+                    l_resultData.nameList = l_data.PatternList;
+                    l_resultData.point = patternpoint;
+                    ScoreManager.AddResultPatternData(l_resultData);
+                    scorecount++;
+                    i += 2;
+                }
+            }
+        }
+
+        //2個目のスコアのパターン
+        if (myBaggage2.Count >= 3)
+        {
+            for (int i = 0; i < myBaggage2.Count - 2; i++)
+            {
+                //int num = Pattern.PatternNumber(myBaggage2[i], myBaggage2[i + 1], myBaggage2[i + 2]);
+                int num = Pattern.PatternNumber(myBaggage2[i], myBaggage2[i + 1], myBaggage2[i + 2]);
+                string[] patternNames = { myBaggage2[i].name, myBaggage2[i + 1].name, myBaggage2[i + 2].name };
+                ScoreManager.PatternData l_data = ScoreManager.GetEnemyPatternData(patternNames);
+                if (l_data.PatternName != "None")
+                {
+
+                    string patternname = l_data.PatternName;
+                    int patternpoint = ScoreManager.GetPatternPoint(l_data);
+                    bagPoint += patternpoint;
+                    bagnames.Add(patternname);
+                    GameObject popscore = Instantiate(popscorePrefab);
+                    PopupScore2D popscoreScript = popscore.GetComponent<PopupScore2D>();
+                    //popscoreScript.SetPositionAndRotation(myBaggage[i + 1].position + transform.right * 2, Camera.main.transform.eulerAngles.y);
+                    popscoreScript.SetOutColorOrange();
+                    popscoreScript.SetText(patternname + "＋" + StringWidthConverter.ConvertToFullWidth(patternpoint.ToString() + "Pt"));
+                    popscoreScript.transform.SetParent(score.transform);
+                    popscoreScript.SetTarget(scorecount);
+                    scorecount++;
+                    i += 2;
+                }
+            }
+            //if (num != 0)
+            //    {
+            //        string patternname = PatternScore.PatternText(num);
+            //        int patternpoint = ScoreManager.EnemyPrice(patternname);
+            //        bagPoint += patternpoint;
+            //        bagnames.Add(patternname);
+            //        GameObject popscore = Instantiate(popscorePrefab);
+            //        PopupScore2D popscoreScript = popscore.GetComponent<PopupScore2D>();
+            //        //popscoreScript.SetPositionAndRotation(myBaggage[i + 1].position + transform.right * 2, Camera.main.transform.eulerAngles.y);
+            //        popscoreScript.SetOutColorOrange();
+            //        popscoreScript.SetText(patternname + "＋" + StringWidthConverter.ConvertToFullWidth(patternpoint.ToString() + "Pt"));
+            //        popscoreScript.transform.SetParent(score.transform);
+            //        popscoreScript.SetTarget(scorecount);
+            //        scorecount++;
+            //        i += 2;
+            //    }
+            //}
+        }
+
+        if (kesumono.Count != 0)
+        {
+
+
+            seScript.OnePlay(5);
+            seScript.OnePlay2(9);
+            for (int i = 0; i < kesumono.Count; i++)
+            {
+                if (kesumono[i].Find("YoungestChild") != null) { Transform a = kesumono[i].Find("YoungestChild"); a.parent = transform; a.localPosition = Vector3.zero; }
+                Destroy(kesumono[i].gameObject);
+            }
+            Reset();
+            for (int i = 0; i < mybags.Count; i++)
+            {
+                AddBaggege(mybags[i]);
+                //Vector3 nimotuPos = mybags[i].position;
+                //nimotuPos.y = GetY();
+                //mybags[i].position = nimotuPos;
+                PlusY(mybags[i].GetComponent<MTRunOver>().GetHeight());
+            }
+            GameObject newbag = Instantiate(bagPrefab);
+
+            Vector2 l_initPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.position);
+            coinManagerPrefab.GetComponent<CoinManager>().SetInitPosition(l_initPosition);
+            coinManagerPrefab.GetComponent<CoinManager>().SetCreateCoinCount(bagPoint);
+            coinManagerPrefab.GetComponent<CoinManager>().CreateCoin();
+
+            newbag.GetComponent<EnemyScore>().SetPrice(bagprice);
+            newbag.GetComponent<EnemyScore>().SetPoint(bagPoint);
+            newbag.GetComponent<EnemyScore>().SetNames(bagnames);
+            newbag.GetComponent<MTRunOver>().SetPlasticBagPos(basket);
+            childCount = 0;
+        }
+    }
+
+    public void DeleteBaggege()
+    {
+        List<Transform> kesumono = new List<Transform>();
+
+        for (int i = 0; i < myBaggage.Count; i++)
+        {
+            kesumono.Add(myBaggage[i]);
+            //Destroy(myBaggage[i].gameObject);
+        }
+
+        for (int i = 0; i < myBaggage2.Count; i++)
+        {
+            kesumono.Add(myBaggage2[i]);
+            //Destroy(myBaggage2[i].gameObject);
+        }
+
+        for (int i = 0; i < kesumono.Count; i++)
+        {
+            Destroy(kesumono[i].gameObject);
+        }
+        Reset();
+
     }
 
     private void SetScore()
     {
-        //int goukei = 0;
-        //ScoreManager.Reset();
-        ////ここでエネミーからの値段をもらう
-        //for (int i = 0; i < myBaggage.Count; i++)
-        //{
-        //    EnemyScore es = myBaggage[i].GetComponent<EnemyScore>();
-        //    if (myBaggage[i].tag == "Plasticbag")
-        //    {
-        //        ScoreManager.AddCount(es.GetNumbers());
-        //    }
-        //    else
-        //    {
-        //        ScoreManager.AddCount(es.GetNumber());
-        //    }
+        int goukei = 0;
+        ScoreManager.Reset();
+        //ここでエネミーからの値段をもらう
+        for (int i = 0; i < myBaggage.Count; i++)
+        {
+            EnemyScore es = myBaggage[i].GetComponent<EnemyScore>();
+            if (myBaggage[i].tag == "Plasticbag")
+            {
+                ScoreManager.AddCount(es.GetNames());
+            }
+            else
+            {
+                //ScoreManager.AddCount(es.GetNumber());
+                ScoreManager.AddCount(myBaggage[i].name);
+            }
 
-        //    goukei += es.GetPrice();
-        //}
-        //for (int i = 0; i < myBaggage2.Count; i++)
-        //{
-        //    EnemyScore es = myBaggage2[i].GetComponent<EnemyScore>();
-        //    if (myBaggage2[i].tag == "Plasticbag")
-        //    {
-        //        ScoreManager.AddCount(es.GetNumbers());
-        //    }
-        //    else
-        //    {
-        //        ScoreManager.AddCount(es.GetNumber());
-        //    }
+            goukei += es.GetPrice();
+        }
+        for (int i = 0; i < myBaggage2.Count; i++)
+        {
+            EnemyScore es = myBaggage2[i].GetComponent<EnemyScore>();
+            if (myBaggage2[i].tag == "Plasticbag")
+            {
+                ScoreManager.AddCount(es.GetNames());
+            }
+            else
+            {
+                //ScoreManager.AddCount(es.GetNumber());
+                ScoreManager.AddCount(myBaggage2[i].name);
+            }
 
-        //    goukei += es.GetPrice();
-        //}
-        //string printscore = goukei.ToString();
-        //score.text = "￥" + printscore;
+            goukei += es.GetPrice();
+        }
+        string printscore = goukei.ToString();
+        score.text = printscore;
     }
 
     public void PlusChild()

@@ -48,7 +48,7 @@ public class Customer : MonoBehaviour {
         }
         m_Agent = GetComponent<NavMeshAgent>();
         //目的地を設定する
-        SetNewPatrolPointToDestination();
+        if(m_Agent.enabled)SetNewPatrolPointToDestination();
         //タグでプレイヤーオブジェクトを検索して保持
         m_Player = GameObject.FindGameObjectWithTag("Player");
         //プレイヤーの注視点を名前で検索して保持

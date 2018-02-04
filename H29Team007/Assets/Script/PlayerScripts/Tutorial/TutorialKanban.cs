@@ -9,12 +9,12 @@ public class TutorialKanban : MonoBehaviour {
     public Sprite[] padImgs;
     private float time = 0;
     private float activetime = 1.0f;
-    private TutorialManager tm;
+    private MTManager tm;
 
 	// Use this for initialization
 	void Start () {
         myImg = GetComponent<Image>();
-        tm = GameObject.Find("tutorialmanager").GetComponent<TutorialManager>();
+        tm = GameObject.Find("tutorialmanager").GetComponent<MTManager>();
 	}
 	
 	// Update is called once per frame

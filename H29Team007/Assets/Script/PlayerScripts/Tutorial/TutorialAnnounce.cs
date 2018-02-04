@@ -10,7 +10,7 @@ public class TutorialAnnounce : MonoBehaviour {
     private RectTransform textTransform;
 
     private int nowIndex = 0;
-    private TutorialManager tm;
+    private MTManager tm;
     public string[] announceText;
 
     public float speed = 3.0f;
@@ -20,7 +20,7 @@ public class TutorialAnnounce : MonoBehaviour {
         myTransform = GetComponent<RectTransform>();
         announce = transform.Find("Text").GetComponent<Text>();
         textTransform = transform.Find("Text").GetComponent<RectTransform>();
-        tm = GameObject.Find("tutorialmanager").GetComponent<TutorialManager>();
+        tm = GameObject.Find("tutorialmanager").GetComponent<MTManager>();
     }
 	
 	// Update is called once per frame

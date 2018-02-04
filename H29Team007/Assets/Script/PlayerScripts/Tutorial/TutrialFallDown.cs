@@ -11,12 +11,12 @@ public class TutrialFallDown : MonoBehaviour {
     private float startTime;
     private float distance;
 
-    private TutorialRunOver runScr;
+    private MTRunOver runScr;
 
     // Use this for initialization
     void Start()
     {
-        runScr = GetComponent<TutorialRunOver>();
+        runScr = GetComponent<MTRunOver>();
         enabled = false;
     }
 

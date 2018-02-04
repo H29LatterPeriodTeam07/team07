@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114998761962470882}
   - component: {fileID: 82361300709736086}
   - component: {fileID: 114110964398119686}
-  - component: {fileID: 114998482100418034}
+  - component: {fileID: 114739412392768976}
   m_Layer: 0
   m_Name: TutorialPlasticbag
   m_TagString: Plasticbag
@@ -245,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed9a5f8230cdd947bb9d295d2468281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114998482100418034
+--- !u!114 &114739412392768976
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -253,7 +253,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1407818416763676}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c7913e0e0e0fbf4d899ed4b0e479acd, type: 3}
+  m_Script: {fileID: 11500000, guid: 21bf98416bf8d9440a20f1e7cba9d923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_se: {fileID: 0}

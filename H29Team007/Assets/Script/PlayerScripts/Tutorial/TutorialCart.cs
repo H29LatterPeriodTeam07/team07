@@ -9,9 +9,7 @@ public class TutorialCart : MonoBehaviour {
 
     private Vector3 willyPoint = CartRelatedData.cartRotatePointBack;
     private Vector3 motiagePoint = CartRelatedData.cartRotatePointFront;
-
-    private bool isR = false;
-    private bool isL = false;
+    
 
     private bool isWilly = false;
 
@@ -27,7 +25,7 @@ public class TutorialCart : MonoBehaviour {
 
 
     //CartStatusWithPlayお引越し
-    private TutorialPlayer playerScript;
+    private MTPlayer playerScript;
     private TutorialShopping scScript;
 
     private float[] cartStatus;
@@ -46,7 +44,7 @@ public class TutorialCart : MonoBehaviour {
 
     private PlayerSE seScript;
 
-    private TutorialManager tm;
+    private MTManager tm;
 
     // Use this for initialization
     void Start()
@@ -54,12 +52,12 @@ public class TutorialCart : MonoBehaviour {
         rotatepoint = transform.root.Find("cartrotatepoint").gameObject;
 
         //お引越し
-        playerScript = transform.root.GetComponent<TutorialPlayer>();
+        playerScript = transform.root.GetComponent<MTPlayer>();
         scScript = transform.root.GetComponent<TutorialShopping>();
 
         seScript = transform.root.GetComponent<PlayerSE>();
 
-        tm = GameObject.Find("tutorialmanager").GetComponent<TutorialManager>();
+        tm = GameObject.Find("tutorialmanager").GetComponent<MTManager>();
 
         if (playerScript.MyCart() != gameObject)
         {
@@ -71,12 +69,7 @@ public class TutorialCart : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        //お引越し--
-        if (cartStatus[2] <= 0)
-        {
-            cartStatus[0] -= minusCartHP;
-        }
-        //--
+        
 
         if (isWilly)
         {
@@ -96,14 +89,12 @@ public class TutorialCart : MonoBehaviour {
             rotatepoint.transform.localPosition = willyPoint;
             SlopeCart(-13);
             tm.RPush();
-            //isR = true;
         }
         else if (Input.GetButtonDown("XboxL") || Input.GetKeyDown(KeyCode.K))
         {
             rotatepoint.transform.localPosition = motiagePoint;
             SlopeCart(13);
             tm.LPush();
-            //isL = false;
         }
     }
 
@@ -179,11 +170,6 @@ public class TutorialCart : MonoBehaviour {
     {
         cart.SetStatus(cartStatus);
         playerScript.SetMinusRotateSpeed(0);
-    }
-
-    public bool TutorialRotate()
-    {
-        return (isL && isR);
     }
 
     public void OnTriggerEnter(Collider other)
