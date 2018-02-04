@@ -7,7 +7,9 @@ public class SaleSpown : MonoBehaviour {
     private AudioSource m_AS;
 
     private GameObject m_SaleAnimal;
-    [SerializeField, Tooltip("上から順に数字を入れる(0:豚,1:牛,2:鯉,\n3:カジキ,4:アライグマ,5:ヤギ,6:羊,7:猪,8:チキン)")]
+    [SerializeField,Header("アライグマと鶏を一度に何匹/何羽出すか")]
+    private int m_ARAIorChikinsNum;
+    [SerializeField, Tooltip("上から順に数字を入れる(0:豚,1:牛,2:鯉,\n3:カジキ,4:アライグマ,5:羊,6:チキン)")]
     private int[] m_SaleAnimals;
     //出現時間
     [SerializeField, Header("指定した特売品が出現する時間の指定(float型)")]
@@ -33,7 +35,7 @@ public class SaleSpown : MonoBehaviour {
 
     private float myTime = 0.0f;
     int _SaleNum;
-
+    int _ACnum=0;
     // Use this for initialization
     void Start()
     {
@@ -85,25 +87,11 @@ public class SaleSpown : MonoBehaviour {
                     _SaleNum = 4;
                     m_scSale.SaleAnimalApper();
                 }
-                //ヤギ
-                else if (m_SaleAnimals[m_CurrentSaleAnimeIndex] == 5)
-                {
-                    m_SaleAnimal = (GameObject)Resources.Load("Prefab/SaleAnimalGoat");
-                    _SaleNum = 5;
-                    m_scSale.SaleAnimalApper();
-                }
                 //羊
-                else if (m_SaleAnimals[m_CurrentSaleAnimeIndex] == 6)
+                else if (m_SaleAnimals[m_CurrentSaleAnimeIndex] == 5)
                 {
                     m_SaleAnimal = (GameObject)Resources.Load("Prefab/SaleAnimalSheep");
                     _SaleNum = 6;
-                    m_scSale.SaleAnimalApper();
-                }
-                //猪
-                else if (m_SaleAnimals[m_CurrentSaleAnimeIndex] == 7)
-                {
-                    m_SaleAnimal = (GameObject)Resources.Load("Prefab/SaleAnimalBoar");
-                    _SaleNum = 7;
                     m_scSale.SaleAnimalApper();
                 }
                 else
@@ -123,6 +111,20 @@ public class SaleSpown : MonoBehaviour {
                 Instantiate(m_SaleAnimal, m_AnimalApeers[m_CurrentApperindex].position, transform.rotation);
             m_SaleAnimal = null;
                 m_CurrentSaleAnimeIndex++;
+            m_CurrentApperindex++;
+        }
+    }
+
+   public  void ChikinApper()
+    {
+        if (m_Num < m_SaleAnimals.Length || m_Num < m_AnimalApeers.Length)
+        {
+            for (int i = 0; i < m_ARAIorChikinsNum; i++)
+            {
+                Instantiate(m_SaleAnimal, m_AnimalApeers[m_CurrentApperindex].position, transform.rotation);
+            }
+            m_SaleAnimal = null;
+            m_CurrentSaleAnimeIndex++;
             m_CurrentApperindex++;
         }
     }

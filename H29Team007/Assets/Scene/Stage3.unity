@@ -5355,6 +5355,11 @@ Prefab:
       propertyPath: m_SaleAnimalSpowns.Array.data[2]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 114009780992865446, guid: 29377a74793ed984ea725322c12c5ea3,
+        type: 2}
+      propertyPath: m_Spawn
+      value: 
+      objectReference: {fileID: 1313667898}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 29377a74793ed984ea725322c12c5ea3, type: 2}
   m_IsPrefabParent: 0
@@ -31397,6 +31402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_se: {fileID: 8300000, guid: 4b14f2be55fcf1e4fa2dea6f7f923465, type: 3}
+  m_ARAIorChikinsNum: 0
   m_SaleAnimals: 000000000100000002000000020000000000000002000000000000000100000002000000
   m_ApperTime:
   - 10

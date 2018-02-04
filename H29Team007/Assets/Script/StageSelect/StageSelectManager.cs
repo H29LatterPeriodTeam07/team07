@@ -29,9 +29,11 @@ public class StageSelectManager : MonoBehaviour {
     public SoundManagerScript sm;
     public GameObject m_NowLoad;
     AsyncOperation async;
+    bool keyflag_;
 
     // Use this for initialization
     void Start () {
+        keyflag_ = false;
         m_Datas = new List<PriceData>();
         currentSelectStageIndex = 0;
         Flayers = transform.Find("Screen").Find("Flyers").gameObject;
@@ -67,19 +69,25 @@ public class StageSelectManager : MonoBehaviour {
 
     void UpdateSceneChange()
     {
-        if (!Flayers.GetComponent<Flyers>().IsReachTargetPositionX()) return;
-        if(Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O)){
-            sm.PlaySE(0);
-            async = SceneManager.LoadSceneAsync(m_SceneNames[currentSelectStageIndex]);
-            StartCoroutine("LoadScene");
-            ScoreManager.StageChenge(currentSelectStageIndex, m_Datas[currentSelectStageIndex]);
-            m_NowLoad.SetActive(true);
-        }
-
-        if (Input.GetButton("XboxA") || Input.GetKeyDown(KeyCode.F))
+            if (!Flayers.GetComponent<Flyers>().IsReachTargetPositionX()) return;
+        if (keyflag_==false)
         {
-            sm.PlaySE(1);
-            SceneManager.LoadScene("Title");
+            if (Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O))
+            {
+                keyflag_ = true;
+                sm.PlaySE(0);
+                async = SceneManager.LoadSceneAsync(m_SceneNames[currentSelectStageIndex]);
+                StartCoroutine("LoadScene");
+                ScoreManager.StageChenge(currentSelectStageIndex, m_Datas[currentSelectStageIndex]);
+                m_NowLoad.SetActive(true);
+            }
+
+            if (Input.GetButton("XboxA") || Input.GetKeyDown(KeyCode.F))
+            {
+                keyflag_ = true;
+                sm.PlaySE(1);
+                SceneManager.LoadScene("Title");
+            }
         }
     }
 

@@ -7764,6 +7764,11 @@ Prefab:
       propertyPath: m_BullPatrolPoints.Array.data[5]
       value: 
       objectReference: {fileID: 817734326}
+    - target: {fileID: 114009780992865446, guid: 29377a74793ed984ea725322c12c5ea3,
+        type: 2}
+      propertyPath: m_Spawn
+      value: 
+      objectReference: {fileID: 478717140}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 29377a74793ed984ea725322c12c5ea3, type: 2}
   m_IsPrefabParent: 0
@@ -12238,6 +12243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_se: {fileID: 8300000, guid: 4b14f2be55fcf1e4fa2dea6f7f923465, type: 3}
+  m_ARAIorChikinsNum: 0
   m_SaleAnimals: 080000000300000002000000080000000200000003000000020000000800000002000000030000000800000002000000030000000800000003000000
   m_ApperTime:
   - 5
@@ -15605,7 +15611,7 @@ Transform:
   - {fileID: 817734326}
   - {fileID: 2012878803}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &655912747
 Prefab:
@@ -23330,7 +23336,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 38.280003, y: 23.178001, z: 121.26101}
 --- !u!1001 &887614670
 Prefab:

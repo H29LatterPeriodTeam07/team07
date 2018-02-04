@@ -15,6 +15,14 @@ public class ScoreManager
         // パターン動物それぞれの獲得ポイント＊獲得ポイント割合
         public int pointPercents;
     }
+    public struct PatternResultData
+    {
+        // パターンの名前
+        public string PatternName;
+        public List<string> nameList;
+        public int point;
+    }
+
     static List<PatternData> patternDatas;
 
     private static int stageNumber = 1;
@@ -28,12 +36,18 @@ public class ScoreManager
     private static List<int> prices = new List<int>();  //ステージごとのスコア(txtからの読み込み)
     private static List<int> pointPercents = new List<int>();  //ステージごとのポイント取得(txtからの読み込み)
     public static List<string> enemysname = new List<string>(); //ステージごとの敵の名前(txtからの読み込み)
-    private static List<int> scorescount = new List<int>(); //何番目のやつを何体取ったかを数える                                                            // 名前を変換する
+    private static List<int> scorescount = new List<int>(); //何番目のやつを何体取ったかを数える                              
+    // レシートに書くパターン群
+    private static List<PatternResultData> patternresults = new List<PatternResultData>();
+
+    // 名前を変換する
     private static Dictionary<string, string> PriceDataNameToPrefabName = new Dictionary<string, string>();
 
 
     public static void StageChenge(int stageNum, StageSelectManager.PriceData priceData)
     {
+        patternresults.Clear();
+        PriceDataNameToPrefabName.Clear();
         PriceDataNameToPrefabName["arai"] = "Arai";
         PriceDataNameToPrefabName["buta"] = "Pig";
         PriceDataNameToPrefabName["gyo"] = "Fish";
@@ -211,6 +225,13 @@ public class ScoreManager
 
     public static PatternData GetEnemyPatternData(string[] names)
     {
+        PatternData result;
+        result.PatternList = new List<string>();
+        result.PatternList.Add("");
+        result.PatternList.Add("");
+        result.PatternList.Add("");
+        result.PatternName = "None";
+        result.pointPercents = 0;
         // 3つフラグがたったらパターン
         bool[] patternFlags = new bool[3];
         foreach(var i in patternDatas)
@@ -232,26 +253,25 @@ public class ScoreManager
                     if (!patternFlags[k] && names[k].Contains(i.PatternList[j]))
                     {
                         patternFlags[k] = true;
+                        result.PatternList[k] = i.PatternList[j];
                         break;
                     }
                 }
             }
+            bool l_isHitPattern = true;
             foreach(var j in patternFlags)
             {
                 if (!j)
                 {
-                    continue;
+                    l_isHitPattern = false;
                 }
-                // 計算&離脱
             }
-            // データ名からprefab名に変換
-            return i;
+            if (!l_isHitPattern) continue;
+            result.PatternName = i.PatternName;
+            result.pointPercents = i.pointPercents;
+            return result;
         }
-        PatternData patternData;
-        patternData.PatternList = new List<string>();
-        patternData.PatternName = "None";
-        patternData.pointPercents = 0;
-        return patternData;
+        return result;
     }
 
     public static int GetPatternPoint(PatternData data)
@@ -262,13 +282,23 @@ public class ScoreManager
             result += EnemyPoint(i);
         }
 
-        result = (int)((float)result / 100.0f * (float)data.pointPercents);
+        // 切り上げる
+        result = (int)((float)result  / 100.0f * (float)data.pointPercents + 0.9f);
         return result;
     }
 
     public static int EnemyPoint(string name)
     {
-        return (prices[EnemyNumber(name)] / 100) * pointPercents[EnemyNumber(name)];
+        return ((prices[EnemyNumber(name)] + 99) / 100) * pointPercents[EnemyNumber(name)];
+    }
+
+    public static void AddResultPatternData(PatternResultData data)
+    {
+        patternresults.Add(data);
+    }
+    public static List<PatternResultData> GetResultPatternDatas()
+    {
+        return patternresults;
     }
 
     private static int EnemyNumber(string name)

@@ -109,7 +109,11 @@ public class RunOverObject : MonoBehaviour
         myCollider.enabled = false;
         sc.AddBaggege(transform, ps.MySecondCart(), 2);
         transform.Find("BullHitArea").gameObject.SetActive(false);
-
+        if (m_model != null)
+        {
+            m_model.SetActive(false);
+            m_gutemodel.SetActive(true);
+        }
     }
 
     public void OnTriggerEnter(Collider other)
@@ -125,7 +129,7 @@ public class RunOverObject : MonoBehaviour
                 return;
             }
             if (transform.tag == "Enemy" && !CanGetEnemy(other.transform)
-                || transform.tag == "BBA" && !CanGetEnemy(other.transform)) { print("帰れ"); return; }
+                || transform.tag == "BBA" && !CanGetEnemy(other.transform)) { return; }
             var sc = other.transform.root.GetComponent<ShoppingCount>();
             if (transform.tag == "Animal" && !sc.IsHumanMoreThanAnimal()) return;
             //if (!sc.IsCatchBasket() || sc.IsBaggegeMax(other.transform.parent.gameObject)) return;
@@ -146,10 +150,13 @@ public class RunOverObject : MonoBehaviour
 
             sc.AddBaggege(transform,other.transform.parent.gameObject);
             sc.PlusY(runOverAfterHeight);
-            if (m_model != null)
+            if (transform.tag == "Animal")
             {
-                m_model.SetActive(false);
-                m_gutemodel.SetActive(true);
+                if (m_model != null)
+                {
+                    m_model.SetActive(false);
+                    m_gutemodel.SetActive(true);
+                }
             }
             m_AS.clip = m_se;
             m_AS.Play();
