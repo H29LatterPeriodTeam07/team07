@@ -12,6 +12,9 @@ public enum CustomerState
 
 public class Customer : MonoBehaviour {
 
+    [SerializeField,Header("Trueなら子供を生成させる")]
+    private bool _Child = false;
+
     //巡回ポイント
    // public Transform[] m_PatrolPoints;
     //見える距離
@@ -32,7 +35,7 @@ public class Customer : MonoBehaviour {
     int m_rand;
     GameObject m_PatrolPoint;
     GameObject[] m_PatrolPoints;
-    
+    GameObject m_Child;
 
 
     // Use this for initialization
@@ -56,6 +59,11 @@ public class Customer : MonoBehaviour {
         m_EyePoint = transform.Find("LookEye");
         m_Animator = GetComponent<Animator>();
         m_pScript = m_Player.GetComponent<Player>();
+        if (_Child)
+        {
+            m_Child = (GameObject)Resources.Load("Prefab/Giri");
+            Instantiate(m_Child, new Vector3(transform.position.x,transform.position.y,transform.position.z-2), transform.rotation);
+        }
     }
 
     // Update is called once per frame
