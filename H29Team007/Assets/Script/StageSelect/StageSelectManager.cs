@@ -110,6 +110,7 @@ public class StageSelectManager : MonoBehaviour {
             Arrows.GetComponent<Arrows>().SetTargetLocalPositionX(l_positionX);
             Flayers.GetComponent<Flyers>().MoveTargetPositionX(-l_positionX);
             m_IsChange = true;
+            sm.PlaySE(2);
         }
         else if(Mathf.Abs(inputHorizontal) <= Margin)
         {

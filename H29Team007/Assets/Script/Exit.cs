@@ -49,10 +49,6 @@ public class Exit : MonoBehaviour
         {
             if (m_timer.NowTime() > m_bullApperTime[m_CurentApperTimeIndex])
             {
-                //if (m_prBull.gameObject.name == "Lamborghini")
-                //{
-                //    m_scSale.ApperBull();
-                //}
                 if (m_DangerAnimals[m_DangerIndex] == 0)
                 {
                     m_prBull = (GameObject)Resources.Load("Prefab/Lamborghini");

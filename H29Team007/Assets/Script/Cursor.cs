@@ -13,6 +13,8 @@ public class Cursor : MonoBehaviour {
     private float _curveRate = 0;
     private float _fadingSpeed = 0.05f;
 
+    public SoundManagerScript _smScript;
+
     //Color selectedColor;
 
     // Use this for initialization
@@ -32,10 +34,9 @@ public class Cursor : MonoBehaviour {
             return;
         }
 
-        Vector2 cursorPosition = new Vector2(-230, 0);
+        Vector2 cursorPosition = new Vector2(-270, 0);
 
         m_RectTranslate.anchoredPosition = selectedObject.GetComponent<RectTransform>().anchoredPosition + cursorPosition;
-
 
         Color alpha = selectedColor;
         alpha.a = _fadeCurve.Evaluate(_curveRate);
