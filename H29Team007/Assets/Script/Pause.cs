@@ -8,6 +8,8 @@ public class Pause : MonoBehaviour
     public GameObject m_PauseObj;
     public GameObject m_SaleMaterial;
     public GameObject m_Danger;
+    public GameObject m_SM;
+    private SoundManagerScript _smScript;
 
     Flash _flash;
     SaleMaterial _saleMaterial;
@@ -21,7 +23,7 @@ public class Pause : MonoBehaviour
     {
         _saleMaterial = m_SaleMaterial.GetComponent<SaleMaterial>();
         _flash = m_Danger.GetComponent<Flash>();
-
+        _smScript = m_SM.GetComponent<SoundManagerScript>();
         m_RectTransform = GetComponent<RectTransform>();
     }
 
@@ -34,6 +36,7 @@ public class Pause : MonoBehaviour
             print("A");
             if (_Switch == false)
             {
+                _smScript.PlaySE(5);
                 _Switch = true;
                 m_PauseObj.SetActive(true);
                 _flash.FadeStop();
@@ -43,6 +46,7 @@ public class Pause : MonoBehaviour
             }
             else
             {
+                _smScript.PlaySE(6);
                 _Switch = false;
                 m_PauseObj.SetActive(false);
                 Time.timeScale = 1;

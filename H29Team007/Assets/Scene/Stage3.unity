@@ -3323,7 +3323,7 @@ Prefab:
     - target: {fileID: 114479556406332354, guid: 96209d8e88afa5c43bacd345cbd1d3fa,
         type: 2}
       propertyPath: SE.Array.size
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 114479556406332354, guid: 96209d8e88afa5c43bacd345cbd1d3fa,
         type: 2}
@@ -3406,6 +3406,21 @@ Prefab:
       propertyPath: SE.Array.data[3]
       value: 
       objectReference: {fileID: 8300000, guid: 1bed4d04ff875534e81bfae7bb1067e4, type: 3}
+    - target: {fileID: 114479556406332354, guid: 96209d8e88afa5c43bacd345cbd1d3fa,
+        type: 2}
+      propertyPath: SE.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 00791c18d9627d64495c3afc617950b5, type: 3}
+    - target: {fileID: 114479556406332354, guid: 96209d8e88afa5c43bacd345cbd1d3fa,
+        type: 2}
+      propertyPath: SE.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: af91915e0e14be342b60a62427ea668a, type: 3}
+    - target: {fileID: 114479556406332354, guid: 96209d8e88afa5c43bacd345cbd1d3fa,
+        type: 2}
+      propertyPath: SE.Array.data[6]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3a7cd6ed845592845ad5d44aa300c760, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 96209d8e88afa5c43bacd345cbd1d3fa, type: 2}
   m_IsPrefabParent: 0
