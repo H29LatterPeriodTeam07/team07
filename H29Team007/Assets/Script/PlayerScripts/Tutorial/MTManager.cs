@@ -12,8 +12,8 @@ public class MTManager : MonoBehaviour {
      2:ミニマップ
      3:カート持つまで
      4:カート持っての移動(滑走の説明)
-     5:人轢く
-     6:豚轢く
+     5:人轢く(2人)
+     6:豚轢く(3匹)
      7:傾き
      8:レジ行き
      9:袋説明
@@ -22,7 +22,7 @@ public class MTManager : MonoBehaviour {
      12:カートジャック
      13:ダブルカート
      14:闘牛説明
-     15:まとめ
+     15:まとめ(2人と3匹)
      16:シーン移動
          */
 
@@ -54,6 +54,8 @@ public class MTManager : MonoBehaviour {
     public GameObject timerG;
     public GameObject mapG;
 
+    public GameObject wakuEffect;
+
     private float time;
 
     // Use this for initialization
@@ -68,6 +70,8 @@ public class MTManager : MonoBehaviour {
         //scoreG.SetActive(false);
         timerG.SetActive(false);
         mapG.SetActive(false);
+        wakuEffect.transform.position = points[4].transform.position;
+        wakuEffect.SetActive(false);
     }
 
     // Update is called once per frame
@@ -192,7 +196,7 @@ public class MTManager : MonoBehaviour {
     private void Index4Update()
     {
         //特定の場所まで移動(滑走可)
-        if (Vector3.Distance(p.transform.position, points[5].transform.position) < 2.0f)
+        if (Vector3.Distance(p.transform.position, points[4].transform.position) < 0.5f)
         {
             IndexNext();
         }
@@ -249,7 +253,7 @@ public class MTManager : MonoBehaviour {
     private void Index10Update()
     {
         //特定の場所まで移動(警備員説明)
-        if (Vector3.Distance(p.transform.position, points[5].transform.position) < 2.0f)
+        if (Vector3.Distance(p.transform.position, points[5].transform.position) < 0.5f)
         {
             IndexNext();
         }
@@ -342,7 +346,6 @@ public class MTManager : MonoBehaviour {
     private void Index1Start()
     {
         scoreG.SetActive(true);
-        //目指す場所にエフェクト配置
     }
 
     private void Index2Start()
@@ -362,10 +365,12 @@ public class MTManager : MonoBehaviour {
     private void Index4Start()
     {
         //目指す場所にエフェクト配置
+        wakuEffect.SetActive(true);
     }
 
     private void Index5Start()
     {
+        wakuEffect.SetActive(false);
         GameObject hage1 = Instantiate(hagePrefab);
         GameObject hage2 = Instantiate(hagePrefab);
         hage1.transform.position = points[0].transform.position;
@@ -402,6 +407,8 @@ public class MTManager : MonoBehaviour {
 
     private void Index10Start()
     {
+        wakuEffect.transform.position = points[5].transform.position;
+        wakuEffect.SetActive(true);
         security = Instantiate(securityPrefab);
 
         kagoirihage = Instantiate(hagePrefab);
@@ -411,7 +418,8 @@ public class MTManager : MonoBehaviour {
 
     private void Index11Start()
     {
-        if(security.transform.parent == null)Destroy(security);
+        wakuEffect.SetActive(false);
+        if (security.transform.parent == null)Destroy(security);
         //敵説明
     }
 

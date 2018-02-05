@@ -1352,6 +1352,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4473328493569730}
   - component: {fileID: 114046220155103356}
+  - component: {fileID: 114849048538032620}
   m_Layer: 11
   m_Name: SecondBaggage
   m_TagString: Untagged
@@ -6895,7 +6896,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1425383036337482}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cffbd225fd139b1448f64f62c7fbdfd2, type: 3}
   m_Name: 
@@ -7003,6 +7004,17 @@ MonoBehaviour:
   - {fileID: 21300016, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
   - {fileID: 21300018, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
   - {fileID: 21300000, guid: ecf192d8e7ab49244aac09d3836cd5df, type: 3}
+--- !u!114 &114849048538032620
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1425383036337482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb1fdab64f8ba4e478f4721409335c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136727340898743706
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -8188,7 +8200,7 @@ NavMeshAgent:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1805558938605332}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.4
   m_Speed: 3.5

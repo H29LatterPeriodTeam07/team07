@@ -146,7 +146,9 @@ public class MTPlayer : MonoBehaviour {
             GetState() != PlayerState.Throw)
         {
 
-            if (Input.GetButtonUp("XboxA") || Input.GetKeyDown(KeyCode.R) || !scScript.IsCatchBasket())
+            if (
+                //Input.GetButtonUp("XboxA") || Input.GetKeyDown(KeyCode.R) || 
+                !scScript.IsCatchBasket())
             {
                 ReleaseCart();
             }
@@ -562,6 +564,7 @@ public class MTPlayer : MonoBehaviour {
 
     public void OnCollisionEnter(Collision collision)
     {
+        if (collision.transform.tag == "Cart") Debug.Log("oue");
         if (collision.transform.tag == "Enemy")
         {
             if (!collision.gameObject.GetComponent<MTSecurity>().StateChasing()) return;
