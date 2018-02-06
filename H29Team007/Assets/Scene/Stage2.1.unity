@@ -12491,17 +12491,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_se: {fileID: 8300000, guid: 4b14f2be55fcf1e4fa2dea6f7f923465, type: 3}
   m_ARAIorChikinsNum: 50
-  m_SaleAnimals: 06000000060000000600000001000000000000000100000000000000010000000000000001000000
+  m_SaleAnimals: 00000000010000000000000001000000000000000100000000000000010000000000000001000000
   m_ApperTime:
-  - 5
-  - 10
-  - 15
-  - 20
-  - 21
-  - 28
-  - 30
+  - 27
   - 35
   - 40
+  - 45
+  - 50
+  - 55
+  - 60
+  - 65
+  - 80
   - 91
   m_AnimalApeers:
   - {fileID: 1529872635}
@@ -13485,8 +13485,8 @@ Transform:
   - {fileID: 1950567829}
   - {fileID: 964114267}
   - {fileID: 1673697383}
-  - {fileID: 721421892}
   - {fileID: 1257897562}
+  - {fileID: 721421892}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14241,7 +14241,7 @@ Transform:
   m_Children:
   - {fileID: 396620768}
   m_Father: {fileID: 654004056}
-  m_RootOrder: 22
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &723981541
 GameObject:
@@ -16349,6 +16349,10 @@ Prefab:
       propertyPath: m_ExitPoition
       value: 
       objectReference: {fileID: 1510873408}
+    - target: {fileID: 1241730968121876, guid: bddaf8487123cac488fd1bb0070f14dc, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bddaf8487123cac488fd1bb0070f14dc, type: 2}
   m_IsPrefabParent: 0
@@ -25567,23 +25571,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4939459289828826, guid: f151d908ba986c646be05bacca322f2f, type: 2}
       propertyPath: m_RootOrder
-      value: 23
-      objectReference: {fileID: 0}
-    - target: {fileID: 4770264653861744, guid: f151d908ba986c646be05bacca322f2f, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -27.59
-      objectReference: {fileID: 0}
-    - target: {fileID: 4770264653861744, guid: f151d908ba986c646be05bacca322f2f, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 15.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 4713378713774636, guid: f151d908ba986c646be05bacca322f2f, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 30.58
-      objectReference: {fileID: 0}
-    - target: {fileID: 4713378713774636, guid: f151d908ba986c646be05bacca322f2f, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -22.57
+      value: 22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f151d908ba986c646be05bacca322f2f, type: 2}

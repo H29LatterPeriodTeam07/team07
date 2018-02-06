@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 114581736100874484}
   - component: {fileID: 114051524746600246}
   - component: {fileID: 82652675677958448}
+  - component: {fileID: 114481130943445000}
   m_Layer: 0
   m_Name: Chickin
   m_TagString: Animal
@@ -1136,7 +1137,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1104788499743126}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.009197, y: 1.5846226e-17, z: -6.5546026}
+  m_LocalPosition: {x: 26.275381, y: 5.744414e-17, z: -14.048215}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4659340147242454}
@@ -1399,7 +1400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcef6aa1415d3454fb65b8ae219f5f0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114538180868365936
+--- !u!114 &114481130943445000
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1407,10 +1408,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 1104788499743126}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cccb9fdea63b4204180d2db78ef9b56d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ViewingDistance: 0
+  m_ViewingAngle: 0
+  m_gmScript: {fileID: 0}
+--- !u!114 &114538180868365936
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1104788499743126}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b7556f3f317db8438854a696fef7ce3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_PatrolPoints: []
+  m_gmScript: {fileID: 0}
 --- !u!114 &114563777548266170
 MonoBehaviour:
   m_ObjectHideFlags: 1

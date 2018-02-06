@@ -115,8 +115,8 @@ public class GOODsFORSALE : MonoBehaviour
     public void DoPatrol()
     {
         if (m_Agent.enabled == false) return;
-        var x = Random.Range(m_gmScript.StagePos1().transform.localPosition.x, m_gmScript.StagePos2().transform.localPosition.x);
-        var z = Random.Range(m_gmScript.StagePos2().transform.localPosition.z, m_gmScript.StagePos1().transform.localPosition.z);
+        var x = Random.Range(m_gmScript.StagePos1().transform.position.x, m_gmScript.StagePos2().transform.position.x);
+        var z = Random.Range(m_gmScript.StagePos1().transform.position.z, m_gmScript.StagePos2().transform.position.z);
         pos = new Vector3(x, 0, z);
         m_Agent.SetDestination(pos);
     }
@@ -124,8 +124,8 @@ public class GOODsFORSALE : MonoBehaviour
     public void BullPatrol()
     {
         if (m_Agent.enabled == false) return;
-        var x = Random.Range(m_gmScript.StagePos1().transform.localPosition.x, m_gmScript.StagePos2().transform.localPosition.x);
-        var z = Random.Range(m_gmScript.StagePos2().transform.localPosition.z, m_gmScript.StagePos1().transform.localPosition.z);
+        var x = Random.Range(m_gmScript.StagePos1().transform.position.x, m_gmScript.StagePos2().transform.position.x);
+        var z = Random.Range(m_gmScript.StagePos1().transform.position.z, m_gmScript.StagePos2().transform.position.z);
         pos = new Vector3(0+x, 0, 0+z);
         m_Agent.SetDestination(pos);
     }
