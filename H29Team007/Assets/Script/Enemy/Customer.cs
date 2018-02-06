@@ -12,7 +12,7 @@ public enum CustomerState
 
 public class Customer : MonoBehaviour {
 
-    [SerializeField,Header("Trueなら子供を生成させる")]
+
     private bool _Child = false;
 
     //巡回ポイント
