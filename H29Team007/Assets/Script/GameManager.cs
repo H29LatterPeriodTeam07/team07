@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour {
     //サウンドマネージャーオブジェクト
     public GameObject SM;
     public Canvas m_canvas;
+    public Transform m_stagepos1, m_stagepos2;
     GameObject m_target;
 
     GameObject[] m_enemys;
@@ -100,5 +101,12 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-
+    public Transform StagePos1()
+    {
+        return m_stagepos1;
+    }
+    public Transform StagePos2()
+    {
+        return m_stagepos2;
+    }
 }

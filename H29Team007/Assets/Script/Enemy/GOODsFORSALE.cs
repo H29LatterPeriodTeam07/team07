@@ -43,6 +43,7 @@ public class GOODsFORSALE : MonoBehaviour
     GameObject m_ParentBBA;
     GameObject m_exitPont;
     Exit m_eScript;
+    public GameManager m_gmScript;
 
     // Use this for initialization
     void Start()
@@ -50,7 +51,6 @@ public class GOODsFORSALE : MonoBehaviour
         m_Agent = GetComponent<NavMeshAgent>();
         //目的地を設定する
         // SetNewPatrolPointToDestination();
-         DoPatrol();
         //タグでプレイヤーオブジェクトを検索して保持
         m_Player = GameObject.FindGameObjectWithTag("Player");
         //タグでババアオブジェクトを検索して保持
@@ -60,7 +60,8 @@ public class GOODsFORSALE : MonoBehaviour
         //BBAの注視点を名前で検索して保持
         if (m_BBA != null) m_BBALookpoint = m_BBA.transform.Find("BBAEye");
         m_EyePoint = transform.Find("AnimalLookEye");
-
+        m_gmScript = GameObject.FindGameObjectWithTag("GameManager").transform.GetComponent<GameManager>();
+        DoPatrol();
 
     }
 
@@ -113,8 +114,8 @@ public class GOODsFORSALE : MonoBehaviour
     public void DoPatrol()
     {
         if (m_Agent.enabled == false) return;
-        var x = Random.Range(-100.0f, 100.0f);
-        var z = Random.Range(-100.0f, 100.0f);
+        var x = Random.Range(m_gmScript.StagePos1().transform.position.x, m_gmScript.StagePos2().transform.position.x);
+        var z = Random.Range(m_gmScript.StagePos1().transform.position.z, m_gmScript.StagePos2().transform.position.z);
         pos = new Vector3(x, 0, z);
         m_Agent.SetDestination(pos);
     }
@@ -122,8 +123,8 @@ public class GOODsFORSALE : MonoBehaviour
     public void BullPatrol()
     {
         if (m_Agent.enabled == false) return;
-        var x = Random.Range(-100.0f, 100.0f);
-        var z = Random.Range(-100.0f, 100.0f);
+        var x = Random.Range(m_gmScript.StagePos1().transform.position.x, m_gmScript.StagePos2().transform.position.x);
+        var z = Random.Range(m_gmScript.StagePos1().transform.position.z, m_gmScript.StagePos2().transform.position.z);
         pos = new Vector3(0+x, 0, 0+z);
         m_Agent.SetDestination(pos);
     }
