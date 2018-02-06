@@ -63,7 +63,7 @@ public class Customer : MonoBehaviour {
         m_pScript = m_Player.GetComponent<Player>();
         if (_rand == 0)
         {
-            this.tag = "Custmoer";
+            this.tag = "Cutomer";
             _Child = false;
         }
         else {

@@ -57,6 +57,7 @@ public class MTManager : MonoBehaviour {
     public GameObject wakuEffect;
 
     private float time;
+    private bool nidooshi = false;
 
     // Use this for initialization
     void Start()
@@ -160,6 +161,7 @@ public class MTManager : MonoBehaviour {
         {
             timerG.SetActive(false);
         }
+
         if (Input.anyKeyDown)
         {
             IndexNext();
@@ -178,6 +180,7 @@ public class MTManager : MonoBehaviour {
         {
             mapG.SetActive(false);
         }
+
         if (Input.anyKeyDown)
         {
             IndexNext();
@@ -262,9 +265,19 @@ public class MTManager : MonoBehaviour {
     private void Index11Update()
     {
         //敵説明、ボタン押されたら次
+
         if (Input.anyKeyDown)
         {
-            IndexNext();
+            if (nidooshi)
+            {
+                nidooshi = false;
+                IndexNext();
+            }
+            else
+            {
+                Debug.Log("死んだんだー");
+                nidooshi = true;
+            }
         }
     }
 
@@ -291,9 +304,19 @@ public class MTManager : MonoBehaviour {
     private void Index14Update()
     {
         //闘牛説明、ボタン押されたら次
+
         if (Input.anyKeyDown)
         {
-            IndexNext();
+            if (nidooshi)
+            {
+                nidooshi = false;
+                IndexNext();
+            }
+            else
+            {
+                Debug.Log("死んだんだー");
+                nidooshi = true;
+            }
         }
     }
 
