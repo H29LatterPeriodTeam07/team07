@@ -91,13 +91,13 @@ public class SaleSpown : MonoBehaviour {
                 else if (m_SaleAnimals[m_CurrentSaleAnimeIndex] == 5)
                 {
                     m_SaleAnimal = (GameObject)Resources.Load("Prefab/SaleAnimalSheep");
-                    _SaleNum = 6;
+                    _SaleNum = 5;
                     m_scSale.SaleAnimalApper();
                 }
                 else
                 {
                     m_SaleAnimal = (GameObject)Resources.Load("Prefab/Chickin");
-                    _SaleNum = 8;
+                    _SaleNum = 6;
                     m_scSale.SaleAnimalApper();
                 }
             }
