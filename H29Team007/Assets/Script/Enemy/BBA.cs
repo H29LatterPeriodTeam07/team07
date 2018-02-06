@@ -330,8 +330,8 @@ public class BBA : MonoBehaviour
         if (other.name == "FrontHitArea")
         {
             if (transform.tag == "BBA" && !CanGetEnemy(other.transform)) { return; }
-            Destroy(myCart.gameObject);
             bcScript.BaggegeFall(transform.position);
+            Destroy(myCart.gameObject);
             m_bo = false;
         }
 
