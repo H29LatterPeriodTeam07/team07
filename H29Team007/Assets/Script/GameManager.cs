@@ -50,8 +50,11 @@ public class GameManager : MonoBehaviour {
     BBA m_BBAScript;
     //サウンドマネージャーオブジェクト
     public GameObject SM;
+    public Canvas m_canvas;
+    GameObject m_target;
 
     GameObject[] m_enemys;
+    GameObject[] m_danger;
 
     // Use this for initialization
     void Start () {
@@ -62,12 +65,25 @@ public class GameManager : MonoBehaviour {
         m_tmScript = m_Timer.GetComponent<Timer>();
         m_enemys = GameObject.FindGameObjectsWithTag("Enemy");
         m_scSaleSpown = m_Spawn.GetComponent<SaleSpown>();
+        foreach(Transform child in m_canvas.transform)
+        {
+            if (child.name == "End")
+            {
+                m_target = child.gameObject;
+            }
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
         m_Sun.transform.eulerAngles = new Vector3(210 / m_tmScript.StageTime() * m_tmScript.NowTime(), 0, 0);
+
+        if (!m_target)
+        {
+            EnemyDelete();
+        }
     }
 
     public void EnemyDelete() {
@@ -76,6 +92,11 @@ public class GameManager : MonoBehaviour {
 
                 Destroy(enemy);
             
+        }
+        m_danger = GameObject.FindGameObjectsWithTag("Bull");
+        foreach(GameObject danger in m_danger)
+        {
+            Destroy(danger);
         }
     }
 

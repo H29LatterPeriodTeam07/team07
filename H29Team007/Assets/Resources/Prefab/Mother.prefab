@@ -946,7 +946,7 @@ GameObject:
   - component: {fileID: 82422350463194940}
   - component: {fileID: 54979041256809114}
   - component: {fileID: 114934473181730418}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Mother
   m_TagString: Parent
   m_Icon: {fileID: 0}
@@ -5425,6 +5425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 548ae91181e8b8a4683913542c81c39a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Child: 0
   m_ViewingDistance: 0
   m_ViewingAngle: 0
 --- !u!137 &137818247441747982

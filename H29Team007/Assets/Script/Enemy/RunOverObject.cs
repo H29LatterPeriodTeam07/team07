@@ -48,6 +48,11 @@ public class RunOverObject : MonoBehaviour
         {
             transform.Find("BullHitArea").gameObject.SetActive(true);
         }
+        if (m_model != null && m_gutemodel != null)
+        {
+            m_model.SetActive(true);
+            m_gutemodel.SetActive(false);
+        }
     }
 
     /// <summary>navmeshのポジション移動</summary>
@@ -224,18 +229,18 @@ public class RunOverObject : MonoBehaviour
 
         }
     }
-    public void OnTriggerStay(Collider other)
-    {
-      // if (m_model == null) return;
-        if (other.name == "Plane")
-        {
-            if (m_model != null && m_gutemodel !=null)
-            {
-                m_model.SetActive(true);
-                m_gutemodel.SetActive(false);
-            }
-        }
+    //public void OnTriggerStay(Collider other)
+    //{
+    //  // if (m_model == null) return;
+    //    if (other.name == "Plane")
+    //    {
+    //        if (m_model != null && m_gutemodel !=null)
+    //        {
+    //            m_model.SetActive(true);
+    //            m_gutemodel.SetActive(false);
+    //        }
+    //    }
 
-    }
+    //}
 
 }
