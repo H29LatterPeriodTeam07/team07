@@ -62,8 +62,14 @@ public class Customer : MonoBehaviour {
         m_Animator = GetComponent<Animator>();
         m_pScript = m_Player.GetComponent<Player>();
         if (_rand == 0)
+        {
+            this.tag = "Custmoer";
             _Child = false;
-        else _Child = true;
+        }
+        else {
+            this.tag = "Parent";
+            _Child = true;
+        }
         if (_Child)
         {
             m_Child = (GameObject)Resources.Load("Prefab/Giri");
