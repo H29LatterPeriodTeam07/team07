@@ -820,13 +820,13 @@ GameObject:
   - component: {fileID: 95222179024303422}
   - component: {fileID: 65029051865713392}
   - component: {fileID: 114725359661453058}
-  - component: {fileID: 114446672720968662}
   - component: {fileID: 114686022059535024}
   - component: {fileID: 114132241781412114}
   - component: {fileID: 82179374224534056}
   - component: {fileID: 54183471954695484}
   - component: {fileID: 114336301255239266}
   - component: {fileID: 114511121266251274}
+  - component: {fileID: 114565598999224142}
   m_Layer: 0
   m_Name: TutorialCustomerMen
   m_TagString: Cutomer
@@ -2628,19 +2628,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422a1b3b1d6094b46a79bdf70c5b3426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114446672720968662
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1689912106265576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 548ae91181e8b8a4683913542c81c39a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ViewingDistance: 0
-  m_ViewingAngle: 0
 --- !u!114 &114511121266251274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2656,6 +2643,17 @@ MonoBehaviour:
   m_model: {fileID: 0}
   m_gutemodel: {fileID: 0}
   runOverAfterHeight: 0.2
+--- !u!114 &114565598999224142
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1689912106265576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c3c96c40b19e2947ac7cb3f4bd4cd77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114686022059535024
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -265,6 +265,7 @@ public class MTPlayer : MonoBehaviour {
         if (Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O)
             )
         {
+            if (!CanMove()) return;
             rb.AddForce(transform.forward * kickSpeed * nikuspeed, ForceMode.VelocityChange);
             ChangeState(2);
         }
@@ -303,6 +304,7 @@ public class MTPlayer : MonoBehaviour {
         if (Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O)
             )
         {
+            if (!CanMove()) return;
             rb.velocity = transform.forward * kickSpeed * nikuspeed;
             m_Animator.Play("Kick", 0, 0.0f);
         }
@@ -564,7 +566,6 @@ public class MTPlayer : MonoBehaviour {
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Cart") Debug.Log("oue");
         if (collision.transform.tag == "Enemy")
         {
             if (!collision.gameObject.GetComponent<MTSecurity>().StateChasing()) return;

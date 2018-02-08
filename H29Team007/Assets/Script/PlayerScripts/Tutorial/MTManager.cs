@@ -50,11 +50,20 @@ public class MTManager : MonoBehaviour {
     private GameObject security;
     private GameObject kagoirihage;
 
+    //まとめのときのオブジェクトたち
+    GameObject hage11;
+    GameObject hage12;
+    GameObject hage13;
+    GameObject pig11;
+    GameObject pig12;
+
     public GameObject scoreG;
     public GameObject timerG;
     public GameObject mapG;
 
     public GameObject wakuEffect;
+
+    public MTOK okText;
 
     private float time;
     private bool nidooshi = false;
@@ -199,7 +208,8 @@ public class MTManager : MonoBehaviour {
     private void Index4Update()
     {
         //特定の場所まで移動(滑走可)
-        if (Vector3.Distance(p.transform.position, points[4].transform.position) < 0.5f)
+        if (Vector3.Distance(p.transform.position, points[4].transform.position) < 0.5f
+            || Vector3.Distance(p.transform.Find("TutorialCartBody(Clone)").position, points[4].transform.position) < 0.5f)
         {
             IndexNext();
         }
@@ -256,7 +266,8 @@ public class MTManager : MonoBehaviour {
     private void Index10Update()
     {
         //特定の場所まで移動(警備員説明)
-        if (Vector3.Distance(p.transform.position, points[5].transform.position) < 0.5f)
+        if (Vector3.Distance(p.transform.position, points[5].transform.position) < 0.5f
+            || Vector3.Distance(p.transform.Find("TutorialCartBody(Clone)").position,points[5].transform.position)<0.5f)
         {
             IndexNext();
         }
@@ -275,7 +286,6 @@ public class MTManager : MonoBehaviour {
             }
             else
             {
-                Debug.Log("死んだんだー");
                 nidooshi = true;
             }
         }
@@ -314,7 +324,6 @@ public class MTManager : MonoBehaviour {
             }
             else
             {
-                Debug.Log("死んだんだー");
                 nidooshi = true;
             }
         }
@@ -323,20 +332,12 @@ public class MTManager : MonoBehaviour {
     private void Index15Update()
     {
 
-        if (shopping.GetAllCount() >= 5)
-        {
-            reji.SetActive(true);
-        }
-        else
-        {
-            reji.SetActive(false);
-        }
-
-        //全部捕まえて袋
-        if (shopping.IsPlasticBag())
+        if(hage11 == null && hage12 == null && hage13 == null &&
+            pig11 == null && pig12 == null)
         {
             IndexNext();
         }
+
     }
 
 
@@ -356,6 +357,7 @@ public class MTManager : MonoBehaviour {
             || tutorialIndex == 14) return;
         fade.FadeOut(1.0f);
         isFadeNow = true;
+        okText.Reborn();
     }
 
     public void Index10Reset()
@@ -419,13 +421,14 @@ public class MTManager : MonoBehaviour {
     private void Index8Start()
     {
         reji.SetActive(true);
+        wakuEffect.transform.position = reji.transform.position;
+        wakuEffect.SetActive(true);
     }
 
     private void Index9Start()
     {
         reji.SetActive(false);
-
-
+        wakuEffect.SetActive(false);
     }
 
     private void Index10Start()
@@ -476,22 +479,27 @@ public class MTManager : MonoBehaviour {
     {
         //説明uiの削除
         //まとめ
-        GameObject hage11 = Instantiate(hagePrefab);
-        GameObject hage12 = Instantiate(hagePrefab);
-        GameObject hage13 = Instantiate(hagePrefab);
-        GameObject pig11 = Instantiate(pigPrefab);
-        GameObject pig12 = Instantiate(pigPrefab);
+        hage11 = Instantiate(hagePrefab);
+        hage12 = Instantiate(hagePrefab);
+        hage13 = Instantiate(hagePrefab);
+        pig11 = Instantiate(pigPrefab);
+        pig12 = Instantiate(pigPrefab);
 
         hage11.transform.position = points[0].transform.position;
         hage12.transform.position = points[1].transform.position;
         hage13.transform.position = points[2].transform.position;
         pig11.transform.position = points[4].transform.position;
         pig12.transform.position = points[5].transform.position;
+
+        wakuEffect.transform.position = reji.transform.position;
+        wakuEffect.SetActive(true);
+        reji.SetActive(true);
     }
 
 
     private void Index16Start()
     {
+        wakuEffect.SetActive(false);
         SceneManager.LoadScene("Title");
     }
 
