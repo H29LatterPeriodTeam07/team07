@@ -471,7 +471,7 @@ public class ShoppingCount : MonoBehaviour
                 GameObject popscore = Instantiate(popscorePrefab);
                 PopupScore2D popscoreScript = popscore.GetComponent<PopupScore2D>();
                 //popscoreScript.SetPositionAndRotation(myBaggage[i].position + transform.right * 2, Camera.main.transform.eulerAngles.y);
-                popscoreScript.SetText("＋" + StringWidthConverter.ConvertToFullWidth(enemyscore.ToString()));
+                popscoreScript.SetText("＋" + StringWidthConverter.ConvertToFullWidth(enemyPoint.ToString() + "pt"));
                 popscoreScript.transform.SetParent(score.transform);
                 popscoreScript.SetTarget(scorecount);
                 scorecount++;
@@ -496,7 +496,7 @@ public class ShoppingCount : MonoBehaviour
                 GameObject popscore = Instantiate(popscorePrefab);
                 PopupScore2D popscoreScript = popscore.GetComponent<PopupScore2D>();
                 //popscoreScript.SetPositionAndRotation(myBaggage2[i].position + transform.right * 2, Camera.main.transform.eulerAngles.y);
-                popscoreScript.SetText("＋" + StringWidthConverter.ConvertToFullWidth(enemyscore.ToString()));
+                popscoreScript.SetText("＋" + StringWidthConverter.ConvertToFullWidth(enemyPoint.ToString()) + "pt");
                 popscoreScript.transform.SetParent(score.transform);
                 popscoreScript.SetTarget(scorecount);
                 scorecount++;
@@ -735,7 +735,7 @@ public class ShoppingCount : MonoBehaviour
                 ScoreManager.AddCount(myBaggage[i].name);
             }
 
-            goukei += es.GetPrice();
+            goukei += es.GetPoint();
         }
         for (int i = 0; i < myBaggage2.Count; i++)
         {
@@ -750,9 +750,9 @@ public class ShoppingCount : MonoBehaviour
                 ScoreManager.AddCount(myBaggage2[i].name);
             }
 
-            goukei += es.GetPrice();
+            goukei += es.GetPoint();
         }
-        string printscore = goukei.ToString();
+        string printscore = goukei.ToString() + "pt";
         score.text = printscore;
     }
 
