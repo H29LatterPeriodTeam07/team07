@@ -120,6 +120,8 @@ public class StageSelectManager : MonoBehaviour {
         if (Flayers.GetComponent<Flyers>().IsReachTargetPositionX())
         {
             PriceData l_data = m_Datas[currentSelectStageIndex];
+            // チュートリアルだったら〇付けない
+            if (l_data.StageIndex == 0) return;
             if (!l_data.IsCheck)
             {
                 GameObject l_checkUI = Instantiate(m_CheckUI);
