@@ -5,6 +5,15 @@ using UnityEngine.UI;
 
 public class ResultTextManager : MonoBehaviour {
 
+    public struct CommentData
+    {
+        public int borderValue;
+        public int CommentIndex;
+    };
+
+    private List<string> commentTexts;
+    private List<List<CommentData>> stageCommentDatas;
+
     private static readonly float DefHeight = 100;
 
     public RectTransform receiptback;
@@ -17,9 +26,20 @@ public class ResultTextManager : MonoBehaviour {
     public RectTransform logoTransform;
 
     private Dictionary<string, string> EnglishNameToJap;
+    private List<string> RegisterNameList;
+    private List<string> Coment;
 
     // Use this for initialization
     void Start() {
+        commentTexts = new List<string>();
+        stageCommentDatas = new List<List<CommentData>>();
+        CreateCommentData();
+        RegisterNameList = new List<string>();
+        RegisterNameList.Add("店長　ナカガワ");
+        RegisterNameList.Add("ヤスタケ");
+        RegisterNameList.Add("サイトウ");
+        RegisterNameList.Add("シムラ");
+        RegisterNameList.Add("ヨコハシ");
         EnglishNameToJap = new Dictionary<string, string>();
         EnglishNameToJap["human"] = "人間";
         EnglishNameToJap["Arai"] = "アライグマ";
@@ -55,7 +75,7 @@ public class ResultTextManager : MonoBehaviour {
         day.GetComponent<RectTransform>().anchoredPosition -= Vector2.up * nextheight;
         nextheight += day.GetComponent<ResultText>().SetTexts(ResultText.TextType.DefaultText_L, str);
         // レジ担当
-        str[0] = "担当者：名無し";
+        str[0] = "担当者：" + SelectRegister();
         GameObject men = Instantiate(resultTextPrefab, transform.position, Quaternion.identity, transform);
         men.GetComponent<RectTransform>().anchoredPosition -= Vector2.up * nextheight;
         nextheight += men.GetComponent<ResultText>().SetTexts(ResultText.TextType.DefaultText_L, str);
@@ -79,8 +99,9 @@ public class ResultTextManager : MonoBehaviour {
             pricegoukei += price * enemycount;
             pointgoukei += point * enemycount;
         }
-
-        str[0] = "--------ボーナスポイント--------";
+        pricegoukei = 12080;
+        pointgoukei = 29;
+        str[0] = "------ボーナスポイント------";
         GameObject ad = Instantiate(resultTextPrefab, transform.position, Quaternion.identity, transform);
         ad.GetComponent<RectTransform>().anchoredPosition -= Vector2.up * nextheight;
         nextheight += ad.GetComponent<ResultText>().SetTexts(ResultText.TextType.DefaultText_C, str);
@@ -109,6 +130,32 @@ public class ResultTextManager : MonoBehaviour {
         totalprice.GetComponent<RectTransform>().anchoredPosition -= Vector2.up * nextheight;
         str[0] = "\\" + pricegoukei.ToString();
         nextheight += totalprice.GetComponent<ResultText>().SetTexts(ResultText.TextType.DefaultText_R, str);
+
+        GameObject oazukari = Instantiate(resultTextPrefab, transform.position, Quaternion.identity, transform);
+        oazukari.GetComponent<RectTransform>().anchoredPosition -= Vector2.up * nextheight;
+        str[0] = "お預り";
+        nextheight += oazukari.GetComponent<ResultText>().SetTexts(ResultText.TextType.DefaultText_L, str);
+        GameObject money = Instantiate(resultTextPrefab, transform.position, Quaternion.identity, transform);
+        money.GetComponent<RectTransform>().anchoredPosition -= Vector2.up * nextheight;
+        str[0] = "\\" + AmountMoney(pricegoukei).ToString();
+        nextheight += money.GetComponent<ResultText>().SetTexts(ResultText.TextType.DefaultText_R, str);
+
+
+        GameObject otsuri = Instantiate(resultTextPrefab, transform.position, Quaternion.identity, transform);
+        otsuri.GetComponent<RectTransform>().anchoredPosition -= Vector2.up * nextheight;
+        str[0] = "お釣";
+        nextheight += otsuri.GetComponent<ResultText>().SetTexts(ResultText.TextType.DefaultText_L, str);
+        GameObject resultprice = Instantiate(resultTextPrefab, transform.position, Quaternion.identity, transform);
+        resultprice.GetComponent<RectTransform>().anchoredPosition -= Vector2.up * nextheight;
+        str[0] = "\\" + AmountMoney(pricegoukei).ToString();
+        nextheight += resultprice.GetComponent<ResultText>().SetTexts(ResultText.TextType.DefaultText_R, str);
+
+        str[0] = "--------今回ポイント--------";
+        GameObject nowPoint = Instantiate(resultTextPrefab, transform.position, Quaternion.identity, transform);
+        nowPoint.GetComponent<RectTransform>().anchoredPosition -= Vector2.up * nextheight;
+        nextheight += nowPoint.GetComponent<ResultText>().SetTexts(ResultText.TextType.DefaultText_C, str);
+
+
         GameObject totalpoint = Instantiate(resultTextPrefab, transform.position, Quaternion.identity, transform);
         totalpoint.GetComponent<RectTransform>().anchoredPosition -= Vector2.up * nextheight;
         str[0] =  pointgoukei.ToString() + "Pt";
@@ -116,7 +163,7 @@ public class ResultTextManager : MonoBehaviour {
         //商品と合計の間の点線
         GameObject ari = Instantiate(resultTextPrefab, transform.position, Quaternion.identity, transform);
         ari.GetComponent<RectTransform>().anchoredPosition -= Vector2.up * nextheight;
-        str[0] = "ありがとうございました。";
+        str[0] = Comment(pricegoukei, pointgoukei);
         nextheight += ari.GetComponent<ResultText>().SetTexts(ResultText.TextType.DefaultText_C, str);
 
 
@@ -124,9 +171,118 @@ public class ResultTextManager : MonoBehaviour {
 
         transform.parent.GetComponent<Receipt>().SetParameter(nextheight + DefHeight);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    private string SelectRegister()
+    {
+        int random = Random.Range(0, RegisterNameList.Count - 1);
+        return RegisterNameList[random];
+    }
+
+    private int AmountMoney(int price)
+    {
+        string priceStr = price.ToString();
+        char[] priceChar = priceStr.ToCharArray();
+        string[] priceStr_ZeroClear =  priceStr.Trim().Split('0');
+        char[] pricechar = {};
+        for (int i = 0; i < priceStr_ZeroClear.Length; ++i)
+        {
+            if(priceStr_ZeroClear[i] != "")
+            {
+                pricechar = priceStr_ZeroClear[i].ToCharArray();
+            }
+        }
+         
+        char minNumber = pricechar[pricechar.Length - 1];
+        int minNumberdigit = 0;
+        for(int i = 0; i < priceChar.Length; ++i)
+        {
+            if(priceChar[i] == minNumber)
+            {
+                minNumberdigit = priceChar.Length - i;
+            }
+        }
+
+        float AddValue = 0;
+        if(int.Parse(minNumber.ToString()) >= 6 && minNumberdigit != 0)
+        {
+            AddValue = Mathf.Pow(10.0f, (float)minNumberdigit);
+            AddValue -= (int)(float.Parse(minNumber.ToString()) * AddValue * 0.1f);
+        }
+        else if(int.Parse(minNumber.ToString()) < 6 && minNumberdigit != 0)
+        {
+            AddValue = Mathf.Pow(10.0f, (float)minNumberdigit - 1) * 5.0f;
+            AddValue -= (int)(float.Parse(minNumber.ToString()) * AddValue * 0.1f);
+        }
+        else if(int.Parse(minNumber.ToString()) <= 5 && minNumberdigit == 0)
+        {
+
+        }
+        return price + (int)AddValue;
+    }
+    private string Comment(int price, int point)
+    {
+        if(price <= 0)
+        {
+            return "何か買ってください";
+        }
+        int stageIndex = ScoreManager.GetStageNumber() - 1;
+        foreach(var i in stageCommentDatas[stageIndex])
+        {
+            if(point >= i.borderValue)
+            {
+                return commentTexts[i.CommentIndex];
+            }
+        }
+
+        return "ありがとうございました。";
+    }
+
+    private void CreateCommentData()
+    {
+        //resourcesフォルダ内にあるsampleTextファイルをロード
+        TextAsset textAsset = Resources.Load("CommentsData") as TextAsset;
+        //ロードした中身を
+        //1行ずつに分割
+        string[] row = textAsset.text.Split('\n');
+        string[] data;
+        string[] animal;
+        string[] price;
+        for (int i = 0; i < row.Length; i++)
+        {
+            List<CommentData> l_Stagedata = new List<CommentData>();
+            
+
+            string l_line = row[i].Replace("\r", "");
+            if (l_line == "") continue;
+            // [//]がある場合無視
+            if (l_line.Substring(0, 2) == "//") continue;
+            string[] typeline = l_line.Split(';');
+            if (typeline[0] == "c")
+            {
+                string[] commentText = typeline[typeline.Length - 1].Split('n');
+                string result = "";
+                foreach (var j in commentText)
+                {
+                    result += j;
+                    result += "\n";
+                }
+                commentTexts.Add(result);
+                continue;
+            }
+            else if(typeline[0] == "d")
+            {
+                CommentData l_data;
+                string[] dataStr = typeline[2].Split('/');
+                foreach(var j in dataStr)
+                {
+                    string[] valueAndcomment = j.Split('_');
+                    l_data.borderValue = int.Parse(valueAndcomment[0]);
+                    l_data.CommentIndex = int.Parse(valueAndcomment[1]);
+
+                    l_Stagedata.Add(l_data);
+                }
+            }
+            stageCommentDatas.Add(l_Stagedata);
+        }
+    }
 }

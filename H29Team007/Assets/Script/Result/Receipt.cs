@@ -16,7 +16,7 @@ public class Receipt : MonoBehaviour {
 	void Start () {
         myTransform = GetComponent<RectTransform>();
         defPos = myTransform.anchoredPosition;
-        myTransform.anchoredPosition += new Vector2(-500, 0);
+        //myTransform.anchoredPosition += new Vector2(-500, 0);
         moveYmin = defPos.y;
 
     }
@@ -27,10 +27,10 @@ public class Receipt : MonoBehaviour {
         Vector2 newPos = myTransform.anchoredPosition;
         if (automove)
         {
-            newPos.y -= movespeed;
-            if (newPos.y < moveYmin)
+            newPos.y += movespeed;
+            if (newPos.y > moveYmax)
             {
-                newPos.y = moveYmin;
+                newPos.y = moveYmax;
                 automove = false;
             }
         }
@@ -55,7 +55,7 @@ public class Receipt : MonoBehaviour {
         {
             moveYmax = newY - defPos.y;
         }
-        myTransform.anchoredPosition = new Vector2(defPos.x, defPos.y + height);
+        myTransform.anchoredPosition = new Vector2(defPos.x, defPos.y - 720);
         automove = true;
     }
 }
