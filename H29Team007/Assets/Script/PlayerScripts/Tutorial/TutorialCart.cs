@@ -77,6 +77,7 @@ public class TutorialCart : MonoBehaviour {
         }
         else
         {
+            if (!tm.FadeEnd() || tm.TutorialIndex() != 7) return;
             Normal();
         }
     }

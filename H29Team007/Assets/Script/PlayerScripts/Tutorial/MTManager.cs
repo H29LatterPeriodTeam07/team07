@@ -266,8 +266,8 @@ public class MTManager : MonoBehaviour {
     private void Index10Update()
     {
         //特定の場所まで移動(警備員説明)
-        if (Vector3.Distance(p.transform.position, points[5].transform.position) < 0.5f
-            || Vector3.Distance(p.transform.Find("TutorialCartBody(Clone)").position,points[5].transform.position)<0.5f)
+        if (Vector3.Distance(p.transform.position, points[4].transform.position) < 0.5f
+            || Vector3.Distance(p.transform.Find("TutorialCartBody(Clone)").position,points[4].transform.position)<0.5f)
         {
             IndexNext();
         }
@@ -433,7 +433,7 @@ public class MTManager : MonoBehaviour {
 
     private void Index10Start()
     {
-        wakuEffect.transform.position = points[5].transform.position;
+        wakuEffect.transform.position = points[4].transform.position;
         wakuEffect.SetActive(true);
         security = Instantiate(securityPrefab);
 
@@ -466,7 +466,7 @@ public class MTManager : MonoBehaviour {
         //ダブルカート用カート出現
         GameObject cart = Instantiate(cartRigit);
 
-        cart.transform.position = points[1].transform.position;
+        cart.transform.position = points[4].transform.position;
         
     }
 

@@ -99,7 +99,7 @@ public class Child : MonoBehaviour {
             }
             else
             {
-                if (m_Parent.transform.parent != null)
+                if (m_Parent.transform.root.tag == "Player")
                 {
                     
                     scScript.PlusChild();

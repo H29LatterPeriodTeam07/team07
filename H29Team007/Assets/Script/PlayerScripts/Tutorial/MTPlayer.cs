@@ -99,7 +99,7 @@ public class MTPlayer : MonoBehaviour {
     void Update()
     {
         inputVertical = 0;
-        if (!tm.FadeEnd() || !tm.FadeEnd())
+        if (!tm.FadeEnd())
         {
             rb.velocity = Vector3.zero;
             return;

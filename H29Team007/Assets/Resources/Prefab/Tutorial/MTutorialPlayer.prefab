@@ -1900,14 +1900,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4475213712288980}
   - component: {fileID: 212835938353874822}
-  - component: {fileID: 114622250393558188}
+  - component: {fileID: 114095352655048560}
   m_Layer: 11
   m_Name: senaka
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1625541811046556
 GameObject:
   m_ObjectHideFlags: 1
@@ -5767,7 +5767,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1805558938605332}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.35287723, y: 1.7613332e-17, z: -3.9661698}
+  m_LocalPosition: {x: -0.35287723, y: 1.7613332e-17, z: -6.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4867392424885764}
@@ -6912,8 +6912,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad531f7fef6bfd43bb79ca59b6cc01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ROOFSHEIGHT: 5
   sparkPrefub: {fileID: 1415976392561680, guid: 0f92fc2f98ee96b4889659cc81168e4c,
     type: 2}
+--- !u!114 &114095352655048560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1623411919314722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 023285c7a1236bb4aa156d0f0e415f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numbers:
+  - {fileID: 21300002, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
+  - {fileID: 21300004, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
+  - {fileID: 21300006, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
+  - {fileID: 21300008, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
+  - {fileID: 21300010, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
+  - {fileID: 21300012, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
+  - {fileID: 21300014, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
+  - {fileID: 21300016, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
+  - {fileID: 21300018, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
+  - {fileID: 21300000, guid: ecf192d8e7ab49244aac09d3836cd5df, type: 3}
 --- !u!114 &114379555162664676
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6982,28 +7005,6 @@ MonoBehaviour:
   cartRigidPrefab: {fileID: 1196292320950856, guid: 03854730aa3ab5b4fb1652e1f91a084f,
     type: 2}
   glidingPhysiMat: {fileID: 13400000, guid: 42c3a16dc0495a647bc949a1bb36a953, type: 2}
---- !u!114 &114622250393558188
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1623411919314722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 413f3f9b264a67a4ebe58e09940cd8a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numbers:
-  - {fileID: 21300002, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
-  - {fileID: 21300004, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
-  - {fileID: 21300006, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
-  - {fileID: 21300008, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
-  - {fileID: 21300010, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
-  - {fileID: 21300012, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
-  - {fileID: 21300014, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
-  - {fileID: 21300016, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
-  - {fileID: 21300018, guid: 42c1fa45e65086b4f90766b979441ac4, type: 3}
-  - {fileID: 21300000, guid: ecf192d8e7ab49244aac09d3836cd5df, type: 3}
 --- !u!114 &114849048538032620
 MonoBehaviour:
   m_ObjectHideFlags: 1

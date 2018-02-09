@@ -25,7 +25,9 @@ public class TutorialShopping : MonoBehaviour {
     [SerializeField, Header("カートに乗れる最大の値")]
     private int maxCountDefault = 10;
     private int maxCount;
-    
+    private int humanCount = 1;
+    private int animalCount = 0;
+
     private Text score;
     private GameObject scoreUI;
     [SerializeField, Header("コインプレハブ")]
@@ -257,39 +259,7 @@ public class TutorialShopping : MonoBehaviour {
 
     public bool IsHumanMoreThanAnimal()
     {
-        int humanCount = 1;
-        int animalCount = 0;
-        for (int i = 0; i < myBaggage.Count; i++)
-        {
-            if (myBaggage[i].tag == "Plasticbag")
-            {
-                //mybags.Add(myBaggege[i]);
-            }
-            else if (myBaggage[i].tag == "Animal")
-            {
-                animalCount++;
-            }
-            else
-            {
-                humanCount++;
-            }
-        }
-        for (int i = 0; i < myBaggage2.Count; i++)
-        {
-            if (myBaggage2[i].tag == "Plasticbag")
-            {
-                //mybags.Add(myBaggege[i]);
-            }
-            else if (myBaggage2[i].tag == "Animal")
-            {
-                animalCount++;
-            }
-            else
-            {
-                humanCount++;
-            }
-        }
-        return (humanCount + childCount > animalCount);
+        return (GetHumanCount() > animalCount);
     }
 
     /// <summary>荷物の追加</summary>
@@ -596,6 +566,8 @@ public class TutorialShopping : MonoBehaviour {
 
     private void SetScore()
     {
+        InCount();
+
         int goukei = 0;
         ScoreManager.Reset();
         //ここでエネミーからの値段をもらう
@@ -631,6 +603,48 @@ public class TutorialShopping : MonoBehaviour {
         }
         string printscore = goukei.ToString();
         score.text = printscore;
+    }
+
+    /// <summary>籠に入っているもののカウント</summary>
+    private void InCount()
+    {
+        humanCount = 1;
+        animalCount = 0;
+        for (int i = 0; i < myBaggage.Count; i++)
+        {
+            if (myBaggage[i].tag == "Plasticbag")
+            {
+                //mybags.Add(myBaggege[i]);
+            }
+            else if (myBaggage[i].tag == "Animal")
+            {
+                animalCount++;
+            }
+            else
+            {
+                humanCount++;
+            }
+        }
+        for (int i = 0; i < myBaggage2.Count; i++)
+        {
+            if (myBaggage2[i].tag == "Plasticbag")
+            {
+                //mybags.Add(myBaggege[i]);
+            }
+            else if (myBaggage2[i].tag == "Animal" || myBaggage2[i].tag == "Bull")
+            {
+                animalCount++;
+            }
+            else
+            {
+                humanCount++;
+            }
+        }
+    }
+
+    public int GetHumanCount()
+    {
+        return humanCount;
     }
 
     public void PlusChild()

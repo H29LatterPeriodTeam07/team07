@@ -19,7 +19,11 @@ public class TutorialKanban : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        if (!tm.FadeEnd() || tm.TutorialIndex() == 77) return;
+        if (!tm.FadeEnd() || tm.TutorialIndex() == 77) {
+            myImg.sprite = padImgs[0];
+            time = 0.0f;
+            return;
+        }
 		if(activetime < time)
         {
             ImageActive();
