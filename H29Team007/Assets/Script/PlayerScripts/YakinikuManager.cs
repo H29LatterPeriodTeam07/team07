@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class YakinikuManager : MonoBehaviour
 {
-    private const float ROOFSHEIGHT = 5.0f;
+    [SerializeField, Header("屋根の高さ")]
+    private float ROOFSHEIGHT = 5.0f;
     
     private Player ps;
     public GameObject sparkPrefub;
