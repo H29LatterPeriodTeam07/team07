@@ -99,8 +99,6 @@ public class ResultTextManager : MonoBehaviour {
             pricegoukei += price * enemycount;
             pointgoukei += point * enemycount;
         }
-        pricegoukei = 12080;
-        pointgoukei = 29;
         str[0] = "------ボーナスポイント------";
         GameObject ad = Instantiate(resultTextPrefab, transform.position, Quaternion.identity, transform);
         ad.GetComponent<RectTransform>().anchoredPosition -= Vector2.up * nextheight;
