@@ -99,6 +99,7 @@ public class ResultTextManager : MonoBehaviour {
             pricegoukei += price * enemycount;
             pointgoukei += point * enemycount;
         }
+
         str[0] = "------ボーナスポイント------";
         GameObject ad = Instantiate(resultTextPrefab, transform.position, Quaternion.identity, transform);
         ad.GetComponent<RectTransform>().anchoredPosition -= Vector2.up * nextheight;
@@ -135,7 +136,8 @@ public class ResultTextManager : MonoBehaviour {
         nextheight += oazukari.GetComponent<ResultText>().SetTexts(ResultText.TextType.DefaultText_L, str);
         GameObject money = Instantiate(resultTextPrefab, transform.position, Quaternion.identity, transform);
         money.GetComponent<RectTransform>().anchoredPosition -= Vector2.up * nextheight;
-        str[0] = "\\" + AmountMoney(pricegoukei).ToString();
+        int amountmoney = AmountMoney(pricegoukei);
+        str[0] = "\\" + amountmoney.ToString();
         nextheight += money.GetComponent<ResultText>().SetTexts(ResultText.TextType.DefaultText_R, str);
 
 
@@ -145,7 +147,7 @@ public class ResultTextManager : MonoBehaviour {
         nextheight += otsuri.GetComponent<ResultText>().SetTexts(ResultText.TextType.DefaultText_L, str);
         GameObject resultprice = Instantiate(resultTextPrefab, transform.position, Quaternion.identity, transform);
         resultprice.GetComponent<RectTransform>().anchoredPosition -= Vector2.up * nextheight;
-        str[0] = "\\" + AmountMoney(pricegoukei).ToString();
+        str[0] = "\\" + (amountmoney - pricegoukei).ToString();
         nextheight += resultprice.GetComponent<ResultText>().SetTexts(ResultText.TextType.DefaultText_R, str);
 
         str[0] = "--------今回ポイント--------";
@@ -178,6 +180,7 @@ public class ResultTextManager : MonoBehaviour {
 
     private int AmountMoney(int price)
     {
+        if (price <= 0) return price;
         string priceStr = price.ToString();
         char[] priceChar = priceStr.ToCharArray();
         string[] priceStr_ZeroClear =  priceStr.Trim().Split('0');
