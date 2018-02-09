@@ -54,6 +54,7 @@ public class ShoppingCount : MonoBehaviour
     private float nextButtonDownTime = 0.5f;    //　次に移動ボタンが押されるまでの時間
     private float rightnowTime = 0f;			//　最初に移動ボタンが押されてからの経過時間
     private float leftnowTime = 0f;			//　最初に移動ボタンが押されてからの経過時間
+    private bool canpushLR2 = true;  //LR2を反応させていいかどうか
 
     // Use this for initialization 
     void Start()
@@ -543,7 +544,7 @@ public class ShoppingCount : MonoBehaviour
             {
                 //int num = Pattern.PatternNumber(myBaggage2[i], myBaggage2[i + 1], myBaggage2[i + 2]);
                 int num = Pattern.PatternNumber(myBaggage2[i], myBaggage2[i + 1], myBaggage2[i + 2]);
-                string[] patternNames = { myBaggage[i].name, myBaggage[i + 1].name, myBaggage[i + 2].name };
+                string[] patternNames = { myBaggage2[i].name, myBaggage2[i + 1].name, myBaggage2[i + 2].name };
                 ScoreManager.PatternData l_data = ScoreManager.GetEnemyPatternData(patternNames);
                 if (l_data.PatternName != "None")
                 {
@@ -590,6 +591,7 @@ public class ShoppingCount : MonoBehaviour
             seScript.OnePlay2(9);
             for (int i = 0; i < kesumono.Count; i++)
             {
+                if (kesumono[i].Find("YoungestChild") != null) { Transform a = kesumono[i].Find("YoungestChild"); a.parent = transform; a.localPosition = Vector3.zero; }
                 Destroy(kesumono[i].gameObject);
             }
             Reset();
@@ -661,16 +663,18 @@ public class ShoppingCount : MonoBehaviour
 
     private void TopFallInput()
     {
+        if (!canpushLR2 && -0.5f <= Input.GetAxisRaw("XboxLR2") && Input.GetAxisRaw("XboxLR2") <= 0.5f) canpushLR2 = true;
 
-        if (Input.GetButtonDown("XboxR") || Input.GetKeyDown(KeyCode.L))
+        if (Input.GetAxisRaw("XboxLR2") < -0.5f || Input.GetKeyDown(KeyCode.L))
         {
             if (!rightpush)
             {
                 rightpush = true;
                 rightnowTime = 0.0f;
             }
-            else
+            else if (canpushLR2)
             {
+                if (Input.GetAxisRaw("XboxLR2") < -0.5f) canpushLR2 = false;
                 rightpush = false;
                 TopBaggegeFall();
             }
@@ -685,15 +689,16 @@ public class ShoppingCount : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("XboxL") || Input.GetKeyDown(KeyCode.K))
+        if (Input.GetAxisRaw("XboxLR2") > 0.5f || Input.GetKeyDown(KeyCode.K))
         {
             if (!leftpush)
             {
                 leftpush = true;
                 leftnowTime = 0.0f;
             }
-            else
+            else if(canpushLR2)
             {
+                if (Input.GetAxisRaw("XboxLR2") > 0.5f) canpushLR2 = false;
                 leftpush = false;
                 TopBaggegeFall(2);
             }

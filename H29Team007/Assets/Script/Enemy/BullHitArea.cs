@@ -35,10 +35,10 @@ public class BullHitArea : MonoBehaviour
         {
             rb = other.GetComponent<Rigidbody>();
             nav = other.GetComponent<NavMeshAgent>();
-            m_col = other.GetComponent<Collider>();
+            //m_col = other.GetComponent<Collider>();
             var sc = transform.root.GetComponent<BullCount>();
 
-            m_col.enabled = false;
+            //m_col.enabled = false;
             //ここにアニメ停止や変更入れるかも
             Vector3 v = transform.root.position;
             Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
