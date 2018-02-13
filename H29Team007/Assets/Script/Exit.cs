@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Exit : MonoBehaviour
 {
+    [SerializeField]
+    AudioClip m_boyscream;
     public GameObject m_SaleMaterial;
     public GameObject m_time;
     [SerializeField, Header("BBAのプレハブ")]
@@ -29,7 +31,7 @@ public class Exit : MonoBehaviour
      int m_CurrentApperTimeIndex = 0;
     float m_SaleMode = 0;
     SaleMaterial m_scSale;
-
+    public Transform m_soundEnd;
 
     // Use this for initialization
     void Start()
@@ -82,11 +84,11 @@ public class Exit : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+        
         if (other.tag == "Bull")
         {
             m_prBull = null;
             m_bullApper = false;
-            //m_Num--;
         }
     }
 
