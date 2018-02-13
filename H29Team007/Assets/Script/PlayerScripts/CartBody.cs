@@ -288,7 +288,16 @@ public class CartBody : MonoBehaviour
         }
         else
         {
-            seScript.OnePlay(2);
+            int soundrand = Random.Range(1, 100);
+            if(soundrand <= 10)
+            {
+                seScript.OnePlay(14);
+            }
+            else
+            {
+                seScript.OnePlay(2);
+            }
+            
         }
     }
 
