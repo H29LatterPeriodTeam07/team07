@@ -6,24 +6,37 @@ public class ResultBackCamera : MonoBehaviour {
 
     private Camera myCamera;
 
-    // Use this for initialization
-    void Start () {
+    public static ResultBackCamera Instance
+    {
+        get;
+        private set;
+    }
+
+    void Awake()
+    {
+        // 重複防止措置。
+        // 既にある場合は自身を削除する
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
         myCamera = GetComponent<Camera>();
-        DontDestroyOnLoad(this);
         myCamera.enabled = false;
     }
+
+    // Use this for initialization
+    //void Start () {
+    //    myCamera = GetComponent<Camera>();
+    //    DontDestroyOnLoad(this);
+    //    myCamera.enabled = false;
+    //}
 	
 	// Update is called once per frame
 	void Update () {
-
-        //if (Input.GetKeyDown(KeyCode.M))
-        //{
-        //    myCamera.enabled = true;
-        //}
-        //if (Input.GetKeyDown(KeyCode.N))
-        //{
-        //    myCamera.enabled = false;
-        //}
+        
     }
 
     public void ScreenCapture()
@@ -38,9 +51,5 @@ public class ResultBackCamera : MonoBehaviour {
     {
         myCamera.enabled = false;
     }
-
-    void OnPostRender()
-    {
-        //myCamera.enabled = false;
-    }
+    
 }
