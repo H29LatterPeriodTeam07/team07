@@ -349,6 +349,7 @@ public class BBA : MonoBehaviour
 
     void BBAReset()
     {
+        transform.rotation = Quaternion.Euler(0, 0, 0);
         m_Animal = null;
         gameObject.SetActive(true);
         m_State = BBAState.NormalMode;
