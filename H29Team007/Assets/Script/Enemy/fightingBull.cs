@@ -12,11 +12,13 @@ public class fightingBull : MonoBehaviour {
     NavMeshAgent m_Agent;
     BoxCollider m_Box;
     BullCount bcScript;
+    GameObject m_prSound;
 
     int m_curent;
 
     // Use this for initialization
     void Start() {
+        m_prSound = (GameObject)Resources.Load("Prefab/ScreamPrefab");
         m_ExitPoint = GameObject.FindGameObjectWithTag("ExitPoint");
         m_Agent = GetComponent<NavMeshAgent>();
         m_GameManager = GameObject.FindGameObjectWithTag("GameManager");
@@ -32,6 +34,11 @@ public class fightingBull : MonoBehaviour {
         if (BUllHasArrived())
         {
             BullSetNewPatrolPoint();
+        }
+
+        if(transform.root.name == "Player")
+        {
+            bcScript.BaggegeFall2(transform.position);
         }
     }
     void BullSetNewPatrolPoint()
@@ -52,6 +59,7 @@ public class fightingBull : MonoBehaviour {
 
             if (other.tag == "ExitPoint")
         {
+            Instantiate(m_prSound, transform.position, transform.rotation);
             bcScript.BaggegeFall(transform.position);
             Destroy(gameObject);
 

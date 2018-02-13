@@ -97,6 +97,9 @@ public class GameManager : MonoBehaviour {
         m_danger = GameObject.FindGameObjectsWithTag("Bull");
         foreach(GameObject danger in m_danger)
         {
+            BullCount bcScript_;
+            bcScript_ = danger.GetComponent<BullCount>();
+            bcScript_.BaggegeFall(transform.position);
             Destroy(danger);
         }
     }

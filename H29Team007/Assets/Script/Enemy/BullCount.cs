@@ -161,7 +161,7 @@ public class BullCount : MonoBehaviour {
     }
 
     /// <summary>荷物落とすときの処理</summary>
-    public void BaggegeFall(Vector3 startPos)
+    public void BaggegeFall(Vector3 startPos) 
     {
         for (int i = 0; i < myBaggege.Count; i++)
         {
@@ -189,6 +189,25 @@ public class BullCount : MonoBehaviour {
             fall.SetPoint(pos, sp);
 
             myBaggege[i].parent.parent = null;*/
+
+        }
+        Reset();
+    }
+    public void BaggegeFall2(Vector3 startPos)
+    {
+        for (int i = 0; i < myBaggege.Count; i++)
+        {
+            float x = Random.Range(-3.0f, 3.0f);
+            float z = Random.Range(-3.0f, 3.0f);
+            float sp = Random.Range(5.0f, 10.0f);
+
+            Vector3 pos = new Vector3(startPos.x + x, 0, startPos.z + z);
+
+            FallDown fall = myBaggege[i].GetComponent<FallDown>();
+            fall.enabled = true;
+            fall.SetPoint(pos, sp);
+
+            myBaggege[i].parent.parent = null;
 
         }
         Reset();
