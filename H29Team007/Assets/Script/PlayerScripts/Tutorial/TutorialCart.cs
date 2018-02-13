@@ -88,13 +88,15 @@ public class TutorialCart : MonoBehaviour {
         if (Input.GetButtonDown("XboxR") || Input.GetKeyDown(KeyCode.L))
         {
             rotatepoint.transform.localPosition = willyPoint;
-            SlopeCart(-13);
+            SlopeCart(-CartRelatedData.cartWillyRotate);
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, CartRelatedData.cartLocalWillyPosZ);
             tm.RPush();
         }
         else if (Input.GetButtonDown("XboxL") || Input.GetKeyDown(KeyCode.K))
         {
             rotatepoint.transform.localPosition = motiagePoint;
-            SlopeCart(13);
+            SlopeCart(CartRelatedData.cartWillyRotate);
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, CartRelatedData.cartLocalMotiPosZ);
             tm.LPush();
         }
     }
@@ -137,6 +139,8 @@ public class TutorialCart : MonoBehaviour {
     {
         rotatepoint.transform.localRotation = Quaternion.AngleAxis(0, new Vector3(1, 0, 0));
         transform.RotateAround(rotatepoint.transform.position, rotatepoint.transform.right, -moderuAngle);
+        transform.parent = transform.root;
+        transform.localPosition = new Vector3(transform.localPosition.x, 0.0f, CartRelatedData.cartLocalPosZ);
         if (playerScript.MyCart() == gameObject)
         {
             scScript.SetBasketParent(transform.root);
@@ -145,7 +149,6 @@ public class TutorialCart : MonoBehaviour {
         {
             secondCartBaggageParent.parent = transform.root;
         }
-        transform.parent = transform.root;
         isWilly = false;
         nowTime = 0.0f;
     }

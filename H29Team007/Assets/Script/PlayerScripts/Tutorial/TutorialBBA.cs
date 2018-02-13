@@ -78,8 +78,8 @@ public class TutorialBBA : MonoBehaviour {
     //次の巡回ポイントを目的地に設定する
     void SetNewPatrolPointToDestination()
     {
-        m_rand = Random.Range(0, m_PatrolPoints.Length);
-        m_Agent.destination = m_PatrolPoints[m_rand].transform.position;
+        //m_rand = Random.Range(0, m_PatrolPoints.Length);
+        m_Agent.destination = m_PatrolPoints[0].transform.position;
     }
 
     // 目的地に到着したか

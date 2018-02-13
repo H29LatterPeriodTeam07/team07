@@ -82,6 +82,7 @@ public class MTManager : MonoBehaviour {
         mapG.SetActive(false);
         wakuEffect.transform.position = points[4].transform.position;
         wakuEffect.SetActive(false);
+        MainGameDate.ChangeStartFlag();
     }
 
     // Update is called once per frame
@@ -500,6 +501,7 @@ public class MTManager : MonoBehaviour {
     private void Index16Start()
     {
         wakuEffect.SetActive(false);
+        MainGameDate.ChangeStartFlag();
         SceneManager.LoadScene("Title");
     }
 

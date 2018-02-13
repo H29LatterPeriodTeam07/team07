@@ -40,7 +40,7 @@ public class ShoppingCount : MonoBehaviour
     private Transform baggageParent;
     private SpringManagerArrange baggageScript;
 
-    private float flyWaitTime = 0;
+    //private float flyWaitTime = 0;
 
     private List<Transform> myBaggage2;
     private SpringManagerArrange baggage2Script;
@@ -84,17 +84,17 @@ public class ShoppingCount : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerScript.GetState() == Player.PlayerState.Takeover
+        if (playerScript.GetState() >= Player.PlayerState.Takeover
             || transform.parent != null
             || !MainGameDate.IsStart()
             ) return;
-        if (basket.activeSelf && Input.GetButton("XboxA") ||
+        if (basket.activeSelf && Input.GetButtonDown("XboxX") ||
             basket.activeSelf && Input.GetKey(KeyCode.F))
         {
             if (playerScript.IsCart2()) return;
-            flyWaitTime += Time.deltaTime;
-            if (flyWaitTime < 1.0f) return;
-            flyWaitTime = 0.0f;
+            //flyWaitTime += Time.deltaTime;
+            //if (flyWaitTime < 1.0f) return;
+            //flyWaitTime = 0.0f;
             GameObject flyBasket = Instantiate(flyBasketPrefab);
 
             flyBasket.transform.rotation = basket.transform.rotation;
@@ -113,10 +113,10 @@ public class ShoppingCount : MonoBehaviour
 
             basket.SetActive(false);
         }
-        else
-        {
-            flyWaitTime = 0.0f;
-        }
+        //else
+        //{
+        //    flyWaitTime = 0.0f;
+        //}
 
         TopFallInput();
     }

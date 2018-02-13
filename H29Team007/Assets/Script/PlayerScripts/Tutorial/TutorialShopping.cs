@@ -40,7 +40,7 @@ public class TutorialShopping : MonoBehaviour {
     private Transform baggageParent;
     private TutorialAngleManager baggageScript;
 
-    private float flyWaitTime = 0;
+    //private float flyWaitTime = 0;
 
     private List<Transform> myBaggage2;
     private TutorialAngleManager baggage2Script;
@@ -77,16 +77,16 @@ public class TutorialShopping : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (playerScript.GetState() == MTPlayer.PlayerState.Takeover
+        if (playerScript.GetState() >= MTPlayer.PlayerState.Takeover
             || transform.parent != null
             ) return;
-        if (basket.activeSelf && Input.GetButton("XboxA") ||
+        if (basket.activeSelf && Input.GetButtonDown("XboxX") ||
             basket.activeSelf && Input.GetKey(KeyCode.F))
         {
             if (playerScript.IsCart2() || !playerScript.CanThrow()) return;
-            flyWaitTime += Time.deltaTime;
-            if (flyWaitTime < 1.0f) return;
-            flyWaitTime = 0.0f;
+            //flyWaitTime += Time.deltaTime;
+            //if (flyWaitTime < 1.0f) return;
+            //flyWaitTime = 0.0f;
             GameObject flyBasket = Instantiate(flyBasketPrefab);
 
             flyBasket.transform.rotation = basket.transform.rotation;
@@ -105,10 +105,10 @@ public class TutorialShopping : MonoBehaviour {
 
             basket.SetActive(false);
         }
-        else
-        {
-            flyWaitTime = 0.0f;
-        }
+        //else
+        //{
+        //    flyWaitTime = 0.0f;
+        //}
     }
 
     public void BasketIn()
@@ -393,7 +393,7 @@ public class TutorialShopping : MonoBehaviour {
                 GameObject popscore = Instantiate(popscorePrefab);
                 PopupScore2D popscoreScript = popscore.GetComponent<PopupScore2D>();
                 //popscoreScript.SetPositionAndRotation(myBaggage[i].position + transform.right * 2, Camera.main.transform.eulerAngles.y);
-                popscoreScript.SetText("＋" + StringWidthConverter.ConvertToFullWidth(enemyscore.ToString()));
+                popscoreScript.SetText("＋" + StringWidthConverter.ConvertToFullWidth(enemyPoint.ToString() + "pt"));
                 popscoreScript.transform.SetParent(score.transform);
                 popscoreScript.SetTarget(scorecount);
                 scorecount++;
@@ -418,7 +418,7 @@ public class TutorialShopping : MonoBehaviour {
                 GameObject popscore = Instantiate(popscorePrefab);
                 PopupScore2D popscoreScript = popscore.GetComponent<PopupScore2D>();
                 //popscoreScript.SetPositionAndRotation(myBaggage2[i].position + transform.right * 2, Camera.main.transform.eulerAngles.y);
-                popscoreScript.SetText("＋" + StringWidthConverter.ConvertToFullWidth(enemyscore.ToString()));
+                popscoreScript.SetText("＋" + StringWidthConverter.ConvertToFullWidth(enemyPoint.ToString() + "pt"));
                 popscoreScript.transform.SetParent(score.transform);
                 popscoreScript.SetTarget(scorecount);
                 scorecount++;
@@ -486,23 +486,6 @@ public class TutorialShopping : MonoBehaviour {
                     i += 2;
                 }
             }
-            //if (num != 0)
-            //    {
-            //        string patternname = PatternScore.PatternText(num);
-            //        int patternpoint = ScoreManager.EnemyPrice(patternname);
-            //        bagPoint += patternpoint;
-            //        bagnames.Add(patternname);
-            //        GameObject popscore = Instantiate(popscorePrefab);
-            //        PopupScore2D popscoreScript = popscore.GetComponent<PopupScore2D>();
-            //        //popscoreScript.SetPositionAndRotation(myBaggage[i + 1].position + transform.right * 2, Camera.main.transform.eulerAngles.y);
-            //        popscoreScript.SetOutColorOrange();
-            //        popscoreScript.SetText(patternname + "＋" + StringWidthConverter.ConvertToFullWidth(patternpoint.ToString() + "Pt"));
-            //        popscoreScript.transform.SetParent(score.transform);
-            //        popscoreScript.SetTarget(scorecount);
-            //        scorecount++;
-            //        i += 2;
-            //    }
-            //}
         }
 
         if (kesumono.Count != 0)
@@ -584,7 +567,7 @@ public class TutorialShopping : MonoBehaviour {
                 ScoreManager.AddCount(myBaggage[i].name);
             }
 
-            goukei += es.GetPrice();
+            goukei += es.GetPoint();
         }
         for (int i = 0; i < myBaggage2.Count; i++)
         {
@@ -599,9 +582,9 @@ public class TutorialShopping : MonoBehaviour {
                 ScoreManager.AddCount(myBaggage2[i].name);
             }
 
-            goukei += es.GetPrice();
+            goukei += es.GetPoint();
         }
-        string printscore = goukei.ToString();
+        string printscore = goukei.ToString() + "pt";
         score.text = printscore;
     }
 

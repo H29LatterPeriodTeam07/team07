@@ -1229,12 +1229,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a8e0bf61afb89ee4daff817d1b1a29cb, type: 3}
   - {fileID: 21300000, guid: b4333f42e90639548adda37db806ee58, type: 3}
   - {fileID: 21300000, guid: a8e0bf61afb89ee4daff817d1b1a29cb, type: 3}
-  - {fileID: 21300000, guid: 5eb45418569fd0f4d878a81037f9bcc4, type: 3}
+  - {fileID: 21300000, guid: 8ba5dbb69a8e07d4e8fdbcbb01eba024, type: 3}
   - {fileID: 21300000, guid: a8e0bf61afb89ee4daff817d1b1a29cb, type: 3}
-  - {fileID: 21300000, guid: 5eb45418569fd0f4d878a81037f9bcc4, type: 3}
-  - {fileID: 21300000, guid: 42d26d73cc4a7ff4385bc2597ff3d1dd, type: 3}
+  - {fileID: 21300000, guid: 8ba5dbb69a8e07d4e8fdbcbb01eba024, type: 3}
+  - {fileID: 21300000, guid: b1e786a1f4a7e8b45a24555c84a6e69d, type: 3}
   - {fileID: 21300000, guid: a8e0bf61afb89ee4daff817d1b1a29cb, type: 3}
-  - {fileID: 21300000, guid: 5eb45418569fd0f4d878a81037f9bcc4, type: 3}
+  - {fileID: 21300000, guid: 8ba5dbb69a8e07d4e8fdbcbb01eba024, type: 3}
   - {fileID: 21300000, guid: a8e0bf61afb89ee4daff817d1b1a29cb, type: 3}
 --- !u!1001 &350388250
 Prefab:
@@ -1778,12 +1778,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a8e0bf61afb89ee4daff817d1b1a29cb, type: 3}
   - {fileID: 21300000, guid: b4333f42e90639548adda37db806ee58, type: 3}
   - {fileID: 21300000, guid: a8e0bf61afb89ee4daff817d1b1a29cb, type: 3}
-  - {fileID: 21300000, guid: 5eb45418569fd0f4d878a81037f9bcc4, type: 3}
+  - {fileID: 21300000, guid: 8ba5dbb69a8e07d4e8fdbcbb01eba024, type: 3}
   - {fileID: 21300000, guid: a8e0bf61afb89ee4daff817d1b1a29cb, type: 3}
-  - {fileID: 21300000, guid: 5eb45418569fd0f4d878a81037f9bcc4, type: 3}
-  - {fileID: 21300000, guid: 42d26d73cc4a7ff4385bc2597ff3d1dd, type: 3}
+  - {fileID: 21300000, guid: 8ba5dbb69a8e07d4e8fdbcbb01eba024, type: 3}
+  - {fileID: 21300000, guid: b1e786a1f4a7e8b45a24555c84a6e69d, type: 3}
   - {fileID: 21300000, guid: a8e0bf61afb89ee4daff817d1b1a29cb, type: 3}
-  - {fileID: 21300000, guid: 5eb45418569fd0f4d878a81037f9bcc4, type: 3}
+  - {fileID: 21300000, guid: 8ba5dbb69a8e07d4e8fdbcbb01eba024, type: 3}
   - {fileID: 21300000, guid: a8e0bf61afb89ee4daff817d1b1a29cb, type: 3}
 --- !u!114 &451159419
 MonoBehaviour:
@@ -2710,7 +2710,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5E97\u306B\u306F\u8B66\u5099\u54E1\u304C\u3044\u308B\u3002\u4EBA\u3092\u4E57\u305B\u305F\u72B6\u614B\u3060\u3068\u8FFD\u3044\u304B\u3051\u3066\u304F\u308B\u305E\u3002\u6355\u307E\u308B\u3068\u5165\u53E3\u306B\u623B\u3055\u308C\u308B\u305E\u3002\u6355\u307E\u3089\u306A\u3044\u3088\u3046\u306B\u67A0\u306E\u4E2D\u3078\u9032\u3081\u3002"
+  m_Text: 
 --- !u!222 &699486501
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4754,7 +4754,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1085529246}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5386b045fde7764888846e88c571788, type: 3}
   m_Name: 
@@ -7340,7 +7340,7 @@ MonoBehaviour:
   - "\u307E\u3068\u3081"
   setumeiText:
   - "\u4ECA\u70B9\u6EC5\u3057\u3066\u3044\u308B\u306E\u304C\u30B9\u30B3\u30A2\u3060\u3002\u30AB\u30FC\u30C8\u306B\u4E57\u305B\u3066\u3044\u308B\u5546\u54C1\u306E\u5408\u8A08\u304C\u8868\u793A\u3055\u308C\u308B\u305E\u3002"
-  - "\u54C1\u304C\u73FE\u308C\u308B\u305E\u3002\u306E\u304C\u30BF\u30A4\u30DE\u30FC\u3060\u3002\u30EA\u30F3\u30B0\u304C\u4E00\u56DE\u8EE2\u3059\u308B\u3068\u9589\u5E97\u3060\u3002\u7279\u58F2\u306E\u6587\u5B57\u304C\u30AB\u30FC\u30C8\u306E\u4E0B\u306B\u6765\u308B\u3068\u7279\u58F2\u54C1\u304C\u73FE\u308C\u308B\u305E\u3002"
+  - "\u5DE6\u306E\u30EA\u30F3\u30B0\u304C\u30BF\u30A4\u30DE\u30FC\u3060\u3002\u30EA\u30F3\u30B0\u304C\u4E00\u56DE\u8EE2\u3059\u308B\u3068\u9589\u5E97\u3060\u3002\u7279\u58F2\u306E\u6587\u5B57\u304C\u30AB\u30FC\u30C8\u306E\u4E0B\u306B\u6765\u308B\u3068\u7279\u58F2\u54C1\u304C\u73FE\u308C\u308B\u305E\u3002"
   - "\u4ECA\u70B9\u6EC5\u3057\u3066\u3044\u308B\u306E\u304C\u30DF\u30CB\u30DE\u30C3\u30D7\u3060\u3002\u9752\u3044\u4E38\u306F\u81EA\u5206\u3002\u8D64\u3044\u4E38\u306F\u6575\u3002\u7DD1\u306E\u4E38\u306F\u7279\u58F2\u54C1\u3002\u767D\u306E\u4E38\u304C\u4E00\u822C\u5BA2\u3060\u3002"
   - "\u5DE6\u30B9\u30C6\u30A3\u30C3\u30AF\u79FB\u52D5\u304C\u3067\u304D\u308B\u3002\u30AB\u30FC\u30C8\u3092\u6301\u3066\u3002"
   - "B\u30DC\u30BF\u30F3\u3067\u30AB\u30FC\u30C8\u306B\u306E\u3063\u3066\u6ED1\u8D70\u3059\u308B\u305E\u3002\u6ED1\u8D70\u3057\u3066\u67A0\u306E\u4E2D\u306B\u9032\u3081\u3002"

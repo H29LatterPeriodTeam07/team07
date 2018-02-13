@@ -25,7 +25,7 @@ public class BasketFly : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         //enabled = false;
         m_rigid = GetComponent<Rigidbody>();
-        m_rigid.AddForce(player.transform.up * 6.5f, ForceMode.VelocityChange);
+        m_rigid.AddForce(player.transform.up * 3.5f, ForceMode.VelocityChange);
     }
 
     // Update is called once per frame

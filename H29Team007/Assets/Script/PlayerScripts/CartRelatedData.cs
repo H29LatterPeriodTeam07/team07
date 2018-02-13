@@ -5,6 +5,8 @@ using UnityEngine;
 public class CartRelatedData {
 
     public static float cartLocalPosZ = 1.35f;   //プレイヤーに持たれているカートのz座標
+    public static float cartLocalWillyPosZ = 1.1f;  //プレイヤーがカートをウィリーにするときのカートのｚ座標
+    public static float cartLocalMotiPosZ = -0.7f;  //プレイヤーがカートを持ち上げるときのカートのｚ座標
 
     public static float cartInBagLocalPosY = 0.5f;  //カゴがカートに入っているときのy座標
     public static float cartInBagLocalPosZ = 1.25f;  //カゴがカートに入っているときのz座標
@@ -17,6 +19,7 @@ public class CartRelatedData {
 
     public static float cartFlyStartPosY = 1.6f;  //カゴを投げ始めるときのy座標
     public static float cartNavPoint = -1.5f;  //カートをジャックするときの目標のz座標
+    public static float cartWillyRotate = 13;  //ウィリーするときのカートの回転角度
 
     public static Vector3 cartRotatePointBack = new Vector3(0, 0, 0.4f); //カートを手前に傾けるときの回す軸の位置
     public static Vector3 cartRotatePointFront = new Vector3(0, 0, 1.8f); //カートを奥に傾けるときの回す軸の位置

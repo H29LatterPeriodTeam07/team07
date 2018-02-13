@@ -251,17 +251,7 @@ public class MTPlayer : MonoBehaviour {
         Vector3 moveForward = transform.forward * inputVertical;
 
         rb.velocity = moveForward * onCartMoveSpeed * nikuspeed + new Vector3(0, rb.velocity.y, 0);
-
-
-        if (Input.GetButtonDown("XboxR") || Input.GetKeyDown(KeyCode.L))
-        {
-            m_Animator.Play("hippari");
-        }
-        else if (Input.GetButtonDown("XboxL") || Input.GetKeyDown(KeyCode.K))
-        {
-            m_Animator.Play("moti");
-        }
-
+        
         if (Input.GetButtonDown("XboxB") || Input.GetKeyDown(KeyCode.O)
             )
         {
@@ -270,6 +260,15 @@ public class MTPlayer : MonoBehaviour {
             ChangeState(2);
         }
 
+        if (!tm.FadeEnd() || tm.TutorialIndex() != 7) return;
+        if (Input.GetButtonDown("XboxR") || Input.GetKeyDown(KeyCode.L))
+        {
+            m_Animator.Play("hippari");
+        }
+        else if (Input.GetButtonDown("XboxL") || Input.GetKeyDown(KeyCode.K))
+        {
+            m_Animator.Play("moti");
+        }
 
     }
 
