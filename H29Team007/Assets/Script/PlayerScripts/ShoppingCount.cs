@@ -29,6 +29,8 @@ public class ShoppingCount : MonoBehaviour
 
     //[SerializeField, Header("スコアUI")]
     private Text score;
+    private int currentScorePoint = 0; //現在のスコア
+    private int textScorePoint = -1; //表示されているスコア
     private GameObject scoreUI;
     [SerializeField, Header("コイン管理プレハブ")]
     private GameObject coinManagerPrefab;
@@ -84,6 +86,8 @@ public class ShoppingCount : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ScoreTextChange();
+
         if (playerScript.GetState() >= Player.PlayerState.Takeover
             || transform.parent != null
             || !MainGameDate.IsStart()
@@ -752,7 +756,24 @@ public class ShoppingCount : MonoBehaviour
 
             goukei += es.GetPoint();
         }
-        string printscore = goukei.ToString() + "pt";
+
+        currentScorePoint = goukei;
+    }
+
+    private void ScoreTextChange()
+    {
+        if (textScorePoint == currentScorePoint) return;
+
+        if(textScorePoint > currentScorePoint)
+        {
+            textScorePoint--;
+        }
+        else
+        {
+            textScorePoint++;
+        }
+
+        string printscore = textScorePoint.ToString() + "pt";
         score.text = printscore;
     }
 
