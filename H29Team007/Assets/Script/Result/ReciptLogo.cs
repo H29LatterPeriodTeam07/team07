@@ -12,7 +12,9 @@ public class ReciptLogo : MonoBehaviour {
 	void Start () {
         myImage = GetComponent<Image>();
         myImage.sprite = resultLogo[ScoreManager.GetStageNumber()-1];
-        myImage.SetNativeSize(); 
+        myImage.preserveAspect = true;
+        myImage.SetNativeSize();
+        GetComponent<RectTransform>().sizeDelta = new Vector2(420, 240);
     }
 	
 	// Update is called once per frame
