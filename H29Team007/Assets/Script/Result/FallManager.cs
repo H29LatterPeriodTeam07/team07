@@ -6,11 +6,13 @@ public class FallManager : MonoBehaviour {
 
     public CharaFall[] falls;
     private int index = 0;
-    private List<CharaFall> fallList = new List<CharaFall>(); 
+    private List<CharaFall> fallList = new List<CharaFall>();
+    private List<int> fallcount = new List<int>();
 
 	// Use this for initialization
 	void Start () {
         fallList.Clear();
+        fallcount.Clear();
         for (int i = 0; i < ScoreManager.EnemyTypeCount(); i++)
         {
             int enemycount = ScoreManager.GetCount(i);
@@ -19,12 +21,18 @@ public class FallManager : MonoBehaviour {
             switch (enemyname)
             {
                 case "human": fallList.Add(falls[0]); break;
-                case "Pig": fallList.Add(falls[2]); break;
-                case "Cow": fallList.Add(falls[3]); break;
-                case "Fish": fallList.Add(falls[4]); break;
-                case "Lamborghini": fallList.Add(falls[1]); break;
+                case "Pig": fallList.Add(falls[1]); break;
+                case "Cow": fallList.Add(falls[2]); break;
+                case "Fish": fallList.Add(falls[3]); break;
+                case "Kaziki": fallList.Add(falls[4]); break;
+                case "Arai": fallList.Add(falls[5]); break;
+                case "Sheep": fallList.Add(falls[6]); break;
+                case "Chickin": fallList.Add(falls[7]); break;
+                case "Lamborghini": fallList.Add(falls[8]); break;
+                case "Herazika": fallList.Add(falls[9]); break;
+                case "Shark": fallList.Add(falls[10]); break;
             }
-
+            fallcount.Add(enemycount);
         }
         if (fallList.Count == 0) return;
         fallList[index].FallStart(ScoreManager.GetCount(index));
@@ -36,7 +44,7 @@ public class FallManager : MonoBehaviour {
         if (fallList[index].IsEnd())
         {
             index++;
-            fallList[index].FallStart(ScoreManager.GetCount(index));
+            fallList[index].FallStart(fallcount[index]);
         }
     }
 }
