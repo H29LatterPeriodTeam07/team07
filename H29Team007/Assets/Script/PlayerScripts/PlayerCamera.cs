@@ -29,6 +29,7 @@ public class PlayerCamera : MonoBehaviour {
     
     private Transform mainCamera;
 
+    private Player playerScript;
     private ShoppingCount playerSC;
 
     //カメラを離す角度、ベクトル
@@ -73,6 +74,7 @@ public class PlayerCamera : MonoBehaviour {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         mainCamera = Camera.main.transform;
         m_Target = player.transform.Find("CameraLookPoint");
+        playerScript = player.GetComponent<Player>();
         playerSC = player.GetComponent<ShoppingCount>();
         cameraLeaveVec = CameraLeaveVec();
         myState = CameraState.Enter;
@@ -179,6 +181,8 @@ public class PlayerCamera : MonoBehaviour {
 
             // 現在の場所から目標の場所まで少しずつ近づく
             mainCamera.position = Vector3.Lerp(mainCamera.position, targetPos, m_Strength * Time.deltaTime);
+
+            if (playerScript.GetState() == Player.PlayerState.Outside) return;
 
             if (Input.GetKey("mouse 0"))//作業の邪魔だからクリックしてる間にしてる、いらないif
             {

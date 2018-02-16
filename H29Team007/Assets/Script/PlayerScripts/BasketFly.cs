@@ -25,15 +25,16 @@ public class BasketFly : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         //enabled = false;
         m_rigid = GetComponent<Rigidbody>();
-        m_rigid.AddForce(player.transform.up * 3.5f, ForceMode.VelocityChange);
+        m_rigid.AddForce(player.transform.up * CartRelatedData.flyBasketUpPower, ForceMode.VelocityChange);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!punch && transform.position.y < CartRelatedData.cartFlyStartPosY)
+        
+        if(!punch && transform.position.y < CartRelatedData.flyBasketStartPosY)
         {
-            m_rigid.velocity = player.transform.forward * 20.0f;
+            m_rigid.velocity = player.transform.forward * CartRelatedData.flyBasketPunchPower;
             //m_rigid.AddForce(player.transform.forward * 20.0f, ForceMode.VelocityChange);
             punch = true;
         }
@@ -75,6 +76,10 @@ public class BasketFly : MonoBehaviour
                 //Debug.DrawRay(transform.position + transform.up * 0.5f, -Vector3.up, Color.red, 1.0f);
                 m_rigid.constraints = RigidbodyConstraints.FreezePositionY;
                 GetComponent<BoxCollider>().isTrigger = true;
+                if(player.GetComponent<Player>().GetState() == Player.PlayerState.Outside)
+                {
+                    Destroy(gameObject);
+                }
             }
             
         }

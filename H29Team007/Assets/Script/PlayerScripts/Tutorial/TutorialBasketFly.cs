@@ -24,15 +24,15 @@ public class TutorialBasketFly : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
         //enabled = false;
         m_rigid = GetComponent<Rigidbody>();
-        m_rigid.AddForce(player.transform.up * 3.5f, ForceMode.VelocityChange);
+        m_rigid.AddForce(player.transform.up * CartRelatedData.flyBasketUpPower, ForceMode.VelocityChange);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!punch && transform.position.y < CartRelatedData.cartFlyStartPosY)
+        if (!punch && transform.position.y < CartRelatedData.flyBasketStartPosY)
         {
-            m_rigid.velocity = player.transform.forward * 20.0f;
+            m_rigid.velocity = player.transform.forward * CartRelatedData.flyBasketPunchPower;
             //m_rigid.AddForce(player.transform.forward * 20.0f, ForceMode.VelocityChange);
             punch = true;
         }

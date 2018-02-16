@@ -107,7 +107,7 @@ public class ShoppingCount : MonoBehaviour
                 //}
             }
             Vector3 baspos = basket.transform.position;
-            baspos.y = CartRelatedData.cartFlyStartPosY;
+            baspos.y = CartRelatedData.flyBasketStartPosY;
             flyBasket.transform.position = baspos;
             playerScript.ChangeState(7);
 

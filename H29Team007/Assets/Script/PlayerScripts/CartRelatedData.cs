@@ -17,12 +17,15 @@ public class CartRelatedData {
     public static float cartOutBagLocalPosZ = 0.45f;  //カゴがカートに入っていないときのz座標
     public static Vector3 cartOutBagLocalPos = new Vector3(cartOutBagLocalPosX, cartOutBagLocalPosY, cartOutBagLocalPosZ);  //カゴがカートに入っていないときの座標
 
-    public static float cartFlyStartPosY = 1.6f;  //カゴを投げ始めるときのy座標
     public static float cartNavPoint = -1.5f;  //カートをジャックするときの目標のz座標
     public static float cartWillyRotate = 13;  //ウィリーするときのカートの回転角度
 
     public static Vector3 cartRotatePointBack = new Vector3(0, 0, 0.4f); //カートを手前に傾けるときの回す軸の位置
     public static Vector3 cartRotatePointFront = new Vector3(0, 0, 1.8f); //カートを奥に傾けるときの回す軸の位置
+
+    public static float flyBasketStartPosY = 1.6f;  //カゴを投げ始めるときのy座標
+    public static float flyBasketUpPower = 3.5f; //籠投げるときの籠を上に投げる力
+    public static float flyBasketPunchPower = 20.0f; //籠投げるときの籠を前に飛ばす力
 
 
     /*調整するときのメモ置き場 
