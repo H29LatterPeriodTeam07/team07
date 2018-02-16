@@ -61,10 +61,12 @@ public class BBA : MonoBehaviour
     GameObject[] m_PatrolPoints;
     int m_rand;
     private GameObject m_Cart;
+    Animator m_Anime;
 
     // Use this for initialization
     void Start()
     {
+        m_Anime = GetComponent<Animator>();
         m_Cart = GameObject.FindGameObjectWithTag("EnemyCart");
         m_GameManager = GameObject.FindGameObjectWithTag("GameManager");
         m_gmScript = m_GameManager.GetComponent<GameManager>();
@@ -91,6 +93,12 @@ public class BBA : MonoBehaviour
     void Update()
     {
         if (transform.parent != null) return;
+        if (myCart == null)
+        {
+            // SetNewRPatrolPointToDestination();
+            m_Anime.SetTrigger("DDK");
+            m_State = BBAState.NoCart;
+        }
         //巡回中
         if (m_State == BBAState.NormalMode)
         {
@@ -117,11 +125,6 @@ public class BBA : MonoBehaviour
                 m_Agent.speed = 0.0f;
                 // m_Animator.SetTrigger("Kago");
                 //  m_bo = true;
-            }
-            if (myCart == null)
-            {
-                SetNewRPatrolPointToDestination();
-                m_State = BBAState.NoCart;
             }
         }
         //特売品モード
@@ -170,12 +173,6 @@ public class BBA : MonoBehaviour
                 SetNewExitPointToDestination();
                 m_State = BBAState.CashMode;
             }
-
-            if (myCart == null)
-            {
-                SetNewRPatrolPointToDestination();
-                m_State = BBAState.NoCart;
-            }
         }
 
         //レジ～出入り口へGOモード
@@ -189,12 +186,6 @@ public class BBA : MonoBehaviour
             }
 
             if (!IsGetAnimal()) m_State = BBAState.NormalMode;
-
-            if (myCart == null)
-            {
-                SetNewRPatrolPointToDestination();
-                m_State = BBAState.NoCart;
-            }
         }
 
         else if (m_State == BBAState.NoCart)

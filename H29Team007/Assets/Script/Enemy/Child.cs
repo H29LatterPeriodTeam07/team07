@@ -66,11 +66,6 @@ public class Child : MonoBehaviour {
                 int randomInt = Random.Range(0, hitColliders.Length);
                 m_Parent = hitColliders[randomInt].transform;
             }
-            //foreach (Collider hit in hitColliders)
-            //{
-            //    int randomInt = Random.Range(0, hitColliders.Length);
-            //    m_Parent = hit.transform;
-            //}
         }
         m_ParentEyePoint = m_Parent.transform.Find("ParentEye");
     }
@@ -82,6 +77,7 @@ public class Child : MonoBehaviour {
         {
             m_Agent.speed = 3;
             m_Agent.destination = m_ExitPoition.transform.position;
+            m_collider.enabled = true;
             if (HasArrived())
             {
                 m_Agent.speed = 0;
@@ -152,7 +148,7 @@ public class Child : MonoBehaviour {
                         m_State = ChildState.NormalMode;
                     }
                     else {
-                        m_collider.enabled = true;
+                       // m_collider.enabled = true;
                         m_State = ChildState.CryMode;
                         m_Animator.SetTrigger("Cry");
                     }
@@ -177,56 +173,6 @@ public class Child : MonoBehaviour {
     {
         return (Vector3.Distance(m_Agent.destination, transform.position) < 0.5f);
     }
-
-    //親が見える距離内にいるか？
-    //bool IsParentInViewingDistance()
-    //{
-    //    //自身から親までの距離
-    //    float distanceToPlayer = Vector3.Distance(m_ParentEyePoint.position, m_LookEye.position);
-    //    //親が見える距離内にいるかどうかを返却する
-    //    return (distanceToPlayer <= m_ViewingDistance);
-    //}
-
-    ////親が見える視野角内にいるか？
-    //bool IsParentInViewingAngle()
-    //{
-    //    //自分から親への方向ベクトル(ワールド座標系)
-    //    Vector3 directionToPlayer = m_ParentEyePoint.position - m_LookEye.position;
-    //    // 自分の正面向きベクトルと親への方向ベクトルの差分角度
-    //    float angleToPlayer = Vector3.Angle(m_LookEye.forward, directionToPlayer);
-
-    //    // 見える視野角の範囲内に親がいるかどうかを返却する
-    //    return (Mathf.Abs(angleToPlayer) <= m_ViewingAngle);
-    //}
-
-    //// 親にRayを飛ばしたら当たるか？
-    //bool CanHitRayToParent()
-    //{
-    //    // 自分から親への方向ベクトル（ワールド座標系）
-    //    Vector3 directionToPlayer = m_ParentEyePoint.position - m_LookEye.position;
-    //    // 壁の向こう側などにいる場合は見えない
-    //    RaycastHit hitInfo;
-    //    bool hit
-    //        = Physics.Raycast(m_LookEye.position, directionToPlayer, out hitInfo);
-    //    // 親にRayが当たったかどうかを返却する
-    //    return (hit && hitInfo.collider.tag == "Parent" || hit && hitInfo.collider.tag == "Customer");
-    //}
-
-    //// 親が見えるか？
-    //bool CanSeeParent()
-    //{
-    //    // 見える距離の範囲内に親がいない場合→見えない
-    //    if (!IsParentInViewingDistance())
-    //        return false;
-    //    // 見える視野角の範囲内に親がいない場合→見えない
-    //    if (!IsParentInViewingAngle())
-    //        return false;
-    //    // Rayを飛ばして、それが親に当たらない場合→見えない
-    //    if (!CanHitRayToParent())
-    //        return false;
-    //    // ここまで到達したら、それは親が見えるということ
-    //    return true;
-    //}
 
     public void DoPatrol()
     {

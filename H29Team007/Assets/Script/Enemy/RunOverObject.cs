@@ -112,7 +112,7 @@ public class RunOverObject : MonoBehaviour
         if (!sc.IsCatchBasket() || sc.IsBaggegeMax(ps.MySecondCart())) return;
         myNav.enabled = false;
         myCollider.enabled = false;
-        sc.AddBaggege(transform, ps.MySecondCart(), 2);
+        sc.AddBaggege(transform, ps.MySecondCart());
         transform.Find("BullHitArea").gameObject.SetActive(false);
         if (m_model != null)
         {
@@ -229,18 +229,5 @@ public class RunOverObject : MonoBehaviour
 
         }
     }
-    //public void OnTriggerStay(Collider other)
-    //{
-    //  // if (m_model == null) return;
-    //    if (other.name == "Plane")
-    //    {
-    //        if (m_model != null && m_gutemodel !=null)
-    //        {
-    //            m_model.SetActive(true);
-    //            m_gutemodel.SetActive(false);
-    //        }
-    //    }
-
-    //}
 
 }

@@ -13,6 +13,8 @@ public class fightingBull : MonoBehaviour {
     BoxCollider m_Box;
     BullCount bcScript;
     GameObject m_prSound;
+    Transform m_bullBas;
+    Collider m_bascollider;
 
     int m_curent;
 
@@ -26,6 +28,8 @@ public class fightingBull : MonoBehaviour {
         m_curent = m_gmScript.m_CurentBullPatrolPointIndex;
         m_Agent.destination = m_gmScript.m_BullPatrolPoints[m_curent].position;
         bcScript = transform.GetComponent<BullCount>();
+        m_bullBas = transform.Find("Bullbasket");
+        m_bascollider = m_bullBas.GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -39,6 +43,11 @@ public class fightingBull : MonoBehaviour {
         if(transform.root.name == "Player")
         {
             bcScript.BaggegeFall2(transform.position);
+            m_bascollider.enabled=false;
+        }
+        else
+        {
+            m_bascollider.enabled = true;
         }
     }
     void BullSetNewPatrolPoint()
