@@ -56,6 +56,8 @@ public class GameManager : MonoBehaviour {
 
     GameObject[] m_enemys;
     GameObject[] m_danger;
+    GameObject[] m_bba;
+    GameObject[] m_child;
 
     // Use this for initialization
     void Start () {
@@ -97,10 +99,28 @@ public class GameManager : MonoBehaviour {
         m_danger = GameObject.FindGameObjectsWithTag("Bull");
         foreach(GameObject danger in m_danger)
         {
-            BullCount bcScript_;
-            bcScript_ = danger.GetComponent<BullCount>();
-            bcScript_.BaggegeFall(transform.position);
-            Destroy(danger);
+            if (danger.transform.root==null)
+            {
+                BullCount bcScript_;
+                bcScript_ = danger.GetComponent<BullCount>();
+                bcScript_.BaggegeFall(transform.position);
+                Destroy(danger);
+            }
+        }
+        m_bba = GameObject.FindGameObjectsWithTag("BBA");
+        foreach(GameObject bbas in m_bba)
+        {
+            if (bbas.transform.root == null)
+            {
+                Destroy(bbas);
+            }
+        }
+        m_child = GameObject.FindGameObjectsWithTag("Child");
+        {
+           foreach(GameObject childs in m_child)
+            {
+                Destroy(childs);
+            }
         }
     }
 
