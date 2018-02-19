@@ -231,7 +231,14 @@ public class CartBody : MonoBehaviour
     public void SetCart(CartStatusWithCart cart)
     {
         cart.SetStatus(cartStatus);
-        playerScript.SetMinusRotateSpeed(0);
+        if (playerScript.MyCart() == gameObject)
+        {
+            playerScript.SetMinusRotateSpeed(0);
+        }
+        else
+        {
+            playerScript.SetMinusRotateSpeed2(0);
+        }
     }
 
     public void DamageCart(float dm)
