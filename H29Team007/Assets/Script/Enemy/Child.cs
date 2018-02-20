@@ -157,7 +157,6 @@ public class Child : MonoBehaviour {
             else if (m_State == ChildState.CryMode)
             {
                 m_Agent.speed = 0;
-                print("おーいおいおいおいおい、おいおい");
                 m_GaurdCoal = true;
                 if (CanSeeParent2())
                 {

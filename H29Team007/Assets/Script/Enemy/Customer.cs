@@ -42,7 +42,6 @@ public class Customer : MonoBehaviour {
     void Start()
     {
         int _rand = Random.Range(0, 2);
-        print(_rand);
         //タグでパトロールポイントの親を検索して保持
         m_PatrolPoint = GameObject.FindGameObjectWithTag("PatrolPoint");
         m_PatrolPoints = new GameObject[m_PatrolPoint.transform.childCount];

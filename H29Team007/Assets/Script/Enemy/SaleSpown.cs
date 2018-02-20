@@ -20,7 +20,6 @@ public class SaleSpown : MonoBehaviour {
     public GameObject m_Time;
     public GameObject m_SaleMaterial;
     public int m_Num = 0;
-    public int m_Chikintortal = 0;
 
     private int m_ChikinNum = 0;
     Timer m_timer;

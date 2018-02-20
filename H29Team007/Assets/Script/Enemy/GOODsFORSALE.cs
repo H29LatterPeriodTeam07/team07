@@ -43,7 +43,7 @@ public class GOODsFORSALE : MonoBehaviour
     GameObject m_ParentBBA;
     GameObject m_exitPont;
     Exit m_eScript;
-    public GameManager m_gmScript;
+    GameManager m_gmScript;
 
     // Use this for initialization
     void Start()

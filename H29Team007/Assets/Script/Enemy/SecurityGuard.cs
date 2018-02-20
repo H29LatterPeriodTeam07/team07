@@ -48,7 +48,8 @@ public class SecurityGuard : MonoBehaviour
     Transform m_PlayerLookpoint;
     //自身の目の位置
     Transform m_EyePoint;
-    Transform m_Child;
+    GameObject[]m_Childlen;
+    Transform m_child;
     Transform m_clerk;
     RunOverObject m_run;
     bool m_bool = false;
@@ -73,7 +74,7 @@ public class SecurityGuard : MonoBehaviour
         SetNewPatrolPointToDestination();
         //タグでプレイヤーオブジェクトを検索して保持
         m_Player = GameObject.FindGameObjectWithTag("Player");
-        m_PlayerSC = GetComponent<Player>();
+        m_PlayerSC = m_Player.GetComponent<Player>();
         //プレイヤーの注視点を名前で検索して保持
         m_PlayerLookpoint = m_Player.transform.Find("LookPoint");
         m_EyePoint = transform.Find("LookEye");
@@ -105,28 +106,36 @@ public class SecurityGuard : MonoBehaviour
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
             m_bool = false;
-            if (m_Child == null)
+            //if (m_Child == null)
+            //{
+            //    Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, raycastLayer);
+            //    if (hitColliders.Length > 0)
+            //    {
+            //        int randomInt = Random.Range(0, hitColliders.Length);
+            //        m_Child = hitColliders[randomInt].transform;
+            //    }
+            //}
+            if (m_child == null)
             {
-                Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, raycastLayer);
-                if (hitColliders.Length > 0)
+                m_Childlen = GameObject.FindGameObjectsWithTag("Child");
                 {
-                    int randomInt = Random.Range(0, hitColliders.Length);
-                    m_Child = hitColliders[randomInt].transform;
-                }
-            }
-            else if (m_Child != null)
-            {
-                m_cScript = m_Child.GetComponent<Child>();
-                if (m_cScript.Roaring())
-                {
-                    m_Agent.speed = 3.0f;
-                    m_State = EnemyState.ChildPatrol;
-                }
-                if (m_scPlayer.GetState() == Player.PlayerState.Outside)
-                {
-                    m_Child.gameObject.SetActive(false);
-                    m_Child = null;
-                    m_Hearingtime = 0;
+                    foreach (GameObject childs in m_Childlen)
+                    {
+                        m_cScript = childs.GetComponent<Child>();
+                        if (m_cScript.Roaring())
+                        {
+                            m_child = childs.transform;
+                            m_Agent.speed = 3.0f;
+                            m_Agent.destination = m_child.transform.position;
+                            m_State = EnemyState.ChildPatrol;
+                        }
+                        if (m_scPlayer.GetState() == Player.PlayerState.Outside)
+                        {
+                            childs.gameObject.SetActive(false);
+                            m_child = null;
+                            m_Hearingtime = 0;
+                        }
+                    }
                 }
             }
             if (m_clerk == null)
@@ -258,14 +267,25 @@ public class SecurityGuard : MonoBehaviour
                 m_Hearingtime += Time.deltaTime;
                 if (m_Hearingtime > 3)
                 {
-                    m_Agent.speed = 3;
-                    m_Agent.destination = m_Player.transform.position;
-                    m_State = EnemyState.JusticeMode;
+                    if (m_PlayerSC.IsGetHuman())
+                    {
+                        m_Agent.speed = 3;
+                        m_Agent.destination = m_Player.transform.position;
+                        m_State = EnemyState.JusticeMode;
+                    }
+                    else
+                    {
+                        m_child.gameObject.SetActive(false);
+                        m_child = null;
+                        m_Hearingtime = 0;
+                        m_Agent.speed = 1f;
+                        m_State = EnemyState.Patrolling;
+                    }
                 }
                 if (m_scPlayer.GetState() == Player.PlayerState.Outside)
                 {
-                    m_Child.gameObject.SetActive(false);
-                    m_Child = null;
+                    m_child.gameObject.SetActive(false);
+                    m_child = null;
                     m_Hearingtime = 0;
                     m_Agent.speed = 1f;
                     m_State = EnemyState.Patrolling;
