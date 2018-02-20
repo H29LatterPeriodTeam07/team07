@@ -39011,6 +39011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32bb6ad4f10ebd74294d3dfeb89b1e1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_boyscream: {fileID: 0}
   m_SaleMaterial: {fileID: 1841256293}
   m_time: {fileID: 1367428989}
   m_PreBBA: {fileID: 1135743514729614, guid: 5a7b5a2a6fc32194fa3bfda4644038f7, type: 2}
@@ -39022,6 +39023,7 @@ MonoBehaviour:
   - 110
   m_CurentApperTimeIndex: 0
   m_Num: 0
+  m_soundEnd: {fileID: 0}
 --- !u!65 &1174562998
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -46089,7 +46091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_se: {fileID: 8300000, guid: 4b14f2be55fcf1e4fa2dea6f7f923465, type: 3}
   m_ARAIorChikinsNum: 0
-  m_SaleAnimals: 00000000060000000200000003000000000000000800000001000000080000000000000002000000030000000100000006000000000000000800000003000000
+  m_SaleAnimals: 05000000060000000200000003000000000000000600000001000000060000000000000002000000030000000100000005000000000000000500000003000000
   m_ApperTime:
   - 5
   - 12
@@ -46128,7 +46130,6 @@ MonoBehaviour:
   m_Time: {fileID: 1367428989}
   m_SaleMaterial: {fileID: 1841256293}
   m_Num: 0
-  m_Chikintortal: 6
   m_CurrentApperTimeIndex: 0
   m_CurrentChikinApperTimeIndex: 0
 --- !u!114 &1410736824
