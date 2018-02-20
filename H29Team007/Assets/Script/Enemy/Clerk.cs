@@ -37,6 +37,7 @@ public class Clerk : MonoBehaviour
     GameObject m_PatrolPoint;
     GameObject[] m_PatrolPoints;
     Player m_pScript;
+    float time_ = 0.0f;
 
     // Use this for initialization
     void Start()
@@ -68,6 +69,7 @@ public class Clerk : MonoBehaviour
         //巡回中
         if (m_State == ClerkState.NormalMode)
         {
+            time_ = 0.0f;
             m_Agent.speed = 1.0f;
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
@@ -93,7 +95,13 @@ public class Clerk : MonoBehaviour
             if (m_pScript.GetState() == Player.PlayerState.Outside)
             {
                 m_Agent.speed = 1.0f;
-                m_Animator.SetTrigger("VO");
+                SetNewPatrolPointToDestination();
+                m_State = ClerkState.NormalMode;
+            }
+            time_ += Time.deltaTime;
+            if(time_ > 2.5f)
+            {
+                SetNewPatrolPointToDestination();
                 m_State = ClerkState.NormalMode;
             }
         }

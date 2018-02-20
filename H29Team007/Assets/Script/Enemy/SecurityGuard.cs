@@ -147,7 +147,6 @@ public class SecurityGuard : MonoBehaviour
                 }
                 if (m_scPlayer.GetState() == Player.PlayerState.Outside)
                 {
-                    m_clerk.gameObject.SetActive(false);
                     m_clerk = null;
                     m_Hearingtime = 0;
                 }
