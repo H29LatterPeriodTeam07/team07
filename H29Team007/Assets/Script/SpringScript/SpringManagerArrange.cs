@@ -13,8 +13,12 @@ public class SpringManagerArrange : MonoBehaviour {
     private ShoppingCount scScript;
     //private CartStatusWithPlayer csScript;
 
+    private Player ps;
+
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
+        ps = transform.root.GetComponent<Player>();
         springBones = new List<SpringBoneArrange>();
         youngestChild = transform.Find("YoungestChild");
         scScript = transform.root.gameObject.GetComponent<ShoppingCount>();
@@ -35,9 +39,11 @@ public class SpringManagerArrange : MonoBehaviour {
             //allAngle += Mathf.Abs(springBones[i].transform.localRotation.x);
         }
 
+        if (!MainGameDate.IsStart() || ps.GetFowardSpeed() > 0.1f * 0.1f) return;
 
         //Debug.Log(springBones[springBones.Count - 1].transform.eulerAngles.x - 180);
-        if (Mathf.Abs(springBones[springBones.Count - 1].transform.eulerAngles.x - 180) <= scScript.GetBaggageLimitAngle())
+        if (Mathf.Abs(springBones[springBones.Count - 1].transform.eulerAngles.x - 180) <= scScript.GetBaggageLimitAngle()
+            || Mathf.Abs(springBones[springBones.Count - 1].transform.eulerAngles.z - 180) <= scScript.GetBaggageLimitAngle())
         {
             scScript.BaggegeFall(transform.root.position);
             Debug.Log("角度オーバー");
@@ -75,6 +81,7 @@ public class SpringManagerArrange : MonoBehaviour {
             springBones[i].ChildNull();
         }
         youngestChild.parent = transform;
+        youngestChild.position = transform.position;
         springBones.Clear();
     }
 

@@ -43,7 +43,7 @@ public class SpringBoneArrange : MonoBehaviour {
         //回転をリセット
         trs.localRotation = Quaternion.identity * localRotation;
 
-        if (child == null || !MainGameDate.IsStart()) return;
+        if (child == null) return;
 
         float sqrDt = Time.deltaTime * Time.deltaTime;
 
@@ -107,10 +107,10 @@ public class SpringBoneArrange : MonoBehaviour {
     {
         if (transform.tag == "Bull")
         {
-            transform.eulerAngles = transform.root.eulerAngles + new Vector3(0, -90, 0);
-            Vector3 pos = transform.localPosition;
-            pos += transform.forward * -0.3f;
-            transform.localPosition = pos;
+            transform.eulerAngles = transform.root.eulerAngles + new Vector3(0, 0, 0);
+            //Vector3 pos = transform.localPosition;
+            //pos += transform.forward * -0.3f;
+            //transform.localPosition = pos;
 
             //SpringManagerArrange mySMA = transform.root.Find("SecondBaggage").GetComponent<SpringManagerArrange>();
             //SpringManagerArrange otherSMA = transform.root.Find("PlayerBasket(Clone)").Find("nimotuParent").GetComponent<SpringManagerArrange>();
