@@ -65,6 +65,7 @@ public class SecurityGuard : MonoBehaviour
     SecurityGuard m_scScrpt;
     Child m_cScript;
     Clerk m_clScript;
+    float time_ = 0.0f;
 
     // Use this for initialization
     void Start()
@@ -106,36 +107,24 @@ public class SecurityGuard : MonoBehaviour
             m_ViewingDistance = 100;
             m_ViewingAngle = 45;
             m_bool = false;
-            //if (m_Child == null)
-            //{
-            //    Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, raycastLayer);
-            //    if (hitColliders.Length > 0)
-            //    {
-            //        int randomInt = Random.Range(0, hitColliders.Length);
-            //        m_Child = hitColliders[randomInt].transform;
-            //    }
-            //}
-            if (m_child == null)
-            {
-                m_Childlen = GameObject.FindGameObjectsWithTag("Child");
+            time_ += Time.deltaTime;
+            if (time_ >5.0f) {
+                if (m_child == null)
                 {
-                    foreach (GameObject childs in m_Childlen)
-                    {
-                        m_cScript = childs.GetComponent<Child>();
-                        if (m_cScript.Roaring())
-                        {
-                            m_child = childs.transform;
-                            m_Agent.speed = 3.0f;
-                            m_Agent.destination = m_child.transform.position;
-                            m_State = EnemyState.ChildPatrol;
-                        }
-                        if (m_scPlayer.GetState() == Player.PlayerState.Outside)
-                        {
-                            childs.gameObject.SetActive(false);
-                            m_child = null;
-                            m_Hearingtime = 0;
-                        }
-                    }
+                    ChildSearch();
+                }
+            }
+            if(m_child != null)
+            {
+                m_Agent.speed = 3.0f;
+                m_Agent.destination = m_child.transform.position;
+                m_State = EnemyState.ChildPatrol;
+                if (m_scPlayer.GetState() == Player.PlayerState.Outside)
+                {
+                    time_ = 0.0f;
+                    m_child.gameObject.SetActive(false);
+                    m_child = null;
+                    m_Hearingtime = 0;
                 }
             }
             if (m_clerk == null)
@@ -259,6 +248,7 @@ public class SecurityGuard : MonoBehaviour
                 m_State = EnemyState.Patrolling;
             }
         }
+        //子供についたとき
         else if (m_State == EnemyState.ChildPatrol)
         {
             if (HasArrived())
@@ -275,6 +265,7 @@ public class SecurityGuard : MonoBehaviour
                     }
                     else
                     {
+                        time_ = 0.0f;
                         m_child.gameObject.SetActive(false);
                         m_child = null;
                         m_Hearingtime = 0;
@@ -284,6 +275,7 @@ public class SecurityGuard : MonoBehaviour
                 }
                 if (m_scPlayer.GetState() == Player.PlayerState.Outside)
                 {
+                    time_ = 0.0f;
                     m_child.gameObject.SetActive(false);
                     m_child = null;
                     m_Hearingtime = 0;
@@ -306,6 +298,7 @@ public class SecurityGuard : MonoBehaviour
                 }
                 if (m_scPlayer.GetState() == Player.PlayerState.Outside)
                 {
+                    time_ = 0;
                     m_clerk = null;
                     m_Hearingtime = 0;
                     m_Agent.speed = 1f;
@@ -347,7 +340,6 @@ public class SecurityGuard : MonoBehaviour
                 m_Animator.SetTrigger("Trigger");
             }
         }
-        //  Debug.Log(dis);
         m_Animator.SetFloat("Speed", m_Agent.speed);
 
     }
@@ -466,6 +458,28 @@ public class SecurityGuard : MonoBehaviour
         {
             m_ViewingAngle = 0.0f;
             m_ViewingDistance = 0.0f;
+        }
+    }
+
+    void ChildSearch()
+    {
+            m_Childlen = GameObject.FindGameObjectsWithTag("Child");
+        {
+            foreach (GameObject childs in m_Childlen)
+            {
+                m_cScript = childs.GetComponent<Child>();
+                if (m_cScript.Roaring())
+                {
+                    m_child = childs.transform;
+                    //m_Agent.speed = 3.0f;
+                    //m_Agent.destination = m_child.transform.position;
+                    //m_State = EnemyState.ChildPatrol;
+                }
+                else
+                {
+                    time_ = 0.0f;
+                }
+            }
         }
     }
 }
