@@ -199,34 +199,34 @@ public class RunOverObject : MonoBehaviour
                 }
             }
         }
+        if(transform.tag=="Player" || transform.tag=="Enemy" || transform.tag == "BBA" || transform.tag == "Clerk" || transform.tag=="Cutomer" || transform.tag == "Cutomer")
         if (other.name == "BullHitArea")//闘牛用
         {
-            var sc = other.transform.root.GetComponent<BullCount>();
-            if (transform.tag == "Animal" && !sc.IsHumanMoreThanAnimal()) return;
-            myCollider.enabled = false;
-            //ここにアニメ停止や変更入れるかも
-            Vector3 v = other.transform.parent.transform.position;
-            Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
-            transform.position = nimotuPos;
-            sc.AddBaggege(transform);
-            //transform.parent = other.transform.root;
-            if (m_Anime != null)
-            {
-                m_Anime.SetTrigger("Kago");
-            }
-            if (m_model != null)
-            {
-                m_model.SetActive(false);
-                m_gutemodel.SetActive(true);
-            }
-            sc.PlusY(runOverAfterHeight);
-            if (rb != null)
-            {
-                rb.velocity = Vector3.zero;
-                rb.isKinematic = true;
-            }
-            if(myNav != null) myNav.enabled = false;
-
+                var sc = other.transform.root.GetComponent<BullCount>();
+                if (transform.tag == "Animal" && !sc.IsHumanMoreThanAnimal()) return;
+                myCollider.enabled = false;
+                //ここにアニメ停止や変更入れるかも
+                Vector3 v = other.transform.parent.transform.position;
+                Vector3 nimotuPos = new Vector3(v.x, sc.GetY(), v.z);
+                transform.position = nimotuPos;
+                sc.AddBaggege(transform);
+                //transform.parent = other.transform.root;
+                if (m_Anime != null)
+                {
+                    m_Anime.SetTrigger("Kago");
+                }
+                if (m_model != null)
+                {
+                    m_model.SetActive(false);
+                    m_gutemodel.SetActive(true);
+                }
+                sc.PlusY(runOverAfterHeight);
+                if (rb != null)
+                {
+                    rb.velocity = Vector3.zero;
+                    rb.isKinematic = true;
+                }
+                if (myNav != null) myNav.enabled = false;
         }
     }
 
