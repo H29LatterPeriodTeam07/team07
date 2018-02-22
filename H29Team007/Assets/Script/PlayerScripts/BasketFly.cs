@@ -53,7 +53,7 @@ public class BasketFly : MonoBehaviour
                     for(int i = 0; i < hitInfo.Length; i++)
                     {
                         if (onthewall) continue;
-                        onthewall = (hitInfo[i].collider.tag == "Wall");
+                        onthewall = (hitInfo[i].collider.tag == "Wall"|| hitInfo[i].collider.tag == "Player" || hitInfo[i].collider.tag == "Carts");
                         //Debug.Log(hitInfo[i].collider.name);
                     }
                 }
@@ -102,6 +102,7 @@ public class BasketFly : MonoBehaviour
             oneHit = true;
             //Debug.Log(gameObject.name);
             collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            collision.gameObject.GetComponent<Collider>().enabled = false;
             //transform.position = collision.transform.position + collision.transform.
             player.GetComponent<Player>().ChangeCart(collision.gameObject);
             player.GetComponent<ShoppingCount>().BaggegeParentPlayer();
@@ -119,6 +120,7 @@ public class BasketFly : MonoBehaviour
             GameObject newcart = ec.NewCart();
             
             newcart.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            newcart.gameObject.GetComponent<Collider>().enabled = false;
             player.GetComponent<Player>().ChangeCart(newcart.gameObject);
             player.GetComponent<ShoppingCount>().BaggegeParentPlayer();
             collision.transform.tag = "Cutomer";

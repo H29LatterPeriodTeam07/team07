@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class YakinikuManager : MonoBehaviour
 {
-    [SerializeField, Header("屋根の高さ")]
-    private float ROOFSHEIGHT = 5.0f;
     
     private Player ps;
     public GameObject sparkPrefub;
@@ -23,7 +21,7 @@ public class YakinikuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.root.tag != "Player" || ps.GetState() > Player.PlayerState.Takeover || transform.position.y <= ROOFSHEIGHT)
+        if (transform.root.tag != "Player" || ps.GetState() > Player.PlayerState.Takeover || transform.position.y <= MainGameDate.ROOFSHEIGHT)
         {
             if (isAboveRoof)
             {
@@ -33,14 +31,14 @@ public class YakinikuManager : MonoBehaviour
             }
             return;
         }
-        if (transform.position.y > ROOFSHEIGHT)
+        if (transform.position.y > MainGameDate.ROOFSHEIGHT)
         {
             if (isAboveRoof)
             {
                 yaki = transform.parent.GetComponent<Yakiniku>();
                 if (yaki == null) return;
                 Debug.Log("熱いぜ");
-                spark.transform.position = new Vector3(transform.position.x, ROOFSHEIGHT, transform.position.z);
+                spark.transform.position = new Vector3(transform.position.x, MainGameDate.ROOFSHEIGHT, transform.position.z);
                 if (ps.GetFowardSpeed() > 0.1f * 0.1f)yaki.Fire();
             }
             else
@@ -49,7 +47,7 @@ public class YakinikuManager : MonoBehaviour
                 if (yaki == null) return;
                 Debug.Log("天井に着いた");
                 isAboveRoof = true;
-                spark = Instantiate(sparkPrefub,new Vector3(transform.position.x, ROOFSHEIGHT, transform.position.z), Quaternion.identity, transform.root);
+                spark = Instantiate(sparkPrefub,new Vector3(transform.position.x, MainGameDate.ROOFSHEIGHT, transform.position.z), Quaternion.identity, transform.root);
                 spark.transform.eulerAngles = new Vector3(90, 0, 0);
             }
         }

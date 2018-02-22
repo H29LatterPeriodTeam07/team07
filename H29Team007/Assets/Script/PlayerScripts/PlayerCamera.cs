@@ -145,7 +145,7 @@ public class PlayerCamera : MonoBehaviour {
             // ターゲットの方を向く
             transform.LookAt(new Vector3(m_Target.position.x, m_Target.position.y + (cameraLeaveVec.y * CameraToPlayerDistance()), m_Target.position.z));
             transform.Rotate(new Vector3(0, 180, 0)); //もともと180度のy軸回転
-            //Debug.Log("(^o^)");
+            
         }
         else
         {
@@ -177,12 +177,16 @@ public class PlayerCamera : MonoBehaviour {
             else
             {
                 targetPos = transform.position + cameraLeaveVec * CameraToPlayerDistance();
+                //if (targetPos.y > MainGameDate.ROOFSHEIGHT-0.1f) targetPos.y = MainGameDate.ROOFSHEIGHT - 0.1f;
             }
 
             // 現在の場所から目標の場所まで少しずつ近づく
             mainCamera.position = Vector3.Lerp(mainCamera.position, targetPos, m_Strength * Time.deltaTime);
 
-            if (playerScript.GetState() == Player.PlayerState.Outside) return;
+            if (playerScript.GetState() == Player.PlayerState.Outside) {
+                if (mainCamera.position.y > MainGameDate.ROOFSHEIGHT - 0.1f) mainCamera.position = new Vector3(mainCamera.position.x, MainGameDate.ROOFSHEIGHT - 0.1f, mainCamera.position.z);
+                return;
+            }
 
             if (Input.GetKey("mouse 0"))//作業の邪魔だからクリックしてる間にしてる、いらないif
             {
@@ -216,6 +220,7 @@ public class PlayerCamera : MonoBehaviour {
                 // Quaternionに変換してtransform.rotationに設定し直す
                 transform.rotation = Quaternion.Euler(rotation);
             }
+            if (mainCamera.position.y > MainGameDate.ROOFSHEIGHT - 0.1f)  mainCamera.position = new Vector3(mainCamera.position.x, MainGameDate.ROOFSHEIGHT - 0.1f, mainCamera.position.z);
             //if(followSpeed != 0.0f && CanFollowTarget())
             //{
             //    // 横回転（ヨー）

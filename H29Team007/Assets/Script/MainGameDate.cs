@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MainGameDate {
-
+    
+    public static float ROOFSHEIGHT = 3.0f;
     private static bool isStart = false;
 
     public static bool IsStart()
