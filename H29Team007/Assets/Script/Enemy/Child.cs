@@ -75,12 +75,12 @@ public class Child : MonoBehaviour {
     {
         if (m_Parent == null)
         {
-            m_Agent.speed = 3;
+            m_Animator.SetTrigger("Run");
+            m_Agent.speed = 3f;
             m_Agent.destination = m_ExitPoition.transform.position;
             m_collider.enabled = true;
             if (HasArrived())
             {
-                m_Agent.speed = 0;
                 Destroy(gameObject);
             }
         }
