@@ -7,7 +7,7 @@ public class ReturnTitle : MonoBehaviour
 {
 
     private float m_Time = 0.0f;
-    private float returnTime = 30.0f;
+    private float returnTime = 45.0f;
 
     public static ReturnTitle Instance
     {
@@ -27,12 +27,19 @@ public class ReturnTitle : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         returnTime /= Time.deltaTime;
+        Cursor.visible = false;
     }
 
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("強制終了");
+            Application.Quit();
+        }
+
         if (Input.anyKeyDown
             || Input.GetAxis("XboxLeftHorizontal") != 0 || Input.GetAxis("XboxLeftVertical") != 0
             || Input.GetAxis("XboxRightHorizontal") != 0 || Input.GetAxis("XboxRightVertical") != 0) m_Time = 0.0f;

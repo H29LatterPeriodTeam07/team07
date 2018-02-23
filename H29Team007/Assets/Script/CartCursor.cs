@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Cursor : MonoBehaviour {
+public class CartCursor : MonoBehaviour {
 
     private RectTransform m_RectTranslate;
 

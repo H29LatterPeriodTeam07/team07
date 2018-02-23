@@ -261,7 +261,7 @@ public class Player : MonoBehaviour
     {
         if(myState == PlayerState.Gliding)cameraScript.GlidingRotation(0.0f,true);
         if(state == 6 && myState == PlayerState.Outside)m_Animator.Play("NoCart");
-        Debug.Log(state);
+        //Debug.Log(state);
         if(state != 0) scScript.SetBasketColliderActive(false);
         switch (state)
         {
@@ -336,6 +336,13 @@ public class Player : MonoBehaviour
         {
             transform.rotation = Quaternion.LookRotation(moveForward);
         }
+
+        //投げたかごがカートに当たったら
+        if (flyHit)
+        {
+            ChangeState(3);
+            flyHit = false;
+        }
     }
 
     /// <summary>滑走中の動き </summary>
@@ -367,6 +374,7 @@ public class Player : MonoBehaviour
     /// <summary>カートのジャック</summary>
     private void PlayerHacking()
     {
+        rb.velocity = Vector3.zero;
         m_Animator.SetBool("HavingBasket", false);
         ChangeCartCheck();
         Vector3 dis = canGetCart.transform.position;// + canGetCart.transform.forward * (CartRelatedData.cartNavPoint);
@@ -490,15 +498,7 @@ public class Player : MonoBehaviour
         m_Animator.SetBool("HavingBasket", false);
         if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("NoCart"))
         {
-            if (flyHit)
-            {
-                ChangeState(3);
-                flyHit = false;
-            }
-            else
-            {
-                ChangeState(0);
-            }
+            ChangeState(0);
         }
     }
 

@@ -289,6 +289,12 @@ public class MTPlayer : MonoBehaviour {
         {
             transform.rotation = Quaternion.LookRotation(moveForward);
         }
+        //投げたかごがカートに当たったら
+        if (flyHit)
+        {
+            ChangeState(3);
+            flyHit = false;
+        }
     }
 
     /// <summary>滑走中の動き </summary>
@@ -340,15 +346,7 @@ public class MTPlayer : MonoBehaviour {
         m_Animator.SetBool("HavingBasket", false);
         if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("NoCart"))
         {
-            if (flyHit)
-            {
-                ChangeState(3);
-                flyHit = false;
-            }
-            else
-            {
-                ChangeState(0);
-            }
+            ChangeState(0);
         }
     }
     
