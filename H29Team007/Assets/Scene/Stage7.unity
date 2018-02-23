@@ -46090,7 +46090,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_se: {fileID: 8300000, guid: 4b14f2be55fcf1e4fa2dea6f7f923465, type: 3}
-  m_ARAIorChikinsNum: 0
+  m_ARAIorChikinsNum: 10
   m_SaleAnimals: 05000000060000000200000003000000000000000600000001000000060000000000000002000000030000000100000005000000000000000500000003000000
   m_ApperTime:
   - 5
@@ -46126,6 +46126,8 @@ MonoBehaviour:
   - {fileID: 1977956670}
   - {fileID: 79021736}
   - {fileID: 50858718}
+  m_Chikinvois: {fileID: 8300000, guid: 60cde0d79689f6d4399fddecd7d13b0a, type: 3}
+  m_Araivois: {fileID: 8300000, guid: eb8a57e1f194f3741ac5b50f116d2e67, type: 3}
   m_SaleModeTime: 5
   m_Time: {fileID: 1367428989}
   m_SaleMaterial: {fileID: 1841256293}
