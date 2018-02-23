@@ -8,7 +8,9 @@ public enum ClerkState
     //ノーマルモード
     NormalMode,
     //警戒モード
-    WarningMode
+    WarningMode,
+    //かごの中に入った
+    CartIn
 }
 
 public class Clerk : MonoBehaviour
@@ -66,6 +68,10 @@ public class Clerk : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.root.tag == "Player")
+        {
+            m_State = ClerkState.CartIn;
+        }
         //巡回中
         if (m_State == ClerkState.NormalMode)
         {
@@ -94,6 +100,7 @@ public class Clerk : MonoBehaviour
         {
             if (m_pScript.GetState() == Player.PlayerState.Outside)
             {
+                m_Animator.SetTrigger("Walk");
                 m_Agent.speed = 1.0f;
                 SetNewPatrolPointToDestination();
                 m_State = ClerkState.NormalMode;
@@ -101,7 +108,17 @@ public class Clerk : MonoBehaviour
             time_ += Time.deltaTime;
             if(time_ > 2.5f)
             {
+                m_Animator.SetTrigger("Walk");
                 SetNewPatrolPointToDestination();
+                m_State = ClerkState.NormalMode;
+            }
+        }
+        else
+        {
+            m_ViewingAngle = 0.0f;
+            m_ViewingDistance = 0.0f;
+            if (transform.parent == null)
+            {
                 m_State = ClerkState.NormalMode;
             }
         }
@@ -174,5 +191,21 @@ public class Clerk : MonoBehaviour
     public bool warning()
     {
         return m_State == ClerkState.WarningMode;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "FrontHitArea")//プレイヤーババア用　敵ババアが特売品を轢く処理は頑張って
+        {
+            if (other.transform.root.GetComponent<Player>().GetFowardSpeed() <= 0.1f * 0.1f) return;
+            m_ViewingAngle = 0.0f;
+            m_ViewingDistance = 0.0f;
+            m_Animator.SetTrigger("Kago");
+        }
+        if (other.name == "BullHitArea")//闘牛用
+        {
+            m_ViewingAngle = 0.0f;
+            m_ViewingDistance = 0.0f;
+        }
     }
 }

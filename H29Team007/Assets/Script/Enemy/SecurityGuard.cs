@@ -66,6 +66,8 @@ public class SecurityGuard : MonoBehaviour
     Child m_cScript;
     Clerk m_clScript;
     float time_ = 0.0f;
+    Collider m_coll;
+
 
     // Use this for initialization
     void Start()
@@ -86,6 +88,7 @@ public class SecurityGuard : MonoBehaviour
         m_scScrpt = GetComponent<SecurityGuard>();
         raycastLayer = 1 << LayerMask.NameToLayer("Child");
         raycastLayer2 = 1 << LayerMask.NameToLayer("Clerk");
+        m_coll = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -154,6 +157,7 @@ public class SecurityGuard : MonoBehaviour
             if (CanSeePlayer() && m_bool == false && dis <= 5 && m_scPlayer.GetState() == Player.PlayerState.Gliding)
             {
                 m_Agent.enabled = false;
+                m_coll.enabled = false;
                 m_bool = true;
                 m_Animator.SetTrigger("Jump2");
 
@@ -190,6 +194,7 @@ public class SecurityGuard : MonoBehaviour
             if (CanSeePlayer() && m_bool == false && dis <= 5 && m_scPlayer.GetState() == Player.PlayerState.Gliding)
             {
                 m_Agent.enabled = false;
+                m_coll.enabled = false;
                 m_bool = true;
                 m_Animator.SetTrigger("Jump2");
 
@@ -313,6 +318,7 @@ public class SecurityGuard : MonoBehaviour
             if (CanSeePlayer() && m_bool == false && dis <= 5 && m_scPlayer.GetState() == Player.PlayerState.Gliding)
             {
                 m_Agent.enabled = false;
+                m_coll.enabled = false;
                 m_bool = true;
                 m_Animator.SetTrigger("Jump2");
 
@@ -347,6 +353,7 @@ public class SecurityGuard : MonoBehaviour
     {
         m_Animator.SetTrigger("Trigger");
         m_Agent.enabled = true;
+        m_coll.enabled = true;
         m_Agent.speed = 0;
         m_bool = false;
     }
@@ -480,5 +487,10 @@ public class SecurityGuard : MonoBehaviour
                 }
             }
         }
+    }
+
+    public bool Muteki()
+    {
+        return m_bool == true;
     }
 }

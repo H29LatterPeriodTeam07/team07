@@ -16,6 +16,10 @@ public class SaleSpown : MonoBehaviour {
     private float[] m_ApperTime;
     [SerializeField, Header("指定した特売品が出現する場所")]
     Transform[] m_AnimalApeers;
+    [SerializeField, Header("鶏の鳴き声")]
+    AudioClip m_Chikinvois;
+    [SerializeField, Header("アライグマ(猪)の鳴き声")]
+    AudioClip m_Araivois;
     public float m_SaleModeTime;
     public GameObject m_Time;
     public GameObject m_SaleMaterial;
@@ -121,6 +125,14 @@ public class SaleSpown : MonoBehaviour {
             for (int i = 0; i < m_ARAIorChikinsNum; i++)
             {
                 Instantiate(m_SaleAnimal, m_AnimalApeers[m_CurrentApperindex].position, transform.rotation);
+                if (m_SaleAnimal.transform.name == "Chickin"&& i==0)
+                {
+                    m_AS.PlayOneShot(m_Chikinvois);
+                }
+                else if (m_SaleAnimal.transform.name == "SaleAnimalArai"&& i==0)
+                {
+                    m_AS.PlayOneShot(m_Araivois);
+                }
             }
             m_SaleAnimal = null;
             m_CurrentSaleAnimeIndex++;
