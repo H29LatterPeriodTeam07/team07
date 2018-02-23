@@ -253,8 +253,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  _SelectStage: {fileID: 1457043041902978}
-  _Credit: {fileID: 1635810817241702}
+  _smScript: {fileID: 0}
 --- !u!114 &114166868792344042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -267,8 +266,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
+    m_Mode: 4
+    m_SelectOnUp: {fileID: 114938599105754126}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
@@ -366,6 +365,7 @@ MonoBehaviour:
   m_PauseObj: {fileID: 1346784140325194}
   m_SaleMaterial: {fileID: 0}
   m_Danger: {fileID: 0}
+  m_SM: {fileID: 0}
   _Switch: 0
 --- !u!114 &114805059836679896
 MonoBehaviour:
@@ -460,9 +460,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnDown: {fileID: 114166868792344042}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1

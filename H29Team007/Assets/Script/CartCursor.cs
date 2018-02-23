@@ -27,12 +27,14 @@ public class CartCursor : MonoBehaviour {
 	// Update is called once per frame
 	void LateUpdate () {
         GameObject selectedObject = EventSystem.current.currentSelectedGameObject;
-        Color selectedColor = selectedObject.GetComponent<Image>().color;
 
         if (selectedObject == null)
         {
+            EventSystem.current.SetSelectedGameObject(EventSystem.current.firstSelectedGameObject);
             return;
         }
+        Color selectedColor = selectedObject.GetComponent<Image>().color;
+
 
         Vector2 cursorPosition = new Vector2(-270, 0);
 
