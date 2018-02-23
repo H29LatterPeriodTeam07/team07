@@ -34,7 +34,8 @@ public class ReturnTitle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape)||
+            Input.GetButton("XboxStart") && Input.GetButton("XboxBack"))
         {
             Debug.Log("強制終了");
             Application.Quit();
