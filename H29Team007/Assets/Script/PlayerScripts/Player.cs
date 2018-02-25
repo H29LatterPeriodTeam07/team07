@@ -669,6 +669,7 @@ public class Player : MonoBehaviour
             relativePos.y = 0; //上下方向の回転はしないように制御
             transform.rotation = Quaternion.LookRotation(relativePos);
             cart.transform.rotation = Quaternion.LookRotation(relativePos);
+            cart.GetComponent<Rigidbody>().AddForce(transform.forward * CartRelatedData.flyBasketUpPower, ForceMode.VelocityChange);
             //havedCart = cart;
             BreakCart(change);
         }
@@ -694,6 +695,7 @@ public class Player : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(relativePos);
             //cart.transform.rotation = Quaternion.LookRotation(relativePos);
             cart2.transform.rotation = Quaternion.LookRotation(relativePos);
+            cart2.GetComponent<Rigidbody>().AddForce(transform.forward * CartRelatedData.flyBasketUpPower, ForceMode.VelocityChange);
             BreakCart2();
             //Destroy(mySecondCart);
             //myCart.transform.localPosition = Vector3.forward * CartRelatedData.cartLocalPosZ;
@@ -827,6 +829,11 @@ public class Player : MonoBehaviour
                 nikuspeed = 1;
             }
         }
+    }
+
+    public float NikuSpeed()
+    {
+        return nikuspeed;
     }
 
     public void OnCollisionEnter(Collision collision)

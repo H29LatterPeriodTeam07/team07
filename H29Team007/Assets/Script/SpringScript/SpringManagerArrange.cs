@@ -39,7 +39,7 @@ public class SpringManagerArrange : MonoBehaviour {
             //allAngle += Mathf.Abs(springBones[i].transform.localRotation.x);
         }
 
-        if (!MainGameDate.IsStart() || ps.GetFowardSpeed() < 0.1f * 0.1f) return;
+        if (ps.NikuSpeed() == 2 ||!MainGameDate.IsStart() || ps.GetFowardSpeed() < 0.1f * 0.1f) return;
 
         //Debug.Log(springBones[springBones.Count - 1].transform.eulerAngles.x - 180);
         if (Mathf.Abs(springBones[springBones.Count - 1].transform.eulerAngles.x - 180) <= scScript.GetBaggageLimitAngle()

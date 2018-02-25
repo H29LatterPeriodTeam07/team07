@@ -43,7 +43,7 @@ public class Title_tenmetu : MonoBehaviour
             _fadingSpeed *= -1;
         }
 
-        if (Input.GetButtonDown("Submit") || Input.GetButtonDown("XboxA"))
+        if (Input.GetButtonDown("XboxStart"))
         {
             this.gameObject.SetActive(false);
             _Button.SetActive(true);
