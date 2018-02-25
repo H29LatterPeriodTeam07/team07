@@ -86,11 +86,13 @@ public class ShoppingCount : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Time.timeScale == 0) return;
         ScoreTextChange();
 
         if (playerScript.GetState() >= Player.PlayerState.Takeover
             || transform.parent != null
             || !MainGameDate.IsStart()
+            || playerScript.Flyhit()
             ) return;
         if (basket.activeSelf && Input.GetButtonDown("XboxX") ||
             basket.activeSelf && Input.GetKey(KeyCode.F))

@@ -787,6 +787,12 @@ public class Player : MonoBehaviour
         return scScript.IsBaggegeinHuman();
     }
 
+    /// <summary>投げたかごが当たったかどうか</summary>
+    public bool Flyhit()
+    {
+        return flyHit;
+    }
+
     public void SetMinusRotateSpeed(float speed)
     {
         minusRotateSpeed = speed;

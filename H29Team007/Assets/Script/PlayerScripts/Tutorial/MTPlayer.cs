@@ -400,7 +400,7 @@ public class MTPlayer : MonoBehaviour {
             GameObject cart = Instantiate(cartRigidPrefab);
 
             //離したカートに現在の耐久値を渡す
-            myCart.GetComponent<TutorialCart>().SetCart(cart.GetComponent<CartStatusWithCart>());
+            //myCart.GetComponent<TutorialCart>().SetCart(cart.GetComponent<CartStatusWithCart>());
 
             cart.transform.position = cartPos + transform.forward * CartRelatedData.cartLocalPosZ;
             Vector3 relativePos = myCart.transform.position - transform.position;
@@ -423,7 +423,7 @@ public class MTPlayer : MonoBehaviour {
             GameObject cart2 = Instantiate(cartRigidPrefab);
 
             //離したカートに現在の耐久値を渡す
-            mySecondCart.GetComponent<TutorialCart>().SetCart(cart2.GetComponent<CartStatusWithCart>());
+            //mySecondCart.GetComponent<TutorialCart>().SetCart(cart2.GetComponent<CartStatusWithCart>());
 
             cart2.transform.position = cartPos + transform.forward * CartRelatedData.cartLocalPosZ - transform.right * 1.0f;
             Vector3 center = (mySecondCart.transform.position + myCart.transform.position) / 2;
@@ -444,7 +444,7 @@ public class MTPlayer : MonoBehaviour {
             ChangeState(1);
             myCart = Instantiate(cartBodyPrefab);
             //持つカートの耐久値をもらう
-            myCart.GetComponent<TutorialCart>().GetCart(canGetCart.transform.gameObject.GetComponent<CartStatusWithCart>());
+            //myCart.GetComponent<TutorialCart>().GetCart(canGetCart.transform.gameObject.GetComponent<CartStatusWithCart>());
 
             myCart.transform.parent = transform;
             myCart.transform.localPosition = Vector3.forward * CartRelatedData.cartLocalPosZ;
@@ -463,7 +463,7 @@ public class MTPlayer : MonoBehaviour {
             }
             mySecondCart = Instantiate(cartBodyPrefab);
             //持つカートの耐久値をもらう
-            mySecondCart.GetComponent<TutorialCart>().GetCart(canGetCart.transform.gameObject.GetComponent<CartStatusWithCart>());
+            //mySecondCart.GetComponent<TutorialCart>().GetCart(canGetCart.transform.gameObject.GetComponent<CartStatusWithCart>());
 
             mySecondCart.transform.parent = transform;
             myCart.transform.localPosition = Vector3.forward * CartRelatedData.cartLocalPosZ + Vector3.right * 0.5f;
@@ -475,7 +475,7 @@ public class MTPlayer : MonoBehaviour {
             mySecondCart.transform.rotation = Quaternion.LookRotation(relativePos);
             scScript.SetBasketLocalPos(CartRelatedData.cartInBagLocalPos + Vector3.right * 0.5f);
         }
-        Destroy(canGetCart.transform.gameObject);
+        if(canGetCart != null)Destroy(canGetCart.transform.gameObject);
     }
 
     public PlayerState GetState()
@@ -516,6 +516,12 @@ public class MTPlayer : MonoBehaviour {
     public bool IsGetHuman()
     {
         return scScript.IsBaggegeinHuman();
+    }
+
+    /// <summary>投げたかごが当たったかどうか</summary>
+    public bool Flyhit()
+    {
+        return flyHit;
     }
 
     public void SetMinusRotateSpeed(float speed)

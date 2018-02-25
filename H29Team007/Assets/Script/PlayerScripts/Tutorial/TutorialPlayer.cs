@@ -308,7 +308,7 @@ public class TutorialPlayer : MonoBehaviour {
             GameObject cart = Instantiate(cartRigidPrefab);
 
             //離したカートに現在の耐久値を渡す
-            myCart.GetComponent<TutorialCart>().SetCart(cart.GetComponent<CartStatusWithCart>());
+            //myCart.GetComponent<TutorialCart>().SetCart(cart.GetComponent<CartStatusWithCart>());
 
             cart.transform.position = cartPos + transform.forward * CartRelatedData.cartLocalPosZ;
             Vector3 relativePos = myCart.transform.position - transform.position;
@@ -329,7 +329,7 @@ public class TutorialPlayer : MonoBehaviour {
             GameObject cart2 = Instantiate(cartRigidPrefab);
 
             //離したカートに現在の耐久値を渡す
-            mySecondCart.GetComponent<TutorialCart>().SetCart(cart2.GetComponent<CartStatusWithCart>());
+            //mySecondCart.GetComponent<TutorialCart>().SetCart(cart2.GetComponent<CartStatusWithCart>());
 
             // cart.transform.position = cartPos + transform.forward * CartRelatedData.cartLocalPosZ + transform.right * 0.5f;
             cart2.transform.position = cartPos + transform.forward * CartRelatedData.cartLocalPosZ - transform.right * 1.0f;
@@ -351,7 +351,7 @@ public class TutorialPlayer : MonoBehaviour {
             ChangeState(1);
             myCart = Instantiate(cartBodyPrefab);
             //持つカートの耐久値をもらう
-            myCart.GetComponent<TutorialCart>().GetCart(canGetCart.transform.gameObject.GetComponent<CartStatusWithCart>());
+            //myCart.GetComponent<TutorialCart>().GetCart(canGetCart.transform.gameObject.GetComponent<CartStatusWithCart>());
 
             myCart.transform.parent = transform;
             myCart.transform.localPosition = Vector3.forward * CartRelatedData.cartLocalPosZ;
@@ -370,7 +370,7 @@ public class TutorialPlayer : MonoBehaviour {
             }
             mySecondCart = Instantiate(cartBodyPrefab);
             //持つカートの耐久値をもらう
-            mySecondCart.GetComponent<TutorialCart>().GetCart(canGetCart.transform.gameObject.GetComponent<CartStatusWithCart>());
+            //mySecondCart.GetComponent<TutorialCart>().GetCart(canGetCart.transform.gameObject.GetComponent<CartStatusWithCart>());
 
             mySecondCart.transform.parent = transform;
             myCart.transform.localPosition = Vector3.forward * CartRelatedData.cartLocalPosZ + Vector3.right * 0.5f;

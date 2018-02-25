@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class MTManager : MonoBehaviour {
 
@@ -68,6 +69,13 @@ public class MTManager : MonoBehaviour {
     private float time;
     private bool nidooshi = false;
 
+    public GameObject skipText;
+    public Text yesText;
+    public Text noText;
+    private Color selectColor;
+    private bool selectYes = true;
+    private bool skip = false;
+
     // Use this for initialization
     void Start()
     {
@@ -82,6 +90,8 @@ public class MTManager : MonoBehaviour {
         mapG.SetActive(false);
         wakuEffect.transform.position = points[4].transform.position;
         wakuEffect.SetActive(false);
+        skipText.SetActive(false);
+        selectColor = skipText.GetComponent<Text>().color;
         MainGameDate.ChangeStartFlag();
     }
 
@@ -104,7 +114,7 @@ public class MTManager : MonoBehaviour {
                     case 12: Index12Start(); break;
                     case 13: Index13Start(); break;
                     case 15: Index15Start(); break;
-                    case 16: Index16Start(); break;
+                    case 17: Index17Start(); break;
                     case 77: shopping.BasketActive(true); player.CatchCart(); Reset10();  break;
                 }
                 p.transform.position = startPoint;
@@ -116,6 +126,25 @@ public class MTManager : MonoBehaviour {
         }
         else if (fade.IsFadeEnd())
         {
+            if (skip)
+            {
+                MainGameDate.ChangeStartFlag();
+                SceneManager.LoadScene("Title");
+                return;
+            }
+            if (Time.timeScale == 0)
+            {
+                TutorialSkip();
+                return;
+            }
+            if (Input.GetButtonDown("XboxStart") || Input.GetKeyDown(KeyCode.M))
+            {
+                Time.timeScale = 0;
+                skipText.SetActive(true);
+                yesText.color = selectColor;
+                selectYes = true;
+                return;
+            }
             switch (tutorialIndex)
             {
                 case 0: Index0Update(); break;
@@ -134,6 +163,7 @@ public class MTManager : MonoBehaviour {
                 case 13: Index13Update(); break;
                 case 14: Index14Update(); break;
                 case 15: Index15Update(); break;
+                case 16: Index16Update(); break;
             }
 
         }
@@ -341,6 +371,15 @@ public class MTManager : MonoBehaviour {
 
     }
 
+    private void Index16Update()
+    {
+        //袋説明、ボタン押されたら次
+        if (Input.anyKeyDown)
+        {
+            IndexNext();
+        }
+    }
+
 
     private void IndexNext()
     {
@@ -352,10 +391,11 @@ public class MTManager : MonoBehaviour {
             case 9: Index9Start(); break;
             case 11: Index11Start(); break;
             case 14: Index14Start(); break;
+            case 16: Index16Start(); break;
         }
         if (tutorialIndex == 1 || tutorialIndex == 2
             || tutorialIndex == 9 || tutorialIndex == 11
-            || tutorialIndex == 14) return;
+            || tutorialIndex == 14 || tutorialIndex == 16) return;
         fade.FadeOut(1.0f);
         isFadeNow = true;
         okText.Reborn();
@@ -501,8 +541,52 @@ public class MTManager : MonoBehaviour {
     private void Index16Start()
     {
         wakuEffect.SetActive(false);
+    }
+
+    private void Index17Start()
+    {
         MainGameDate.ChangeStartFlag();
         SceneManager.LoadScene("Title");
+    }
+
+    private void TutorialSkip()
+    {
+
+        if(Input.GetAxisRaw("XboxLeftHorizontal") > 0 || Input.GetAxisRaw("Horizontal") > 0)
+        {
+            selectYes = false;
+            yesText.color = new Color(0, 0, 0, 1);
+            noText.color = selectColor;
+        }
+        if (Input.GetAxisRaw("XboxLeftHorizontal") < 0 || Input.GetAxisRaw("Horizontal") < 0)
+        {
+            selectYes = true;
+            noText.color = new Color(0, 0, 0, 1);
+            yesText.color = selectColor;
+        }
+
+        if(Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("XboxB"))
+        {
+            if (selectYes)
+            {
+                skip = true;
+                fade.FadeOut(1.0f);
+                Time.timeScale = 1;
+            }
+            else
+            {
+                noText.color = new Color(0, 0, 0, 1);
+                skipText.SetActive(false);
+                Time.timeScale = 1;
+            }
+        }
+
+        if (Input.GetButtonDown("XboxStart") || Input.GetKeyDown(KeyCode.M))
+        {
+            noText.color = new Color(0, 0, 0, 1);
+            skipText.SetActive(false);
+            Time.timeScale = 1;
+        }
     }
 
     public void LPush()

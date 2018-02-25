@@ -27,8 +27,7 @@ public class TutorialCart : MonoBehaviour {
     //CartStatusWithPlayお引越し
     private MTPlayer playerScript;
     private TutorialShopping scScript;
-
-    private float[] cartStatus;
+    
 
 
     [SerializeField, Header("カートのタイヤが壊れた時に毎フレーム下げる本体の耐久度")]
@@ -152,29 +151,7 @@ public class TutorialCart : MonoBehaviour {
         isWilly = false;
         nowTime = 0.0f;
     }
-
-    /// <summary>
-    /// カートを持った時にカートのデータをもらう
-    /// </summary>
-    /// <param name="cart"></param>
-    public void GetCart(CartStatusWithCart cart)
-    {
-        cartStatus = cart.PassStatus();
-        if (cartStatus[3] <= 0)
-        {
-            playerScript.SetMinusRotateSpeed(minusRotateSpeedDefault);
-        }
-    }
-
-    /// <summary>
-    /// カートを離した時にカートのデータを渡す
-    /// </summary>
-    /// <param name="cart"></param>
-    public void SetCart(CartStatusWithCart cart)
-    {
-        cart.SetStatus(cartStatus);
-        playerScript.SetMinusRotateSpeed(0);
-    }
+    
 
     public void OnTriggerEnter(Collider other)
     {

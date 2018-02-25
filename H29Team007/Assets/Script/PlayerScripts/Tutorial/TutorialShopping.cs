@@ -49,6 +49,8 @@ public class TutorialShopping : MonoBehaviour {
 
     private PlayerSE seScript;
 
+    private bool flyhit = false;
+
     // Use this for initialization 
     void Start()
     {
@@ -77,8 +79,15 @@ public class TutorialShopping : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (playerScript.Flyhit())
+        {
+            flyhit = true;
+        }
+
         if (playerScript.GetState() >= MTPlayer.PlayerState.Takeover
             || transform.parent != null
+            || flyhit
+            || Time.timeScale == 0
             ) return;
         if (basket.activeSelf && Input.GetButtonDown("XboxX") ||
             basket.activeSelf && Input.GetKey(KeyCode.F))
