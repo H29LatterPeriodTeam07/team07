@@ -5,7 +5,7 @@ public class Title_tenmetu : MonoBehaviour
 {
     public GameObject _Button;
 
-    private Image _image;
+    //private Image _image;
     private Text _text;
 
     //どのようにフェードするかのカーブ
@@ -20,7 +20,7 @@ public class Title_tenmetu : MonoBehaviour
 
     private void Awake()
     {
-        _image = GetComponent<Image>();
+        //_image = GetComponent<Image>();
         _text = GetComponent<Text>();
     }
 
@@ -33,9 +33,9 @@ public class Title_tenmetu : MonoBehaviour
         //textColor.a = _fadeCurve.Evaluate(_curveRate);
         //_text.color = textColor;
 
-        Color imageColor = _image.color;
-        imageColor.a = _fadeCurve.Evaluate(_curveRate);
-        _image.color = imageColor;
+        Color textColor = _text.color;
+        textColor.a = _fadeCurve.Evaluate(_curveRate);
+        _text.color = textColor;
 
         //アニメーション反転
         if (_curveRate == 0 || _curveRate == 1f)

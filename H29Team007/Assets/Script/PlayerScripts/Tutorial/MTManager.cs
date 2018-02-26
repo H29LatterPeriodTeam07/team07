@@ -396,7 +396,8 @@ public class MTManager : MonoBehaviour {
         if (tutorialIndex == 1 || tutorialIndex == 2
             || tutorialIndex == 9 || tutorialIndex == 11
             || tutorialIndex == 14 || tutorialIndex == 16) return;
-        fade.FadeOut(1.0f);
+        if (tutorialIndex == 17) fade.FadeOut(2.0f);
+        else fade.FadeOut(1.0f);
         isFadeNow = true;
         okText.Reborn();
     }

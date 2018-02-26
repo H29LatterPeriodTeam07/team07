@@ -323,13 +323,14 @@ public class MTPlayer : MonoBehaviour {
     /// <summary>カートのジャック</summary>
     private void PlayerHacking()
     {
+        rb.velocity = Vector3.zero;
         m_Animator.SetBool("HavingBasket", false);
-        Vector3 dis = canGetCart.transform.position + canGetCart.transform.forward * (CartRelatedData.cartNavPoint);
+        Vector3 dis = canGetCart.transform.position;// + canGetCart.transform.forward * (CartRelatedData.cartNavPoint);
         myNav.destination = new Vector3(dis.x, -0.8f, dis.z);
-        if (Vector3.Distance(myNav.destination, transform.position) < 1.0f)
+        if (Vector3.Distance(myNav.destination, transform.position) < 1.5f)
         {
-            transform.position = myNav.destination;
-            transform.rotation = canGetCart.transform.rotation;
+            //transform.position = myNav.destination;
+            //transform.rotation = canGetCart.transform.rotation;
             myNav.enabled = false;
             transform.position = new Vector3(transform.position.x, 0, transform.position.z);
             scScript.SetBasketParent(transform);
