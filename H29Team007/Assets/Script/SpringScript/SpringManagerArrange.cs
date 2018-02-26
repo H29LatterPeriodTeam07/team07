@@ -14,6 +14,7 @@ public class SpringManagerArrange : MonoBehaviour {
     //private CartStatusWithPlayer csScript;
 
     private Player ps;
+    private float muteki = 0.0f;
 
     // Use this for initialization
     void Start ()
@@ -39,7 +40,18 @@ public class SpringManagerArrange : MonoBehaviour {
             //allAngle += Mathf.Abs(springBones[i].transform.localRotation.x);
         }
 
-        if (ps.NikuSpeed() == 2 ||!MainGameDate.IsStart() || ps.GetFowardSpeed() < 0.1f * 0.1f) return;
+        if(ps.NikuSpeed() == 2)
+        {
+            muteki = 1.0f;
+            return;
+        }
+        else if(muteki > 0.0f)
+        {
+            muteki -= Time.deltaTime;
+            return;
+        }
+
+        if (!MainGameDate.IsStart() || ps.GetFowardSpeed() < 0.1f * 0.1f) return;
 
         //Debug.Log(springBones[springBones.Count - 1].transform.eulerAngles.x - 180);
         if (Mathf.Abs(springBones[springBones.Count - 1].transform.eulerAngles.x - 180) <= scScript.GetBaggageLimitAngle()

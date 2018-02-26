@@ -220,6 +220,7 @@ public class Player : MonoBehaviour
             if (myState == PlayerState.Outside) OutSide();
             if (myState == PlayerState.Entry) Entry();
             if (myState == PlayerState.Exit) Exit();
+            seScript.SEPlay(6);
             return;
         }
 

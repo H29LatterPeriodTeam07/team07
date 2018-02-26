@@ -11,6 +11,7 @@ public class SelectScene : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if (m_sm == null) return;
         m_scScript = m_sm.transform.GetComponent<SoundManagerScript>();
         currentScene = SceneManager.GetActiveScene().name;
         if (currentScene == "Title")

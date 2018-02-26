@@ -19,7 +19,10 @@ public class PlayerSE : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        if(Time.timeScale == 0)
+        {
+            SEStop();
+        }
 	}
 
     /// <summary>一回だけ再生</summary>
@@ -44,7 +47,8 @@ public class PlayerSE : MonoBehaviour {
 
     public void SEStop()
     {
+        if (nowNumber == 6) return;
         audioSource[0].Stop();
-        nowNumber = 5;
+        nowNumber = 6;
     }
 }
