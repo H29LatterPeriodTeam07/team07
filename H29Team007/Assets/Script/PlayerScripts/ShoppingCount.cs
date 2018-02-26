@@ -769,10 +769,18 @@ public class ShoppingCount : MonoBehaviour
         if(textScorePoint > currentScorePoint)
         {
             textScorePoint--;
+            if(textScorePoint > currentScorePoint + 10)
+            {
+                textScorePoint -= 10;
+            }
         }
         else
         {
             textScorePoint++;
+            if (textScorePoint < currentScorePoint - 10)
+            {
+                textScorePoint += 10;
+            }
         }
 
         string printscore = textScorePoint.ToString() + "pt";
