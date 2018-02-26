@@ -21,10 +21,11 @@ public enum BBAState
 
 public class BBA : MonoBehaviour
 {
-    [SerializeField,Header("クソババアのカートを入れて")]
-    private GameObject myCart;
+    [SerializeField,Header("クソババアのバスケットを入れて")]
+    private GameObject myCartBuscket;
     [SerializeField, Header("GameManagerのm_gdのElementと同じ数字を入れてケロ")]
     private int m_int;
+    public GameObject cartRigidPrefab;
     //見える距離
     public float m_ViewingDistance;
     //視野角
@@ -97,7 +98,7 @@ public class BBA : MonoBehaviour
         //巡回中
         if (m_State == BBAState.NormalMode)
         {
-            if (myCart == null)
+            if (myCartBuscket == null)
             {
                 SetNewRPatrolPointToDestination();
                 m_Anime.SetTrigger("DDK");
@@ -135,7 +136,7 @@ public class BBA : MonoBehaviour
             m_ViewingDistance = 100;
             m_ViewingAngle = 180;
 
-            if (myCart == null)
+            if (myCartBuscket == null)
             {
                 SetNewRPatrolPointToDestination();
                 m_Anime.SetTrigger("DDK");
@@ -188,7 +189,7 @@ public class BBA : MonoBehaviour
             {
                 SetNewExitPointToDestination();
             }
-            if (myCart == null)
+            if (myCartBuscket == null)
             {
                 SetNewRPatrolPointToDestination();
                 m_Anime.SetTrigger("DDK");
@@ -332,7 +333,7 @@ public class BBA : MonoBehaviour
     public bool NoCart()
     {
         m_Agent.enabled = false;
-        myCart = null;
+        myCartBuscket = null;
         return m_State == BBAState.NoCart;
     }
     /// <summary>エネミーのプレイヤーが見えてるかのパクリのパクリ</summary>
@@ -359,8 +360,32 @@ public class BBA : MonoBehaviour
             if (transform.tag == "BBA" && !CanGetEnemy(other.transform)) { return; }
             if (other.transform.root.GetComponent<Player>().GetFowardSpeed() <= 0.1f * 0.1f) return;
             bcScript.BaggegeFall(transform.position);
-            Destroy(myCart.gameObject);
+            Destroy(myCartBuscket.gameObject);
             m_Animator.SetTrigger("Kago");
+        }
+        if (other.name == "BullHitArea")//闘牛用
+        {
+            bcScript.BaggegeFall(transform.position);
+            Destroy(myCartBuscket.gameObject);
+            m_Animator.SetTrigger("Kago");
+            foreach (Transform child in transform)
+            {
+                if (child.name == "EnemyCart")
+                {
+                    child.transform.parent = null;
+                    Vector3 cartPos = new Vector3(transform.position.x, 0, transform.position.z);
+
+                        GameObject cart = Instantiate(cartRigidPrefab);
+
+                        cart.transform.position = cartPos + transform.forward * CartRelatedData.cartLocalPosZ;
+                        Vector3 relativePos = child.transform.position - transform.position;
+                    Destroy(child.gameObject);
+                        relativePos.y = 0; //上下方向の回転はしないように制御
+                        transform.rotation = Quaternion.LookRotation(relativePos);
+                        cart.transform.rotation = Quaternion.LookRotation(relativePos);
+                        cart.GetComponent<Rigidbody>().AddForce(transform.forward * CartRelatedData.flyBasketUpPower, ForceMode.VelocityChange);
+                }
+            }
         }
 
         if (other.tag == "ExitPoint")
