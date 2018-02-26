@@ -17,6 +17,7 @@ public class TutorialBasketFly : MonoBehaviour {
     [SerializeField, Header("爆発のプレハブ")]
     private GameObject explosionPrefub;
     public LayerMask mask;
+    public LayerMask playerMask;
 
     // Use this for initialization
     void Start()
@@ -51,9 +52,16 @@ public class TutorialBasketFly : MonoBehaviour {
                     for (int i = 0; i < hitInfo.Length; i++)
                     {
                         if (onthewall) continue;
-                        onthewall = (hitInfo[i].collider.tag == "Wall");
+                        onthewall = (hitInfo[i].collider.tag == "Wall" || hitInfo[i].collider.tag == "Carts");
                         //Debug.Log(hitInfo[i].collider.name);
                     }
+                }
+
+                if (!onthewall)
+                {
+                    onthewall
+                    = Physics.Raycast(transform.position + transform.up * 0.5f, -Vector3.up, 1.0f, playerMask);
+
                 }
 
                 if (onthewall) //障害物の上にいるなら籠を動かす
