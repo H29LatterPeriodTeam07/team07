@@ -114,6 +114,9 @@ public class BasketFly : MonoBehaviour
             GameObject enemyCart = collision.transform.Find("EnemyCart").gameObject;
             //Debug.Log(collision.gameObject.name);
             collision.gameObject.GetComponent<BBACartCount>().BaggegeFall(collision.transform.position);
+            Animator ani = collision.transform.gameObject.GetComponent<Animator>();
+            ani.SetTrigger("Blow");
+            collision.gameObject.GetComponent<BBA>().NoCart();
             EnemyCart ec = enemyCart.GetComponent<EnemyCart>();
             ec.Independence();
             

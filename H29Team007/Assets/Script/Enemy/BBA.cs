@@ -15,7 +15,8 @@ public enum BBAState
     //レジへ向かうモード
     CashMode,
     //ノーカートモード
-    NoCart
+    NoCart,
+    CratIn
 }
 
 public class BBA : MonoBehaviour
@@ -93,15 +94,15 @@ public class BBA : MonoBehaviour
     void Update()
     {
         if (transform.parent != null) return;
-        if (myCart == null)
-        {
-            // SetNewRPatrolPointToDestination();
-            m_Anime.SetTrigger("DDK");
-            m_State = BBAState.NoCart;
-        }
         //巡回中
         if (m_State == BBAState.NormalMode)
         {
+            if (myCart == null)
+            {
+                SetNewRPatrolPointToDestination();
+                m_Anime.SetTrigger("DDK");
+                m_State = BBAState.NoCart;
+            }
             m_Agent.speed = 1.0f;
             m_Animator.SetFloat("Speed", m_Agent.speed);
             m_ViewingDistance = 100;
@@ -120,11 +121,9 @@ public class BBA : MonoBehaviour
                     SetNewPatrolPointToDestination();
                 }
             }
-            if (m_bo == false )
+            if (transform.root.tag == "Player")
             {
-                m_Agent.speed = 0.0f;
-                // m_Animator.SetTrigger("Kago");
-                //  m_bo = true;
+                m_State = BBAState.CratIn;
             }
         }
         //特売品モード
@@ -136,6 +135,13 @@ public class BBA : MonoBehaviour
             m_ViewingDistance = 100;
             m_ViewingAngle = 180;
 
+            if (myCart == null)
+            {
+                SetNewRPatrolPointToDestination();
+                m_Anime.SetTrigger("DDK");
+                m_State = BBAState.NoCart;
+            }
+
             if (BBAHasArrived())
             {
                 SetNewSalePatrolPointToDestination();
@@ -144,15 +150,9 @@ public class BBA : MonoBehaviour
             if (m_Animal == null)
             {
                 Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, raycastLayer);
-                //if (hitColliders.Length > 0)
-                //{
-                //    int randomInt = Random.Range(0, hitColliders.Length);
-                //    m_Animal = hitColliders[randomInt].transform;
-                //}
                 foreach(Collider hit in hitColliders)
                 {
                     if (m_Animal != null || hit.transform.parent != null) continue;
-                    //int randomInt = Random.Range(0, hitColliders.Length);
                     m_Animal = hit.transform;
                 }
             }
@@ -173,6 +173,10 @@ public class BBA : MonoBehaviour
                 SetNewExitPointToDestination();
                 m_State = BBAState.CashMode;
             }
+            if (transform.root.tag == "Player")
+            {
+                m_State = BBAState.CratIn;
+            }
         }
 
         //レジ～出入り口へGOモード
@@ -184,16 +188,42 @@ public class BBA : MonoBehaviour
             {
                 SetNewExitPointToDestination();
             }
+            if (myCart == null)
+            {
+                SetNewRPatrolPointToDestination();
+                m_Anime.SetTrigger("DDK");
+                m_State = BBAState.NoCart;
+            }
+
+            if (transform.root.tag == "Player")
+            {
+                m_State = BBAState.CratIn;
+            }
 
             if (!IsGetAnimal()) m_State = BBAState.NormalMode;
         }
 
         else if (m_State == BBAState.NoCart)
         {
+            if (!m_Agent.enabled) m_Agent.enabled = true;
             m_Agent.speed = 1.0f;
             if (BBAHasArrived())
             {
                 SetNewRPatrolPointToDestination();
+            }
+            if (transform.root.tag == "Player")
+            {
+                m_State = BBAState.CratIn;
+            }
+        }
+
+        else if(m_State == BBAState.CratIn)
+        {
+            m_Agent.speed = 0.0f;
+
+            if (transform.parent == null)
+            {
+                m_State = BBAState.NoCart;
             }
         }
     }
@@ -299,6 +329,12 @@ public class BBA : MonoBehaviour
     {
         return m_scBBAcount.IsBaggegeinHuman();
     }
+    public bool NoCart()
+    {
+        m_Agent.enabled = false;
+        myCart = null;
+        return m_State == BBAState.NoCart;
+    }
     /// <summary>エネミーのプレイヤーが見えてるかのパクリのパクリ</summary>
     private bool CanGetEnemy(Transform cart)
     {
@@ -321,9 +357,10 @@ public class BBA : MonoBehaviour
         if (other.name == "FrontHitArea")
         {
             if (transform.tag == "BBA" && !CanGetEnemy(other.transform)) { return; }
+            if (other.transform.root.GetComponent<Player>().GetFowardSpeed() <= 0.1f * 0.1f) return;
             bcScript.BaggegeFall(transform.position);
             Destroy(myCart.gameObject);
-            m_bo = false;
+            m_Animator.SetTrigger("Kago");
         }
 
         if (other.tag == "ExitPoint")
