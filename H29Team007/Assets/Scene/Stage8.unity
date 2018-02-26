@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4501384, g: 0.5001802, b: 0.5754395, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -19552,7 +19552,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_se: {fileID: 8300000, guid: 4b14f2be55fcf1e4fa2dea6f7f923465, type: 3}
-  m_ARAIorChikinsNum: 8
+  m_ARAIorChikinsNum: 4
   m_SaleAnimals: 00000000010000000200000006000000060000000400000001000000060000000000000002000000050000000100000006000000000000000200000005000000060000000600000006000000040000000000000003000000020000000100000000000000
   m_ApperTime:
   - 5
@@ -19593,6 +19593,16 @@ MonoBehaviour:
   - {fileID: 1906033445}
   - {fileID: 1629486196}
   - {fileID: 1906033445}
+  - {fileID: 593401226}
+  - {fileID: 1643257906}
+  - {fileID: 1629486196}
+  - {fileID: 1643257906}
+  - {fileID: 593401226}
+  - {fileID: 593401226}
+  - {fileID: 1629486196}
+  - {fileID: 1643257906}
+  - {fileID: 593401226}
+  - {fileID: 1629486196}
   - {fileID: 593401226}
   - {fileID: 1643257906}
   - {fileID: 1629486196}
