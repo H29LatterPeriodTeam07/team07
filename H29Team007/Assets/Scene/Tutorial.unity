@@ -1785,6 +1785,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a8e0bf61afb89ee4daff817d1b1a29cb, type: 3}
   - {fileID: 21300000, guid: 8ba5dbb69a8e07d4e8fdbcbb01eba024, type: 3}
   - {fileID: 21300000, guid: a8e0bf61afb89ee4daff817d1b1a29cb, type: 3}
+  - {fileID: 21300000, guid: 8ba5dbb69a8e07d4e8fdbcbb01eba024, type: 3}
 --- !u!114 &451159419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3621,7 +3622,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &893133024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5451,6 +5452,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5eb45418569fd0f4d878a81037f9bcc4, type: 3}
   - {fileID: 21300000, guid: 5eb45418569fd0f4d878a81037f9bcc4, type: 3}
   - {fileID: 21300000, guid: 8ba5dbb69a8e07d4e8fdbcbb01eba024, type: 3}
+  - {fileID: 21300000, guid: 5eb45418569fd0f4d878a81037f9bcc4, type: 3}
 --- !u!114 &1224259219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8518,6 +8520,9 @@ MonoBehaviour:
   skipText: {fileID: 2138560950}
   yesText: {fileID: 1138634986}
   noText: {fileID: 483312111}
+  textsG: {fileID: 1762857131}
+  imagesG: {fileID: 1717303884}
+  coinsG: {fileID: 1404182673}
 --- !u!1001 &1928074298
 Prefab:
   m_ObjectHideFlags: 0

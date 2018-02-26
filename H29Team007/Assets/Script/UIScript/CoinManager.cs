@@ -27,7 +27,7 @@ public class CoinManager : MonoBehaviour {
         {
             if (m_CreatedCoinCount < m_CreateCoinCount) {
                 GameObject l_coin = Instantiate(coinPrefab);
-                l_coin.transform.SetParent(transform.parent);
+                l_coin.transform.SetParent(transform);
                 l_coin.GetComponent<RectTransform>().localPosition = new Vector2(0.0f, -230.0f);
                 l_coin.GetComponent<Coin>().SetInitPosition(new Vector2(0.0f, -230.0f));
                 l_coin.GetComponent<Coin>().SetTarget(new Vector3(Random.Range(-640.0f, 640.0f), Random.Range(-50.0f, 200.0f), 0.0f));

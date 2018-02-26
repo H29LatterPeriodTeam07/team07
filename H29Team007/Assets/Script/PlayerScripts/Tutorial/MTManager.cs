@@ -76,6 +76,12 @@ public class MTManager : MonoBehaviour {
     private bool selectYes = true;
     private bool skip = false;
 
+    //非表示のため
+    public GameObject textsG;
+    public GameObject imagesG;
+    public GameObject coinsG;
+
+
     // Use this for initialization
     void Start()
     {
@@ -143,6 +149,7 @@ public class MTManager : MonoBehaviour {
                 skipText.SetActive(true);
                 yesText.color = selectColor;
                 selectYes = true;
+                UIsActive(false);
                 return;
             }
             switch (tutorialIndex)
@@ -412,14 +419,14 @@ public class MTManager : MonoBehaviour {
 
     private void Index1Start()
     {
+        time = 0.0f;
         scoreG.SetActive(true);
     }
 
     private void Index2Start()
     {
-
+        time = 0.0f;
         timerG.SetActive(true);
-
     }
 
     private void Index3Start()
@@ -571,22 +578,18 @@ public class MTManager : MonoBehaviour {
             if (selectYes)
             {
                 skip = true;
-                fade.FadeOut(1.0f);
+                fade.FadeOut(2.0f);
                 Time.timeScale = 1;
             }
             else
             {
-                noText.color = new Color(0, 0, 0, 1);
-                skipText.SetActive(false);
-                Time.timeScale = 1;
+                SkipCancel();
             }
         }
 
         if (Input.GetButtonDown("XboxStart") || Input.GetKeyDown(KeyCode.M))
         {
-            noText.color = new Color(0, 0, 0, 1);
-            skipText.SetActive(false);
-            Time.timeScale = 1;
+            SkipCancel();
         }
     }
 
@@ -609,6 +612,24 @@ public class MTManager : MonoBehaviour {
         shopping.AddBaggege(kagoirihage.transform);
         player.GetComponent<Animator>().Play("OnCart");
         tutorialIndex = 10;
+    }
+
+    private void SkipCancel()
+    {
+        noText.color = new Color(0, 0, 0, 1);
+        skipText.SetActive(false);
+        Time.timeScale = 1;
+        UIsActive(true);
+    }
+
+    private void UIsActive(bool active)
+    {
+        scoreG.SetActive(active);
+        if(tutorialIndex > 0)timerG.SetActive(active);
+        if (tutorialIndex > 1) mapG.SetActive(active);
+        textsG.SetActive(active);
+        imagesG.SetActive(active);
+        coinsG.SetActive(active);
     }
 
     public int TutorialIndex()

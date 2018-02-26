@@ -18,6 +18,7 @@ public class MTOK : MonoBehaviour {
         if (alpha == 0.0f) return;
         alpha -= Time.deltaTime;
         if (alpha < 0) alpha = 0.0f;
+        if(Time.timeScale == 0) alpha = 0.0f;
         my_Text.color = new Color(my_Text.color.r, my_Text.color.g, my_Text.color.b, alpha);
 	}
 
