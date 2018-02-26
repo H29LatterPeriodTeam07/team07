@@ -19781,7 +19781,7 @@ GameObject:
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &964114267
 Transform:
   m_ObjectHideFlags: 0
@@ -37280,11 +37280,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4230518941337392, guid: d34db69a96b0d7a45b161fbb230c0100, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -640.00006
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4230518941337392, guid: d34db69a96b0d7a45b161fbb230c0100, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -360.88892
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4230518941337392, guid: d34db69a96b0d7a45b161fbb230c0100, type: 2}
       propertyPath: m_LocalPosition.z
@@ -37412,7 +37412,7 @@ GameObject:
   - component: {fileID: 1875767246}
   m_Layer: 0
   m_Name: stageDebug
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -21,6 +21,7 @@ public class EnemySopwn : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         m_CurentTime += Time.deltaTime;
+        if (!MainGameDate.IsStart()) return;
 
         if (m_CurentTime > m_ApperTime)
         {

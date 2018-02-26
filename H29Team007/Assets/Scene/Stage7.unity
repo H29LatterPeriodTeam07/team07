@@ -42232,7 +42232,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1304646433}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -24.4, y: 0, z: -34.3}
+  m_LocalPosition: {x: -32.65, y: 0, z: -34.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 405406152}
@@ -63488,11 +63488,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4230518941337392, guid: d34db69a96b0d7a45b161fbb230c0100, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -640.00006
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4230518941337392, guid: d34db69a96b0d7a45b161fbb230c0100, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -360.88892
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4230518941337392, guid: d34db69a96b0d7a45b161fbb230c0100, type: 2}
       propertyPath: m_LocalPosition.z
@@ -68801,7 +68801,7 @@ GameObject:
   - component: {fileID: 2110574995}
   m_Layer: 0
   m_Name: stageDebug
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -14,6 +14,7 @@ public class CartCursor : MonoBehaviour {
     private float _fadingSpeed = 0.05f;
 
     public SoundManagerScript _smScript;
+    public float cartposx = 0;
 
     //Color selectedColor;
 
@@ -36,7 +37,7 @@ public class CartCursor : MonoBehaviour {
         Color selectedColor = selectedObject.GetComponent<Image>().color;
 
 
-        Vector2 cursorPosition = new Vector2(-270, 0);
+        Vector2 cursorPosition = new Vector2(cartposx, 0);
 
         m_RectTranslate.anchoredPosition = selectedObject.GetComponent<RectTransform>().anchoredPosition + cursorPosition;
 
