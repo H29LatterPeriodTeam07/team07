@@ -37,8 +37,14 @@ public class ReturnTitle : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)||
             Input.GetButton("XboxStart") && Input.GetButton("XboxBack"))
         {
-            Debug.Log("強制終了");
-            Application.Quit();
+            //強制終了する場合
+            //Debug.Log("強制終了");
+            //Application.Quit();
+
+            //タイトルに戻る場合
+            Time.timeScale = 1;
+            if (MainGameDate.IsStart()) MainGameDate.ChangeStartFlag();
+            SceneManager.LoadScene("Title");
         }
 
         if (Input.anyKeyDown
