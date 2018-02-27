@@ -97,7 +97,7 @@ public class MTManager : MonoBehaviour {
         wakuEffect.transform.position = points[4].transform.position;
         wakuEffect.SetActive(false);
         skipText.SetActive(false);
-        selectColor = skipText.GetComponent<Text>().color;
+        selectColor = skipText.transform.GetChild(0).GetComponent<Text>().color;
         MainGameDate.ChangeStartFlag();
     }
 
