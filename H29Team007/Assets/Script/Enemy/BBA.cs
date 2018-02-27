@@ -34,8 +34,6 @@ public class BBA : MonoBehaviour
     [System.NonSerialized]
     public NavMeshAgent m_Agent;
 
-    public GameObject m_BBABasket;
-
     private BBAState m_State = BBAState.NormalMode;
     private float m_Speed = 1.0f;
     private Rigidbody rb;
@@ -64,6 +62,8 @@ public class BBA : MonoBehaviour
     int m_rand;
     private GameObject m_Cart;
     Animator m_Anime;
+    float time_ = 0.0f;
+    bool muteki_ = false;
 
     // Use this for initialization
     void Start()
@@ -206,7 +206,15 @@ public class BBA : MonoBehaviour
 
         else if (m_State == BBAState.NoCart)
         {
-            if (!m_Agent.enabled) m_Agent.enabled = true;
+            if (!m_Agent.enabled) {
+                time_ += Time.deltaTime;
+                if (time_ > 3)
+                {
+                    time_ = 0.0f;
+                    muteki_ = true;
+                    m_Agent.enabled = true;
+                }
+            }
             m_Agent.speed = 1.0f;
             if (BBAHasArrived())
             {
@@ -330,11 +338,16 @@ public class BBA : MonoBehaviour
     {
         return m_scBBAcount.IsBaggegeinHuman();
     }
-    public bool NoCart()
+    public bool Muteki()
     {
+        return muteki_ == true;
+    }
+    public void NoCart()
+    {
+        muteki_ = false;
         m_Agent.enabled = false;
         myCartBuscket = null;
-        return m_State == BBAState.NoCart;
+        m_State = BBAState.NoCart;
     }
     /// <summary>エネミーのプレイヤーが見えてるかのパクリのパクリ</summary>
     private bool CanGetEnemy(Transform cart)
@@ -408,4 +421,5 @@ public class BBA : MonoBehaviour
         m_State = BBAState.NormalMode;
         SetNewPatrolPointToDestination();
     }
+
 }

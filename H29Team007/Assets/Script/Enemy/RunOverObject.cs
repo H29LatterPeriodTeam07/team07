@@ -129,6 +129,7 @@ public class RunOverObject : MonoBehaviour
         {
             if (other.transform.root.GetComponent<Player>().GetFowardSpeed() <= 0.1f * 0.1f) return;
             if (transform.tag=="Enemy" &&transform.GetComponent<SecurityGuard>().Muteki()) return;
+            if (transform.tag == "BBA" && transform.GetComponent<BBA>().Muteki()) return;
             if (transform.tag == "Bull")
             {
                 BullOver(other.transform.root);
