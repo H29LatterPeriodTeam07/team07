@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4501384, g: 0.5001802, b: 0.5754395, a: 1}
+  m_IndirectSpecularColor: {r: 0.45013887, g: 0.50018084, b: 0.5754405, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -248,6 +248,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4262116011138346, guid: 390155161aed48646905dead384753cc, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 136430908750520846, guid: 390155161aed48646905dead384753cc, type: 2}
     - {fileID: 136097222083187716, guid: 390155161aed48646905dead384753cc, type: 2}
@@ -427,19 +431,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4262116011138346, guid: 390155161aed48646905dead384753cc, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4262116011138346, guid: 390155161aed48646905dead384753cc, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.7071068
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4262116011138346, guid: 390155161aed48646905dead384753cc, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4262116011138346, guid: 390155161aed48646905dead384753cc, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.7071068
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4262116011138346, guid: 390155161aed48646905dead384753cc, type: 2}
       propertyPath: m_RootOrder
@@ -455,7 +459,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4262116011138346, guid: 390155161aed48646905dead384753cc, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 270
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 4262116011138346, guid: 390155161aed48646905dead384753cc, type: 2}
       propertyPath: m_LocalScale.x
@@ -468,6 +472,10 @@ Prefab:
     - target: {fileID: 1828284202695770, guid: 390155161aed48646905dead384753cc, type: 2}
       propertyPath: m_Name
       value: Storedoor (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4262116011138346, guid: 390155161aed48646905dead384753cc, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 136430908750520846, guid: 390155161aed48646905dead384753cc, type: 2}
@@ -15689,6 +15697,10 @@ Prefab:
     - target: {fileID: 4262116011138346, guid: 390155161aed48646905dead384753cc, type: 2}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4262116011138346, guid: 390155161aed48646905dead384753cc, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 136430908750520846, guid: 390155161aed48646905dead384753cc, type: 2}
@@ -32253,6 +32265,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4262116011138346, guid: 390155161aed48646905dead384753cc, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 136430908750520846, guid: 390155161aed48646905dead384753cc, type: 2}
     - {fileID: 136097222083187716, guid: 390155161aed48646905dead384753cc, type: 2}
@@ -33324,6 +33340,10 @@ Prefab:
     - target: {fileID: 1828284202695770, guid: 390155161aed48646905dead384753cc, type: 2}
       propertyPath: m_Name
       value: Storedoor (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4262116011138346, guid: 390155161aed48646905dead384753cc, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 136430908750520846, guid: 390155161aed48646905dead384753cc, type: 2}

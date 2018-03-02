@@ -139,10 +139,11 @@ MonoBehaviour:
   m_MaxPitch: 30
   m_MinPitch: -20
   leaveX: 3
-  leaveY: 1
-  m_DefaultDistance: 4
-  addDistance: 0.5
+  leaveY: 0.5
+  m_DefaultDistance: 3
+  addDistance: 0.2
   m_Strength: 5
+  m_followYawSpeed: 90
 --- !u!124 &124838329358580344
 Behaviour:
   m_ObjectHideFlags: 1
