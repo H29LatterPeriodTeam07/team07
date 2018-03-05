@@ -549,12 +549,11 @@ public class ShoppingCount : MonoBehaviour
             for (int i = 0; i < myBaggage2.Count - 2; i++)
             {
                 //int num = Pattern.PatternNumber(myBaggage2[i], myBaggage2[i + 1], myBaggage2[i + 2]);
-                int num = Pattern.PatternNumber(myBaggage2[i], myBaggage2[i + 1], myBaggage2[i + 2]);
+                //int num = Pattern.PatternNumber(myBaggage2[i], myBaggage2[i + 1], myBaggage2[i + 2]);
                 string[] patternNames = { myBaggage2[i].name, myBaggage2[i + 1].name, myBaggage2[i + 2].name };
                 ScoreManager.PatternData l_data = ScoreManager.GetEnemyPatternData(patternNames);
                 if (l_data.PatternName != "None")
                 {
-
                     string patternname = l_data.PatternName;
                     int patternpoint = ScoreManager.GetPatternPoint(l_data);
                     bagPoint += patternpoint;
@@ -566,6 +565,13 @@ public class ShoppingCount : MonoBehaviour
                     popscoreScript.SetText(patternname + "＋" + StringWidthConverter.ConvertToFullWidth(patternpoint.ToString() + "Pt"));
                     popscoreScript.transform.SetParent(score.transform);
                     popscoreScript.SetTarget(scorecount);
+
+                    // resultで使うデータ追加
+                    ScoreManager.PatternResultData l_resultData;
+                    l_resultData.PatternName = l_data.PatternName;
+                    l_resultData.nameList = l_data.PatternList;
+                    l_resultData.point = patternpoint;
+                    ScoreManager.AddResultPatternData(l_resultData);
                     scorecount++;
                     i += 2;
                 }
